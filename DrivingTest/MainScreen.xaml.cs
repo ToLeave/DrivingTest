@@ -81,14 +81,15 @@ namespace DrivingTest
         //顺序练习
         private void shunxulianxi_Click(object sender, RoutedEventArgs e)
         {
-            foreach (ListBoxItem lbi in listBox.SelectedItems)
-            {
-                if (lbi != null)
-                {
-                    string str = lbi.Content.ToString();
-                    MessageBox.Show(str, "");
-                }
-            } 
+            //foreach (ListBoxItem lbi in listBox.SelectedItems)
+            //{
+            //    if (lbi != null)
+            //    {
+            //        string str = lbi.Content.ToString();
+            //        MessageBox.Show(str, "");
+            //    }
+            //} 
+
         }
         //随机练习
         private void suijilianxi_Click(object sender, RoutedEventArgs e)

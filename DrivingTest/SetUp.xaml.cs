@@ -36,7 +36,18 @@ namespace DrivingTest
             System.Windows.Data.CollectionViewSource settingViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("settingViewSource")));
             settingViewSource.View.MoveCurrentToFirst();
 
-      
+           
+
+
+
+
+
+
+
+
+
+
+
           
 
         }
@@ -66,6 +77,7 @@ namespace DrivingTest
             }  
         }
 
+        //个人模式
         private void geren_radioButton_Checked(object sender, RoutedEventArgs e)
         {
             if (geren_radioButton.IsChecked == true)
@@ -74,7 +86,7 @@ namespace DrivingTest
                 jiaxiao_grid.Visibility = System.Windows.Visibility.Hidden;
             }
         }
-
+        //驾校模式
         private void jiaxiao_radioButton_Checked(object sender, RoutedEventArgs e)
         {
             if (jiaxiao_radioButton.IsChecked == true)
