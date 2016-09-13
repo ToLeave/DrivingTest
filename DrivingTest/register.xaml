@@ -1,0 +1,42 @@
+﻿<Window x:Class="DrivingTest.register"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:input="clr-namespace:System.Windows.Input;assembly=PresentationCore"
+             mc:Ignorable="d" Title="注册"
+             Height="500" Width="500" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" xmlns:my="clr-namespace:DrivingTest">
+    <Window.Resources>
+        <my:jiakaoDataSet x:Key="jiakaoDataSet" />
+        <CollectionViewSource x:Key="settingViewSource" Source="{Binding Path=setting, Source={StaticResource jiakaoDataSet}}" />
+    </Window.Resources>
+    <Grid Loaded="Grid_Loaded" DataContext="{StaticResource settingViewSource}">
+        <Label Content="机器码:" Height="28" HorizontalAlignment="Left" Margin="79,12,0,0" Name="label1" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="135,14,0,0" x:Name="machine_code"   VerticalAlignment="Top" Width="171" IsReadOnly="True" />
+        <Label Content="注册码:" Height="28" HorizontalAlignment="Left" Margin="79,46,0,0" Name="label2" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="135,46,172,0" Name="zhuce_textbox" VerticalAlignment="Top" Width="171" KeyUp="zhuce_textbox_KeyUp" MaxLength="19" input:InputMethod.IsInputMethodEnabled="False" />
+        
+        <Button Content="复制机器码" Height="23" HorizontalAlignment="Left" Margin="328,14,0,0" Name="fuzhi_button" VerticalAlignment="Top" Width="75" Click="fuzhi_button_Click" />
+        <Button Content="注册" Height="23" HorizontalAlignment="Left" Margin="328,46,0,0" Name="zhuce_button" VerticalAlignment="Top" Width="75" Click="zhuce_button_Click" />
+        
+        <Label Content="请把注册码填到上面文本框后点击注册按钮" Height="28" HorizontalAlignment="Left" Margin="135,72,0,0" Name="label3" VerticalAlignment="Top" Width="238" />
+        
+        <TextBlock Height="123" HorizontalAlignment="Left" Margin="25,109,0,0" Name="liucheng_textBox" VerticalAlignment="Top" Width="423" Text="{Binding Path=registration_process}" />
+        <GroupBox Header="注册流程" Height="151" HorizontalAlignment="Left" Margin="18,91,0,0" Name="groupBox1" VerticalAlignment="Top" Width="439" Visibility="Visible" />
+        
+        <Label Content="付费注册:" Height="28" HorizontalAlignment="Left" Margin="38,254,0,0" Name="label4" VerticalAlignment="Top" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="98,259,0,0" Name="textBlock1" Text="" VerticalAlignment="Top" Width="325">
+            <Hyperlink  Name="HypeLink"  NavigateUri="{Binding Path=payment_link}"  RequestNavigate="HypeLink1_RequestNavigate">付款链接</Hyperlink>
+        </TextBlock>
+        
+        <Label Content="客服:" Height="28" HorizontalAlignment="Left" Margin="38,288,0,0" Name="label5" VerticalAlignment="Top" />
+        <Label Content="QQ:" Height="28" HorizontalAlignment="Left" Margin="144,283,0,0" Name="label6" VerticalAlignment="Top" />
+        <Label Content="旺旺:" Height="28" HorizontalAlignment="Left" Margin="144,312,0,0" Name="label7" VerticalAlignment="Top" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="191,288,0,0" Name="qq_textblock" Text="{Binding Path=customer_service_QQ}" VerticalAlignment="Top" Width="100" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="191,317,0,0" Name="ww_textblock" Text="{Binding Path=customer_service_WW}" VerticalAlignment="Top" Width="100" />
+        
+        <TextBlock Height="100" HorizontalAlignment="Left" Margin="25,349,0,0" Name="beizhu_textblock" VerticalAlignment="Top" Width="423" Text="{Binding Path=comments}" />
+        <GroupBox Header="注册说明" Height="217" HorizontalAlignment="Left" Margin="18,238,0,0" Name="groupBox2" VerticalAlignment="Top" Width="439" Visibility="Visible" />
+        
+    </Grid>
+</Window>

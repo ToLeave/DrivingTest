@@ -1,0 +1,10 @@
+﻿<Window x:Class="DrivingTest.SimulationTest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="全真模拟" Height="230" Width="330" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+    <Grid>
+        <TextBlock Height="91" HorizontalAlignment="Left" Margin="16,25,0,0" Name="textBox1" VerticalAlignment="Top" Width="275" TextWrapping="Wrap" Text="100%完全仿真车管所考试系统界面.                          100%完全仿真车管所考试难度与比例抽题.              在练习中尽快适应考试环境,消除考时的怯考心理.               组题方式:按公安部规定的比例关系随机抽取,组合.                  合格标准:满分100分,成绩达到90分的为合格." />
+        <Button Content="开始考试" Height="23" HorizontalAlignment="Left" Margin="110,154,0,0" Name="kaipao" VerticalAlignment="Top" Width="75" Click="kaipao_Click" />
+        <GroupBox Header="考试须知" Height="119" HorizontalAlignment="Left" Margin="6,6,0,0" Name="groupBox1" VerticalAlignment="Top" Width="295"/>
+    </Grid>
+</Window>

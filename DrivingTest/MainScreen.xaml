@@ -1,0 +1,37 @@
+﻿<Window x:Class="DrivingTest.MainScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:src="clr-namespace:DrivingTest"
+        Title="MainScreen" Height="600" Width="800" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Window.Resources>
+        <src:Processes x:Key="p"/>
+        <src:jiakaoDataSet x:Key="jiakaoDataSet" />
+        <CollectionViewSource x:Key="chapterViewSource" Source="{Binding Path=chapter, Source={StaticResource jiakaoDataSet}}" />
+    </Window.Resources>
+    <Grid DataContext="{StaticResource chapterViewSource}">
+        <TextBlock Height="169" HorizontalAlignment="Left" Margin="60,9,0,0" Name="textBlock1" Text="TextBlock" VerticalAlignment="Top" Width="659" />
+
+        <Button Content="新手速成" Height="23" HorizontalAlignment="Left" Margin="327,188,0,0" Name="sucheng" VerticalAlignment="Top" Width="75" Click="sucheng_Click" />
+        <Button Content="速成600" Height="23" HorizontalAlignment="Left" Margin="426,188,0,0" Name="sucheng600" VerticalAlignment="Top" Width="75" Click="sucheng600_Click" />
+        <Button Content="速成500" Height="23" HorizontalAlignment="Left" Margin="525,188,0,0" Name="sucheng500" VerticalAlignment="Top" Width="75" Click="sucheng500_Click" />
+        <Button Content="语音课堂" Height="23" HorizontalAlignment="Left" Margin="104,223,0,0" Name="yuyin" VerticalAlignment="Top" Width="75" Click="yuyin_Click" />
+        <Button Content="基础练习" Height="23" HorizontalAlignment="Left" Margin="207,223,0,0" Name="lianxi" VerticalAlignment="Top" Width="75" Click="lianxi_Click" />
+        <Button Content="基础模拟" Height="23" HorizontalAlignment="Left" Margin="301,223,0,0" Name="moni" VerticalAlignment="Top" Width="75" Click="moni_Click" />
+        <Button Content="强化练习" Height="23" HorizontalAlignment="Left" Margin="398,223,0,0" Name="qianghualianxi" VerticalAlignment="Top" Width="75" Click="qianghualianxi_Click" />
+        <Button Content="强化模拟" Height="23" HorizontalAlignment="Left" Margin="498,223,0,0" Name="qianghuamoni" VerticalAlignment="Top" Width="75" Click="qianghuamoni_Click" />
+        <Button Content="我的错题" Height="23" HorizontalAlignment="Left" Margin="644,223,0,0" Name="my_mistakes" VerticalAlignment="Top" Width="75" Click="my_mistakes_Click" />
+
+
+        <ListBox Height="212" HorizontalAlignment="Left" Margin="60,258,0,0" Name="listBox" VerticalAlignment="Top" Width="659" ItemsSource="{Binding}" DisplayMemberPath="chapter" />
+        
+        <Button Content="顺序练习" Height="23" HorizontalAlignment="Left" Margin="543,476,0,0" Name="shunxulianxi" VerticalAlignment="Top" Width="75" Click="shunxulianxi_Click" />
+        <Button Content="随机练习" Height="23" HorizontalAlignment="Left" Margin="644,476,0,0" Name="suijilianxi" VerticalAlignment="Top" Width="75" Click="suijilianxi_Click" />
+
+        <Button Content="专项加强" Height="23" HorizontalAlignment="Left" Margin="104,518,0,0" Name="zhuanxianglianxi" VerticalAlignment="Top" Width="75" Click="zhuanxianglianxi_Click" />
+        <Button Content="专项模拟" Height="23" HorizontalAlignment="Left" Margin="207,518,0,0" Name="zhuanxiangmoni" VerticalAlignment="Top" Width="75" Click="zhuanxiangmoni_Click" />
+        <Button Content="章节练习" Height="23" HorizontalAlignment="Left" Margin="301,518,0,0" Name="zhangjielianxi" VerticalAlignment="Top" Width="75" Click="zhangjielianxi_Click" />
+        <Button Content="仿真考试" Height="23" HorizontalAlignment="Left" Margin="644,518,0,0" Name="simulation_test" VerticalAlignment="Top" Width="75" Click="simulation_test_Click" />
+        
+
+    </Grid>
+</Window>

@@ -1,0 +1,109 @@
+﻿<Window x:Class="DrivingTest.MainExam"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Title="驾驶理论考试系统" WindowStartupLocation="CenterScreen"
+             Height="800" Width="1200"  WindowState="Maximized" WindowStyle="SingleBorderWindow" Loaded="Window_Loaded" xmlns:my="clr-namespace:DrivingTest">
+    <Window.Resources>
+        <my:jiakaoDataSet x:Key="jiakaoDataSet" />
+        <CollectionViewSource x:Key="questionViewSource" Source="{Binding Path=question, Source={StaticResource jiakaoDataSet}}" />
+        <CollectionViewSource x:Key="answerViewSource" Source="{Binding Path=answer, Source={StaticResource jiakaoDataSet}}" />
+    </Window.Resources>
+    <Grid x:Name="mygrid" DataContext="{StaticResource questionViewSource}">
+        <Label Content="第" Height="28" HorizontalAlignment="Center" Margin="41,37,1115,696" Name="label1" VerticalAlignment="Center" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="65,42,1090,696" Name="textBlock1" Text="001" VerticalAlignment="Center" />
+        <Label Content="考台" Height="28" HorizontalAlignment="Center" Margin="88,37,1050,696" Name="label2" VerticalAlignment="Center" />
+        <GroupBox Header="考场" Height="47" HorizontalAlignment="Center" Margin="26,22,1026,690" Name="groupBox1" VerticalAlignment="Center" Width="126" Visibility="Visible" />
+
+        <Image Height="123" HorizontalAlignment="Center" Margin="35,100,1044,538" Name="image1" Stretch="Fill" VerticalAlignment="Center" Width="99" Source="/DrivingTest;component/Images/学员头像.png" StretchDirection="DownOnly" />
+        <Label Content="考生姓名" Height="28" HorizontalAlignment="Center" Margin="29,233,1091,500" Name="label3" VerticalAlignment="Center" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="85,238,1069,500" Name="textBlock2" Text="学员" VerticalAlignment="Center" />
+        <Label Content="性别" Height="28" HorizontalAlignment="Center" Margin="29,256,1115,478" Name="label4" VerticalAlignment="Center" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="85,260,1081,478" Name="textBlock3" Text="男" VerticalAlignment="Center" />
+        <Label Content="考试科目" Height="28" HorizontalAlignment="Center" Margin="29,281,1091,452" Name="label5" VerticalAlignment="Center" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="85,286,1057,452" Name="textBlock4" Text="科目一" VerticalAlignment="Center" />
+        <Label Content="考试车型" Height="28" HorizontalAlignment="Center" Margin="29,304,1091,430" Name="label6" VerticalAlignment="Center" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="85,308,1033,430" Name="textBlock5" Text="C1C2C3C4" VerticalAlignment="Center" />
+        <Label Content="考试原因" Height="28" HorizontalAlignment="Center" Margin="29,329,1091,404" Name="label7" VerticalAlignment="Center" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="85,334,1057,404" Name="textBlock6" Text="考驾照" VerticalAlignment="Center" />
+        <GroupBox Header="考生信息" Height="279" HorizontalAlignment="Center" Margin="26,78,1026,404" Name="groupBox2" VerticalAlignment="Center" Width="126" Visibility="Visible" />
+
+        <!--<TextBlock Height="23" HorizontalAlignment="Center" Margin="66,387,1081,351" Name="time_textBlock" Text="00:00" VerticalAlignment="Center"/>-->
+        <TextBlock Height="20" HorizontalAlignment="Center" Margin="53,384,1109,357" Text="00" Name="HourArea"  VerticalAlignment="Center" FontSize="14"  />
+        <TextBlock Height="20" HorizontalAlignment="Center" Margin="72,384,1103,357" Text=":" Name="HourSplitMinute"   VerticalAlignment="Center" FontSize="14" />
+        <TextBlock Height="20" HorizontalAlignment="Center" Margin="76,384,1085,357" Text="45" Name="MinuteArea" VerticalAlignment="Center" FontSize="14"  />
+        <TextBlock Height="20" HorizontalAlignment="Center" Margin="95,384,1080,357" Text=":" Name="MinuteSplitSecond"   VerticalAlignment="Center" FontSize="14" />
+        <TextBlock Height="20" HorizontalAlignment="Center" Margin="103,384,1058,357" Text="00"  Name="SecondArea" VerticalAlignment="Center" FontSize="14" />
+        <GroupBox Header="剩余时间" Height="52" HorizontalAlignment="Center" Margin="26,364,1026,346" Name="groupBox3" VerticalAlignment="Center" Width="126" Visibility="Visible" />
+
+        <TextBlock Height="67" HorizontalAlignment="Center" Margin="185,42,398,652" Name="timu_textBlock" Text="{Binding Path=question_name}" VerticalAlignment="Center" Width="595" TextWrapping="Wrap" FontWeight="Bold" FontSize="14" Visibility="Visible"  />
+        <TextBlock Height="28" HorizontalAlignment="Center" Margin="185,115,398,618" Name="xuanxiang_textBlock1" Text="{Binding Path=answer, Source={StaticResource answerViewSource}}" VerticalAlignment="Center" FontSize="14" Width="595" FontWeight="Bold" />
+        <TextBlock Height="28" HorizontalAlignment="Center" Margin="185,149,398,584" Name="xuanxiang_textBlock2" Text="{Binding Path=answer, Source={StaticResource answerViewSource}}" VerticalAlignment="Center" FontSize="14" Width="595" FontWeight="Bold"  />
+        <TextBlock Height="28" HorizontalAlignment="Center" Margin="185,183,398,550" Name="xuanxiang_textBlock3" Text="{Binding Path=answer, Source={StaticResource answerViewSource}}" VerticalAlignment="Center" FontSize="14" Width="595" FontWeight="Bold"  />
+        <TextBlock Height="28" HorizontalAlignment="Center" Margin="185,217,398,516" Name="xuanxiang_textBlock4" Text="{Binding Path=answer, Source={StaticResource answerViewSource}}" VerticalAlignment="Center" FontSize="14" Width="595" FontWeight="Bold"  />
+        <Label Content="您的答案:" Height="28" HorizontalAlignment="Center" Margin="185,304,923,430" Name="label8" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" />
+        <Label Content="选择:" Height="28" HorizontalAlignment="Center" Margin="356,304,780,430" Name="label9" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" />
+
+        <Button Content="A" Height="42" HorizontalAlignment="Center" Margin="446,290,686,428" Name="a_button" VerticalAlignment="Center"  Width="46" FontSize="14" FontWeight="Bold" />
+        <Button Content="B" Height="42" HorizontalAlignment="Center" Margin="532,290,600,428" Name="b_button" VerticalAlignment="Center" Width="46" FontSize="14" FontWeight="Bold" />
+        <Button Content="C" Height="42" HorizontalAlignment="Center" Margin="615,290,517,428" Name="c_button" VerticalAlignment="Center" Width="46" FontSize="14" FontWeight="Bold" />
+        <Button Content="D" Height="42" HorizontalAlignment="Center" Margin="697,289,435,428" Name="d_button" VerticalAlignment="Center" Width="46" FontSize="14" FontWeight="Bold" />
+        <GroupBox Header="考试题目" Height="334" HorizontalAlignment="Center" Margin="174,23,350,404" Name="groupBox4" VerticalAlignment="Center" Width="654" Opacity="1" Visibility="Collapsed" />
+
+        
+        <GroupBox Header="答题信息" Height="334" HorizontalAlignment="Center" Margin="842,23,12,404" Name="groupBox5" VerticalAlignment="Center" Width="324" Visibility="Visible">
+            <my:LabelArray Height="300" x:Name="labelArray1" Width="300" />
+        </GroupBox>
+        <Label Content="选择题,请在备选答案中选择您认为正确的答案!" Height="28" HorizontalAlignment="Center" Margin="185,382,721,350" Name="label10" VerticalAlignment="Center" Width="272" />
+        <GroupBox Header="提示信息" Height="52" HorizontalAlignment="Center" Margin="174,364,720,346" Name="groupBox6" VerticalAlignment="Center" Width="283" Visibility="Visible" />
+
+        <Button Content="上一题" Height="44" HorizontalAlignment="Center" Margin="481,371,623,346" Name="button5" VerticalAlignment="Center" Width="75" FontSize="14" FontWeight="Bold" />
+        <Button Content="下一题" Height="44" HorizontalAlignment="Center" Margin="586,371,516,346" Name="button6" VerticalAlignment="Center" Width="75" FontSize="14" FontWeight="Bold" />
+        <Button Content="交卷" Height="44" HorizontalAlignment="Center" Margin="731,371,371,346" Name="button7" VerticalAlignment="Center" Width="75" FontSize="14" FontWeight="Bold" />
+        
+        <Image Height="299" HorizontalAlignment="Center" Margin="223,437,289,25" Name="image2" Stretch="Fill" VerticalAlignment="Center" Width="667" StretchDirection="DownOnly" Visibility="Visible" />
+        <GroupBox Header="考试图片信息" Height="330" HorizontalAlignment="Center" Margin="174,416,224,15" Name="groupBox7" VerticalAlignment="Center" Width="780" Visibility="Visible" />
+        <!--<Grid x:Name="shezhi_grid" Visibility="Visible">-->
+        <CheckBox Content="显示答案" Height="16" HorizontalAlignment="Center" Margin="36,437,1077,308" Name="checkBox1" VerticalAlignment="Center" />
+        <CheckBox Content="显示对错" Height="16" HorizontalAlignment="Center" Margin="35,468,1078,278" Name="checkBox2" VerticalAlignment="Center" />
+        <CheckBox Content="提示语音讲解" Height="16" HorizontalAlignment="Center" Margin="35,506,1054,238" Name="checkBox3" VerticalAlignment="Center" />
+        <CheckBox Content="语音提示对错" Height="16" HorizontalAlignment="Center" Margin="35,536,1054,210" Name="checkBox4" VerticalAlignment="Center" />
+        <CheckBox Content="答错时语音提示" Height="16" HorizontalAlignment="Center" Margin="36,566,1041,178" Name="checkBox5" VerticalAlignment="Center" />
+        <GroupBox Header="提示选项" Height="173" HorizontalAlignment="Center" Margin="26,416,1026,172" Name="groupBox8" VerticalAlignment="Center" Width="126" Visibility="Visible" />
+
+        <RadioButton Content="手动翻题" Height="16" HorizontalAlignment="Center" Margin="36,615,1078,130" Name="radioButton1" VerticalAlignment="Center" />
+        <RadioButton Content="自动翻题" Height="16" HorizontalAlignment="Center" Margin="35,646,1079,98" Name="radioButton2" VerticalAlignment="Center" />
+        <RadioButton Content="答对自动翻题" Height="16" HorizontalAlignment="Center" Margin="35,678,1055,67" Name="radioButton3" VerticalAlignment="Center" />
+        <GroupBox Header="自动翻题" Height="104" HorizontalAlignment="Center" Margin="26,595,1026,62" Name="groupBox9" VerticalAlignment="Center" Width="126" Visibility="Visible" />
+        
+        <Button Content="设置" Height="23" HorizontalAlignment="Center" Margin="46,714,1057,24" Name="button8" VerticalAlignment="Center" Width="75" />
+        <!--</Grid>-->
+        <!--<Grid x:Name="xianshi_grid" Visibility="Visible">-->
+        <Label Content="抽题数量" Height="28" HorizontalAlignment="Center" Margin="996,437,124,296" Name="label11" VerticalAlignment="Center" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="1072,442,50,296" Name="textBlock9" Text="TextBlock" VerticalAlignment="Center" />
+        <Label Content="道" Height="28" HorizontalAlignment="Center" Margin="1131,437,25,296" Name="label12" VerticalAlignment="Center" />
+        <Label Content="答对题目" Height="28" HorizontalAlignment="Center" Margin="996,468,124,266" Name="label13" VerticalAlignment="Center" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="1072,472,50,266" Name="textBlock14" Text="TextBlock" VerticalAlignment="Center" />
+        <Label Content="道" Height="28" HorizontalAlignment="Center" Margin="1131,467,25,266" Name="label14" VerticalAlignment="Center" />
+        <Label Content="答错题目" Height="28" HorizontalAlignment="Center" Margin="996,501,124,232" Name="label15" VerticalAlignment="Center" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="1072,506,50,232" Name="textBlock11" Text="TextBlock" VerticalAlignment="Center" />
+        <Label Content="道" Height="28" HorizontalAlignment="Center" Margin="1131,501,25,232" Name="label16" VerticalAlignment="Center" />
+        <Label Content="未答题目" Height="28" HorizontalAlignment="Center" Margin="996,531,124,202" Name="label17" VerticalAlignment="Center" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="1071,536,51,202" Name="textBlock12" Text="TextBlock" VerticalAlignment="Center" />
+        <Label Content="道" Height="28" HorizontalAlignment="Center" Margin="1131,530,25,202" Name="label18" VerticalAlignment="Center" />
+        <Label Content="首正率" Height="28" HorizontalAlignment="Center" Margin="996,561,136,172" Name="label19" VerticalAlignment="Center" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="1072,566,50,172" Name="textBlock13" Text="TextBlock" VerticalAlignment="Center" />
+        <Label Content="%" Height="28" HorizontalAlignment="Center" Margin="1132,562,25,171" Name="label21" VerticalAlignment="Center" />
+        <Label Content="按答题比成绩" Height="28" HorizontalAlignment="Center" Margin="996,600,100,133" Name="label22" VerticalAlignment="Center" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="1072,472,50,0" Name="textBlock10" Text="TextBlock" VerticalAlignment="Center" />
+        <Label Content="分" Height="28" HorizontalAlignment="Center" Margin="1131,600,25,134" Name="label23" VerticalAlignment="Center" />
+        <Label Content="按抽题比成绩" Height="28" HorizontalAlignment="Center" Margin="996,634,100,98" Name="label24" VerticalAlignment="Center" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="1071,639,51,98" Name="textBlock15" Text="TextBlock" VerticalAlignment="Center" />
+        <Label Content="分" Height="28" HorizontalAlignment="Center" Margin="1131,634,25,99" Name="label25" VerticalAlignment="Center" />
+        <GroupBox Header="练习结果" Height="330" HorizontalAlignment="Center" Margin="977,416,12,14" Name="groupBox10" VerticalAlignment="Center" Width="189" Visibility="Visible" />
+            
+        <!--</Grid>-->
+      
+    </Grid>
+</Window>
