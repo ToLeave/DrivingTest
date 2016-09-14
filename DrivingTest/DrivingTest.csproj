@@ -44,7 +44,7 @@
     </Reference>
     <Reference Include="C1.WPF.FlexGrid.4, Version=4.0.20141.391, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\FCB\fcb_public\fcb_public\bin\Debug\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\组件\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Luna" />
     <Reference Include="System" />
@@ -68,7 +68,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="Xceed.Wpf.AvalonDock">
-      <HintPath>..\..\..\房产证管理软件\fcz\PocclientApplication\PocclientApplication\bin\Debug\Xceed.Wpf.AvalonDock.dll</HintPath>
+      <HintPath>..\..\组件\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -35,6 +35,14 @@ namespace DrivingTest
         //public string SelectedValue { get; private set; }
 
         //public event RoutedEventHandler CheckChanged;
+        int attch_down_count = 0;//待下载附件数
+        int cur_cown_count = 1;//正在下载附件数
+        List<string> img_down_list = new List<string>();
+        List<string> voice_down_list = new List<string>();
+        JArray question_json ;//题目json
+        JArray answer_json ;//答案json
+        JArray chapter_json ;//章节json
+        JArray subject_json ;//科目json
 
         public MainWindow()
         {
@@ -300,10 +308,10 @@ namespace DrivingTest
             reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
             subjectstr = reader.ReadToEnd();
 
-            JArray question_json = JArray.Parse(questionstr);//题目json
-            JArray answer_json = JArray.Parse(answerstr);//答案json
-            JArray chapter_json = JArray.Parse(chapterstr);//章节json
-            JArray subject_json = JArray.Parse(subjectstr);//科目json
+             question_json = JArray.Parse(questionstr);//题目json
+             answer_json = JArray.Parse(answerstr);//答案json
+             chapter_json = JArray.Parse(chapterstr);//章节json
+             subject_json = JArray.Parse(subjectstr);//科目json
 
             #endregion
             int synccount = question_json.Count + answer_json.Count + chapter_json.Count + subject_json.Count;
@@ -357,7 +365,11 @@ namespace DrivingTest
                     catch { isj = 0; }
                     if (img != "")
                     {
-                        updatedownload(img, voi);
+                        //attch_down_count++;
+                        //updatedownload(img, voi);
+                        img_down_list.Add(img);
+                        voice_down_list.Add(voi);
+                        
                     }
                     jiakaoDataSet.question.AddquestionRow(id1, id2, id3, name, img, voi, dri, que, upd, isj);
                 }
@@ -415,12 +427,16 @@ namespace DrivingTest
                             lq.question_type = que;
                             lq.update_at = upd;
                             lq.is_judge = isj;
-                            updatedownload(img, voi);
+                            attch_down_count++;
+                            //updatedownload(img, voi);
+                            img_down_list.Add(img);
+                            voice_down_list.Add(voi);
                         }
                     }
                 }
                 now_synccount++;
-                xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
+                xianshi.Text = "[1/3]同步数据...";
+                progress.Value = now_synccount / synccount * 100;
                 System.Windows.Forms.Application.DoEvents();
             }
             jiakaoDataSetquestionTableAdapter.Update(jiakaoDataSet.question);
@@ -488,7 +504,9 @@ namespace DrivingTest
                     }
                 }
                 now_synccount++;
-                xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
+                //xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
+                xianshi.Text = "[1/3]同步数据...";
+                progress.Value = now_synccount / synccount * 100;
                 System.Windows.Forms.Application.DoEvents();
             }
             jiakaoDataSetanswerTableAdapter.Update(jiakaoDataSet.answer);
@@ -538,7 +556,9 @@ namespace DrivingTest
                     }
                 }
                 now_synccount++;
-                xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
+                //xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
+                xianshi.Text = "[1/3]同步数据...";
+                progress.Value = now_synccount / synccount * 100;
                 System.Windows.Forms.Application.DoEvents();
             }
             jiakaoDataSetchapterTableAdapter.Update(jiakaoDataSet.chapter);
@@ -587,7 +607,9 @@ namespace DrivingTest
                     }
                 }
                 now_synccount++;
-                xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
+                //xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
+                xianshi.Text = "[1/3]同步数据...";
+                progress.Value = now_synccount / synccount * 100;
                 System.Windows.Forms.Application.DoEvents();
             }
             jiakaoDataSetsubjectTableAdapter.Update(jiakaoDataSet.subject);
@@ -604,13 +626,39 @@ namespace DrivingTest
                 response.Close();
             }
 
+
+            for (int i = 0; i < img_down_list.Count; i++)
+            {
+                if (img_down_list[i] == "")
+                {
+                    img_down_list.RemoveAt(i);
+                    i--;
+                }
+            }
+            for (int i = 0; i < voice_down_list.Count; i++)
+            {
+                if (voice_down_list[i] == "")
+                {
+                    voice_down_list.RemoveAt(i);
+                    i--;
+                }
+            }
+            attch_down_count = img_down_list.Count + voice_down_list.Count;
+            for (int i = 0; i < img_down_list.Count; i++)
+            {
+                updatedownload(img_down_list[i], "");
+            }
+            for (int i = 0; i < voice_down_list.Count; i++)
+            {
+                updatedownload("",voice_down_list[i]);
+            }
         }
 
         //更新图片及语音
         private void updatedownload(string attch, string voice)
         {
 
-            WebClient imageclient = new WebClient();
+            WebClient downclient = new WebClient();
             WebClient voiceclient = new WebClient();
 
             string imagepath = System.Windows.Forms.Application.StartupPath + "\\Image\\";
@@ -627,16 +675,17 @@ namespace DrivingTest
             if (attch != "")
             {
                 string httpaddr = @"http://192.168.1.98:3000/questionimages/" + attch;
-                imageclient.DownloadFileAsync(new Uri(httpaddr), imagepath + attch);
-                imageclient.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(web_DownloadFileCompleted);
-                imageclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(web_DownloadProgressChanged);
+                downclient.DownloadFileAsync(new Uri(httpaddr), imagepath + attch);
+                downclient.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(web_DownloadFileCompleted);
+                downclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(web_DownloadProgressChanged);
+                
             }
             if (voice != "")
             {
                 string httpaddr = @"http://192.168.1.98:3000/voices/" + voice;
-                voiceclient.DownloadFileAsync(new Uri(httpaddr), voicepath + voice);
-                voiceclient.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(web_DownloadFileCompleted);
-                voiceclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(web_DownloadProgressChanged);
+                downclient.DownloadFileAsync(new Uri(httpaddr), voicepath + voice);
+                downclient.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(web_DownloadFileCompleted);
+                downclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(web_DownloadProgressChanged);
             }
 
 
@@ -645,19 +694,89 @@ namespace DrivingTest
         //下载进度改变时发生
         void web_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            xianshi.Text = string.Format("开始下载文件... 已下载:{0}Mb 剩余:{1}Mb 已完成:{2}%",
-                e.BytesReceived / 1024 / 1024,
-                e.TotalBytesToReceive / 1024 / 1024,
-                e.ProgressPercentage.ToString("N2"));
+            //xianshi.Text = string.Format("开始下载文件... 已下载:{0}Mb 剩余:{1}Mb 已完成:{2}%",
+            //    e.BytesReceived / 1024 / 1024,
+            //    e.TotalBytesToReceive / 1024 / 1024,
+            //    e.ProgressPercentage.ToString("N2"));
+            
+            if (e.ProgressPercentage > progress.Value)
+            {
+                progress.Value = e.ProgressPercentage;
+            }
+            //xianshi.Text = e.ProgressPercentage.ToString();
+            //System.Windows.Forms.Application.DoEvents();
         }
 
         //下载完成时发生
         void web_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
+
             if (e.Cancelled)
+            {
                 xianshi.Text = "下载取消";
+                cur_cown_count++;
+            }
             else
-                xianshi.Text = "下载完毕,更新已完成";
+            {
+                //xianshi.Text = "下载完毕,更新已完成";
+                cur_cown_count++;
+                xianshi.Text ="[2/3]同步附件...  " + cur_cown_count + "/" + attch_down_count;
+                
+                progress.Value = 0;
+                if (cur_cown_count > attch_down_count)
+                {
+                    data_complete_validate();
+                }
+
+
+            }
+        }
+
+        private void data_complete_validate()//同步完成后，本地数据完整性验证
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+
+            // 将数据加载到表 question 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+
+            // 将数据加载到表 answer 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
+            jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+
+            // 将数据加载到表 chapter 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
+            jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
+
+            // 将数据加载到表 subject 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
+            jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
+
+            xianshi.Text = "[3/3]验证数据...";
+            System.Windows.Forms.Application.DoEvents();
+
+            var questions = from c in jiakaoDataSet.question select c;
+            foreach (var question in questions)
+            {
+                bool del_flag = false;
+                for (int i = 0; i < question_json.Count; i++)
+                {
+                    int json_id = 0;
+                    try
+                    {
+
+
+                        //json_id=question_json[i]["id"]
+
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+
+
+
         }
 
         //登录验证
