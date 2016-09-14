@@ -4,12 +4,12 @@
         xmlns:avalon="http://schemas.xceed.com/wpf/xaml/avalondock"
         Title="设置" Height="600" Width="500" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" xmlns:my="clr-namespace:DrivingTest">
     <Window.Resources>
-        <my:jiakaoDataSet x:Key="jiakaoDataSet" />
-        <CollectionViewSource x:Key="settingViewSource" Source="{Binding Path=setting, Source={StaticResource jiakaoDataSet}}" />
-        <CollectionViewSource x:Key="userViewSource" Source="{Binding Path=user,Source={StaticResource jiaokaoDataSet}}"/>
+        <!--<my:jiakaoDataSet x:Key="jiakaoDataSet" />
+        <CollectionViewSource x:Key="settingViewSource" Source="{Binding Path=setting, Source={StaticResource jiakaoDataSet}}" />-->
+        <!--<CollectionViewSource x:Key="userViewSource" Source="{Binding Path=user,Source={StaticResource jiaokaoDataSet}}"/>-->
     </Window.Resources>
 
-    <Grid DataContext="{StaticResource settingViewSource}">
+    <Grid>
         <avalon:DockingManager x:Name="dockingManager">
             <avalon:DockingManager.AnchorableContextMenu>
                 <ContextMenu Visibility="Visible" />
@@ -20,7 +20,7 @@
             <avalon:LayoutRoot>
                 <avalon:LayoutPanel Orientation="Horizontal">
                     <avalon:LayoutDocumentPane >
-                        <avalon:LayoutAnchorable Title=" 基本设置 " CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True" IsVisible="True">
+                        <avalon:LayoutAnchorable Title=" 基本设置 " CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True">
                             <Grid>
                                 <Label Content="选择考试所在省份" Width="110" Height="25" Margin="18,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
                                 <ComboBox Height="25" HorizontalAlignment="Left" Margin="134,15,0,0" Name="shengfen_comboBox" VerticalAlignment="Top" Width="120" ItemsSource=""  DisplayMemberPath="Name"   SelectedValuePath="EmpID"/>
@@ -35,7 +35,7 @@
                                 
                                 <Grid x:Name="geren_grid" Visibility="Visible">
                                 <Label Content="  姓  名  " Height="28" HorizontalAlignment="Left" Margin="38,142,0,0" Name="label1" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="99,142,0,0" Name="name_textBox" Text="{Binding Path=name, Source={StaticResource userViewSource}}" VerticalAlignment="Top" Width="120" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="99,142,0,0" Name="name_textBox" Text="" VerticalAlignment="Top" Width="120" />
                                 <Label Content="性别:" Height="28" HorizontalAlignment="Left" Margin="299,142,0,0" Name="label2" VerticalAlignment="Top" />
                                 <RadioButton Content="男" Height="16" HorizontalAlignment="Left" Margin="346,147,0,0" Name="nan_radioButton" VerticalAlignment="Top" />
                                 <RadioButton Content="女" Height="16" HorizontalAlignment="Left" Margin="401,147,0,0" Name="nv_radioButton" VerticalAlignment="Top" />

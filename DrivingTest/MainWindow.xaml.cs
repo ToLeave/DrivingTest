@@ -727,7 +727,7 @@ namespace DrivingTest
                 {
                     data_complete_validate();
                 }
-
+                 
 
             }
         }
@@ -754,6 +754,10 @@ namespace DrivingTest
 
             xianshi.Text = "[3/3]验证数据...";
             System.Windows.Forms.Application.DoEvents();
+            progress.Visibility = System.Windows.Visibility.Collapsed;
+
+
+
 
             var questions = from c in jiakaoDataSet.question select c;
             foreach (var question in questions)
@@ -1207,10 +1211,10 @@ namespace DrivingTest
         //登录
         private void login_Click(object sender, RoutedEventArgs e)
         {
-            //if (testlogin() == false)//验证
-            //{ }
-            //else
-            //{
+            if (testlogin() == false)//验证
+            { }
+            else
+            {
                 #region 登陆后控件的显示隐藏
                 //登陆后显示
                 subject1.Visibility = System.Windows.Visibility.Visible;
@@ -1236,7 +1240,7 @@ namespace DrivingTest
                 houlunqipao.Visibility = System.Windows.Visibility.Hidden;
 
                 #endregion
-            //}
+            }
         }
 
 
@@ -1421,6 +1425,13 @@ namespace DrivingTest
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
 
+        }
+
+        private void shiyon_button_Click(object sender, RoutedEventArgs e)
+        {
+            MainExam ma = new MainExam();
+            ma.Title = "试用";
+            ma.Show();
         }
 
 

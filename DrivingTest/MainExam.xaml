@@ -37,11 +37,11 @@
         <TextBlock Height="20" HorizontalAlignment="Center" Margin="103,384,1058,357" Text="00"  Name="SecondArea" VerticalAlignment="Center" FontSize="14" />
         <GroupBox Header="剩余时间" Height="52" HorizontalAlignment="Center" Margin="26,364,1026,346" Name="groupBox3" VerticalAlignment="Center" Width="126" Visibility="Visible" />
 
-        <TextBlock Height="67" HorizontalAlignment="Center" Margin="185,42,398,652" Name="timu_textBlock" Text="{Binding Path=question_name}" VerticalAlignment="Center" Width="595" TextWrapping="Wrap" FontWeight="Bold" FontSize="14" Visibility="Visible"  />
-        <TextBlock Height="28" HorizontalAlignment="Center" Margin="185,115,398,618" Name="xuanxiang_textBlock1" Text="{Binding Path=answer, Source={StaticResource answerViewSource}}" VerticalAlignment="Center" FontSize="14" Width="595" FontWeight="Bold" />
-        <TextBlock Height="28" HorizontalAlignment="Center" Margin="185,149,398,584" Name="xuanxiang_textBlock2" Text="{Binding Path=answer, Source={StaticResource answerViewSource}}" VerticalAlignment="Center" FontSize="14" Width="595" FontWeight="Bold"  />
-        <TextBlock Height="28" HorizontalAlignment="Center" Margin="185,183,398,550" Name="xuanxiang_textBlock3" Text="{Binding Path=answer, Source={StaticResource answerViewSource}}" VerticalAlignment="Center" FontSize="14" Width="595" FontWeight="Bold"  />
-        <TextBlock Height="28" HorizontalAlignment="Center" Margin="185,217,398,516" Name="xuanxiang_textBlock4" Text="{Binding Path=answer, Source={StaticResource answerViewSource}}" VerticalAlignment="Center" FontSize="14" Width="595" FontWeight="Bold"  />
+        <TextBlock Height="105" HorizontalAlignment="Center" Margin="185,42,351,614" Name="timu_textBlock" Text="一二三四五六                 按时大大大撒打算撒大声地萨达                  噶发的死光光打发斯蒂芬发的是发送发的是发送大发生的发生" VerticalAlignment="Center" Width="642" TextWrapping="Wrap" FontWeight="Bold" FontSize="26" Visibility="Visible"  />
+        <TextBlock Height="37" HorizontalAlignment="Center" Margin="185,153,398,571" Name="xuanxiang_textBlock1" Text="范德萨恢复会计师" VerticalAlignment="Center" FontSize="26" Width="595" FontWeight="Bold" />
+        <TextBlock Height="36" HorizontalAlignment="Center" Margin="185,187,398,538" Name="xuanxiang_textBlock2" Text="范德萨恢复会计师" VerticalAlignment="Center" FontSize="26" Width="595" FontWeight="Bold"  />
+        <TextBlock Height="28" HorizontalAlignment="Center" Margin="185,221,398,512" Name="xuanxiang_textBlock3" Text="{Binding Path=answer, Source={StaticResource answerViewSource}}" VerticalAlignment="Center" FontSize="14" Width="595" FontWeight="Bold"  />
+        <TextBlock Height="28" HorizontalAlignment="Center" Margin="185,255,398,478" Name="xuanxiang_textBlock4" Text="{Binding Path=answer, Source={StaticResource answerViewSource}}" VerticalAlignment="Center" FontSize="14" Width="595" FontWeight="Bold"  />
         <Label Content="您的答案:" Height="28" HorizontalAlignment="Center" Margin="185,304,923,430" Name="label8" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" />
         <Label Content="选择:" Height="28" HorizontalAlignment="Center" Margin="356,304,780,430" Name="label9" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" />
 
