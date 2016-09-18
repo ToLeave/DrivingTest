@@ -135,6 +135,39 @@ namespace DrivingTest
             return return_num;
         }
 
+        private string cal_license(string license)
+        {
+            for (int license_count = 0; license_count < 1000; license_count++)
+            {
+                for (int license_num = 0; license_num < 1010; license_num++)
+                {
+                    DateTime endtime = DateTime.Now;
+                    for (DateTime license_time = DateTime.Now; license_time < endtime.AddYears(4); license_time = license_time.AddDays(1))
+                    {
+                        string num_format = license_time.ToString("yyyyMMdd");
+                        string local_license = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(ID + ":" + license_num + ":" + num_format + ":" + license_count + ":CLOUDTIMESOFT", "MD5");
+                        string tt = ID + ":" + license_num + ":" + num_format + ":" + license_count + ":CLOUDTIMESOFT";
+                        local_license = local_license.Substring(8, 16);
+                        
+                        if (license == local_license)
+                        {
+
+                            return license_num + "," + license_time;
+                            license_count = 1000;
+                            license_num = 10000;
+                            license_time = license_time.AddYears(10);
+                        }
+                     
+                    }
+                    liucheng_textBox.Text = "license_count;" + license_count + "license_num;" + license_num;
+                    System.Windows.Forms.Application.DoEvents();
+                    
+                }
+            }
+            return "";
+        }
+
+
         //根据序列号获取剩余时间
         private string cal_license_time(string license)
         {
@@ -178,17 +211,10 @@ namespace DrivingTest
             try
             {
                 string license = zhuce_textbox.Text.Trim().ToUpper();
-                string license_type = license.Substring(3, 1);
-                if (license_type == "0")
-                {
-                    license_count = cal_license_count(license);
-                    MessageBox.Show(license_count.ToString());
-                }
-                else
-                {
-                    license_time = cal_license_time(license);
-                    MessageBox.Show(license_time);
-                }
+                license = license.Replace("-", "");
+                string str = cal_license(license);
+                MessageBox.Show(str);
+
             }
             catch
             { }
