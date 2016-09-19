@@ -46,34 +46,34 @@
         <Label Content="密码" Height="28" HorizontalAlignment="Left" Margin="467,302,0,0" Name="password_label" VerticalAlignment="Top" />
         <PasswordBox Height="23" HorizontalAlignment="Left" Margin="513,304,0,0" Name="password_textBox" VerticalAlignment="Top" Width="120" />
 
-        <Button Content="C1|C2|C3|C4" Height="23" HorizontalAlignment="Left" Margin="243,243,0,0" Name="car_button" VerticalAlignment="Top" Width="75" Visibility="Hidden" Click="car_button_Click" />
-        <Button Content="A1|A3|B1" Height="23" HorizontalAlignment="Left" Margin="324,243,0,0" Name="bus_button" VerticalAlignment="Top" Width="75" Visibility="Hidden" Click="bus_button_Click" />
-        <Button Content="A2|B2" Height="23" HorizontalAlignment="Left" Margin="405,243,0,0" Name="truck_button" VerticalAlignment="Top" Width="75" Visibility="Hidden" Click="truck_button_Click" />
-        <Button Content="D|E|F" Height="23" HorizontalAlignment="Left" Margin="496,243,0,0" Name="motorcycle_button" VerticalAlignment="Top" Width="75" Visibility="Hidden" Click="motorcycle_button_Click" />
-        <Button Content="恢复驾考" Height="23" HorizontalAlignment="Left" Margin="587,243,0,0" Name="regain_button" VerticalAlignment="Top" Width="75" Visibility="Hidden" Click="regain_button_Click" />
+        <Button Content="C1|C2|C3|C4" Height="23" HorizontalAlignment="Left" Margin="243,243,0,0" Name="car_button" VerticalAlignment="Top" Width="75" Visibility="Visible" Click="car_button_Click" />
+        <Button Content="A1|A3|B1" Height="23" HorizontalAlignment="Left" Margin="324,243,0,0" Name="bus_button" VerticalAlignment="Top" Width="75" Visibility="Visible" Click="bus_button_Click" />
+        <Button Content="A2|B2" Height="23" HorizontalAlignment="Left" Margin="405,243,0,0" Name="truck_button" VerticalAlignment="Top" Width="75" Visibility="Visible" Click="truck_button_Click" />
+        <Button Content="D|E|F" Height="23" HorizontalAlignment="Left" Margin="496,243,0,0" Name="motorcycle_button" VerticalAlignment="Top" Width="75" Visibility="Visible" Click="motorcycle_button_Click" />
+        <Button Content="恢复驾考" Height="23" HorizontalAlignment="Left" Margin="587,243,0,0" Name="regain_button" VerticalAlignment="Top" Width="75" Visibility="Visible" Click="regain_button_Click" />
 
-        <Button  Content="科目一" Style="{DynamicResource SubjectButton}" Height="23" HorizontalAlignment="Left" Margin="463,104,0,0" Name="subject1" VerticalAlignment="Top" Width="75" MouseEnter="subject1_MouseEnter" Click="subject1_Click" Visibility="Hidden" >
+        <Button  Content="科目一" Style="{DynamicResource SubjectButton}" Height="23" HorizontalAlignment="Left" Margin="463,104,0,0" Name="subject1" VerticalAlignment="Top" Width="75" MouseEnter="subject1_MouseEnter" Click="subject1_Click" Visibility="Visible" >
             <Button.RenderTransform>
 
                 <RotateTransform x:Name="rotateTransform" Angle="-30" />
 
             </Button.RenderTransform>
         </Button>
-        <Button Content="科目二" Style="{DynamicResource SubjectButton}" Height="23" HorizontalAlignment="Left" Margin="541,101,0,0" Name="subject2" VerticalAlignment="Top" Width="75" Visibility="Hidden" Click="subject2_Click">
+        <Button Content="科目二" Style="{DynamicResource SubjectButton}" Height="23" HorizontalAlignment="Left" Margin="541,101,0,0" Name="subject2" VerticalAlignment="Top" Width="75" Visibility="Visible" Click="subject2_Click">
             <Button.RenderTransform>
 
                 <RotateTransform x:Name="rotateTransform2" Angle="-30" />
 
             </Button.RenderTransform>
         </Button>
-        <Button Content="科目三" Style="{DynamicResource SubjectButton}" Height="23" HorizontalAlignment="Left" Margin="611,106,0,0" Name="subject3" VerticalAlignment="Top" Width="75" Visibility="Hidden" Click="subject3_Click">
+        <Button Content="科目三" Style="{DynamicResource SubjectButton}" Height="23" HorizontalAlignment="Left" Margin="611,106,0,0" Name="subject3" VerticalAlignment="Top" Width="75" Visibility="Visible" Click="subject3_Click">
             <Button.RenderTransform>
 
                 <RotateTransform x:Name="rotateTransform3" Angle="-30" />
 
             </Button.RenderTransform>
         </Button>
-        <Button Content="科目四" Style="{DynamicResource SubjectButton}" Height="23" HorizontalAlignment="Left" Margin="685,109,0,0" Name="subject4" VerticalAlignment="Top" Width="75" Visibility="Hidden" Click="subject4_Click">
+        <Button Content="科目四" Style="{DynamicResource SubjectButton}" Height="23" HorizontalAlignment="Left" Margin="685,109,0,0" Name="subject4" VerticalAlignment="Top" Width="75" Visibility="Visible" Click="subject4_Click">
             <Button.RenderTransform>
 
                 <RotateTransform x:Name="rotateTransform4" Angle="-30" />
@@ -90,7 +90,7 @@
         <Image Name="qianlunqipao" Source="/DrivingTest;component/Images/气泡5.png" Margin="124,255,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="98" Width="97" Opacity="0" RenderTransformOrigin="0.5,0.5" Visibility="Visible" IsHitTestVisible="False" />
         <Button Focusable="False" x:Name="login" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="680,237,0,0" Style="{DynamicResource Button}" Width="130" Content="登录" Foreground="Black" BorderBrush="Transparent" BorderThickness="0" FontSize="28" FontFamily="微软雅黑" FontWeight="Normal" Height="130" MouseEnter="login_MouseEnter" MouseLeave="login_MouseLeave" Visibility="Visible" FontStyle="Italic" Click="login_Click" />
         <Image Name="houlunqipao" Source="/DrivingTest;component/Images/气泡5.png" Margin="695,255,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="98" Width="97" Opacity="0" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="False" />
-        <Button Content="试用" Style="{DynamicResource SubjectButton}" Height="46" HorizontalAlignment="Left" Margin="828,255,0,0" Name="shiyon_button" VerticalAlignment="Top" Width="46" Click="shiyon_button_Click" />
+        <!--<Button Content="试用" Style="{DynamicResource SubjectButton}" Height="46" HorizontalAlignment="Left" Margin="828,255,0,0" Name="shiyon_button" VerticalAlignment="Top" Width="46" Click="shiyon_button_Click" />-->
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="257,267,0,0" Name="xianshi"  VerticalAlignment="Top" Width="392" GotFocus="user_textBox_GotFocus" />
         <ProgressBar Height="10" x:Name="progress" HorizontalAlignment="Left" Margin="257,292,0,0" VerticalAlignment="Top" Width="376" Background="{x:Null}" />
         <!--<Image Height="25" HorizontalAlignment="Left" Margin="464,83,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="76" Source="/DrivingTest;component/Images/气泡5.png" Visibility="Hidden" MouseEnter="image1_MouseEnter" RenderTransformOrigin="0.5,0.5">

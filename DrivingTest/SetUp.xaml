@@ -20,6 +20,30 @@
             <avalon:LayoutRoot>
                 <avalon:LayoutPanel Orientation="Horizontal">
                     <avalon:LayoutDocumentPane >
+                        <avalon:LayoutAnchorable Title=" 注册 " CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True">
+                            <Grid>
+                                <Label Content="  姓  名  " Height="28" HorizontalAlignment="Left" Margin="38,28,0,0" Name="label1" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="99,28,0,0" Name="name_textBox" Text="" VerticalAlignment="Top" Width="120" />
+                                <Label Content="性别:" Height="28" HorizontalAlignment="Left" Margin="38,71,0,0" Name="label2" VerticalAlignment="Top" />
+                                <RadioButton Content="男" Height="16" HorizontalAlignment="Left" Margin="99,76,0,0" Name="nan_radioButton" VerticalAlignment="Top" />
+                                <RadioButton Content="女" Height="16" HorizontalAlignment="Left" Margin="154,76,0,0" Name="nv_radioButton" VerticalAlignment="Top" />
+                                <Label Content="年龄" Height="28" HorizontalAlignment="Left" Margin="38,121,0,0" Name="label29" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="99,126,0,0" Name="textBox90" VerticalAlignment="Top" Width="120"/>
+                                <Label Content="身份证号" Height="28" HorizontalAlignment="Left" Margin="38,163,0,0" Name="label30" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="99,165,0,0" Name="textBox2" VerticalAlignment="Top" Width="120" />
+                                <Label Content="手机号" Height="28" HorizontalAlignment="Left" Margin="38,210,0,0" Name="label31" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="99,212,0,0" Name="textBox3" VerticalAlignment="Top" Width="120" />
+                                <Label Content="文化程度" Height="28" HorizontalAlignment="Left" Margin="38,255,0,0" Name="label32" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="99,257,0,0" Name="textBox4" VerticalAlignment="Top" Width="120" />
+                                <Label Content="学员编号" Height="28" HorizontalAlignment="Left" Margin="38,298,0,0" Name="label33" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="99,300,0,0" Name="textBox5" VerticalAlignment="Top" Width="120" />
+                                <Label Content="收费金额" Height="28" HorizontalAlignment="Left" Margin="38,332,0,0" Name="label34" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="99,334,0,0" Name="textBox8" VerticalAlignment="Top" Width="120" />
+                                <Label Content="学员照片" Height="28" HorizontalAlignment="Left" Margin="38,376,0,0" Name="label35" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="99,378,0,0" Name="textBox17" VerticalAlignment="Top" Width="120" />
+                                <Button Content="上传本地图片" Height="23" HorizontalAlignment="Left" Margin="257,378,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
+                            </Grid>
+                        </avalon:LayoutAnchorable>
                         <avalon:LayoutAnchorable Title=" 基本设置 " CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True">
                             <Grid>
                                 <Label Content="选择考试所在省份" Width="110" Height="25" Margin="18,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -34,11 +58,6 @@
                                 <Line X1="400" Margin="34,137,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="2" Width="400"  Stroke="Black" StrokeDashArray="5"   StrokeThickness="1" />
                                 
                                 <Grid x:Name="geren_grid" Visibility="Visible">
-                                <Label Content="  姓  名  " Height="28" HorizontalAlignment="Left" Margin="38,142,0,0" Name="label1" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="99,142,0,0" Name="name_textBox" Text="" VerticalAlignment="Top" Width="120" />
-                                <Label Content="性别:" Height="28" HorizontalAlignment="Left" Margin="299,142,0,0" Name="label2" VerticalAlignment="Top" />
-                                <RadioButton Content="男" Height="16" HorizontalAlignment="Left" Margin="346,147,0,0" Name="nan_radioButton" VerticalAlignment="Top" />
-                                <RadioButton Content="女" Height="16" HorizontalAlignment="Left" Margin="401,147,0,0" Name="nv_radioButton" VerticalAlignment="Top" />
                                 <Label Content="驾照类型" Height="28" HorizontalAlignment="Left" Margin="38,176,0,0" Name="label3" VerticalAlignment="Top" />
                                 <ComboBox Height="23" HorizontalAlignment="Left" Margin="99,176,0,0" Name="jiazhao_comboBox" VerticalAlignment="Top" Width="120" />
                                 <Label Content="所在驾校" Height="28" HorizontalAlignment="Left" Margin="38,210,0,0" Name="label4" VerticalAlignment="Top" />

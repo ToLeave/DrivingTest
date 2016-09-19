@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Management;
 using System.Diagnostics;
 using System.Security.Cryptography;
+using System.Threading;
 
 
 namespace DrivingTest
@@ -135,35 +136,133 @@ namespace DrivingTest
             return return_num;
         }
 
+
+
+        private void thread_license(int license_count, string license)
+        {
+            Thread newthread = new Thread(new ThreadStart(() =>
+            {
+                Dispatcher.Invoke(new Action(() =>
+                {
+
+
+
+                    for (int license_num = 0; license_num < 1010; license_num++)
+                    {
+                        DateTime endtime = DateTime.Now;
+                        for (DateTime license_time = DateTime.Now; license_time < endtime.AddYears(4); license_time = license_time.AddDays(1))
+                        {
+                            string num_format = license_time.ToString("yyyyMMdd");
+                            string local_license = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(ID + ":" + license_num + ":" + num_format + ":" + license_count + ":CLOUDTIMESOFT", "MD5");
+                            string tt = ID + ":" + license_num + ":" + num_format + ":" + license_count + ":CLOUDTIMESOFT";
+                            local_license = local_license.Substring(8, 16);
+
+                            if (license == local_license)
+                            {
+
+                                //return license_num + "," + license_time;
+                                license_count = 1000;
+                                license_num = 10000;
+                                license_time = license_time.AddYears(10);
+                            }
+
+                        }
+                        liucheng_textBox.Text = "license_count;" + license_count + "license_num;" + license_num;
+                        System.Windows.Forms.Application.DoEvents();
+
+                    }
+
+
+                }));
+
+
+
+            }));
+            newthread.SetApartmentState(ApartmentState.MTA);
+            newthread.IsBackground = false;
+            //newthread.Priority = ThreadPriority.AboveNormal;
+            newthread.Start();
+        }
+
+
+
         private string cal_license(string license)
         {
-            for (int license_count = 0; license_count < 1000; license_count++)
+            Thread[] newthread;
+            newthread = new Thread[100];
+            for (int license_count = 0; license_count < 100; license_count++)
             {
-                for (int license_num = 0; license_num < 1010; license_num++)
+                //thread_license(license_count, license);
+                
+                //Thread.Sleep(50);
+                 newthread[license_count] = new Thread(new ThreadStart(() =>
                 {
-                    DateTime endtime = DateTime.Now;
-                    for (DateTime license_time = DateTime.Now; license_time < endtime.AddYears(4); license_time = license_time.AddDays(1))
+                    Dispatcher.Invoke(new Action(() =>
                     {
-                        string num_format = license_time.ToString("yyyyMMdd");
-                        string local_license = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(ID + ":" + license_num + ":" + num_format + ":" + license_count + ":CLOUDTIMESOFT", "MD5");
-                        string tt = ID + ":" + license_num + ":" + num_format + ":" + license_count + ":CLOUDTIMESOFT";
-                        local_license = local_license.Substring(8, 16);
-                        
-                        if (license == local_license)
-                        {
 
-                            return license_num + "," + license_time;
-                            license_count = 1000;
-                            license_num = 10000;
-                            license_time = license_time.AddYears(10);
+
+
+                        for (int license_num = 0; license_num < 1010; license_num++)
+                        {
+                            DateTime endtime = DateTime.Now;
+                            for (DateTime license_time = DateTime.Now; license_time < endtime.AddYears(4); license_time = license_time.AddDays(1))
+                            {
+                                string num_format = license_time.ToString("yyyyMMdd");
+                                string local_license = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(ID + ":" + license_num + ":" + num_format + ":" + license_count + ":CLOUDTIMESOFT", "MD5");
+                                string tt = ID + ":" + license_num + ":" + num_format + ":" + license_count + ":CLOUDTIMESOFT";
+                                local_license = local_license.Substring(8, 16);
+
+                                if (license == local_license)
+                                {
+
+                                    //return license_num + "," + license_time;
+                                    license_count = 1000;
+                                    license_num = 10000;
+                                    license_time = license_time.AddYears(10);
+                                }
+
+                            }
+                            liucheng_textBox.Text = "license_count;" + license_count + "license_num;" + license_num;
+                            System.Windows.Forms.Application.DoEvents();
+
                         }
-                     
-                    }
-                    liucheng_textBox.Text = "license_count;" + license_count + "license_num;" + license_num;
-                    System.Windows.Forms.Application.DoEvents();
-                    
-                }
+
+
+                    }));
+
+
+
+                }));
+                newthread[license_count].SetApartmentState(ApartmentState.MTA);
+                newthread[license_count].IsBackground = true;
+                //newthread.Priority = ThreadPriority.AboveNormal;
+                newthread[license_count].Start();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             }
+
+
+
+
             return "";
         }
 
