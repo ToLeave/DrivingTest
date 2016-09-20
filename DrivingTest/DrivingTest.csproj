@@ -100,6 +100,9 @@
       <DependentUpon>PreparePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ProcessCount.cs" />
+    <Compile Include="QuestionNum.xaml.cs">
+      <DependentUpon>QuestionNum.xaml</DependentUpon>
+    </Compile>
     <Compile Include="register.xaml.cs">
       <DependentUpon>register.xaml</DependentUpon>
     </Compile>
@@ -142,6 +145,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PreparePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QuestionNum.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

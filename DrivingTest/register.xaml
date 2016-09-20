@@ -19,7 +19,7 @@
         <Button Content="复制机器码" Height="23" HorizontalAlignment="Left" Margin="328,14,0,0" Name="fuzhi_button" VerticalAlignment="Top" Width="75" Click="fuzhi_button_Click" />
         <Button Content="注册" Height="23" HorizontalAlignment="Left" Margin="328,46,0,0" Name="zhuce_button" VerticalAlignment="Top" Width="75" Click="zhuce_button_Click" />
         
-        <Label Content="请把注册码填到上面文本框后点击注册按钮" Height="28" HorizontalAlignment="Left" Margin="135,72,0,0" Name="label3" VerticalAlignment="Top" Width="238" />
+        <Label Content="请把注册码填到上面文本框后点击注册按钮" Height="28" HorizontalAlignment="Left" Margin="135,77,0,0" Name="label3" VerticalAlignment="Top" Width="238" />
         
         <TextBlock Height="123" HorizontalAlignment="Left" Margin="25,109,0,0" Name="liucheng_textBox" VerticalAlignment="Top" Width="423" Text="{Binding Path=registration_process}" />
         <GroupBox Header="注册流程" Height="151" HorizontalAlignment="Left" Margin="18,91,0,0" Name="groupBox1" VerticalAlignment="Top" Width="439" Visibility="Visible" />
@@ -37,6 +37,6 @@
         
         <TextBlock Height="100" HorizontalAlignment="Left" Margin="25,349,0,0" Name="beizhu_textblock" VerticalAlignment="Top" Width="423" Text="{Binding Path=comments}" />
         <GroupBox Header="注册说明" Height="217" HorizontalAlignment="Left" Margin="18,238,0,0" Name="groupBox2" VerticalAlignment="Top" Width="439" Visibility="Visible" />
-        
+        <ProgressBar Height="10" HorizontalAlignment="Left" Margin="135,72,0,0" Name="zhuce_progressBar" VerticalAlignment="Top" Width="171" />
     </Grid>
 </Window>

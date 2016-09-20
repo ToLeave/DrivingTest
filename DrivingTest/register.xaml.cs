@@ -145,8 +145,6 @@ namespace DrivingTest
                 Dispatcher.Invoke(new Action(() =>
                 {
 
-
-
                     for (int license_num = 0; license_num < 1010; license_num++)
                     {
                         DateTime endtime = DateTime.Now;
@@ -188,82 +186,49 @@ namespace DrivingTest
 
         private string cal_license(string license)
         {
-            Thread[] newthread;
-            newthread = new Thread[100];
-            for (int license_count = 0; license_count < 100; license_count++)
+
+
+            string ret = "";
+
+            for (int license_num = 0; license_num <= 1000; license_num++)
             {
-                //thread_license(license_count, license);
-                
-                //Thread.Sleep(50);
-                 newthread[license_count] = new Thread(new ThreadStart(() =>
+                DateTime endtime = DateTime.Now;
+                for (DateTime license_time = DateTime.Now; license_time <= endtime.AddYears(3); license_time = license_time.AddDays(1))
                 {
-                    Dispatcher.Invoke(new Action(() =>
+                    string num_format = license_time.ToString("yyyyMMdd");
+                    string local_license = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(ID + ":" + license_num + ":" + num_format + ":CLOUDTIMESOFT", "MD5");
+                    //string tt = ID + ":" + license_num + ":" + num_format + ":" + license_count + ":CLOUDTIMESOFT";
+                    local_license = local_license.Substring(8, 16);
+
+                    if (license == local_license)
                     {
+                        ret = license_num.ToString() + license_time;
+                        //return license_num + "," + license_time;
+                        //license_count = 1000;
+                        license_num = 10000;
+                        license_time = license_time.AddYears(10);
+
+                    }
 
 
-
-                        for (int license_num = 0; license_num < 1010; license_num++)
-                        {
-                            DateTime endtime = DateTime.Now;
-                            for (DateTime license_time = DateTime.Now; license_time < endtime.AddYears(4); license_time = license_time.AddDays(1))
-                            {
-                                string num_format = license_time.ToString("yyyyMMdd");
-                                string local_license = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(ID + ":" + license_num + ":" + num_format + ":" + license_count + ":CLOUDTIMESOFT", "MD5");
-                                string tt = ID + ":" + license_num + ":" + num_format + ":" + license_count + ":CLOUDTIMESOFT";
-                                local_license = local_license.Substring(8, 16);
-
-                                if (license == local_license)
-                                {
-
-                                    //return license_num + "," + license_time;
-                                    license_count = 1000;
-                                    license_num = 10000;
-                                    license_time = license_time.AddYears(10);
-                                }
-
-                            }
-                            liucheng_textBox.Text = "license_count;" + license_count + "license_num;" + license_num;
-                            System.Windows.Forms.Application.DoEvents();
-
-                        }
-
-
-                    }));
-
-
-
-                }));
-                newthread[license_count].SetApartmentState(ApartmentState.MTA);
-                newthread[license_count].IsBackground = true;
-                //newthread.Priority = ThreadPriority.AboveNormal;
-                newthread[license_count].Start();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                }
+                //liucheng_textBox.Text = "license_num;" + license_num;
+                //System.Windows.Forms.Application.DoEvents();
+                zhuce_progressBar.Value = license_num / 10;
+                System.Windows.Forms.Application.DoEvents();
             }
 
 
+            return ret;
 
 
-            return "";
+
+
+
+
+
+
+
         }
 
 
@@ -305,7 +270,7 @@ namespace DrivingTest
         //注册
         private void zhuce_button_Click(object sender, RoutedEventArgs e)
         {
-            int license_count = -1;
+            //int license_count = -1;
             string license_time = "1900/1/1";
             try
             {

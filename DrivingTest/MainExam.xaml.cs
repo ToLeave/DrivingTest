@@ -44,9 +44,9 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
             jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
 
-            
-            
-            
+            create_question_num();
+
+            random_question();
 
             int i = 0;
             //while (dr.Read())
@@ -82,6 +82,89 @@ namespace DrivingTest
             #endregion
         }
 
+        //随机抽题
+        List<int> qutstion_pd_list = new List<int>();
+
+        private void random_question()
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 question 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+
+            int question_pd_count = (from c in jiakaoDataSet.question where c.is_judge ==0 select c).Count();
+            var question_pd = from c in jiakaoDataSet.question where c.is_judge == 0 select c;
+            for (int i = 0; i < 10; i++)
+            {
+                
+                Random random = new Random(Guid.NewGuid().GetHashCode());
+                int ran = random.Next(0, question_pd_count);
+                int eachcount = 0;
+                foreach (var qu in question_pd)
+                {
+                    if (eachcount == ran)
+                    {
+                        qutstion_pd_list.Add(qu.question_id);
+                        int tem_list_count = (from c in qutstion_pd_list where c == qu.question_id select c).Count();
+                        if (tem_list_count > 1)
+                        {
+                            qutstion_pd_list.Remove(qu.question_id);
+                            i--;
+                        }
+                        break;
+                    }
+                    eachcount++;
+                }
+                  
+                
+                
+                //qutstion_pd_list.Add(  random.Next(0,question_pd_count+1) );
+            }
+            int cl;
+            
+
+
+        }
+
+        //生成题号
+        private void create_question_num()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                int x = i / 10;
+                int y = i % 10;
+                x *= 31;
+                y *= 26;
+                QuestionNum qu = new QuestionNum();
+
+                qu.Margin = new Thickness(y, x, 0, 0);
+                qu.label1.Content = i + 1;
+                qu.Name = "qu" + i.ToString();
+                qu.MouseDown += new MouseButtonEventHandler(OK);
+                dati_canvas.Children.Add(qu);
+            }
+        }
+
+
+        void OK(object sender, MouseButtonEventArgs e)
+        {
+            foreach (var i in dati_canvas.Children)
+            {
+                QuestionNum myqu = i as QuestionNum;
+                if (myqu != null)
+                {
+                    myqu.canvas1.Background = Brushes.White;
+                }
+
+                QuestionNum qu = sender as QuestionNum;
+                qu.canvas1.Background = Brushes.SkyBlue;
+
+
+            }
+
+
+
+        }
 
         #region 计时器
         /// <summary>
