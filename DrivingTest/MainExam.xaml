@@ -38,10 +38,10 @@
         <GroupBox Header="剩余时间" Height="52" HorizontalAlignment="Center" Margin="26,364,1026,346" Name="groupBox3" VerticalAlignment="Center" Width="126" Visibility="Visible" />
 
         <TextBlock Height="105" HorizontalAlignment="Center" Margin="185,42,351,614" Name="timu_textBlock" Text="" VerticalAlignment="Center" Width="642" TextWrapping="Wrap" FontWeight="Bold" FontSize="26" Visibility="Visible"  />
-        <TextBlock Height="37" HorizontalAlignment="Center" Margin="185,153,398,571" Name="xuanxiang_textBlock1" Text="范德萨恢复会计师" VerticalAlignment="Center" FontSize="26" Width="595" FontWeight="Bold" />
-        <TextBlock Height="37" HorizontalAlignment="Center" Margin="185,187,398,538" Name="xuanxiang_textBlock2" Text="范德萨恢复会计师" VerticalAlignment="Center" FontSize="26" Width="595" FontWeight="Bold"  />
-        <TextBlock Height="37" HorizontalAlignment="Center" Margin="185,221,398,512" Name="xuanxiang_textBlock3" Text="范德萨恢复会计师" VerticalAlignment="Center" FontSize="26" Width="595" FontWeight="Bold"  />
-        <TextBlock Height="37" HorizontalAlignment="Center" Margin="185,255,398,478" Name="xuanxiang_textBlock4" Text="范德萨恢复会计师" VerticalAlignment="Center" FontSize="26" Width="595" FontWeight="Bold"  />
+        <TextBlock Height="37" HorizontalAlignment="Center" Margin="185,153,398,571" Name="xuanxiang_textBlock1" Text="" VerticalAlignment="Center" FontSize="26" Width="595" FontWeight="Bold" />
+        <TextBlock Height="37" HorizontalAlignment="Center" Margin="185,187,398,538" Name="xuanxiang_textBlock2" Text="" VerticalAlignment="Center" FontSize="26" Width="595" FontWeight="Bold"  />
+        <TextBlock Height="37" HorizontalAlignment="Center" Margin="185,221,398,512" Name="xuanxiang_textBlock3" Text="" VerticalAlignment="Center" FontSize="26" Width="595" FontWeight="Bold"  />
+        <TextBlock Height="37" HorizontalAlignment="Center" Margin="185,255,398,478" Name="xuanxiang_textBlock4" Text="" VerticalAlignment="Center" FontSize="26" Width="595" FontWeight="Bold"  />
         <Label Content="您的答案:" Height="28" HorizontalAlignment="Center" Margin="185,304,923,430" Name="label8" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" />
         <Label Content="选择:" Height="28" HorizontalAlignment="Center" Margin="356,304,780,430" Name="label9" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" />
 
@@ -55,13 +55,13 @@
             <Canvas MinHeight="300" x:Name="dati_canvas" Width="300"  />
         </ScrollViewer>
 
-        <GroupBox Header="答题信息" Height="334" HorizontalAlignment="Center" Margin="842,23,12,404" Name="groupBox5" VerticalAlignment="Center" Width="324" Visibility="Hidden"/>
+        <GroupBox Header="答题信息" Height="334" HorizontalAlignment="Center" Margin="842,23,12,404" Name="groupBox5" VerticalAlignment="Center" Width="324" Visibility="Visible"/>
         
         <Label Content="选择题,请在备选答案中选择您认为正确的答案!" Height="28" HorizontalAlignment="Center" Margin="185,382,721,350" Name="label10" VerticalAlignment="Center" Width="272" />
         <GroupBox Header="提示信息" Height="52" HorizontalAlignment="Center" Margin="174,364,720,346" Name="groupBox6" VerticalAlignment="Center" Width="283" Visibility="Visible" />
 
-        <Button Content="上一题" Height="44" HorizontalAlignment="Center" Margin="481,371,623,346" Name="button5" VerticalAlignment="Center" Width="75" FontSize="14" FontWeight="Bold" />
-        <Button Content="下一题" Height="44" HorizontalAlignment="Center" Margin="586,371,516,346" Name="button6" VerticalAlignment="Center" Width="75" FontSize="14" FontWeight="Bold" />
+        <Button Content="上一题" Height="44" HorizontalAlignment="Center" Margin="481,371,623,346" Name="up_button" VerticalAlignment="Center" Width="75" FontSize="14" FontWeight="Bold" Click="up_button_Click" />
+        <Button Content="下一题" Height="44" HorizontalAlignment="Center" Margin="586,371,516,346" Name="do_button" VerticalAlignment="Center" Width="75" FontSize="14" FontWeight="Bold" Click="do_button_Click" />
         <Button Content="交卷" Height="44" HorizontalAlignment="Center" Margin="731,371,371,346" Name="button7" VerticalAlignment="Center" Width="75" FontSize="14" FontWeight="Bold" />
         
         <Image Height="299" HorizontalAlignment="Center" Margin="223,437,289,25" Name="image2" Stretch="Fill" VerticalAlignment="Center" Width="667" StretchDirection="DownOnly" Visibility="Visible" />
