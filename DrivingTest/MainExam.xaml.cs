@@ -27,6 +27,10 @@ namespace DrivingTest
         private string[] questions = new string[100];
         private int currentquestion = 0;
 
+        List<string> qutstion_pd_list = new List<string>();//随机题号列表
+        List<PublicClass.Question> question_list = new List<PublicClass.Question>();
+
+
         public MainExam()
         {
             InitializeComponent();
@@ -83,7 +87,14 @@ namespace DrivingTest
         }
 
         //随机抽题
-        List<int> qutstion_pd_list = new List<int>();
+        private List<PublicClass.Answer> random_answer(int question_id)
+        {
+            List<PublicClass.Answer> newanswer = new List<PublicClass.Answer>();
+
+
+
+            return newanswer;
+        }
 
         private void random_question()
         {
@@ -92,8 +103,8 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
             jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
 
-            int question_pd_count = (from c in jiakaoDataSet.question where c.is_judge ==0 select c).Count();
-            var question_pd = from c in jiakaoDataSet.question where c.is_judge == 0 select c;
+            int question_pd_count = (from c in jiakaoDataSet.question  where  c.question_type.Contains("XZ") select c).Count();
+            var question_pd = from c in jiakaoDataSet.question where c.question_type.Contains("XZ") select c;
             for (int i = 0; i < 10; i++)
             {
                 
@@ -102,13 +113,25 @@ namespace DrivingTest
                 int eachcount = 0;
                 foreach (var qu in question_pd)
                 {
+                    
+
+
+
+
                     if (eachcount == ran)
                     {
-                        qutstion_pd_list.Add(qu.question_id);
-                        int tem_list_count = (from c in qutstion_pd_list where c == qu.question_id select c).Count();
+
+                        PublicClass.Question question = new PublicClass.Question();
+                        question.question_id = qu.question_id;
+                        question.check_answer = true;
+                        question.select_answer = "";
+                        question.question_type = qu.question_type;
+                        question.answer = random_answer(qu.question_id);
+                        question_list.Add(question);
+                        int tem_list_count = (from c in question_list where c.question_id == qu.question_id select c).Count();
                         if (tem_list_count > 1)
                         {
-                            qutstion_pd_list.Remove(qu.question_id);
+                            question_list.Remove(question);
                             i--;
                         }
                         break;
@@ -124,12 +147,21 @@ namespace DrivingTest
             
 
 
+
+
+
+
+
+
+
+
         }
 
         //生成题号
         private void create_question_num()
         {
-            for (int i = 0; i < 100; i++)
+            int cou = 200;
+            for (int i = 0; i < cou; i++)
             {
                 int x = i / 10;
                 int y = i % 10;
@@ -141,8 +173,10 @@ namespace DrivingTest
                 qu.label1.Content = i + 1;
                 qu.Name = "qu" + i.ToString();
                 qu.MouseDown += new MouseButtonEventHandler(OK);
+                qu.setnum(i+1, true, "");
                 dati_canvas.Children.Add(qu);
             }
+            dati_canvas.Height = cou / 10 * 31;
         }
 
 
@@ -157,7 +191,7 @@ namespace DrivingTest
                 }
 
                 QuestionNum qu = sender as QuestionNum;
-                qu.canvas1.Background = Brushes.SkyBlue;
+                qu.setbackcolor();
 
 
             }
