@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Data.OleDb;
+using System.Windows.Controls.Primitives;
 
 namespace DrivingTest
 {
@@ -27,57 +28,18 @@ namespace DrivingTest
         List<string> question_pd_list = new List<string>();//随机题号列表
         List<PublicClass.Question> question_list = new List<PublicClass.Question>();
 
-        int question_c = 0;
+        int question_c = 0;//总题数
+        int question_x = 0;//选择题总题数
+        int quesiton_p = 0;//判断题总题数
+        int quesiton_d = 0;//多选题总题数
         int lab_index = 0;
+
+        string current_question_type = "S";//S=单选 M=多选 P=判断
 
         public MainExam()
         {
             InitializeComponent();
             //this.Loaded += new RoutedEventHandler(Window_Loaded);
-        }
-
-
-
-        public static T FindChild<T>(DependencyObject parent, string childName)
-   where T : DependencyObject
-        {
-            if (parent == null) return null;
-
-            T foundChild = null;
-
-            int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
-            for (int i = 0; i < childrenCount; i++)
-            {
-                var child = VisualTreeHelper.GetChild(parent, i);
-                // 如果子控件不是需查找的控件类型
-                T childType = child as T;
-                if (childType == null)
-                {
-                    // 在下一级控件中递归查找
-                    foundChild = FindChild<T>(child, childName);
-
-                    // 找到控件就可以中断递归操作 
-                    if (foundChild != null) break;
-                }
-                else if (!string.IsNullOrEmpty(childName))
-                {
-                    var frameworkElement = child as FrameworkElement;
-                    // 如果控件名称符合参数条件
-                    if (frameworkElement != null && frameworkElement.Name == childName)
-                    {
-                        foundChild = (T)child;
-                        break;
-                    }
-                }
-                else
-                {
-                    // 查找到了控件
-                    foundChild = (T)child;
-                    break;
-                }
-            }
-
-            return foundChild;
         }
 
 
@@ -128,6 +90,7 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
             jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+
             List<PublicClass.Answer> newanswer = new List<PublicClass.Answer>();
             var answer = from c in jiakaoDataSet.answer where c.question_id == question_id select c;
             Random random = new Random(Guid.NewGuid().GetHashCode());
@@ -163,7 +126,7 @@ namespace DrivingTest
             return newanswer;
         }
 
-        //随机抽题目
+        //考试随机抽题目
         private void random_question()
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
@@ -171,13 +134,13 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
             jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
 
-            int question_pd_count = (from c in jiakaoDataSet.question where c.question_type.Contains("XZ") select c).Count();
-            var question_pd = from c in jiakaoDataSet.question where c.question_type.Contains("XZ") select c;
-            question_c = question_pd_count;
+            //判断题
+            int question_pd_count = (from c in jiakaoDataSet.question where c.question_type.Contains("PD") select c).Count();
+            var question_pd = from c in jiakaoDataSet.question where c.question_type.Contains("PD") select c;
             int question_count = question_pd_count;
-            if (question_count > 100)
+            if (question_count > 40)
             {
-                question_count = 100;
+                question_count = 40;
             }
             for (int i = 0; i < question_count; i++)
             {
@@ -186,6 +149,45 @@ namespace DrivingTest
                 int ran = random.Next(0, question_pd_count);
                 int eachcount = 0;
                 foreach (var qu in question_pd)
+                {
+                    if (eachcount == ran)
+                    {
+                        PublicClass.Question question = new PublicClass.Question();
+                        question.question_id = qu.question_id;
+                        question.check_answer = true;
+                        question.select_answer = "";
+                        question.question_type = qu.question_type;
+                        //question.answer = random_answer(qu.question_id);
+                        question_list.Add(question);
+                        int tem_list_count = (from c in question_list where c.question_id == qu.question_id select c).Count();
+                        if (tem_list_count > 1)
+                        {
+                            question_list.Remove(question);
+                            i--;
+                        }
+                        break;
+
+                    }
+                    eachcount++;
+                }
+            }
+            quesiton_p = question_pd_count;//获取判断题总数
+
+            //选择题
+            int question_xz_count = (from c in jiakaoDataSet.question where c.question_type.Contains("XZ") select c).Count();
+            var question_xz = from c in jiakaoDataSet.question where c.question_type.Contains("XZ") select c;
+            question_count = question_xz_count;
+            if (question_count > 60)
+            {
+                question_count = 60;
+            }
+            for (int i = 0; i < question_count; i++)
+            {
+
+                Random random = new Random(Guid.NewGuid().GetHashCode());
+                int ran = random.Next(0, question_xz_count);
+                int eachcount = 0;
+                foreach (var qu in question_xz)
                 {
                     if (eachcount == ran)
                     {
@@ -207,28 +209,11 @@ namespace DrivingTest
                     }
                     eachcount++;
                 }
-
-
-
-                //qutstion_pd_list.Add(  random.Next(0,question_pd_count+1) );
             }
-
-            //foreach (var qu in question_list)
-            //{
-            //    qu.answer = random_answer(qu.question_id);
-            //}
+            question_x = question_xz_count;//获取选择题总数
 
 
-
-
-
-
-
-
-
-
-
-
+            question_c = question_pd_count + question_xz_count;//根据抽出题数生成题号
 
         }
 
@@ -275,31 +260,38 @@ namespace DrivingTest
             }
 
             int step = 0;
-            foreach (var an in question_list[question_index].answer)
+            if (!question_list[question_index].question_type.Contains("PD"))
             {
-                PublicClass.Answer myan = an as PublicClass.Answer;
-                var teman = from c in jiakaoDataSet.answer where c.answer_id == myan.answer_id select c;
-                foreach (var temann in teman)
+                foreach (var an in question_list[question_index].answer)
                 {
-                    switch (step)
+                    PublicClass.Answer myan = an as PublicClass.Answer;
+                    var teman = from c in jiakaoDataSet.answer where c.answer_id == myan.answer_id select c;
+                    foreach (var temann in teman)
                     {
-                        case 0:
-                            xuanxiang_textBlock1.Text = "A." + temann.answer;
-                            break;
-                        case 1:
-                            xuanxiang_textBlock2.Text = "B." + temann.answer;
-                            break;
-                        case 2:
-                            xuanxiang_textBlock3.Text = "C." + temann.answer;
-                            break;
-                        case 3:
-                            xuanxiang_textBlock4.Text = "D." + temann.answer;
-                            break;
+                        switch (step)
+                        {
+                            case 0:
+                                xuanxiang_textBlock1.Text = "A." + temann.answer;
+                                break;
+                            case 1:
+                                xuanxiang_textBlock2.Text = "B." + temann.answer;
+                                break;
+                            case 2:
+                                xuanxiang_textBlock3.Text = "C." + temann.answer;
+                                break;
+                            case 3:
+                                xuanxiang_textBlock4.Text = "D." + temann.answer;
+                                break;
+                        }
+
                     }
 
+                    step++;
                 }
-
-                step++;
+            }
+            else
+            {
+                duicuo();
             }
 
             foreach (var q in dati_canvas.Children)
@@ -311,7 +303,53 @@ namespace DrivingTest
                 }
             }
 
+
+            if (question_list[0].question_type.Contains("PD"))
+            {
+                current_question_type = "P";
+            }
+            else
+            {
+                var answers = from c in question_list[0].answer select c;
+                int isright_count = 0;
+                foreach (var answer in answers)
+                {
+                    if (answer.isright == 1)
+                    {
+                        isright_count++;
+                    }
+                }
+                if (isright_count > 1)
+                {
+                    current_question_type = "M";
+                }
+                else
+                {
+                    current_question_type = "S";
+                }
+            }
+
         }
+
+        //判断题选项
+        private void duicuo()
+        {
+            a_button.Content = "√";
+            b_button.Content = "×";
+            c_button.Visibility = System.Windows.Visibility.Hidden;
+            d_button.Visibility = System.Windows.Visibility.Hidden;
+        }
+        //选择题选项
+        private void abcd()
+        {
+            a_button.Content = "A";
+            b_button.Content = "B";
+            c_button.Visibility = System.Windows.Visibility.Visible;
+            d_button.Visibility = System.Windows.Visibility.Visible;
+
+        }
+
+
 
         //题号单击事件
         void OK(object sender, MouseButtonEventArgs e)
@@ -348,31 +386,39 @@ namespace DrivingTest
             }
 
             int step = 0;
-            foreach (var an in question_list[question_index].answer)
+            if (!question_list[question_index].question_type.Contains("PD"))
             {
-                PublicClass.Answer myan = an as PublicClass.Answer;
-                var teman = from c in jiakaoDataSet.answer where c.answer_id == myan.answer_id select c;
-                foreach (var temann in teman)
+                foreach (var an in question_list[question_index].answer)
                 {
-                    switch (step)
+                    PublicClass.Answer myan = an as PublicClass.Answer;
+                    var teman = from c in jiakaoDataSet.answer where c.answer_id == myan.answer_id select c;
+                    foreach (var temann in teman)
                     {
-                        case 0:
-                            xuanxiang_textBlock1.Text = "A." + temann.answer;
-                            break;
-                        case 1:
-                            xuanxiang_textBlock2.Text = "B." + temann.answer;
-                            break;
-                        case 2:
-                            xuanxiang_textBlock3.Text = "C." + temann.answer;
-                            break;
-                        case 3:
-                            xuanxiang_textBlock4.Text = "D." + temann.answer;
-                            break;
+                        switch (step)
+                        {
+                            case 0:
+                                xuanxiang_textBlock1.Text = "A." + temann.answer;
+                                break;
+                            case 1:
+                                xuanxiang_textBlock2.Text = "B." + temann.answer;
+                                break;
+                            case 2:
+                                xuanxiang_textBlock3.Text = "C." + temann.answer;
+                                break;
+                            case 3:
+                                xuanxiang_textBlock4.Text = "D." + temann.answer;
+                                break;
+                        }
+
                     }
 
+                    step++;
                 }
-
-                step++;
+                abcd();
+            }
+            else
+            {
+                duicuo();
             }
 
 
@@ -398,17 +444,16 @@ namespace DrivingTest
                     break;
                 }
             }
+            judge_answer();
+
+
+            xuanxiang_textBlock.Text = "";
         }
 
         //下一题
         private void do_button_Click(object sender, RoutedEventArgs e)
         {
 
-            //foreach (var a in dati_canvas.Children)
-            //{
-            // UIHelper.FindChild<TextBox>(Application.Current.MainWindow, "myTextBoxName");
-            //QuestionNum aa = MainExam.FindChild<QuestionNum>(Application.Current.MainWindow, "q1");
-            //aa.setbackcolor();
             int question_id = 0;
             foreach (var lab in dati_canvas.Children)
             {
@@ -424,12 +469,38 @@ namespace DrivingTest
                 }
             }
 
-            //}
+            judge_answer();
+
+
+            xuanxiang_textBlock.Text = "";
 
 
         }
 
+        //判断对错
+        private void judge_answer()
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 question 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
 
+            // 将数据加载到表 answer 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
+            jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+
+            //    var answer = from c in jiakaoDataSet.answer where c.question_id == question_list[question_id].question_id select c;
+            foreach (var lab in dati_canvas.Children)
+            {
+                QuestionNum mylab = lab as QuestionNum;
+                int question_index = int.Parse(mylab.Name.ToString().Substring(1, mylab.Name.ToString().Length - 1));
+                mylab.check_answer(question_list[question_index].check_answer);
+            }
+
+
+        }
+
+        //生成题目和答案
         private void select_question(int question_id)//
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
@@ -467,34 +538,199 @@ namespace DrivingTest
                 break;
             }
 
+
             int step = 0;
-            foreach (var an in question_list[question_id].answer)
+
+            if (!question_list[question_id].question_type.Contains("PD"))
             {
-                PublicClass.Answer myan = an as PublicClass.Answer;
-                var teman = from c in jiakaoDataSet.answer where c.answer_id == myan.answer_id select c;
-                foreach (var temann in teman)
+                foreach (var an in question_list[question_id].answer)
                 {
-                    switch (step)
+                    PublicClass.Answer myan = an as PublicClass.Answer;
+                    var teman = from c in jiakaoDataSet.answer where c.answer_id == myan.answer_id select c;
+                    foreach (var temann in teman)
                     {
-                        case 0:
-                            xuanxiang_textBlock1.Text = "A." + temann.answer;
-                            break;
-                        case 1:
-                            xuanxiang_textBlock2.Text = "B." + temann.answer;
-                            break;
-                        case 2:
-                            xuanxiang_textBlock3.Text = "C." + temann.answer;
-                            break;
-                        case 3:
-                            xuanxiang_textBlock4.Text = "D." + temann.answer;
-                            break;
+                        switch (step)
+                        {
+                            case 0:
+                                xuanxiang_textBlock1.Text = "A." + temann.answer;
+                                break;
+                            case 1:
+                                xuanxiang_textBlock2.Text = "B." + temann.answer;
+                                break;
+                            case 2:
+                                xuanxiang_textBlock3.Text = "C." + temann.answer;
+                                break;
+                            case 3:
+                                xuanxiang_textBlock4.Text = "D." + temann.answer;
+                                break;
+                        }
+
                     }
 
+                    step++;
                 }
+                abcd();
+            }
+            else
+            {
+                xuanxiang_textBlock1.Text = "";
+                xuanxiang_textBlock2.Text = "";
+                xuanxiang_textBlock3.Text = "";
+                xuanxiang_textBlock4.Text = "";
+                duicuo();
 
-                step++;
             }
         }
+
+        //选项
+        private void xuanxiang_button_Click(object sender, RoutedEventArgs e)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 question 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+
+            // 将数据加载到表 answer 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
+            jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+
+            var question_index = 0;
+            string select_lab = "";
+            QuestionNum selectquestionnum = new QuestionNum();
+            foreach (var q_index in dati_canvas.Children)
+            {
+                QuestionNum mylab = q_index as QuestionNum;
+                if (mylab != null)
+                {
+                    if (mylab.canvas1.Background == Brushes.SkyBlue)
+                    {
+                        question_index = int.Parse(mylab.Name.ToString().Substring(1, mylab.Name.ToString().Length - 1));
+                        selectquestionnum = q_index as QuestionNum;
+                    }
+                }
+                ////
+            }
+
+            //选择题选项
+            if (current_question_type == "S")
+            {
+                a_button.IsChecked = false;
+                b_button.IsChecked = false;
+                c_button.IsChecked = false;
+                d_button.IsChecked = false;
+
+                ToggleButton select_button = sender as ToggleButton;
+                select_button.IsChecked = true;
+                select_lab = select_button.Name.ToString().Substring(0, 1).ToUpper();
+                xuanxiang_textBlock.Text = select_lab;
+                question_list[question_index].select_answer = select_lab;
+                selectquestionnum.setnum(int.Parse(selectquestionnum.label1.Content.ToString()), true, select_lab);
+                selectquestionnum.setbackcolor();
+
+                int step = 0;
+                bool isright = false;
+                foreach (var ans in question_list[question_index].answer)
+                {
+                    if (ans.isright == 1)
+                    {
+                        if (select_lab == "A" && step == 0)
+                        {
+                            isright = true;
+                        }
+                        else if (select_lab == "B" && step == 1)
+                        {
+                            isright = true;
+                        }
+                        else if (select_lab == "C" && step == 2)
+                        {
+                            isright = true;
+                        }
+                        else if (select_lab == "D" && step == 3)
+                        {
+                            isright = true;
+                        }
+                    }
+                    step++;
+                }
+
+                question_list[question_index].check_answer = isright;
+            }
+            //判断题选项
+            else if (current_question_type == "P")
+            {
+                a_button.IsChecked = false;
+                b_button.IsChecked = false;
+
+                ToggleButton select_button = sender as ToggleButton;
+                select_button.IsChecked = true;
+                select_lab = select_button.Content.ToString();
+                xuanxiang_textBlock.Text = select_lab;
+                question_list[question_index].select_answer = select_lab;
+                selectquestionnum.setnum(int.Parse(selectquestionnum.label1.Content.ToString()), true, select_lab);
+                selectquestionnum.setbackcolor();
+
+
+                bool q;
+                var ques = from c in jiakaoDataSet.question where c.question_id == question_list[question_index].question_id select c;
+                if (ques.Last().is_judge==1 && select_lab == "√")
+                {
+                    q = true;
+                }
+                else if (ques.Last().is_judge == 0 && select_lab == "×")
+                {
+                    q = true;
+                }
+                else
+                {
+                    q = false;
+                }
+
+                question_list[question_index].check_answer = q;
+            }
+
+            
+
+
+        }
+
+        //字体大小
+        private void xiao_button_Click(object sender, RoutedEventArgs e)
+        {
+            if (timu_textBlock.FontSize > 14)
+            {
+                timu_textBlock.FontSize -= 2;
+                xuanxiang_textBlock1.FontSize -= 2;
+                xuanxiang_textBlock2.FontSize -= 2;
+                xuanxiang_textBlock3.FontSize -= 2;
+                xuanxiang_textBlock4.FontSize -= 2;
+            }
+            else if (timu_textBlock.FontSize == 14)
+            {
+                xiao_button.IsEnabled = false;
+                da_button.IsEnabled = true;
+            }
+        }
+
+        private void da_button_Click(object sender, RoutedEventArgs e)
+        {
+            if (timu_textBlock.FontSize < 24)
+            {
+                timu_textBlock.FontSize += 2;
+                xuanxiang_textBlock1.FontSize += 2;
+                xuanxiang_textBlock2.FontSize += 2;
+                xuanxiang_textBlock3.FontSize += 2;
+                xuanxiang_textBlock4.FontSize += 2;
+            }
+            else if (timu_textBlock.FontSize == 24)
+            {
+                xiao_button.IsEnabled = true;
+                da_button.IsEnabled = false;
+            }
+        }
+
+
+
+
 
         #region 计时器
         /// <summary>
@@ -525,6 +761,10 @@ namespace DrivingTest
 
             return false;
         }
+
+
+
+
 
 
     }

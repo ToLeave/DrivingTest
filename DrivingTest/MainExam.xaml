@@ -37,19 +37,24 @@
         <TextBlock Height="20" HorizontalAlignment="Center" Margin="103,384,1058,357" Text="00"  Name="SecondArea" VerticalAlignment="Center" FontSize="14" />
         <GroupBox Header="剩余时间" Height="52" HorizontalAlignment="Center" Margin="26,364,1026,346" Name="groupBox3" VerticalAlignment="Center" Width="126" Visibility="Visible" />
 
-        <TextBlock Height="105" HorizontalAlignment="Center" Margin="185,42,351,614" Name="timu_textBlock" Text="" VerticalAlignment="Center" Width="642" TextWrapping="Wrap" FontWeight="Bold" FontSize="26" Visibility="Visible"  />
-        <TextBlock Height="37" HorizontalAlignment="Center" Margin="185,153,398,571" Name="xuanxiang_textBlock1" Text="" VerticalAlignment="Center" FontSize="26" Width="595" FontWeight="Bold" />
-        <TextBlock Height="37" HorizontalAlignment="Center" Margin="185,187,398,538" Name="xuanxiang_textBlock2" Text="" VerticalAlignment="Center" FontSize="26" Width="595" FontWeight="Bold"  />
-        <TextBlock Height="37" HorizontalAlignment="Center" Margin="185,221,398,512" Name="xuanxiang_textBlock3" Text="" VerticalAlignment="Center" FontSize="26" Width="595" FontWeight="Bold"  />
-        <TextBlock Height="37" HorizontalAlignment="Center" Margin="185,255,398,478" Name="xuanxiang_textBlock4" Text="" VerticalAlignment="Center" FontSize="26" Width="595" FontWeight="Bold"  />
+        <TextBlock Height="105" HorizontalAlignment="Center" Margin="185,42,351,614" Name="timu_textBlock" Text="" VerticalAlignment="Center" Width="642" TextWrapping="Wrap" FontWeight="Bold" FontSize="16" Visibility="Visible"  />
+        <TextBlock Height="37" HorizontalAlignment="Center" Margin="185,153,398,571" Name="xuanxiang_textBlock1" Text="" VerticalAlignment="Center" FontSize="16" Width="595" FontWeight="Bold" />
+        <TextBlock Height="37" HorizontalAlignment="Center" Margin="185,187,398,538" Name="xuanxiang_textBlock2" Text="" VerticalAlignment="Center" FontSize="16" Width="595" FontWeight="Bold"  />
+        <TextBlock Height="37" HorizontalAlignment="Center" Margin="185,221,398,512" Name="xuanxiang_textBlock3" Text="" VerticalAlignment="Center" FontSize="16" Width="595" FontWeight="Bold"  />
+        <TextBlock Height="37" HorizontalAlignment="Center" Margin="185,255,398,478" Name="xuanxiang_textBlock4" Text="" VerticalAlignment="Center" FontSize="16" Width="595" FontWeight="Bold"  />
         <Label Content="您的答案:" Height="28" HorizontalAlignment="Center" Margin="185,304,923,430" Name="label8" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="297,310,881,430" Name="xuanxiang_textBlock" Text="" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" />
         <Label Content="选择:" Height="28" HorizontalAlignment="Center" Margin="356,304,780,430" Name="label9" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" />
 
-        <Button Content="A" Height="42" HorizontalAlignment="Center" Margin="446,290,686,428" Name="a_button" VerticalAlignment="Center"  Width="46" FontSize="14" FontWeight="Bold" />
-        <Button Content="B" Height="42" HorizontalAlignment="Center" Margin="532,290,600,428" Name="b_button" VerticalAlignment="Center" Width="46" FontSize="14" FontWeight="Bold" />
-        <Button Content="C" Height="42" HorizontalAlignment="Center" Margin="615,290,517,428" Name="c_button" VerticalAlignment="Center" Width="46" FontSize="14" FontWeight="Bold" />
-        <Button Content="D" Height="42" HorizontalAlignment="Center" Margin="697,289,435,428" Name="d_button" VerticalAlignment="Center" Width="46" FontSize="14" FontWeight="Bold" />
-        <GroupBox Header="考试题目" Height="334" HorizontalAlignment="Center" Margin="174,23,350,404" Name="groupBox4" VerticalAlignment="Center" Width="654" Opacity="1" Visibility="Collapsed" />
+
+        <ToggleButton Content="A" Height="42" HorizontalAlignment="Center" Margin="446,290,686,428" Name="a_button" VerticalAlignment="Center"  Width="46" FontSize="14" FontWeight="Bold" Click="xuanxiang_button_Click" />
+        <ToggleButton Content="B" Height="42" HorizontalAlignment="Center" Margin="532,290,600,428" Name="b_button" VerticalAlignment="Center" Width="46" FontSize="14" FontWeight="Bold" Click="xuanxiang_button_Click" />
+        <ToggleButton Content="C" Height="42" HorizontalAlignment="Center" Margin="615,290,517,428" Name="c_button" VerticalAlignment="Center" Width="46" FontSize="14" FontWeight="Bold" Click="xuanxiang_button_Click" />
+        <ToggleButton Content="D" Height="42" HorizontalAlignment="Center" Margin="697,289,435,428" Name="d_button" VerticalAlignment="Center" Width="46" FontSize="14" FontWeight="Bold" Click="xuanxiang_button_Click" />
+        <!--<Label Content="字号设置" Height="23" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="750,260,400,420" Name="Label20"/>-->
+        <Button Content="小" Height="23" HorizontalAlignment="Center" Margin="757,309,398,429" Name="xiao_button" VerticalAlignment="Center" Width="23" Click="xiao_button_Click" />
+        <Button Content="大" Height="23" HorizontalAlignment="Center" Margin="786,309,369,429" Name="da_button" VerticalAlignment="Center" Width="23" Click="da_button_Click" />
+        <GroupBox Header="考试题目" Height="334" HorizontalAlignment="Center" Margin="174,23,350,404" Name="groupBox4" VerticalAlignment="Center" Width="654" Opacity="1" Visibility="Visible" />
 
         <ScrollViewer Height="300" HorizontalScrollBarVisibility="Hidden" Margin="855,42,25,420" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" >
             <Canvas MinHeight="300" x:Name="dati_canvas" Width="300"  />
@@ -104,7 +109,7 @@
         <TextBlock Height="23" HorizontalAlignment="Center" Margin="1071,639,51,98" Name="textBlock15" Text="TextBlock" VerticalAlignment="Center" />
         <Label Content="分" Height="28" HorizontalAlignment="Center" Margin="1131,634,25,99" Name="label25" VerticalAlignment="Center" />
         <GroupBox Header="练习结果" Height="330" HorizontalAlignment="Center" Margin="977,416,12,14" Name="groupBox10" VerticalAlignment="Center" Width="189" Visibility="Visible" />
-            
+
         <!--</Grid>-->
       
     </Grid>

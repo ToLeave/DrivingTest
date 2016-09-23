@@ -26,12 +26,23 @@ namespace DrivingTest
         public void setnum(int quesnum, bool isright,string answer)
         {
             label1.Content = quesnum;
-            if (isright)
+            if (!isright)
             {
                 label2.Foreground = Brushes.Red;
             }
             label2.Content = answer;
             canvas1.Background = Brushes.White;
+        }
+
+        public void check_answer(bool isright)
+        {
+            if (!isright)
+            {
+                label2.Foreground = Brushes.Red;
+            }else
+            {
+                label2.Foreground = Brushes.Black;
+            }
         }
 
         public void setbackcolor()
