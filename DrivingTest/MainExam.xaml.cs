@@ -445,6 +445,7 @@ namespace DrivingTest
                 }
             }
             judge_answer();
+            answer_UI();
 
 
             xuanxiang_textBlock.Text = "";
@@ -470,9 +471,9 @@ namespace DrivingTest
             }
 
             judge_answer();
+            answer_UI();
 
-
-            xuanxiang_textBlock.Text = "";
+            //xuanxiang_textBlock.Text = "";
 
 
         }
@@ -582,6 +583,55 @@ namespace DrivingTest
             }
         }
 
+
+        private void answer_UI()//处理所选答案在UI的显示
+        {
+            a_button.IsChecked = false;
+            b_button.IsChecked = false;
+            c_button.IsChecked = false;
+            d_button.IsChecked = false;
+            xuanxiang_textBlock.Text = "";
+            foreach (var lab in dati_canvas.Children)
+            {
+
+                QuestionNum mylab = lab as QuestionNum;
+                if (mylab.canvas1.Background == Brushes.SkyBlue)
+                {
+                    if (mylab.label2.Content.ToString().Contains("A"))
+                    {
+                        a_button.IsChecked = true;
+                        xuanxiang_textBlock.Text += "A";
+                    }
+                    if (mylab.label2.Content.ToString().Contains("B"))
+                    {
+                        b_button.IsChecked = true;
+                        xuanxiang_textBlock.Text += "B";
+                    }
+                    if (mylab.label2.Content.ToString().Contains("C"))
+                    {
+                        c_button.IsChecked = true;
+                        xuanxiang_textBlock.Text += "C";
+                    }
+                    if (mylab.label2.Content.ToString().Contains("D"))
+                    {
+                        d_button.IsChecked = true;
+                        xuanxiang_textBlock.Text += "D";
+                    }
+                    if (mylab.label2.Content.ToString().Contains("√"))
+                    {
+                        a_button.IsChecked = true;
+                        xuanxiang_textBlock.Text += "√";
+                    }
+                    if (mylab.label2.Content.ToString().Contains("×"))
+                    {
+                        b_button.IsChecked = true;
+                        xuanxiang_textBlock.Text += "×";
+                    }
+                }
+                
+            }
+        }
+
         //选项
         private void xuanxiang_button_Click(object sender, RoutedEventArgs e)
         {
@@ -655,6 +705,9 @@ namespace DrivingTest
 
                 question_list[question_index].check_answer = isright;
             }
+
+
+
             //判断题选项
             else if (current_question_type == "P")
             {
