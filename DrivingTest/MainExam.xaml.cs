@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Data.OleDb;
 using System.Windows.Controls.Primitives;
+using System.IO;
 
 namespace DrivingTest
 {
@@ -220,7 +221,12 @@ namespace DrivingTest
         //提取对应题目图片
         private void question_image()
         {
- 
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 question 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+
+
         }
 
 
@@ -433,7 +439,7 @@ namespace DrivingTest
 
         }
 
-        string questionnum;
+
         //上一题
         private void up_button_Click(object sender, RoutedEventArgs e)
         {
@@ -539,12 +545,79 @@ namespace DrivingTest
 
             //int question_index = int.Parse(qu.Name.ToString().Substring(1, qu.Name.ToString().Length - 1));
             //lab_index = question_index;
+
+            string imagename = "";
+
             var question = from c in jiakaoDataSet.question where c.question_id == question_list[question_id].question_id select c;
             foreach (var temqu in question)
             {
                 timu_textBlock.Text = question_id + 1 + "." + temqu.question_name;
+                imagename = temqu.question_image; //获取题目对应图片文件名
                 break;
             }
+
+
+
+
+            if (imagename != "")
+            {
+                try
+                {
+                    string path = System.Windows.Forms.Application.StartupPath + "\\Image\\" + imagename;
+
+                    FileInfo fd = new FileInfo(path);
+                    int Length = (int)fd.Length;
+                    if (Length > 0)
+                    {
+                        gif_image.Image = System.Drawing.Image.FromFile(path);
+                    }
+                    else
+                    {
+                        gif_image.Image = null;
+                    }
+                }
+                catch 
+                {
+                    MessageBox.Show("图片损坏或被不存在,请重启软件并更新!", "提示");
+                }
+            }
+            //else if (imagename != "" && imagename.Substring(imagename.Length - 3, 3) == "gif")
+            //{
+            //    kaoshi_image.Visibility = System.Windows.Visibility.Hidden;
+            //    kaoshi_gif.Visibility = System.Windows.Visibility.Visible;
+            //    try
+            //    {
+            //        string path = System.Windows.Forms.Application.StartupPath + "\\Image\\" + imagename;
+
+            //        FileInfo fd = new FileInfo(path);
+            //        int Length = (int)fd.Length;
+            //        if (Length > 0)
+            //        {
+            //            gif_image.Image = System.Drawing.Image.FromFile(path);
+            //        }
+            //        else
+            //        {
+            //            gif_image.Image = null;
+            //        }
+            //    }
+            //    catch
+            //    {
+            //        MessageBox.Show("图片损坏或被不存在,请重启软件并更新!", "提示");
+            //    }
+            //}
+            else
+            {
+                //kaoshi_image.Source = null;
+                gif_image.Image = null;
+            }
+            //FileStream fs = File.OpenRead(path); //OpenRead
+            //int filelength = 0;
+            //filelength = (int)fs.Length; //获得文件长度 
+            //Byte[] image = new Byte[filelength]; //建立一个字节数组 
+            //fs.Read(image, 0, filelength); //按字节流读取 
+            //System.Drawing.Image result = System.Drawing.Image.FromStream(fs);
+            //fs.Close();
+
 
 
             int step = 0;
@@ -635,7 +708,7 @@ namespace DrivingTest
                         xuanxiang_textBlock.Text += "×";
                     }
                 }
-                
+
             }
         }
 
@@ -732,7 +805,7 @@ namespace DrivingTest
 
                 bool q;
                 var ques = from c in jiakaoDataSet.question where c.question_id == question_list[question_index].question_id select c;
-                if (ques.Last().is_judge==1 && select_lab == "√")
+                if (ques.Last().is_judge == 1 && select_lab == "√")
                 {
                     q = true;
                 }
@@ -748,7 +821,7 @@ namespace DrivingTest
                 question_list[question_index].check_answer = q;
             }
 
-            
+
 
 
         }
