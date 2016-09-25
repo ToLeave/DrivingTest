@@ -234,15 +234,16 @@ namespace DrivingTest
                 {
                     del.Delete();
                 }
-                jiakaoDataSet.updatecheck.AcceptChanges();
+                
             }
 
 
             jiakaoDataSet.updatecheck.AddupdatecheckRow(myupdate);
 
             jiakaoDataSetupdatecheckTableAdapter.Update(jiakaoDataSet.updatecheck);
-            jiakaoDataSetupdatecheckTableAdapter.Fill(jiakaoDataSet.updatecheck);
-            jiakaoDataSet.AcceptChanges();
+            jiakaoDataSet.updatecheck.AcceptChanges();
+            //jiakaoDataSetupdatecheckTableAdapter.Fill(jiakaoDataSet.updatecheck);
+            //jiakaoDataSet.AcceptChanges();
             return "";
         }
         #endregion
@@ -652,7 +653,12 @@ namespace DrivingTest
             {
                 updatedownload("",voice_down_list[i]);
             }
+            if (attch_down_count == 0)
+            {
+                data_complete_validate();
+            }
         }
+
 
         //更新图片及语音
         private void updatedownload(string attch, string voice)
@@ -702,9 +708,10 @@ namespace DrivingTest
             if (e.ProgressPercentage > progress.Value)
             {
                 progress.Value = e.ProgressPercentage;
+                System.Windows.Forms.Application.DoEvents();
             }
             //xianshi.Text = e.ProgressPercentage.ToString();
-            //System.Windows.Forms.Application.DoEvents();
+            
         }
 
         //下载完成时发生
@@ -759,27 +766,39 @@ namespace DrivingTest
 
 
 
-            var questions = from c in jiakaoDataSet.question select c;
-            foreach (var question in questions)
+
+            foreach (var del_ques in jiakaoDataSet.question)
             {
-                bool del_flag = false;
-                for (int i = 0; i < question_json.Count; i++)
+                var del = from c in question_json where c["id"].ToString() == del_ques.question_id.ToString() select c;
+                if (del.Count() == 0)
                 {
-                    int json_id = 0;
                     try
                     {
-
-
-                        //json_id=question_json[i]["id"]
-
+                        string image_attch = System.Windows.Forms.Application.StartupPath + "\\Image\\" + del_ques.question_image;
+                        if (File.Exists(image_attch))
+                        {
+                            File.Delete(image_attch);
+                        }
                     }
-                    catch
+                    catch { }
+
+
+                    try
                     {
+                        string voice_attch = System.Windows.Forms.Application.StartupPath + "\\Voice\\" + del_ques.voice;
+                        if (File.Exists(voice_attch))
+                        {
+                            File.Delete(voice_attch);
+                        }
                     }
+                    catch { }
+                    del_ques.Delete();
+                    
                 }
             }
-
-
+            jiakaoDataSetquestionTableAdapter.Update(jiakaoDataSet.question);
+            jiakaoDataSet.question.AcceptChanges();
+            xianshi.Text = "更新完成";
 
         }
 
@@ -942,7 +961,7 @@ namespace DrivingTest
                         updatequestion();
                         //updatedownload();
                         version(getchkupdstr);
-                        xianshi.Text = "下载完毕,更新已完成";
+                        //xianshi.Text = "下载完毕,更新已完成";
                     }
                 }
                 else
@@ -1432,6 +1451,11 @@ namespace DrivingTest
             MainExam ma = new MainExam();
             ma.Title = "试用";
             ma.Show();
+        }
+
+        private void xianshi_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
         }
 
 

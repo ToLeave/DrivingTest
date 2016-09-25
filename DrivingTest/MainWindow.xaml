@@ -91,7 +91,7 @@
         <Button Focusable="False" x:Name="login" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="680,237,0,0" Style="{DynamicResource Button}" Width="130" Content="登录" Foreground="Black" BorderBrush="Transparent" BorderThickness="0" FontSize="28" FontFamily="微软雅黑" FontWeight="Normal" Height="130" MouseEnter="login_MouseEnter" MouseLeave="login_MouseLeave" Visibility="Visible" FontStyle="Italic" Click="login_Click" />
         <Image Name="houlunqipao" Source="/DrivingTest;component/Images/气泡5.png" Margin="695,255,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="98" Width="97" Opacity="0" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="False" />
         <!--<Button Content="试用" Style="{DynamicResource SubjectButton}" Height="46" HorizontalAlignment="Left" Margin="828,255,0,0" Name="shiyon_button" VerticalAlignment="Top" Width="46" Click="shiyon_button_Click" />-->
-        <TextBlock Height="23" HorizontalAlignment="Left" Margin="257,267,0,0" Name="xianshi"  VerticalAlignment="Top" Width="392" GotFocus="user_textBox_GotFocus" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="257,267,0,0" Name="xianshi"  VerticalAlignment="Top" Width="392" GotFocus="user_textBox_GotFocus" DataContextChanged="xianshi_DataContextChanged" />
         <ProgressBar Height="10" x:Name="progress" HorizontalAlignment="Left" Margin="257,292,0,0" VerticalAlignment="Top" Width="376" Background="{x:Null}" />
         <!--<Image Height="25" HorizontalAlignment="Left" Margin="464,83,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="76" Source="/DrivingTest;component/Images/气泡5.png" Visibility="Hidden" MouseEnter="image1_MouseEnter" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
