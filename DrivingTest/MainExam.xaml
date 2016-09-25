@@ -69,7 +69,7 @@
         <Button Content="下一题" Height="44" HorizontalAlignment="Center" Margin="586,371,516,346" Name="do_button" VerticalAlignment="Center" Width="75" FontSize="14" FontWeight="Bold" Click="do_button_Click" />
         <Button Content="交卷" Height="44" HorizontalAlignment="Center" Margin="731,371,371,346" Name="button7" VerticalAlignment="Center" Width="75" FontSize="14" FontWeight="Bold" />
         
-        <Image Height="299" HorizontalAlignment="Center" Margin="223,437,289,25" Name="image2" Stretch="Fill" VerticalAlignment="Center" Width="667" StretchDirection="DownOnly" Visibility="Visible" />
+        <Image Height="299" HorizontalAlignment="Center" Margin="223,437,289,25" Name="kaoshi_image" Stretch="Fill" VerticalAlignment="Center" Width="667" StretchDirection="DownOnly" Visibility="Visible" />
         <GroupBox Header="考试图片信息" Height="330" HorizontalAlignment="Center" Margin="174,416,224,15" Name="groupBox7" VerticalAlignment="Center" Width="780" Visibility="Visible" />
         <!--<Grid x:Name="shezhi_grid" Visibility="Visible">-->
         <CheckBox Content="显示答案" Height="16" HorizontalAlignment="Center" Margin="36,437,1077,308" Name="checkBox1" VerticalAlignment="Center" />

@@ -217,6 +217,13 @@ namespace DrivingTest
 
         }
 
+        //提取对应题目图片
+        private void question_image()
+        {
+ 
+        }
+
+
         //生成题号
         private void create_question_num()
         {
