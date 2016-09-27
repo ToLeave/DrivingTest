@@ -77,6 +77,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ErrorMessages.xaml.cs">
+      <DependentUpon>ErrorMessages.xaml</DependentUpon>
+    </Compile>
     <Compile Include="jiakaoDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -114,6 +117,10 @@
     <Compile Include="SimulationTest.xaml.cs">
       <DependentUpon>SimulationTest.xaml</DependentUpon>
     </Compile>
+    <Page Include="ErrorMessages.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LabelArray.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
