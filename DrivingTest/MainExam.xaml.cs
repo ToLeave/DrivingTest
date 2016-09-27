@@ -72,6 +72,7 @@ namespace DrivingTest
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(10000000);   //时间间隔为一秒
             timer.Tick += new EventHandler(timer_Tick);
+
             
 
             //转换成秒数
@@ -859,6 +860,10 @@ namespace DrivingTest
             }
             else
                 timer.Stop();
+
+
+
+
         }
 
         /// <summary>
