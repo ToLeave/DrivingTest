@@ -859,7 +859,16 @@ namespace DrivingTest
                 SecondArea.Text = processCount.GetSecond();
             }
             else
+            {
                 timer.Stop();
+
+                EndTest en = new EndTest();
+                if (en.end == 1)
+                {
+                    this.Close();
+                }
+                en.Show();
+            }
 
 
 

@@ -77,6 +77,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EndTest.xaml.cs">
+      <DependentUpon>EndTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ErrorMessages.xaml.cs">
       <DependentUpon>ErrorMessages.xaml</DependentUpon>
     </Compile>
@@ -117,6 +120,10 @@
     <Compile Include="SimulationTest.xaml.cs">
       <DependentUpon>SimulationTest.xaml</DependentUpon>
     </Compile>
+    <Page Include="EndTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ErrorMessages.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

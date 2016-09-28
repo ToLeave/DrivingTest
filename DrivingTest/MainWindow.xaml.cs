@@ -146,7 +146,7 @@ namespace DrivingTest
             string cc = "";
             try
             {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://jiakao.cloudtimesoft.com/returnjsons/updatecheck");
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.1.98:3000/returnjsons/updatecheck");
                 request.Method = "GET";
                 request.Timeout = 10000;
                 response = (HttpWebResponse)request.GetResponse();
@@ -257,7 +257,7 @@ namespace DrivingTest
                 HttpWebResponse response = null;
                 StreamReader reader = null;
 
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://jiakao.cloudtimesoft.com/returnjsons/getquestion");//题目 url
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.1.98:3000/returnjsons/getquestion");//题目 url
                 request.Method = "GET";
                 request.Timeout = 10000;
                 response = (HttpWebResponse)request.GetResponse();
@@ -265,21 +265,21 @@ namespace DrivingTest
                 questionstr = reader.ReadToEnd();
 
 
-                request = (HttpWebRequest)WebRequest.Create("http://jiakao.cloudtimesoft.com/returnjsons/getanswer");//答案 url
+                request = (HttpWebRequest)WebRequest.Create("http://192.168.1.98:3000/returnjsons/getanswer");//答案 url
                 request.Method = "GET";
                 request.Timeout = 10000;
                 response = (HttpWebResponse)request.GetResponse();
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 answerstr = reader.ReadToEnd();
 
-                request = (HttpWebRequest)WebRequest.Create("http://jiakao.cloudtimesoft.com/returnjsons/chapter");//章节 url
+                request = (HttpWebRequest)WebRequest.Create("http://192.168.1.98:3000/returnjsons/chapter");//章节 url
                 request.Method = "GET";
                 request.Timeout = 10000;
                 response = (HttpWebResponse)request.GetResponse();
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 chapterstr = reader.ReadToEnd();
 
-                request = (HttpWebRequest)WebRequest.Create("http://jiakao.cloudtimesoft.com/returnjsons/subject");//科目 url
+                request = (HttpWebRequest)WebRequest.Create("http://192.168.1.98:3000/returnjsons/subject");//科目 url
                 request.Method = "GET";
                 request.Timeout = 10000;
                 response = (HttpWebResponse)request.GetResponse();
@@ -663,7 +663,7 @@ namespace DrivingTest
 
                 if (attch != "")
                 {
-                    string httpaddr = @"http://jiakao.cloudtimesoft.com/questionimages/" + attch;
+                    string httpaddr = @"http://192.168.1.98:3000/questionimages/" + attch;
                     downclient.DownloadFileAsync(new Uri(httpaddr), imagepath + attch);
                     downclient.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(web_DownloadFileCompleted);
                     downclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(web_DownloadProgressChanged);
@@ -671,7 +671,7 @@ namespace DrivingTest
                 }
                 if (voice != "")
                 {
-                    string httpaddr = @"http://jiakao.cloudtimesoft.com/voices/" + voice;
+                    string httpaddr = @"http://192.168.1.98:3000/voices/" + voice;
                     downclient.DownloadFileAsync(new Uri(httpaddr), voicepath + voice);
                     downclient.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(web_DownloadFileCompleted);
                     downclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(web_DownloadProgressChanged);
@@ -818,7 +818,7 @@ namespace DrivingTest
             try
             {
 
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://jiakao.cloudtimesoft.com/returnjsons/getvalidate?login=" + userlogin);//随机UUID url
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.1.98:3000/returnjsons/getvalidate?login=" + userlogin);//随机UUID url
                 request.Method = "GET";
                 request.Timeout = 10000;
                 response = (HttpWebResponse)request.GetResponse();
@@ -834,7 +834,7 @@ namespace DrivingTest
                 string loginMD5 = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(userlogin + userpassword + uuid + "CLOUDTIMESOFT", "MD5");//账号+密码+随机码+指定字符生成MD5
 
                 GetIP();
-                request = (HttpWebRequest)WebRequest.Create("http://jiakao.cloudtimesoft.com/returnjsons/getuser?login=" + userlogin + "&validate=" + loginMD5 + "&ip=" + ip);//验证 url
+                request = (HttpWebRequest)WebRequest.Create("http://192.168.1.98:3000/eturnjsons/getuser?login=" + userlogin + "&validate=" + loginMD5 + "&ip=" + ip);//验证 url
                 request.Method = "GET";
                 request.Timeout = 10000;
                 response = (HttpWebResponse)request.GetResponse();
@@ -1198,7 +1198,7 @@ namespace DrivingTest
 
                     string userlogin = user_textBox.Text;//用户名
 
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://jiakao.cloudtimesoft.com/returnjsons/getvalidate?login=" + userlogin);//随机UUID url
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.1.98:3000/returnjsons/getvalidate?login=" + userlogin);//随机UUID url
                     request.Method = "GET";
                     request.Timeout = 10000;
                     response = (HttpWebResponse)request.GetResponse();
