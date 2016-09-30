@@ -21,5 +21,7 @@ namespace DrivingTest
             public int answer_id { get; set; }
             public int isright { get; set; }
         }
+
+        public static int end = 0;
     }
 }

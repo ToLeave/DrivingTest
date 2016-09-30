@@ -1,4 +1,4 @@
-﻿<Window x:Class="DrivingTest.MainExam"
+﻿<Window x:Class="DrivingTest.MainExam"  x:Name="mainW"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -34,9 +34,9 @@
         <!--<TextBlock Height="23" HorizontalAlignment="Center" Margin="66,387,1081,351" Name="time_textBlock" Text="00:00" VerticalAlignment="Center"/>-->
         <TextBlock Height="20" HorizontalAlignment="Center" Margin="53,384,1109,357" Text="00" Name="HourArea"  VerticalAlignment="Center" FontSize="14"  />
         <TextBlock Height="20" HorizontalAlignment="Center" Margin="72,384,1103,357" Text=":" Name="HourSplitMinute"   VerticalAlignment="Center" FontSize="14" />
-        <TextBlock Height="20" HorizontalAlignment="Center" Margin="76,384,1085,357" Text="1" Name="MinuteArea" VerticalAlignment="Center" FontSize="14"  />
+        <TextBlock Height="20" HorizontalAlignment="Center" Margin="76,384,1085,357" Text="00" Name="MinuteArea" VerticalAlignment="Center" FontSize="14"  />
         <TextBlock Height="20" HorizontalAlignment="Center" Margin="95,384,1080,357" Text=":" Name="MinuteSplitSecond"   VerticalAlignment="Center" FontSize="14" />
-        <TextBlock Height="20" HorizontalAlignment="Center" Margin="103,384,1058,357" Text="00"  Name="SecondArea" VerticalAlignment="Center" FontSize="14" />
+        <TextBlock Height="20" HorizontalAlignment="Center" Margin="103,384,1058,357" Text="10"  Name="SecondArea" VerticalAlignment="Center" FontSize="14" />
         <GroupBox Header="剩余时间" Height="52" HorizontalAlignment="Center" Margin="26,364,1026,346" Name="groupBox3" VerticalAlignment="Center" Width="126" Visibility="Visible" />
 
         <TextBlock Height="105" HorizontalAlignment="Center" Margin="185,42,351,614" Name="timu_textBlock" Text="" VerticalAlignment="Center" Width="642" TextWrapping="Wrap" FontWeight="Bold" FontSize="16" Visibility="Visible"  />
