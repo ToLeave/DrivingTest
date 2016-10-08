@@ -16,12 +16,12 @@ namespace DrivingTest
     /// <summary>
     /// MainScreen.xaml 的交互逻辑
     /// </summary>
-    public partial class MainScreen : Window
+    public partial class MainScreen : UserControl
     {
         public MainScreen()
         {
             InitializeComponent();
-            this.Closing += F;
+            //this.Closing += F;
         }
 
         private void F(object o, System.ComponentModel.CancelEventArgs e)
@@ -115,7 +115,17 @@ namespace DrivingTest
         private void simulation_test_Click(object sender, RoutedEventArgs e)
         {
             SimulationTest si = new SimulationTest();
-            si.Show();
+            C1.WPF.C1Window c1si = new C1.WPF.C1Window();
+            c1si.Content = si;
+            c1si.Show();
+            c1si.ToolTip = "全真模拟";
+            c1si.Name = "全真模拟";
+            c1si.Show();
+            //C1.WPF.C1Window ma = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "科目一");
+            //if (ma != null)
+            //{
+            //    ma.Close();
+            //}
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -16,7 +16,7 @@ namespace DrivingTest
     /// <summary>
     /// SimulationTest.xaml 的交互逻辑
     /// </summary>
-    public partial class SimulationTest : Window
+    public partial class SimulationTest : UserControl
     {
         public SimulationTest()
         {
@@ -26,8 +26,19 @@ namespace DrivingTest
         private void kaipao_Click(object sender, RoutedEventArgs e)
         {
             PreparePage pr = new PreparePage();
-            pr.Show();
-            this.Close();
+            C1.WPF.C1Window c1pr = new C1.WPF.C1Window();
+            c1pr.WindowState = C1.WPF.C1WindowState.Maximized;
+            c1pr.Header = "驾驶理论考试系统";
+            c1pr.Content = pr;
+            c1pr.Show();
+            c1pr.ToolTip = "驾驶理论考试系统";
+            c1pr.Name = "驾驶理论考试系统";
+            c1pr.Show();
+            C1.WPF.C1Window ma = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "全真模拟");
+            if (ma != null)
+            {
+                ma.Close();
+            }
         }
     }
 }

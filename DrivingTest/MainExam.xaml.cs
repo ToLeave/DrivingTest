@@ -21,7 +21,7 @@ namespace DrivingTest
     /// <summary>
     /// MainExam.xaml 的交互逻辑
     /// </summary>
-    public partial class MainExam : Window
+    public partial class MainExam : UserControl
     {
         private DispatcherTimer timer;
         private ProcessCount processCount;
@@ -903,11 +903,11 @@ where T : DependencyObject
                 timer.Stop();
                 EndTest en = new EndTest();
                 en.Show();
-                
+
                 if (PublicClass.end == 1)
                 {
                     en.Closing += new System.ComponentModel.CancelEventHandler(en_Closing);
-                    
+
                 }
 
                 
@@ -920,7 +920,7 @@ where T : DependencyObject
 
         void en_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            this.Close();
+            //this.Close();
         }
 
 

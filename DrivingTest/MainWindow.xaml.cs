@@ -1330,18 +1330,26 @@ where T : DependencyObject
         private void subject2_Click(object sender, RoutedEventArgs e)
         {
             MainScreen ma = new MainScreen();
-            ma.Show();
-            ma.Title = "科目二";
-            this.Visibility = System.Windows.Visibility.Collapsed;
+            C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+            c1ma.Content = ma;
+            c1ma.Show();
+            c1ma.ToolTip = "科目二";
+            c1ma.Name = "科目二";
+            c1ma.Header = "科目二";
+            //this.Visibility = System.Windows.Visibility.Collapsed;
             //this.WindowState = System.Windows.WindowState.Minimized;
         }
         //科目三
         private void subject3_Click(object sender, RoutedEventArgs e)
         {
             MainScreen ma = new MainScreen();
-            ma.Show();
-            ma.Title = "科目三";
-            this.Visibility = System.Windows.Visibility.Collapsed;
+            C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+            c1ma.Content = ma;
+            c1ma.Show();
+            c1ma.ToolTip = "科目三";
+            c1ma.Name = "科目三";
+            c1ma.Header = "科目三";
+            //this.Visibility = System.Windows.Visibility.Collapsed;
         }
         //科目四
         private void subject4_Click(object sender, RoutedEventArgs e)
@@ -1369,16 +1377,26 @@ where T : DependencyObject
                 if (subjectname == "科目一")
                 {
                     MainScreen ma = new MainScreen();
-                    ma.Show();
-                    ma.Title = "小车类:科目一";
-                    this.Visibility = System.Windows.Visibility.Collapsed;
+                    C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    c1ma.Content = ma;
+                    c1ma.Show();
+                    c1ma.ToolTip = "小车类:科目一";
+                    c1ma.Name = "科目一";
+                    c1ma.Header = "小车类:科目一";
+                    
+                    //this.Visibility = System.Windows.Visibility.Collapsed;
+                    //this.WindowState = WindowState.Maximized;
                 }
                 else if (subjectname == "科目四")
                 {
                     MainScreen ma = new MainScreen();
-                    ma.Show();
-                    ma.Title = "小车类:科目四";
-                    this.Visibility = System.Windows.Visibility.Collapsed;
+                    C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    c1ma.Content = ma;
+                    c1ma.Show();
+                    c1ma.ToolTip = "小车类:科目四";
+                    c1ma.Name = "科目四";
+                    c1ma.Header = "小车类:科目四";
+                    //this.Visibility = System.Windows.Visibility.Collapsed;
                 }
             }
             else
@@ -1394,15 +1412,23 @@ where T : DependencyObject
                 if (subjectname == "科目一")
                 {
                     MainScreen ma = new MainScreen();
-                    ma.Show();
-                    ma.Title = "客车类:科目一";
-                    this.Visibility = System.Windows.Visibility.Collapsed;
+                    C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    c1ma.Content = ma;
+                    c1ma.Show();
+                    c1ma.ToolTip = "客车类:科目一";
+                    c1ma.Name = "科目一";
+                    c1ma.Header = "客车类:科目一";
+                    //this.Visibility = System.Windows.Visibility.Collapsed;
                 }
                 else if (subjectname == "科目四")
                 {
                     MainScreen ma = new MainScreen();
-                    ma.Show();
-                    ma.Title = "客车类:科目四";
+                    C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    c1ma.Content = ma;
+                    c1ma.Show();
+                    c1ma.ToolTip = "客车类:科目四";
+                    c1ma.Name = "科目四";
+                    c1ma.Header = "客车类:科目四";
                     this.Visibility = System.Windows.Visibility.Collapsed;
                 }
             }
@@ -1418,15 +1444,23 @@ where T : DependencyObject
                 if (subjectname == "科目一")
                 {
                     MainScreen ma = new MainScreen();
-                    ma.Show();
-                    ma.Title = "货车类:科目一";
+                    C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    c1ma.Content = ma;
+                    c1ma.Show();
+                    c1ma.ToolTip = "货车类:科目一";
+                    c1ma.Name = "科目一";
+                    c1ma.Header = "货车类:科目一";
                     this.Visibility = System.Windows.Visibility.Collapsed;
                 }
                 else if (subjectname == "科目四")
                 {
                     MainScreen ma = new MainScreen();
-                    ma.Show();
-                    ma.Title = "货车类:科目四";
+                    C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    c1ma.Content = ma;
+                    c1ma.Show();
+                    c1ma.ToolTip = "货车类:科目四";
+                    c1ma.Name = "科目四";
+                    c1ma.Header = "货车类:科目四";
                     this.Visibility = System.Windows.Visibility.Collapsed;
                 }
             }
@@ -1442,15 +1476,23 @@ where T : DependencyObject
                 if (subjectname == "科目一")
                 {
                     MainScreen ma = new MainScreen();
-                    ma.Show();
-                    ma.Title = "摩托车类:科目一";
+                    C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    c1ma.Content = ma;
+                    c1ma.Show();
+                    c1ma.ToolTip = "摩托车类:科目一";
+                    c1ma.Name = "科目一";
+                    c1ma.Header = "摩托车类:科目一";
                     this.Visibility = System.Windows.Visibility.Collapsed;
                 }
                 else if (subjectname == "科目四")
                 {
                     MainScreen ma = new MainScreen();
-                    ma.Show();
-                    ma.Title = "摩托车类:科目四";
+                    C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    c1ma.Content = ma;
+                    c1ma.Show();
+                    c1ma.ToolTip = "摩托车类:科目四";
+                    c1ma.Name = "科目四";
+                    c1ma.Header = "摩托车类:科目四";
                     this.Visibility = System.Windows.Visibility.Collapsed;
                 }
             }
@@ -1462,8 +1504,12 @@ where T : DependencyObject
         private void regain_button_Click(object sender, RoutedEventArgs e)
         {
             MainScreen ma = new MainScreen();
-            ma.Title = "恢复驾驶资格类";
-            ma.Show();
+            C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+            c1ma.Content = ma;
+            c1ma.ToolTip = "恢复驾驶资格类";
+            c1ma.Name = "恢复驾驶资格类";
+            c1ma.Header = "恢复驾驶资格类";
+            c1ma.Show();
         }
 
         //修改密码
@@ -1501,8 +1547,8 @@ where T : DependencyObject
         private void shiyon_button_Click(object sender, RoutedEventArgs e)
         {
             MainExam ma = new MainExam();
-            ma.Title = "试用";
-            ma.Show();
+            //ma.Title = "试用";
+            //ma.Show();
         }
 
         private void xianshi_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)

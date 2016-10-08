@@ -63,12 +63,18 @@ where T : DependencyObject
     
         private void end_button_Click(object sender, RoutedEventArgs e)
         {
-            MainExam ma = MainExam.FindChild<MainExam>(Application.Current.MainWindow, "mainW");
+            C1.WPF.C1Window ma = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "c1");
             if (ma != null)
             {
                 ma.Close();
             }
             this.Close();
+
+            //IntPtr hwndCalc = FindWindow(null, "计算器");
+            //foreach (var item in Application.OpenForms)
+            //{
+            //    if (item is Form1) item.Close();
+            //}
         }
 
     }
