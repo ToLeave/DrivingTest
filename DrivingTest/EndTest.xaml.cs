@@ -63,7 +63,7 @@ where T : DependencyObject
     
         private void end_button_Click(object sender, RoutedEventArgs e)
         {
-            C1.WPF.C1Window ma = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "c1");
+            C1.WPF.C1Window ma = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "驾考");
             if (ma != null)
             {
                 ma.Close();

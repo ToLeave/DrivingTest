@@ -1336,6 +1336,7 @@ where T : DependencyObject
             c1ma.ToolTip = "科目二";
             c1ma.Name = "科目二";
             c1ma.Header = "科目二";
+
             //this.Visibility = System.Windows.Visibility.Collapsed;
             //this.WindowState = System.Windows.WindowState.Minimized;
         }

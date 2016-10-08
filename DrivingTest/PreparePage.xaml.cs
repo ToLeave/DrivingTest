@@ -35,16 +35,13 @@ namespace DrivingTest
 
             C1.WPF.C1Window cwin = new C1.WPF.C1Window();
             cwin.Content = ma;
-            cwin.Name = "c1";
-            //cwin.ShowCloseButton = false;
-            //cwin.ShowMaximizeButton = false;
-            //cwin.ShowMinimizeButton = false;
-            //cwin.Margin = new Thickness(0, -20, 0, 0);
+            cwin.Name = "驾考";
+            cwin.Header = "驾驶理论考试系统";
             cwin.Show();
             this.Content = ma;
             //cwin.WindowState = C1.WPF.C1WindowState.Maximized;
             //cwin.CenterOnScreen();
-            cwin.Margin = new Thickness(0);
+            //cwin.Margin = new Thickness(0);
             cwin.Width = SystemParameters.PrimaryScreenWidth;
             cwin.Height = SystemParameters.WorkArea.Height;
         }
