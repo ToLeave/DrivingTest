@@ -100,6 +100,9 @@
     <Compile Include="ModifyPassword.xaml.cs">
       <DependentUpon>ModifyPassword.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MyError.xaml.cs">
+      <DependentUpon>MyError.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Notice.xaml.cs">
       <DependentUpon>Notice.xaml</DependentUpon>
     </Compile>
@@ -120,8 +123,11 @@
     <Compile Include="SimulationTest.xaml.cs">
       <DependentUpon>SimulationTest.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
+    <Compile Include="SubjectThree.xaml.cs">
+      <DependentUpon>SubjectThree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubjectTwo.xaml.cs">
+      <DependentUpon>SubjectTwo.xaml</DependentUpon>
     </Compile>
     <Page Include="EndTest.xaml">
       <SubType>Designer</SubType>
@@ -156,6 +162,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ModifyPassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MyError.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -195,7 +205,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControl1.xaml">
+    <Page Include="SubjectThree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubjectTwo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

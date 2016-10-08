@@ -77,6 +77,7 @@ namespace DrivingTest
         private void my_mistakes_Click(object sender, RoutedEventArgs e)
         {
 
+
         }
         //顺序练习
         private void shunxulianxi_Click(object sender, RoutedEventArgs e)

@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace DrivingTest
 {
     /// <summary>
-    /// UserControl1.xaml 的交互逻辑
+    /// MyError.xaml 的交互逻辑
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class MyError : UserControl
     {
-        public UserControl1()
+        public MyError()
         {
             InitializeComponent();
         }

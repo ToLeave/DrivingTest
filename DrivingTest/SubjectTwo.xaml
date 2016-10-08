@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="DrivingTest.SubjectTwo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Height="600" Width="800">
+    <Grid>
+        <Label Content="简介" Height="35" HorizontalAlignment="Left" Margin="31,12,0,0" Name="label1" VerticalAlignment="Top" Foreground="Blue" FontSize="18" FontWeight="Bold" />
+        <TextBlock Height="83" HorizontalAlignment="Left" Margin="55,53,0,0" Name="textBlock1" Text="• 科目二考试项目:倒车入库、坡道定点停车和起步、侧方停车、曲线行驶、直角转弯、省级公安机关交通管理部门可根据公安部令第123号第二十五条规定增加考试内容（此部分各省自行制定考试内容） 
+• 科目二学习及考试时间：通常为通过科目一考试后1周开始学习，整个学习过程C1、C2、C5为26学时（每学时为1小时），C3为14学时，C4为14学时，即可预约考试。从预约到考试大概7天时间。 驾校一点通 
+• 考试注意事项：科目二考试大部分省、市都是电子考试，所以考试时一定要注意不要因为稍微擦碰而导致不能通过考试" VerticalAlignment="Top" Width="675" TextWrapping="Wrap" />
+        <Label Content="教学" Height="35" HorizontalAlignment="Left" Margin="31,142,0,0" Name="label2" VerticalAlignment="Top" Foreground="Blue" FontSize="18" FontWeight="Bold" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="55,183,0,0" Name="textBlock2" Text="科目二考试项目：" VerticalAlignment="Top" Width="101" Foreground="#FF29ACE2" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="154,183,0,0" Name="textBlock3" Text="倒车入库、坡道定点停车和起步、侧方停车、曲线行驶、直角转弯" VerticalAlignment="Top" Width="539" Foreground="Red" />
+    </Grid>
+</UserControl>

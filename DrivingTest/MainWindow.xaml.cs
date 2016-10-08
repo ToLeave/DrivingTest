@@ -1329,7 +1329,7 @@ where T : DependencyObject
         //科目二
         private void subject2_Click(object sender, RoutedEventArgs e)
         {
-            MainScreen ma = new MainScreen();
+            SubjectTwo ma = new SubjectTwo();
             C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
             c1ma.Content = ma;
             c1ma.Show();
@@ -1343,7 +1343,7 @@ where T : DependencyObject
         //科目三
         private void subject3_Click(object sender, RoutedEventArgs e)
         {
-            MainScreen ma = new MainScreen();
+            SubjectThree ma = new SubjectThree();
             C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
             c1ma.Content = ma;
             c1ma.Show();
