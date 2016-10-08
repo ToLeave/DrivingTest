@@ -411,11 +411,11 @@ where T : DependencyObject
                     int Length = (int)fd.Length;
                     if (Length > 0)
                     {
-                        gif_image.Source =new  BitmapImage(new Uri(path,UriKind.RelativeOrAbsolute));
+                        gif_image.Image = System.Drawing.Image.FromFile(path);
                     }
                     else
                     {
-                        gif_image.Source = null;
+                        gif_image.Image = null;
                     }
                 }
                 catch
@@ -425,7 +425,7 @@ where T : DependencyObject
             }
             else
             {
-                gif_image.Source = null;
+                gif_image.Image = null;
             }
         }
 

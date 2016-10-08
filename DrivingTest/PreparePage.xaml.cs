@@ -26,7 +26,7 @@ namespace DrivingTest
         private void kaikao_Click(object sender, RoutedEventArgs e)
         {
             MainExam ma = new MainExam();
-            //ma.Show();
+            
             C1.WPF.C1Window cp = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "驾驶理论考试系统");
             if (cp != null)
             {
