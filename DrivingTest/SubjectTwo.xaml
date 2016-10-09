@@ -13,5 +13,10 @@
         <Label Content="教学" Height="35" HorizontalAlignment="Left" Margin="31,142,0,0" Name="label2" VerticalAlignment="Top" Foreground="Blue" FontSize="18" FontWeight="Bold" />
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="55,183,0,0" Name="textBlock2" Text="科目二考试项目：" VerticalAlignment="Top" Width="101" Foreground="#FF29ACE2" />
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="154,183,0,0" Name="textBlock3" Text="倒车入库、坡道定点停车和起步、侧方停车、曲线行驶、直角转弯" VerticalAlignment="Top" Width="539" Foreground="Red" />
+        <Image Height="117" HorizontalAlignment="Left" Margin="46,231,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="133" />
+        <Image Height="117" HorizontalAlignment="Left" Margin="185,231,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="133" />
+        <Image Height="117" HorizontalAlignment="Left" Margin="324,231,0,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="133" />
+        <Image Height="117" HorizontalAlignment="Left" Margin="463,231,0,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="133" />
+        <Image Height="117" HorizontalAlignment="Left" Margin="602,231,0,0" Name="image5" Stretch="Fill" VerticalAlignment="Top" Width="133" />
     </Grid>
 </UserControl>
