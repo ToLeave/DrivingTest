@@ -957,14 +957,14 @@ where T : DependencyObject
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-<<<<<<< HEAD
+
             PublicClass.http = @"http://jiakao.cloudtimesoft.com";
-=======
+
 
             //maincanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
 
 
->>>>>>> origin/master
+
             try
             {
                 DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
@@ -1391,16 +1391,16 @@ where T : DependencyObject
                     c1ma.ToolTip = "小车类:科目一";
                     c1ma.Name = "科目一";
                     c1ma.Header = "小车类:科目一";
-<<<<<<< HEAD
+
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
                     //this.Visibility = System.Windows.Visibility.Collapsed;
-=======
+
                     c1ma.IsResizable = false;
                     //c1ma.HorizontalAlignment = HorizontalAlignment.Left;
                     //c1ma.VerticalAlignment = VerticalAlignment.Top;
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2-ma.Width/2, SystemParameters.PrimaryScreenHeight/ 2-ma.Height/2, 0, 0);
                     //this.Visibility = System.Windows.Visibility.Collapsed;4
->>>>>>> origin/master
+
                     //this.WindowState = WindowState.Maximized;
                     maincanvas.Visibility = Visibility.Hidden;
                     c1ma.Closed += new EventHandler(c1ma_Closed);

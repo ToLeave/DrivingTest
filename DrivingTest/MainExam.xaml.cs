@@ -105,6 +105,7 @@ where T : DependencyObject
 
             questionindex();//初始化第一题
             chouti_count.Text = question_c.ToString();
+            weida.Text = question_c.ToString();
 
 
             #region 启动定时器
@@ -596,6 +597,9 @@ where T : DependencyObject
             dati_precent.Text = ((int)(((float)dadui_count / (float)yida_count) * 100)).ToString();
 
             chouti_precent.Text = ((int)(((float)dadui_count / (float)question_c) * 100)).ToString();
+
+            int weida_count = (from c in question_list where c.rept_do == 0 select c).Count();
+            weida.Text = weida_count.ToString();
         }
 
         private void process_question_type(int question_id)//判断所选题型

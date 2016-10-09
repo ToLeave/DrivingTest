@@ -104,7 +104,7 @@
         <TextBlock Height="23" HorizontalAlignment="Center" Margin="1072,506,50,232" x:Name="dacuo" Text="0" VerticalAlignment="Center" />
         <Label Content="道" Height="28" HorizontalAlignment="Center" Margin="1131,501,25,232" Name="label16" VerticalAlignment="Center" />
         <Label Content="未答题目" Height="28" HorizontalAlignment="Center" Margin="996,531,124,202" Name="label17" VerticalAlignment="Center" />
-        <TextBlock Height="23" HorizontalAlignment="Center" Margin="1071,536,51,202" Name="textBlock12" Text="TextBlock" VerticalAlignment="Center" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="1071,536,51,202" x:Name="weida" Text="TextBlock" VerticalAlignment="Center" />
         <Label Content="道" Height="28" HorizontalAlignment="Center" Margin="1131,530,25,202" Name="label18" VerticalAlignment="Center" />
         <Label Content="首正率" Height="28" HorizontalAlignment="Center" Margin="996,561,136,172" Name="label19" VerticalAlignment="Center" />
         <TextBlock Height="23" HorizontalAlignment="Center" Margin="1072,566,50,172"  x:Name="shouzheng" Text="100" VerticalAlignment="Center" TextAlignment="Center" />
