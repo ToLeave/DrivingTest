@@ -127,7 +127,7 @@ where T : DependencyObject
             StreamReader reader = null;
             try
             {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.1.98:3000/returnjsons/getquestion");
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/getquestion");
                 request.Method = "GET";
                 request.Timeout = 5000;
                 response = (HttpWebResponse)request.GetResponse();
@@ -188,7 +188,7 @@ where T : DependencyObject
             string cc = "";
             try
             {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.1.98:3000/returnjsons/updatecheck");
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/updatecheck");
                 request.Method = "GET";
                 request.Timeout = 10000;
                 response = (HttpWebResponse)request.GetResponse();
@@ -299,7 +299,7 @@ where T : DependencyObject
                 HttpWebResponse response = null;
                 StreamReader reader = null;
 
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.1.98:3000/returnjsons/getquestion");//题目 url
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/getquestion");//题目 url
                 request.Method = "GET";
                 request.Timeout = 10000;
                 response = (HttpWebResponse)request.GetResponse();
@@ -307,21 +307,21 @@ where T : DependencyObject
                 questionstr = reader.ReadToEnd();
 
 
-                request = (HttpWebRequest)WebRequest.Create("http://192.168.1.98:3000/returnjsons/getanswer");//答案 url
+                request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/getanswer");//答案 url
                 request.Method = "GET";
                 request.Timeout = 10000;
                 response = (HttpWebResponse)request.GetResponse();
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 answerstr = reader.ReadToEnd();
 
-                request = (HttpWebRequest)WebRequest.Create("http://192.168.1.98:3000/returnjsons/chapter");//章节 url
+                request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/chapter");//章节 url
                 request.Method = "GET";
                 request.Timeout = 10000;
                 response = (HttpWebResponse)request.GetResponse();
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 chapterstr = reader.ReadToEnd();
 
-                request = (HttpWebRequest)WebRequest.Create("http://192.168.1.98:3000/returnjsons/subject");//科目 url
+                request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/subject");//科目 url
                 request.Method = "GET";
                 request.Timeout = 10000;
                 response = (HttpWebResponse)request.GetResponse();
@@ -705,7 +705,7 @@ where T : DependencyObject
 
                 if (attch != "")
                 {
-                    string httpaddr = @"http://192.168.1.98:3000/questionimages/" + attch;
+                    string httpaddr = PublicClass.http + @"/questionimages/" + attch;
                     downclient.DownloadFileAsync(new Uri(httpaddr), imagepath + attch);
                     downclient.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(web_DownloadFileCompleted);
                     downclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(web_DownloadProgressChanged);
@@ -713,7 +713,7 @@ where T : DependencyObject
                 }
                 if (voice != "")
                 {
-                    string httpaddr = @"http://192.168.1.98:3000/voices/" + voice;
+                    string httpaddr = PublicClass.http + @"/voices/" + voice;
                     downclient.DownloadFileAsync(new Uri(httpaddr), voicepath + voice);
                     downclient.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(web_DownloadFileCompleted);
                     downclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(web_DownloadProgressChanged);
@@ -860,7 +860,7 @@ where T : DependencyObject
             try
             {
 
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.1.98:3000/returnjsons/getvalidate?login=" + userlogin);//随机UUID url
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/getvalidate?login=" + userlogin);//随机UUID url
                 request.Method = "GET";
                 request.Timeout = 10000;
                 response = (HttpWebResponse)request.GetResponse();
@@ -876,7 +876,7 @@ where T : DependencyObject
                 string loginMD5 = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(userlogin + userpassword + uuid + "CLOUDTIMESOFT", "MD5");//账号+密码+随机码+指定字符生成MD5
 
                 GetIP();
-                request = (HttpWebRequest)WebRequest.Create("http://192.168.1.98:3000/eturnjsons/getuser?login=" + userlogin + "&validate=" + loginMD5 + "&ip=" + ip);//验证 url
+                request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/eturnjsons/getuser?login=" + userlogin + "&validate=" + loginMD5 + "&ip=" + ip);//验证 url
                 request.Method = "GET";
                 request.Timeout = 10000;
                 response = (HttpWebResponse)request.GetResponse();
@@ -957,7 +957,7 @@ where T : DependencyObject
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            PublicClass.http = @"http://jiakao.cloudtimesoft.com";
             try
             {
                 DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
@@ -1240,7 +1240,7 @@ where T : DependencyObject
 
                     string userlogin = user_textBox.Text;//用户名
 
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.1.98:3000/returnjsons/getvalidate?login=" + userlogin);//随机UUID url
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/getvalidate?login=" + userlogin);//随机UUID url
                     request.Method = "GET";
                     request.Timeout = 10000;
                     response = (HttpWebResponse)request.GetResponse();

@@ -14,6 +14,8 @@ namespace DrivingTest
             public string select_answer { get; set; }
             public string question_type { get; set; }
             public List<Answer> answer { get; set; }
+            public bool sz { get; set; }//首正
+            public int rept_do { get; set; }//重做次数
         }
 
         public class Answer
@@ -23,5 +25,6 @@ namespace DrivingTest
         }
 
         public static int end = 0;
+        public static string http { get; set; }
     }
 }

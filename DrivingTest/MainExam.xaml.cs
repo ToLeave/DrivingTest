@@ -104,7 +104,7 @@ where T : DependencyObject
             create_question_num();//生成题号
 
             questionindex();//初始化第一题
-
+            chouti_count.Text = question_c.ToString();
 
 
             #region 启动定时器
@@ -202,6 +202,8 @@ where T : DependencyObject
                         question.check_answer = true;
                         question.select_answer = "";
                         question.question_type = qu.question_type;
+                        question.sz = true;
+                        question.rept_do = 0;
                         //question.answer = random_answer(qu.question_id);
                         question_list.Add(question);
                         int tem_list_count = (from c in question_list where c.question_id == qu.question_id select c).Count();
@@ -241,6 +243,8 @@ where T : DependencyObject
                         question.check_answer = true;
                         question.select_answer = "";
                         question.question_type = qu.question_type;
+                        question.sz = true;
+                        question.rept_do = 0;
                         question.answer = random_answer(qu.question_id);
                         question_list.Add(question);
                         int tem_list_count = (from c in question_list where c.question_id == qu.question_id select c).Count();
@@ -258,7 +262,8 @@ where T : DependencyObject
             question_x = question_xz_count;//获取选择题总数
 
 
-            question_c = question_pd_count + question_xz_count;//根据抽出题数生成题号
+            //question_c = question_pd_count + question_xz_count;//根据抽出题数生成题号
+            question_c = 100;
 
         }
 
@@ -272,8 +277,8 @@ where T : DependencyObject
             {
                 int x = i / 10;
                 int y = i % 10;
-                x *= 31;
-                y *= 26;
+                x *= 36;
+                y *= 31;
                 QuestionNum qu = new QuestionNum();
 
                 qu.Margin = new Thickness(y, x, 0, 0);
@@ -283,7 +288,7 @@ where T : DependencyObject
                 qu.setnum(i + 1, true, "");
                 dati_canvas.Children.Add(qu);
             }
-            dati_canvas.Height = cou / 10 * 31;
+            dati_canvas.Height = cou / 10 * 36;
         }
 
         //初始化第一题
@@ -561,13 +566,65 @@ where T : DependencyObject
                     break;
                 }
             }
-
+            
             judge_answer();
             answer_UI();
+            shouzheng_cal(question_id - 1);
 
             //xuanxiang_textBlock.Text = "";
 
 
+        }
+
+        private void shouzheng_cal(int question_id)//计算首正
+        {
+            if (question_list[question_id].rept_do == 0 && question_list[question_id].check_answer == false)
+            {
+                question_list[question_id].sz = false;
+            }
+            question_list[question_id].rept_do += 1;
+            int question_sz_count = (from c in question_list where c.sz == true select c).Count();
+            shouzheng.Text = ((int)(((float)question_sz_count / (float)question_c) * 100)).ToString();
+
+            int dadui_count = (from c in question_list where c.check_answer == true && c.rept_do>0 select c).Count();
+            dadui.Text = dadui_count.ToString();
+
+            int dacuo_count = (from c in question_list where c.check_answer == false select c).Count();
+            dacuo.Text = dacuo_count.ToString();
+
+            int yida_count = (from c in question_list where c.rept_do > 0 select c).Count();
+            dati_precent.Text = ((int)(((float)dadui_count / (float)yida_count) * 100)).ToString();
+
+            chouti_precent.Text = ((int)(((float)dadui_count / (float)question_c) * 100)).ToString();
+        }
+
+        private void process_question_type(int question_id)//判断所选题型
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 question 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+
+            // 将数据加载到表 answer 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
+            jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+            if (question_list[question_id].question_type.Contains("PD"))
+            {
+                current_question_type = "P";
+            }
+            else if (question_list[question_id].question_type.Contains("XZ"))
+            {
+                
+                var an = from c in question_list[question_id].answer where c.isright == 1 select c;
+                if (an.Count() > 1)
+                {
+                    current_question_type = "M";
+                }
+                else
+                {
+                    current_question_type = "S";
+                }
+            }
         }
 
         //判断对错
@@ -762,7 +819,10 @@ where T : DependencyObject
                 }
                 ////
             }
+            //int question_id = 0;
 
+
+            process_question_type(question_index);
             //选择题选项
             if (current_question_type == "S")
             {
@@ -842,8 +902,87 @@ where T : DependencyObject
 
                 question_list[question_index].check_answer = q;
             }
+            else if (current_question_type == "M")
+            {
+                a_button.IsChecked = false;
+                b_button.IsChecked = false;
+                c_button.IsChecked = false;
+                d_button.IsChecked = false;
+
+                ToggleButton select_button = sender as ToggleButton;
+                select_button.IsChecked = true;
+                if (a_button.IsChecked == true)
+                {
+                    xuanxiang_textBlock.Text += "A";
+                }
+                if (b_button.IsChecked == true)
+                {
+                    xuanxiang_textBlock.Text += "B";
+                   // select_lab += "B";
+                }
+                if (c_button.IsChecked == true)
+                {
+                    xuanxiang_textBlock.Text += "C";
+                    //select_lab += "C";
+                }
+                if (d_button.IsChecked == true)
+                {
+                    xuanxiang_textBlock.Text += "D";
+                    //select_lab += "D";
+                }
+                //select_lab = select_button.Name.ToString().Substring(0, 1).ToUpper();
+                //xuanxiang_textBlock.Text = select_lab;
+                string tem_select = "";
+                if (xuanxiang_textBlock.Text.Contains("A"))
+                {
+                    tem_select += "A";
+                }
+                if (xuanxiang_textBlock.Text.Contains("B"))
+                {
+                    tem_select += "B";
+                }
+                if (xuanxiang_textBlock.Text.Contains("C"))
+                {
+                    tem_select += "C";
+                }
+                if (xuanxiang_textBlock.Text.Contains("D"))
+                {
+                    tem_select += "D";
+                }
+                select_lab = tem_select;
+                question_list[question_index].select_answer = select_lab;
+                selectquestionnum.setnum(int.Parse(selectquestionnum.label1.Content.ToString()), true, select_lab);
+                selectquestionnum.setbackcolor();
+                bool is_right = true;
+                int step = 0;
+                var an = from c in question_list[question_index].answer select c;
+                foreach (var myan in an)
+                {
+                    if (!(step == 0 && myan.isright == 1 && select_lab.Contains("A")))
+                    {
+                        is_right = false;
+                    }
+                    else if (!(step == 1 && myan.isright == 1 && select_lab.Contains("B")))
+                    {
+                        is_right = false;
+                    }
+                    else if (!(step == 2 && myan.isright == 1 && select_lab.Contains("C")))
+                    {
+                        is_right = false;
+                    }
+                    else if (!(step == 3 && myan.isright == 1 && select_lab.Contains("D")))
+                    {
+                        is_right = false;
+                    }
+                    step++;
+                }
 
 
+                question_list[question_index].check_answer = is_right;
+
+            }
+
+            xuanxiang_textBlock.Text = question_list[question_index].select_answer;
 
 
         }
