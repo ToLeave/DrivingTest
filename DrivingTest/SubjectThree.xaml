@@ -6,6 +6,28 @@
              mc:Ignorable="d" 
              Height="600" Width="800">
     <Grid>
-            
+        <Label Content="简介" FontSize="18" FontWeight="Bold" Foreground="Blue" Height="35" HorizontalAlignment="Left" Margin="31,10,0,0" Name="label1" VerticalAlignment="Top" />
+        <TextBlock Height="83" HorizontalAlignment="Left" Margin="55,51,0,0" Name="textBlock1" Text="•	科目三考试项目包括：上车准备、起步、直线行驶、加减挡位操作、变更车道、靠边停车、直行通过路口、路口左转弯、路口右转弯、通过人行横道线、通过学校区域、通过公共汽车站、会车、超车、掉头、夜间行驶。 
+•	科目三学习及考试时间：通常为通过科目二考试后1周开始学习，整个学习过程C1、C2、C5为40学时（每学时为1小时），C3为30学时，C4为24学时，整个学习过程大概7天左右，即可预约考试。从预约到考试大概7天时间。 
+•	考试注意事项：科目三考试为实际道路考试，考察点比较多，需要通过多加练习才能保证每个细节都不出错。
+" TextWrapping="Wrap" VerticalAlignment="Top" Width="675" />
+        <Label Content="教学" FontSize="18" FontWeight="Bold" Foreground="Blue" Height="35" HorizontalAlignment="Left" Margin="31,140,0,0" Name="label2" VerticalAlignment="Top" />
+        <TextBlock Foreground="#FF29ACE2" Height="23" HorizontalAlignment="Left" Margin="55,181,0,0" Name="textBlock2" Text="科目三考试项目分类：" VerticalAlignment="Top" Width="125" />
+        <TextBlock Foreground="#FF29ACE2" Height="23" HorizontalAlignment="Left" Margin="76,221,0,0" Name="shangche_textBlock" Text="1.上车准备" VerticalAlignment="Top" />
+        <TextBlock Foreground="#FF29ACE2" Height="23" HorizontalAlignment="Left" Margin="263,221,0,0" Name="qibu_textBlock" Text="2.起步" VerticalAlignment="Top" />
+        <TextBlock Foreground="#FF29ACE2" Height="23" HorizontalAlignment="Left" Margin="466,221,0,0" Name="zhixian_textBlock" Text="3.直线行驶" VerticalAlignment="Top" />
+        <TextBlock Foreground="#FF29ACE2" Height="23" HorizontalAlignment="Left" Margin="640,221,0,0" Name="jiajian_textBlock" Text="4.加减挡位操作" VerticalAlignment="Top" />
+        <TextBlock Foreground="#FF29ACE2" Height="23" HorizontalAlignment="Left" Margin="76,271,0,0" Name="biangen_textBlock" Text="5.变更车道" VerticalAlignment="Top" />
+        <TextBlock Foreground="#FF29ACE2" Height="23" HorizontalAlignment="Left" Margin="263,271,0,0" Name="kaobian_textBlock" Text="6.靠边停车" VerticalAlignment="Top" />
+        <TextBlock Foreground="#FF29ACE2" Height="23" HorizontalAlignment="Left" Margin="466,271,0,0" Name="lukou_textBlock" Text="7.通过路口" VerticalAlignment="Top" />
+        <TextBlock Foreground="#FF29ACE2" Height="50" HorizontalAlignment="Left" Margin="640,271,0,0" Name="renxing_textBlock" Text="8.通过人行横道线、学校区域、公共汽车站" VerticalAlignment="Top" Width="90" TextWrapping="Wrap" />
+        <TextBlock Foreground="#FF29ACE2" Height="23" HorizontalAlignment="Left" Margin="76,333,0,0" Name="huiche_textBlock" Text="9.会车" VerticalAlignment="Top" />
+        <TextBlock Foreground="#FF29ACE2" Height="23" HorizontalAlignment="Left" Margin="263,333,0,0" Name="chaoche_textBlock" Text="10.超车" VerticalAlignment="Top" />
+        <TextBlock Foreground="#FF29ACE2" Height="23" HorizontalAlignment="Left" Margin="466,333,0,0" Name="diaotou_textBlock" Text="11.掉头" VerticalAlignment="Top" />
+        <TextBlock Foreground="#FF29ACE2" Height="23" HorizontalAlignment="Left" Margin="640,333,0,0" Name="yejian_textBlock" Text="12.夜间行驶" VerticalAlignment="Top" />
+
+        <Label Content="注意事项及判定标准" FontSize="18" FontWeight="Bold" Foreground="Blue" Height="35" HorizontalAlignment="Left" Margin="31,395,0,0" Name="label8" VerticalAlignment="Top" />
+        <TextBlock Foreground="#FF29ACE2" Height="23" HorizontalAlignment="Left" Margin="76,450,0,0" Name="zhuyi_textBlock" Text="1.考试时出现下列情形之一的道路驾驶考试不合格" VerticalAlignment="Top" />
+        <TextBlock Foreground="#FF29ACE2" Height="23" HorizontalAlignment="Right" Margin="0,479,520,0" Name="panding_textBlock" Text="2.考试时出现下列情形之一的，扣10分" VerticalAlignment="Top" />
     </Grid>
 </UserControl>

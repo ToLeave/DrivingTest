@@ -1384,7 +1384,7 @@ where T : DependencyObject
                     c1ma.ToolTip = "小车类:科目一";
                     c1ma.Name = "科目一";
                     c1ma.Header = "小车类:科目一";
-                    
+                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     //this.WindowState = WindowState.Maximized;
                 }

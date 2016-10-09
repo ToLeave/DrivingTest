@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="DrivingTest.Mind"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Height="600" Width="800">
+    <Grid>
+        <Label Content="一般规定" Height="34" HorizontalAlignment="Left" Margin="62,32,0,0" Name="label1" VerticalAlignment="Top" Foreground="Blue" FontSize="18" FontWeight="Bold" />
+        <TextBlock Height="32" HorizontalAlignment="Left" Margin="62,72,0,0" Name="textBlock1" Text="考试满分为100分，考试大型客车、牵引车、城市公交车、中型客车、大型货车准驾车型的，成绩达到90分的为合格，其他准驾车型的成绩达到80分的为合格。" VerticalAlignment="Top" Width="659" TextWrapping="Wrap" />
+        <Label Content="不合格情形:" Height="34" HorizontalAlignment="Left" Margin="62,118,0,0" Name="label2" VerticalAlignment="Top" Foreground="Blue" FontSize="18" FontWeight="Bold" />
+        <Label Content="扣10分情形:" Height="34" HorizontalAlignment="Left" Margin="459,118,0,0" Name="label3" VerticalAlignment="Top" Foreground="Blue" FontSize="18" FontWeight="Bold" />
+        <TextBlock Height="391" HorizontalAlignment="Left" Margin="62,176,0,0" Name="textBlock2" Text="考试时出现下列情形之一的，评判为不合格：
+
+不按规定使用安全带的； 
+遮挡、关闭车内音视频监控设备的； 
+不按考试员指令驾驶的； 
+不能正确使用灯光、雨刮器等车辆常用操纵件的； 
+起步时车辆后溜距离大于30cm的； 
+驾驶汽车双手同时离开转向盘的； 
+使用挡位与车速长时间不匹配，造成车辆发动机转速过高或过低的； 
+车辆在行驶中低头看挡或连续2次挂挡不进的； 
+行驶中空挡滑行的； 
+视线离开行驶方向超过2s的； 
+违反交通安全法律、法规，影响交通安全的； 
+不按交通信号灯、标志、标线或者民警指挥信号行驶的； 
+不按规定速度行驶的； 
+车辆行驶中骑轧车道中心实线或者车道边缘实线的； 
+长时间骑轧车道分界线行驶的； 
+对可能出现危险的情形未采取减速、鸣喇叭等安全措施的； 
+因观察、判断或者操作不当出现危险情况的； 
+行驶中不能保持安全距离和安全车速的； 
+行驶中身体任何部位伸出车外的； 
+制动、加速踏板使用错误的； 
+考生未按照预约考试时间参加考试的。" VerticalAlignment="Top" Width="326" TextWrapping="Wrap" />
+        <TextBlock Height="393" HorizontalAlignment="Left" Margin="444,174,0,0" Name="textBlock3" Text="考试时出现下列情形之一的扣10分：
+
+驾驶姿势不正确的； 
+起步时车辆后溜距离小于30cm的； 
+操纵转向盘手法不合理的； 
+起步或行驶中挂错挡，不能及时纠正的； 
+起步、转向、变更车道、超车、停车前不使用或错误使用转向灯的； 
+起步、转向、变更车道、超车、停车前，开转向灯少于3s即转向的； 
+转弯时，转、回方向过早、过晚，或者转向角度过大、过小的； 
+换挡时发生齿轮撞击的； 
+遇情况时不会合理使用离合器半联动控制车速的； 
+因操作不当造成发动机熄火一次的； 
+制动不平顺的；" VerticalAlignment="Top" Width="300" TextWrapping="Wrap" />
+        <Button Content="返回" Height="23" HorizontalAlignment="Left" Margin="363,565,0,0" Name="fanhui_button" VerticalAlignment="Top" Width="75" Click="fanhui_button_Click" />
+    </Grid>
+</UserControl>
