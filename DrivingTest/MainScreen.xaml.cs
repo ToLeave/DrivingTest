@@ -117,11 +117,13 @@ namespace DrivingTest
         {
             SimulationTest si = new SimulationTest();
             C1.WPF.C1Window c1si = new C1.WPF.C1Window();
+            c1si.IsResizable = false;
+            c1si.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - si.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - si.Height / 2, 0, 0);
             c1si.Content = si;
             c1si.Show();
             c1si.ToolTip = "全真模拟";
             c1si.Name = "全真模拟";
-            c1si.Show();
+          
             //C1.WPF.C1Window ma = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "科目一");
             //if (ma != null)
             //{

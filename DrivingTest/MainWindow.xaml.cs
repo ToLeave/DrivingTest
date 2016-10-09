@@ -957,7 +957,14 @@ where T : DependencyObject
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+<<<<<<< HEAD
             PublicClass.http = @"http://jiakao.cloudtimesoft.com";
+=======
+
+            //maincanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
+
+
+>>>>>>> origin/master
             try
             {
                 DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
@@ -1384,9 +1391,19 @@ where T : DependencyObject
                     c1ma.ToolTip = "小车类:科目一";
                     c1ma.Name = "科目一";
                     c1ma.Header = "小车类:科目一";
-                    
+<<<<<<< HEAD
+                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
                     //this.Visibility = System.Windows.Visibility.Collapsed;
+=======
+                    c1ma.IsResizable = false;
+                    //c1ma.HorizontalAlignment = HorizontalAlignment.Left;
+                    //c1ma.VerticalAlignment = VerticalAlignment.Top;
+                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2-ma.Width/2, SystemParameters.PrimaryScreenHeight/ 2-ma.Height/2, 0, 0);
+                    //this.Visibility = System.Windows.Visibility.Collapsed;4
+>>>>>>> origin/master
                     //this.WindowState = WindowState.Maximized;
+                    maincanvas.Visibility = Visibility.Hidden;
+                    c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
                 else if (subjectname == "科目四")
                 {
@@ -1404,6 +1421,15 @@ where T : DependencyObject
             {
             }
 
+        }
+
+        void c1ma_Closed(object sender, EventArgs e)
+        {
+            //Canvas main = MainWindow.FindChild<Canvas>(Application.Current.MainWindow, "maincanvas");
+            //if (main.Visibility == Visibility.Hidden)
+            //{
+            maincanvas.Visibility = Visibility.Visible;
+            //}
         }
         //a1a3b1
         private void bus_button_Click(object sender, RoutedEventArgs e)
@@ -1555,6 +1581,33 @@ where T : DependencyObject
         private void xianshi_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
 
+        }
+        Point old_point;
+        Thickness old_margin;
+        string move;
+        private void maincanvas_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            old_point = e.GetPosition(maincanvas);
+            old_margin = maincanvas.Margin;
+            move = "move";
+          
+        }
+
+        private void maincanvas_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                if ( move == "move")
+                {
+                    maincanvas.Margin = new Thickness(old_margin.Left + e.GetPosition(maincanvas).X - old_point.X, old_margin.Top + e.GetPosition(maincanvas).Y - old_point.Y,0, 0);
+                }
+            }
+        }
+
+        private void maincanvas_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            move = "";
         }
 
 

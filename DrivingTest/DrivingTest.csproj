@@ -44,7 +44,7 @@
     </Reference>
     <Reference Include="C1.WPF.FlexGrid.4, Version=4.0.20141.391, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\组件\Newtonsoft.Json.dll</HintPath>
+      <HintPath>C:\Users\HY\Desktop\新建文件夹\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Luna" />
     <Reference Include="System" />
@@ -69,7 +69,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
     <Reference Include="Xceed.Wpf.AvalonDock">
-      <HintPath>..\..\组件\Xceed.Wpf.AvalonDock.dll</HintPath>
+      <HintPath>C:\Users\HY\Desktop\新建文件夹\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +77,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Curve.xaml.cs">
+      <DependentUpon>Curve.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Determine.xaml.cs">
+      <DependentUpon>Determine.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EndTest.xaml.cs">
       <DependentUpon>EndTest.xaml</DependentUpon>
     </Compile>
@@ -91,11 +97,17 @@
     <Compile Include="LabelArray.xaml.cs">
       <DependentUpon>LabelArray.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Lateral.xaml.cs">
+      <DependentUpon>Lateral.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainExam.xaml.cs">
       <DependentUpon>MainExam.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainScreen.xaml.cs">
       <DependentUpon>MainScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Mind.xaml.cs">
+      <DependentUpon>Mind.xaml</DependentUpon>
     </Compile>
     <Compile Include="ModifyPassword.xaml.cs">
       <DependentUpon>ModifyPassword.xaml</DependentUpon>
@@ -114,8 +126,17 @@
     <Compile Include="QuestionNum.xaml.cs">
       <DependentUpon>QuestionNum.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ramp.xaml.cs">
+      <DependentUpon>Ramp.xaml</DependentUpon>
+    </Compile>
     <Compile Include="register.xaml.cs">
       <DependentUpon>register.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reversing.xaml.cs">
+      <DependentUpon>Reversing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RightAngle.xaml.cs">
+      <DependentUpon>RightAngle.xaml</DependentUpon>
     </Compile>
     <Compile Include="SetUp.xaml.cs">
       <DependentUpon>SetUp.xaml</DependentUpon>
@@ -129,6 +150,14 @@
     <Compile Include="SubjectTwo.xaml.cs">
       <DependentUpon>SubjectTwo.xaml</DependentUpon>
     </Compile>
+    <Page Include="Curve.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Determine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EndTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -138,6 +167,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LabelArray.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lateral.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -161,6 +194,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Mind.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ModifyPassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -178,6 +215,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="QuestionNum.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ramp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reversing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RightAngle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -271,6 +320,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\驾照类型.png" />
+    <Resource Include="Images\倒车入库02.jpg" />
+    <Resource Include="Images\定点停车、坡道起步.jpg" />
+    <Resource Include="Images\侧方停车.jpg" />
+    <Resource Include="Images\直角转弯.jpg" />
+    <Resource Include="Images\曲线行驶.jpg" />
+    <Resource Include="Images\倒车入库01.jpg" />
+    <Resource Include="Images\ddtc.gif" />
+    <Resource Include="Images\cftc.gif" />
+    <Resource Include="Images\zjzw.gif" />
+    <Resource Include="Images\qxxs.gif" />
     <Content Include="jiakao.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

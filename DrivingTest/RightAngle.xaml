@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="DrivingTest.RightAngle"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Height="600" Width="800">
+    <Grid>
+        <Image Height="295" HorizontalAlignment="Left" Margin="10,10,0,0" Name="image1" Source="/DrivingTest;component/Images/zjzw.gif" Stretch="Fill" VerticalAlignment="Top" Width="423" />
+        <TextBlock Height="292" HorizontalAlignment="Left" Margin="458,13,0,0" Name="textBlock1" Text="考试项目： 直角转弯 驾校一点通 
+操作要求： 驾驶车辆按规定的线路行驶，由左向右或由右向左直角转弯，一次通过，中途不得停车，车轮不得碰轧车道边线。 
+考试办法： 下列情况之一为不合格
+
+车轮轧道路边缘线的，不合格； 
+中途停车的，不合格。 
+ 
+" TextWrapping="Wrap" VerticalAlignment="Top" Width="316" />
+        <Button Content="返回" Height="23" HorizontalAlignment="Left" Margin="331,432,0,0" Name="fanhui_button" VerticalAlignment="Top" Width="75" Click="fanhui_button_Click" />
+    </Grid>
+</UserControl>

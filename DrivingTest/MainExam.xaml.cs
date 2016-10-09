@@ -1041,13 +1041,18 @@ where T : DependencyObject
             {
                 timer.Stop();
                 EndTest en = new EndTest();
-                en.Show();
+                C1.WPF.C1Window c1 = new C1.WPF.C1Window();
+                c1.Name = "end";
+                c1.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - en.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - en.Height / 2, 0, 0);
+                c1.Content = en;
+                c1.Show();
+                //en.Show();
 
-                if (PublicClass.end == 1)
-                {
-                    en.Closing += new System.ComponentModel.CancelEventHandler(en_Closing);
+                //if (PublicClass.end == 1)
+                //{
+                //    en.Closing += new System.ComponentModel.CancelEventHandler(en_Closing);
 
-                }
+                //}
 
                 
             }

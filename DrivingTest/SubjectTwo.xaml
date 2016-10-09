@@ -13,10 +13,18 @@
         <Label Content="教学" Height="35" HorizontalAlignment="Left" Margin="31,142,0,0" Name="label2" VerticalAlignment="Top" Foreground="Blue" FontSize="18" FontWeight="Bold" />
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="55,183,0,0" Name="textBlock2" Text="科目二考试项目：" VerticalAlignment="Top" Width="101" Foreground="#FF29ACE2" />
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="154,183,0,0" Name="textBlock3" Text="倒车入库、坡道定点停车和起步、侧方停车、曲线行驶、直角转弯" VerticalAlignment="Top" Width="539" Foreground="Red" />
-        <Image Height="117" HorizontalAlignment="Left" Margin="46,231,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="133" />
-        <Image Height="117" HorizontalAlignment="Left" Margin="185,231,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="133" />
-        <Image Height="117" HorizontalAlignment="Left" Margin="324,231,0,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="133" />
-        <Image Height="117" HorizontalAlignment="Left" Margin="463,231,0,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="133" />
-        <Image Height="117" HorizontalAlignment="Left" Margin="602,231,0,0" Name="image5" Stretch="Fill" VerticalAlignment="Top" Width="133" />
+        <Image Height="117" HorizontalAlignment="Left" Margin="46,231,0,0" Name="daoche_image" Stretch="Fill" VerticalAlignment="Top" Width="133" Source="/DrivingTest;component/Images/倒车入库02.jpg" MouseLeftButtonDown="daoche_image_MouseLeftButtonDown" />
+        <Image Height="117" HorizontalAlignment="Left" Margin="185,231,0,0" Name="podao_image" Stretch="Fill" VerticalAlignment="Top" Width="133" Source="/DrivingTest;component/Images/定点停车、坡道起步.jpg" MouseLeftButtonDown="podao_image_MouseLeftButtonDown" />
+        <Image Height="117" HorizontalAlignment="Left" Margin="324,231,0,0" Name="cefang_image" Stretch="Fill" VerticalAlignment="Top" Width="133" Source="/DrivingTest;component/Images/侧方停车.jpg" MouseLeftButtonDown="cefang_image_MouseLeftButtonDown" />
+        <Image Height="117" HorizontalAlignment="Left" Margin="463,231,0,0" Name="zhijiao_image" Stretch="Fill" VerticalAlignment="Top" Width="133" Source="/DrivingTest;component/Images/直角转弯.jpg" MouseLeftButtonDown="zhijiao_image_MouseLeftButtonDown" />
+        <Image Height="117" HorizontalAlignment="Left" Margin="602,231,0,0" Name="quxian_image" Stretch="Fill" VerticalAlignment="Top" Width="133" Source="/DrivingTest;component/Images/曲线行驶.jpg" MouseLeftButtonDown="quxian_image_MouseLeftButtonDown" />
+        <Label Content="倒车入库" Height="28" HorizontalAlignment="Left" Margin="81,354,0,0" Name="label3" VerticalAlignment="Top" />
+        <Label Content="坡道定点停车和起步" Height="28" HorizontalAlignment="Left" Margin="192,354,0,0" Name="label4" VerticalAlignment="Top" />
+        <Label Content="侧方位停车" Height="28" HorizontalAlignment="Left" Margin="357,354,0,0" Name="label5" VerticalAlignment="Top" />
+        <Label Content="直角转弯" Height="28" HorizontalAlignment="Left" Margin="497,354,0,0" Name="label6" VerticalAlignment="Top" />
+        <Label Content="曲线行驶" Height="28" HorizontalAlignment="Left" Margin="643,354,0,0" Name="label7" VerticalAlignment="Top" />
+        <Label Content="注意事项及判定标准" Height="35" HorizontalAlignment="Left" Margin="31,397,0,0" Name="label8" VerticalAlignment="Top" Foreground="Blue" FontSize="18" FontWeight="Bold" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="76,452,0,0" Name="zhuyi_textBlock" Text="1.注意事项" VerticalAlignment="Top" Foreground="#FF29ACE2" MouseLeftButtonDown="zhuyi_textBlock_MouseLeftButtonDown" MouseEnter="zhuyi_textBlock_MouseEnter" MouseLeave="zhuyi_textBlock_MouseLeave" />
+        <TextBlock Height="23" HorizontalAlignment="Right" Margin="0,452,479,0" Name="panding_textBlock" Text="2.判定标准" VerticalAlignment="Top" Foreground="#FF29ACE2" MouseLeftButtonDown="panding_textBlock_MouseLeftButtonDown" MouseEnter="panding_textBlock_MouseEnter" MouseLeave="panding_textBlock_MouseLeave"/>
     </Grid>
 </UserControl>
