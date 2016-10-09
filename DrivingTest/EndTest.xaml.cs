@@ -16,7 +16,7 @@ namespace DrivingTest
     /// <summary>
     /// EndTest.xaml 的交互逻辑
     /// </summary>
-    public partial class EndTest : Window
+    public partial class EndTest : UserControl
     {
         public EndTest()
         {
@@ -68,14 +68,23 @@ where T : DependencyObject
             {
                 ma.Close();
             }
-            this.Close();
+            C1.WPF.C1Window end = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "end");
+            if (end != null)
+            {
+                end.Close();
+            }
 
-            //IntPtr hwndCalc = FindWindow(null, "计算器");
-            //foreach (var item in Application.OpenForms)
+            //C1.WPF.C1Window memuyi = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "科目一");
+            //if (memuyi.Visibility==Visibility.Hidden)
             //{
-            //    if (item is Form1) item.Close();
+            //    end.Show();
             //}
+
+            
+
         }
+
+      
 
     }
 }
