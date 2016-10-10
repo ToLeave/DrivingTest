@@ -855,6 +855,7 @@ where T : DependencyObject
             StreamReader reader = null;
 
             string userlogin = user_textBox.Text;//用户名
+            PublicClass.login = userlogin; //储存登录用户名
             string userpassword = password_textBox.Password;//密码
 
             try
@@ -876,7 +877,7 @@ where T : DependencyObject
                 string loginMD5 = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(userlogin + userpassword + uuid + "CLOUDTIMESOFT", "MD5");//账号+密码+随机码+指定字符生成MD5
 
                 GetIP();
-                request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/eturnjsons/getuser?login=" + userlogin + "&validate=" + loginMD5 + "&ip=" + ip);//验证 url
+                request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/getuser?login=" + userlogin + "&validate=" + loginMD5 + "&ip=" + ip);//验证 url
                 request.Method = "GET";
                 request.Timeout = 10000;
                 response = (HttpWebResponse)request.GetResponse();
@@ -958,9 +959,9 @@ where T : DependencyObject
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            PublicClass.http = @"http://jiakao.cloudtimesoft.com";
+            PublicClass.http = @"http://192.168.1.98:3000";
 
-
+            //PublicClass.http = @"http://jiakao.cloudtimesoft.com";
             //maincanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
 
 
@@ -1386,11 +1387,14 @@ where T : DependencyObject
                 {
                     MainScreen ma = new MainScreen();
                     C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    ma.cartype = "C1";
+                    ma.subjection = "科目一";
                     c1ma.Content = ma;
-                    c1ma.Show();
+                    
                     c1ma.ToolTip = "小车类:科目一";
                     c1ma.Name = "科目一";
                     c1ma.Header = "小车类:科目一";
+                    c1ma.Show();
 
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
                     //this.Visibility = System.Windows.Visibility.Collapsed;
@@ -1409,6 +1413,8 @@ where T : DependencyObject
                 {
                     MainScreen ma = new MainScreen();
                     C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    ma.cartype = "C1";
+                    ma.subjection = "科目四";
                     c1ma.Content = ma;
                     c1ma.Show();
                     c1ma.ToolTip = "小车类:科目四";
@@ -1440,6 +1446,8 @@ where T : DependencyObject
                 {
                     MainScreen ma = new MainScreen();
                     C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    ma.cartype = "A1";
+                    ma.subjection = "科目一";
                     c1ma.Content = ma;
                     c1ma.Show();
                     c1ma.ToolTip = "客车类:科目一";
@@ -1451,6 +1459,8 @@ where T : DependencyObject
                 {
                     MainScreen ma = new MainScreen();
                     C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    ma.cartype = "A1";
+                    ma.subjection = "科目四";
                     c1ma.Content = ma;
                     c1ma.Show();
                     c1ma.ToolTip = "客车类:科目四";
@@ -1472,6 +1482,8 @@ where T : DependencyObject
                 {
                     MainScreen ma = new MainScreen();
                     C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    ma.cartype = "A2";
+                    ma.subjection = "科目一";
                     c1ma.Content = ma;
                     c1ma.Show();
                     c1ma.ToolTip = "货车类:科目一";
@@ -1483,6 +1495,8 @@ where T : DependencyObject
                 {
                     MainScreen ma = new MainScreen();
                     C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    ma.cartype = "A2";
+                    ma.subjection = "科目四";
                     c1ma.Content = ma;
                     c1ma.Show();
                     c1ma.ToolTip = "货车类:科目四";
@@ -1504,6 +1518,8 @@ where T : DependencyObject
                 {
                     MainScreen ma = new MainScreen();
                     C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    ma.cartype = "D";
+                    ma.subjection = "科目一";
                     c1ma.Content = ma;
                     c1ma.Show();
                     c1ma.ToolTip = "摩托车类:科目一";
@@ -1515,6 +1531,8 @@ where T : DependencyObject
                 {
                     MainScreen ma = new MainScreen();
                     C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    ma.cartype = "D";
+                    ma.subjection = "科目四";
                     c1ma.Content = ma;
                     c1ma.Show();
                     c1ma.ToolTip = "摩托车类:科目四";

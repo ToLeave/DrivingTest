@@ -99,8 +99,8 @@ where T : DependencyObject
 
 
 
-            random_question();//随机抽题
-
+            //random_question();//随机抽题
+            
             create_question_num();//生成题号
 
             questionindex();//初始化第一题
@@ -117,18 +117,149 @@ where T : DependencyObject
             
 
             //转换成秒数
-            Int32 hour = Convert.ToInt32(HourArea.Text);
-            Int32 minute = Convert.ToInt32(MinuteArea.Text);
-            Int32 second = Convert.ToInt32(SecondArea.Text);
+            //Int32 hour = Convert.ToInt32(HourArea.Text);
+            //Int32 minute = Convert.ToInt32(MinuteArea.Text);
+            //Int32 second = Convert.ToInt32(SecondArea.Text);
 
             //处理倒计时的类
-            processCount = new ProcessCount(hour * 3600 + minute * 60 + second);
-            CountDown += new CountDownHandler(processCount.ProcessCountDown);
+            //processCount = new ProcessCount(hour * 3600 + minute * 60 + second);
+            //CountDown += new CountDownHandler(processCount.ProcessCountDown);
 
             //开启定时器
             timer.Start();
             #endregion
         }
+
+        //随机题目
+        private List<PublicClass.Question> random_question(List<PublicClass.Question> question_all, int create_count)
+        {
+            Random random = new Random(Guid.NewGuid().GetHashCode());
+            
+            PublicClass.Question question = new PublicClass.Question();
+            for (int i = 0; i < question_all.Count(); i++)
+            {
+                int ran1 = random.Next(0, question_all.Count());
+                int ran2 = random.Next(0, question_all.Count());
+                if (ran1 != ran2)
+                {
+                    question = question_all[ran1];
+                    question_all[ran1] = question_all[ran2];
+                    question_all[ran2] = question;
+                }
+                else
+                {
+                    i--;
+                }
+            }
+            while (question_all.Count() > create_count)
+            {
+                int ran = random.Next(0, question_all.Count());
+                question_all.RemoveAt(ran);
+            }
+            return question_all;
+
+        }
+
+        //生成题库
+        public void create_question(int create_method, int question_mode, string cartpye,string subject, List<int> questions_id)// cerate_method 0 顺序,1随机; question_mode 0 练习,1考试; cartype 车型;subject 科目; questions_id 题库ID
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 question 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+            DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
+            jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
+            List<PublicClass.Question> question_pd_list = new List<PublicClass.Question>();
+            List<PublicClass.Question> question_xz_list = new List<PublicClass.Question>();
+            var local_subject =from c in jiakaoDataSet.subject where c.subject.Contains(subject) select c;
+
+
+            if (question_mode == 1)//考试
+            {
+                shezhi_grid.Visibility = System.Windows.Visibility.Hidden;
+                xianshi_grid.Visibility = System.Windows.Visibility.Hidden;
+                var question_pd = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartpye) && c.question_type.Contains("PD") && c.subject_id == local_subject.First().subject_id select c;
+
+                foreach (var qu in question_pd)
+                {
+                    PublicClass.Question question = new PublicClass.Question();
+                    question.question_id = qu.question_id;
+                    question.check_answer = true;
+                    question.select_answer = "";
+                    question.question_type = qu.question_type;
+                    question.sz = true;
+                    question.rept_do = 0;
+                    //question.answer = random_answer(qu.question_id);
+                    question_pd_list.Add(question);
+                }
+                question_pd_list = random_question(question_pd_list, 40);
+
+                var question_xz = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartpye) && c.question_type.Contains("XZ") && c.subject_id == local_subject.First().subject_id select c;
+
+                foreach (var qu in question_xz)
+                {
+                    PublicClass.Question question = new PublicClass.Question();
+                    question.question_id = qu.question_id;
+                    question.check_answer = true;
+                    question.select_answer = "";
+                    question.question_type = qu.question_type;
+                    question.sz = true;
+                    question.rept_do = 0;
+                    //question.answer = random_answer(qu.question_id);
+                    question_xz_list.Add(question);
+                }
+                question_xz_list = random_question(question_xz_list, 60);
+                for (int i = 0; i < question_pd_list.Count(); i++)
+                {
+                    question_list.Add(question_pd_list[i]);
+                }
+                for (int i = 0; i < question_xz_list.Count(); i++)
+                {
+                    question_list.Add(question_xz_list[i]);
+                    question_list[i].answer = random_answer(question_list[i].question_id);
+                }
+
+            }
+            else
+            {
+                if (create_method == 0)
+                {
+                    for (int i = 0; i < questions_id.Count(); i++)
+                    {
+                        var question = from c in jiakaoDataSet.question where c.question_id==questions_id[i] select c;
+                        PublicClass.Question local_question = new PublicClass.Question();
+                        local_question.question_id = question.First().question_id;
+                        local_question.check_answer = true;
+                        local_question.select_answer = "";
+                        local_question.question_type = question.First().question_type;
+                        local_question.sz = true;
+                        local_question.rept_do = 0;
+                        local_question.answer = random_answer(question.First().question_id);
+                        question_list.Add(local_question);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < questions_id.Count(); i++)
+                    {
+                        var question = from c in jiakaoDataSet.question where c.question_id == questions_id[i] select c;
+                        PublicClass.Question local_question = new PublicClass.Question();
+                        local_question.question_id = question.First().question_id;
+                        local_question.check_answer = true;
+                        local_question.select_answer = "";
+                        local_question.question_type = question.First().question_type;
+                        local_question.sz = true;
+                        local_question.rept_do = 0;
+                        local_question.answer = random_answer(question.First().question_id);
+                        question_list.Add(local_question);  
+                    }
+                    question_list = random_question(question_list, questions_id.Count());
+                }
+                
+            }
+            question_c = question_list.Count();
+        }
+
 
         //随机抽答案
         private List<PublicClass.Answer> random_answer(int question_id)
@@ -140,35 +271,36 @@ where T : DependencyObject
             List<PublicClass.Answer> newanswer = new List<PublicClass.Answer>();
             var answer = from c in jiakaoDataSet.answer where c.question_id == question_id select c;
             Random random = new Random(Guid.NewGuid().GetHashCode());
+
+            foreach (var an in answer)
+            {
+                PublicClass.Answer temanswer = new PublicClass.Answer();
+                temanswer.answer_id = an.answer_id;
+                temanswer.isright = int.Parse(an.is_right);
+                newanswer.Add(temanswer);
+            }
+            int temcount = 0;
             for (int i = 0; i < answer.Count(); i++)
             {
-                int ran = random.Next(0, answer.Count());
-                PublicClass.Answer temanswer = new PublicClass.Answer();
-                int temstep = 0;
-                foreach (var an in answer)
+                int ran1 = random.Next(0, answer.Count());
+                int ran2 = random.Next(0, answer.Count());
+                if (ran1 != ran2)
                 {
-
-                    if (ran == temstep)
-                    {
-                        temanswer.answer_id = an.answer_id;
-                        temanswer.isright = int.Parse(an.is_right);
-                        newanswer.Add(temanswer);
-                        break;
-                    }
-                    temstep++;
+                    PublicClass.Answer temanswer = new PublicClass.Answer();
+                    temanswer = newanswer[ran1];
+                    newanswer[ran1] = newanswer[ran2];
+                    newanswer[ran2] = temanswer;
                 }
-
-                int an_count = 0;
-                an_count = (from c in newanswer where c.answer_id == temanswer.answer_id select c).Count();
-                if (an_count > 1)
+                else
                 {
-                    newanswer.Remove(temanswer);
                     i--;
                 }
-
-
+                temcount++;
+                if (temcount > 10)
+                {
+                    i = 10;
+                }
             }
-
             return newanswer;
         }
 
@@ -516,6 +648,10 @@ where T : DependencyObject
             }
             else
             {
+                xuanxiang_textBlock1.Text = "";
+                xuanxiang_textBlock2.Text = "";
+                xuanxiang_textBlock3.Text = "";
+                xuanxiang_textBlock4.Text = "";
                 duicuo();
             }
 
@@ -597,6 +733,7 @@ where T : DependencyObject
             dati_precent.Text = ((int)(((float)dadui_count / (float)yida_count) * 100)).ToString();
 
             chouti_precent.Text = ((int)(((float)dadui_count / (float)question_c) * 100)).ToString();
+            PublicClass.fenshu = int.Parse(chouti_precent.Text);
 
             int weida_count = (from c in question_list where c.rept_do == 0 select c).Count();
             weida.Text = weida_count.ToString();
@@ -988,7 +1125,7 @@ where T : DependencyObject
 
             xuanxiang_textBlock.Text = question_list[question_index].select_answer;
 
-
+           
         }
 
         //字体大小
@@ -1027,6 +1164,18 @@ where T : DependencyObject
         }
 
 
+        //交卷
+        private void jiaojuan_button_Click(object sender, RoutedEventArgs e)
+        {
+            Assignment ass = new Assignment();
+            C1.WPF.C1Window c1w = new C1.WPF.C1Window();
+            c1w.Content = ass;
+            c1w.ShowModal();
+            c1w.Name = "交卷";
+            c1w.Header = "提示";
+        }
+
+
         #region 计时器
         /// <summary>
         /// Timer触发的事件
@@ -1035,13 +1184,10 @@ where T : DependencyObject
         /// <param name="e"></param>
         private void timer_Tick(object sender, EventArgs e)
         {
-            if (OnCountDown())
-            {
-                HourArea.Text = processCount.GetHour();
-                MinuteArea.Text = processCount.GetMinute();
-                SecondArea.Text = processCount.GetSecond();
-            }
-            else
+
+            DateTime nowtime = DateTime.Parse(SecondArea.Text);
+            nowtime = nowtime.Subtract(TimeSpan.FromSeconds(1));
+            if (SecondArea.Text=="00:00:00")
             {
                 timer.Stop();
                 EndTest en = new EndTest();
@@ -1049,8 +1195,30 @@ where T : DependencyObject
                 c1.Name = "end";
                 c1.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - en.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - en.Height / 2, 0, 0);
                 c1.Content = en;
-                c1.Show();
-                //en.Show();
+                c1.ShowModal();
+            }
+            else
+            {
+                SecondArea.Text = nowtime.ToLongTimeString();
+            }
+
+            //if (OnCountDown())
+            //{
+            //    //HourArea.Text = processCount.GetHour();
+            //    //MinuteArea.Text = processCount.GetMinute();
+            //    SecondArea.Text = processCount.GetSecond();
+
+            //}
+            //else
+            //{
+            //    timer.Stop();
+            //    EndTest en = new EndTest();
+            //    C1.WPF.C1Window c1 = new C1.WPF.C1Window();
+            //    c1.Name = "end";
+            //    c1.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - en.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - en.Height / 2, 0, 0);
+            //    c1.Content = en;
+            //    c1.ShowModal();
+            //    //en.Show();
 
                 //if (PublicClass.end == 1)
                 //{
@@ -1059,7 +1227,7 @@ where T : DependencyObject
                 //}
 
                 
-            }
+            //}
 
 
 
@@ -1084,6 +1252,8 @@ where T : DependencyObject
 
             return false;
         }
+
+  
 
 
 

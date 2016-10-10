@@ -24,6 +24,13 @@ namespace DrivingTest
             //this.Closing += F;
         }
 
+        public string cartype = "";
+        public string subjection = "";
+        List<int> chapter_index = new List<int>();
+        int subject_id;
+        string subject_name;
+        List<int> questions_id = new List<int>();
+
         private void F(object o, System.ComponentModel.CancelEventArgs e)
         {
             Window main = Application.Current.MainWindow;
@@ -82,20 +89,51 @@ namespace DrivingTest
         //顺序练习
         private void shunxulianxi_Click(object sender, RoutedEventArgs e)
         {
-            //foreach (ListBoxItem lbi in listBox.SelectedItems)
-            //{
-            //    if (lbi != null)
-            //    {
-            //        string str = lbi.Content.ToString();
-            //        MessageBox.Show(str, "");
-            //    }
-            //} 
 
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+            var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.subject_id == subject_id && c.chapter_id == chapter_index[listBox.SelectedIndex] select c;
+            questions_id.Clear();
+            foreach (var qu in questions)
+            {
+                questions_id.Add(qu.question_id);
+            }
+            MainExam ma = new MainExam();
+
+
+            C1.WPF.C1Window cwin = new C1.WPF.C1Window();
+            ma.create_question(0, 0, cartype, subject_name, questions_id);
+            cwin.Content = ma;
+            cwin.Name = "驾考";
+            cwin.Header = "驾驶理论考试系统";
+            cwin.Show();
+            //this.Content = ma;
+            cwin.WindowState = C1.WPF.C1WindowState.Maximized;
         }
         //随机练习
         private void suijilianxi_Click(object sender, RoutedEventArgs e)
         {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
 
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+            var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.subject_id == subject_id && c.chapter_id == chapter_index[listBox.SelectedIndex] select c;
+            questions_id.Clear();
+            foreach (var qu in questions)
+            {
+                questions_id.Add(qu.question_id);
+            }
+            MainExam ma = new MainExam();
+            C1.WPF.C1Window cwin = new C1.WPF.C1Window();
+            ma.create_question(1, 0, cartype, subject_name, questions_id);
+            cwin.Content = ma;
+            cwin.Name = "驾考";
+            cwin.Header = "驾驶理论考试系统";
+            cwin.Show();
+            //this.Content = ma;
+            cwin.WindowState = C1.WPF.C1WindowState.Maximized;
         }
         //专项练习
         private void zhuanxianglianxi_Click(object sender, RoutedEventArgs e)
@@ -140,8 +178,46 @@ namespace DrivingTest
             jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
             System.Windows.Data.CollectionViewSource chapterViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("chapterViewSource")));
             chapterViewSource.View.MoveCurrentToFirst();
+           
+            list_bangding(cartype, subjection);
+        }
 
-            
+
+        private void list_bangding(string cartype, string subjection)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
+            jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
+
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+
+            DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
+            jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
+
+            var sub = from c in jiakaoDataSet.subject where c.subject.Contains(subjection) select c;
+            subject_id = sub.First().subject_id;
+            subject_name = sub.First().subject;
+            var question = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.subject_id == sub.First().subject_id select c;
+
+            List<int> chapter_list_id = new List<int>();
+            foreach (var myquestion in question)
+            {
+                if (chapter_list_id.Exists(c=>c==myquestion.chapter_id)==false)
+                {
+                    chapter_list_id.Add(myquestion.chapter_id);
+                }
+            }
+
+            listBox.Items.Clear();
+            foreach (var mysub in chapter_list_id)
+            {
+                var temsub = from c in jiakaoDataSet.chapter where c.chapter_id == mysub select c;
+                listBox.Items.Add(temsub.First().chapter);
+                chapter_index.Add(temsub.First().chapter_id);
+            }
+
+
         }
 
         

@@ -77,6 +77,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Assignment.xaml.cs">
+      <DependentUpon>Assignment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Curve.xaml.cs">
       <DependentUpon>Curve.xaml</DependentUpon>
     </Compile>
@@ -150,6 +153,10 @@
     <Compile Include="SubjectTwo.xaml.cs">
       <DependentUpon>SubjectTwo.xaml</DependentUpon>
     </Compile>
+    <Page Include="Assignment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Curve.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -330,6 +337,8 @@
     <Resource Include="Images\cftc.gif" />
     <Resource Include="Images\zjzw.gif" />
     <Resource Include="Images\qxxs.gif" />
+    <Resource Include="Images\考试确认窗口.png" />
+    <Resource Include="Images\信息提示.png" />
     <Content Include="jiakao.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

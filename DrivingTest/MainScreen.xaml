@@ -7,6 +7,8 @@
         <src:Processes x:Key="p"/>
         <src:jiakaoDataSet x:Key="jiakaoDataSet" />
         <CollectionViewSource x:Key="chapterViewSource" Source="{Binding Path=chapter, Source={StaticResource jiakaoDataSet}}" />
+        <CollectionViewSource x:Key="subjectViewSource" Source="{Binding Path=subject, Source={StaticResource jiakaoDataSet}}" />
+        <CollectionViewSource x:Key="questionViewSource" Source="{Binding Path=question, Source={StaticResource jiakaoDataSet}}" />
     </UserControl.Resources>
     <Grid DataContext="{StaticResource chapterViewSource}">
         <TextBlock Height="169" HorizontalAlignment="Left" Margin="60,9,0,0" Name="textBlock1" Text="TextBlock" VerticalAlignment="Top" Width="659" />
@@ -22,7 +24,7 @@
         <Button Content="我的错题" Height="23" HorizontalAlignment="Left" Margin="644,223,0,0" Name="my_mistakes" VerticalAlignment="Top" Width="75" Click="my_mistakes_Click" />
 
 
-        <ListBox Height="212" HorizontalAlignment="Left" Margin="60,258,0,0" Name="listBox" VerticalAlignment="Top" Width="659" ItemsSource="{Binding}" DisplayMemberPath="chapter" />
+        <ListBox Height="212" HorizontalAlignment="Left" Margin="60,258,0,0" Name="listBox" VerticalAlignment="Top" Width="659" />
         
         <Button Content="顺序练习" Height="23" HorizontalAlignment="Left" Margin="543,476,0,0" Name="shunxulianxi" VerticalAlignment="Top" Width="75" Click="shunxulianxi_Click" />
         <Button Content="随机练习" Height="23" HorizontalAlignment="Left" Margin="644,476,0,0" Name="suijilianxi" VerticalAlignment="Top" Width="75" Click="suijilianxi_Click" />

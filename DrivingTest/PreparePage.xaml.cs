@@ -34,16 +34,18 @@ namespace DrivingTest
             }
 
             C1.WPF.C1Window cwin = new C1.WPF.C1Window();
+            ma.create_question(1, 1, "C1", "科目一", null);
             cwin.Content = ma;
             cwin.Name = "驾考";
             cwin.Header = "驾驶理论考试系统";
             cwin.Show();
-            this.Content = ma;
+            //this.Content = ma;
             //cwin.WindowState = C1.WPF.C1WindowState.Maximized;
             //cwin.CenterOnScreen();
             //cwin.Margin = new Thickness(0);
-            cwin.Width = SystemParameters.PrimaryScreenWidth;
-            cwin.Height = SystemParameters.WorkArea.Height;
+            //cwin.Width = SystemParameters.PrimaryScreenWidth;
+            //cwin.Height = SystemParameters.WorkArea.Height;
+            cwin.WindowState = C1.WPF.C1WindowState.Maximized;
         }
     }
 }
