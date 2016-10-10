@@ -74,10 +74,10 @@ where T : DependencyObject
                 end.Close();
             }
 
-            //C1.WPF.C1Window memuyi = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "科目一");
-            //if (memuyi.Visibility==Visibility.Hidden)
+            C1.WPF.C1Window memuyi = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "科目一");
+            //if (memuyi.Visibility == Visibility.Hidden)
             //{
-            //    end.Show();
+            memuyi.Show();
             //}
 
             
