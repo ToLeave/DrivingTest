@@ -15,6 +15,9 @@ using System.Windows.Threading;
 using System.Data.OleDb;
 using System.Windows.Controls.Primitives;
 using System.IO;
+using System.Speech.Synthesis;
+
+
 
 namespace DrivingTest
 {
@@ -35,6 +38,8 @@ namespace DrivingTest
         int quesiton_d = 0;//多选题总题数
         int lab_index = 0;
 
+        SpeechSynthesizer synth = new SpeechSynthesizer();
+      // Configure the audio output. 
         string current_question_type = "S";//S=单选 M=多选 P=判断
 
         string imagename = "";//图片文件名
@@ -106,6 +111,13 @@ where T : DependencyObject
             questionindex();//初始化第一题
             chouti_count.Text = question_c.ToString();
             weida.Text = question_c.ToString();
+
+            // Configure the audio output. 
+            synth.SetOutputToDefaultAudioDevice();
+            //synth.SelectVoiceByHints(VoiceGender.Neutral);
+            // Speak a string.
+            synth.Volume = 100;
+            synth.Rate = 0;
 
 
             #region 启动定时器
@@ -209,6 +221,7 @@ where T : DependencyObject
                     question_xz_list.Add(question);
                 }
                 question_xz_list = random_question(question_xz_list, 60);
+
                 for (int i = 0; i < question_pd_list.Count(); i++)
                 {
                     question_list.Add(question_pd_list[i]);
@@ -216,7 +229,7 @@ where T : DependencyObject
                 for (int i = 0; i < question_xz_list.Count(); i++)
                 {
                     question_list.Add(question_xz_list[i]);
-                    question_list[i].answer = random_answer(question_list[i].question_id);
+                    question_list.Last().answer = random_answer(question_list.Last().question_id);
                 }
 
             }
@@ -707,6 +720,7 @@ where T : DependencyObject
             judge_answer();
             answer_UI();
             shouzheng_cal(question_id - 1);
+            play_voice(timu_textBlock.Text);
 
             //xuanxiang_textBlock.Text = "";
 
@@ -931,6 +945,14 @@ where T : DependencyObject
 
             }
         }
+
+        private void play_voice(string playtxt)
+        {
+            synth.SpeakAsyncCancelAll();
+            synth.SpeakAsync(playtxt);
+
+        }
+
 
         //选项
         private void xuanxiang_button_Click(object sender, RoutedEventArgs e)
