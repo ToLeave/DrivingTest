@@ -42,6 +42,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Users\CloudTime\Desktop\房产地产管理软件(2016-7-14-am)\房产地产管理软件\fcz\PocclientApplication\PocclientApplication\bin\Debug\C1.WPF.4.dll</HintPath>
     </Reference>
+    <Reference Include="C1.WPF.Extended.4, Version=4.0.20141.391, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
     <Reference Include="C1.WPF.FlexGrid.4, Version=4.0.20141.391, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>C:\Users\HY\Desktop\新建文件夹\Newtonsoft.Json.dll</HintPath>

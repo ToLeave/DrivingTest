@@ -188,8 +188,8 @@ where T : DependencyObject
 
             if (question_mode == 1)//考试
             {
-                shezhi_grid.Visibility = System.Windows.Visibility.Hidden;
-                xianshi_grid.Visibility = System.Windows.Visibility.Hidden;
+                //shezhi_grid.Visibility = System.Windows.Visibility.Hidden;
+                //xianshi_grid.Visibility = System.Windows.Visibility.Hidden;
                 var question_pd = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartpye) && c.question_type.Contains("PD") && c.subject_id == local_subject.First().subject_id select c;
 
                 foreach (var qu in question_pd)
@@ -1185,6 +1185,12 @@ where T : DependencyObject
             }
         }
 
+        //字体颜色
+        private void ziti_c1ColorPicker_SelectedColorChanged(object sender, C1.WPF.PropertyChangedEventArgs<Color> e)
+        {
+            timu_textBlock.Foreground = new SolidColorBrush(ziti_c1ColorPicker.SelectedColor);
+        }
+
 
         //交卷
         private void jiaojuan_button_Click(object sender, RoutedEventArgs e)
@@ -1274,6 +1280,8 @@ where T : DependencyObject
 
             return false;
         }
+
+     
 
   
 
