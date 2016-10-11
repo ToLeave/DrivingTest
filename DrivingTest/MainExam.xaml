@@ -77,10 +77,11 @@
 
         <Image Height="299" HorizontalAlignment="Center" Margin="223,437,289,25" Name="kaoshi_image" Stretch="Fill" VerticalAlignment="Center" Width="667" StretchDirection="DownOnly" Visibility="Hidden" />
         <Image x:Name="image" Margin="223,437,289,25" Height="299" Width="667"/>
-        <wfi:WindowsFormsHost  Height="299" HorizontalAlignment="Center" Margin="223,437,289,25" Name="kaoshi_gif"  VerticalAlignment="Center" Width="667" Visibility="Visible" >
+        <!--<wfi:WindowsFormsHost  Height="299" HorizontalAlignment="Center" Margin="223,437,289,25" Name="kaoshi_gif"  VerticalAlignment="Center" Width="667" Visibility="Visible" >
             <wf:PictureBox x:Name="gif_image" Height="299" Width="667" SizeMode="StretchImage">
             </wf:PictureBox>
-        </wfi:WindowsFormsHost>
+        </wfi:WindowsFormsHost>-->
+        <MediaElement Margin="223,437,289,25" Width="667" Height="299"  x:Name="gif_image" MediaEnded="gif_image_MediaEnded"></MediaElement>
         <GroupBox Header="考试图片信息" Height="330" HorizontalAlignment="Center" Margin="174,416,224,15" Name="groupBox7" VerticalAlignment="Center" Width="780" Visibility="Visible" />
         <!--<Grid x:Name="shezhi_grid" Visibility="Visible">-->
         <CheckBox Content="显示答案" Height="16" HorizontalAlignment="Center" Margin="36,437,1077,308" Name="checkBox1" VerticalAlignment="Center" />

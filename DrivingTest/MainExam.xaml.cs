@@ -114,7 +114,7 @@ where T : DependencyObject
 
             // Configure the audio output. 
             synth.SetOutputToDefaultAudioDevice();
-            //synth.SelectVoiceByHints(VoiceGender.Neutral);
+            //synth.SelectVoiceByHints(VoiceGender.Male);
             // Speak a string.
             synth.Volume = 100;
             synth.Rate = 0;
@@ -562,11 +562,11 @@ where T : DependencyObject
                     int Length = (int)fd.Length;
                     if (Length > 0)
                     {
-                        gif_image.Image = System.Drawing.Image.FromFile(path);
+                        gif_image.Source =new Uri( path,UriKind.Absolute);
                     }
                     else
                     {
-                        gif_image.Image = null;
+                        gif_image.Source = null;
                     }
                 }
                 catch
@@ -576,7 +576,7 @@ where T : DependencyObject
             }
             else
             {
-                gif_image.Image = null;
+                gif_image.Source = null;
             }
         }
 
@@ -1290,6 +1290,11 @@ where T : DependencyObject
                 return CountDown();
 
             return false;
+        }
+
+        private void gif_image_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            ((MediaElement)sender).Position = ((MediaElement)sender).Position.Add(TimeSpan.FromMilliseconds(1));
         }
 
      
