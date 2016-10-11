@@ -42,6 +42,7 @@
                                 <Label Content="学员照片" Height="28" HorizontalAlignment="Left" Margin="38,376,0,0" Name="label35" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="99,378,0,0" Name="textBox17" VerticalAlignment="Top" Width="120" />
                                 <Button Content="上传本地图片" Height="23" HorizontalAlignment="Left" Margin="257,378,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
+                                <Button Content="Button" Height="23" HorizontalAlignment="Left" Margin="162,461,0,0" Name="button6" VerticalAlignment="Top" Width="75" />
                             </Grid>
                         </avalon:LayoutAnchorable>
                         <avalon:LayoutAnchorable Title=" 基本设置 " CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True">

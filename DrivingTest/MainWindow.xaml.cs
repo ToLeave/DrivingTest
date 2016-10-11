@@ -1065,6 +1065,11 @@ where T : DependencyObject
             }
 
 
+            test re = new test();
+            C1.WPF.C1Window cc = new C1.WPF.C1Window();
+            cc.Content = re;
+            cc.Show();
+
         }
 
         #region 首页动画
@@ -1344,6 +1349,7 @@ where T : DependencyObject
             c1ma.ToolTip = "科目二";
             c1ma.Name = "科目二";
             c1ma.Header = "科目二";
+            c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
 
             //this.Visibility = System.Windows.Visibility.Collapsed;
             //this.WindowState = System.Windows.WindowState.Minimized;
@@ -1358,6 +1364,7 @@ where T : DependencyObject
             c1ma.ToolTip = "科目三";
             c1ma.Name = "科目三";
             c1ma.Header = "科目三";
+            c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
             //this.Visibility = System.Windows.Visibility.Collapsed;
         }
         //科目四
@@ -1396,16 +1403,12 @@ where T : DependencyObject
                     c1ma.Header = "小车类:科目一";
                     c1ma.Show();
 
-                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
-                    //this.Visibility = System.Windows.Visibility.Collapsed;
+         
 
                     c1ma.IsResizable = false;
-                    //c1ma.HorizontalAlignment = HorizontalAlignment.Left;
-                    //c1ma.VerticalAlignment = VerticalAlignment.Top;
+          
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2-ma.Width/2, SystemParameters.PrimaryScreenHeight/ 2-ma.Height/2, 0, 0);
-                    //this.Visibility = System.Windows.Visibility.Collapsed;4
-
-                    //this.WindowState = WindowState.Maximized;
+           
                     maincanvas.Visibility = Visibility.Hidden;
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
@@ -1420,6 +1423,7 @@ where T : DependencyObject
                     c1ma.ToolTip = "小车类:科目四";
                     c1ma.Name = "科目四";
                     c1ma.Header = "小车类:科目四";
+                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                 }
             }
@@ -1435,8 +1439,8 @@ where T : DependencyObject
             //if (main.Visibility == Visibility.Hidden)
             //{
             maincanvas.Visibility = Visibility.Visible;
-            maincanvas.Width = 0;
-            maincanvas.Height = 0;
+            //maincanvas.Width = 0;
+            //maincanvas.Height = 0;
             //}
         }
         //a1a3b1
@@ -1455,6 +1459,7 @@ where T : DependencyObject
                     c1ma.ToolTip = "客车类:科目一";
                     c1ma.Name = "科目一";
                     c1ma.Header = "客车类:科目一";
+                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                 }
                 else if (subjectname == "科目四")
@@ -1468,7 +1473,8 @@ where T : DependencyObject
                     c1ma.ToolTip = "客车类:科目四";
                     c1ma.Name = "科目四";
                     c1ma.Header = "客车类:科目四";
-                    this.Visibility = System.Windows.Visibility.Collapsed;
+                    //this.Visibility = System.Windows.Visibility.Collapsed;
+                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
                 }
             }
             else
@@ -1491,7 +1497,8 @@ where T : DependencyObject
                     c1ma.ToolTip = "货车类:科目一";
                     c1ma.Name = "科目一";
                     c1ma.Header = "货车类:科目一";
-                    this.Visibility = System.Windows.Visibility.Collapsed;
+                    //this.Visibility = System.Windows.Visibility.Collapsed;
+                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
                 }
                 else if (subjectname == "科目四")
                 {
@@ -1504,7 +1511,8 @@ where T : DependencyObject
                     c1ma.ToolTip = "货车类:科目四";
                     c1ma.Name = "科目四";
                     c1ma.Header = "货车类:科目四";
-                    this.Visibility = System.Windows.Visibility.Collapsed;
+                    //this.Visibility = System.Windows.Visibility.Collapsed;
+                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
                 }
             }
             else
@@ -1527,7 +1535,8 @@ where T : DependencyObject
                     c1ma.ToolTip = "摩托车类:科目一";
                     c1ma.Name = "科目一";
                     c1ma.Header = "摩托车类:科目一";
-                    this.Visibility = System.Windows.Visibility.Collapsed;
+                    //this.Visibility = System.Windows.Visibility.Collapsed;
+                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
                 }
                 else if (subjectname == "科目四")
                 {
@@ -1540,7 +1549,8 @@ where T : DependencyObject
                     c1ma.ToolTip = "摩托车类:科目四";
                     c1ma.Name = "科目四";
                     c1ma.Header = "摩托车类:科目四";
-                    this.Visibility = System.Windows.Visibility.Collapsed;
+                    //this.Visibility = System.Windows.Visibility.Collapsed;
+                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
                 }
             }
             else
@@ -1557,6 +1567,7 @@ where T : DependencyObject
             c1ma.Name = "恢复驾驶资格类";
             c1ma.Header = "恢复驾驶资格类";
             c1ma.Show();
+            c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
         }
 
         //修改密码

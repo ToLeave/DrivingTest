@@ -37,7 +37,7 @@ namespace DrivingTest
         int quesiton_p = 0;//判断题总题数
         int quesiton_d = 0;//多选题总题数
         int lab_index = 0;
-
+        bool is_click_flag = false;//选答案判断
         SpeechSynthesizer synth = new SpeechSynthesizer();
       // Configure the audio output. 
         string current_question_type = "S";//S=单选 M=多选 P=判断
@@ -693,9 +693,11 @@ where T : DependencyObject
             }
             judge_answer();
             answer_UI();
+            shouzheng_cal(question_id + 1);
+            errquestion(question_id + 1);
+            play_voice(timu_textBlock.Text);
 
-
-            xuanxiang_textBlock.Text = "";
+            //xuanxiang_textBlock.Text = "";
         }
 
         //下一题
@@ -720,8 +722,9 @@ where T : DependencyObject
             judge_answer();
             answer_UI();
             shouzheng_cal(question_id - 1);
+            errquestion(question_id - 1);
             play_voice(timu_textBlock.Text);
-
+            
             //xuanxiang_textBlock.Text = "";
 
 
@@ -794,6 +797,9 @@ where T : DependencyObject
             DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
             jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
 
+            DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
+            jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
+
             //    var answer = from c in jiakaoDataSet.answer where c.question_id == question_list[question_id].question_id select c;
             foreach (var lab in dati_canvas.Children)
             {
@@ -803,6 +809,34 @@ where T : DependencyObject
             }
 
 
+        }
+
+        //储存错题
+        private void errquestion(int id)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 question 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+
+            DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
+            jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
+
+            if (question_list[id].check_answer == false && is_click_flag)
+            {
+                var err = from c in jiakaoDataSet.errquest where c.question_id == question_list[id].question_id select c;
+                if (err.Count() > 0)
+                {
+                    err.First().amount += 1;
+                }
+                else
+                {
+                    jiakaoDataSeterrquestTableAdapter.Insert(1, question_list[id].question_id, 1);
+                }
+                jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
+                jiakaoDataSet.errquest.AcceptChanges();
+            }
+            is_click_flag = false;
         }
 
         //生成题目和答案
@@ -1146,7 +1180,7 @@ where T : DependencyObject
             }
 
             xuanxiang_textBlock.Text = question_list[question_index].select_answer;
-
+            is_click_flag = true;
            
         }
 
@@ -1203,6 +1237,12 @@ where T : DependencyObject
             c1w.Header = "提示";
         }
 
+        private void gif_image_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            ((MediaElement)sender).Position = ((MediaElement)sender).Position.Add(TimeSpan.FromMilliseconds(1));
+            //(sender as MediaElement).Stop();
+            //(sender as MediaElement).Play();  
+        }
 
         #region 计时器
         /// <summary>
@@ -1292,10 +1332,7 @@ where T : DependencyObject
             return false;
         }
 
-        private void gif_image_MediaEnded(object sender, RoutedEventArgs e)
-        {
-            ((MediaElement)sender).Position = ((MediaElement)sender).Position.Add(TimeSpan.FromMilliseconds(1));
-        }
+        
 
      
 

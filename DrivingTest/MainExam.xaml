@@ -13,6 +13,7 @@
         <CollectionViewSource x:Key="questionViewSource" Source="{Binding Path=question, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="answerViewSource" Source="{Binding Path=answer, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="subjectViewSource" Source="{Binding Path=subject, Source={StaticResource jiakaoDataSet}}" />
+        <CollectionViewSource x:Key="errquestViewSource" Source="{Binding Path=errquest, Source={StaticResource jiakaoDataSet}}" />
     </UserControl.Resources>
     <Grid x:Name="mygrid" DataContext="{StaticResource questionViewSource}">
         <Label Content="第" Height="28" HorizontalAlignment="Center" Margin="41,37,1115,696" Name="label1" VerticalAlignment="Center" />
@@ -81,7 +82,7 @@
             <wf:PictureBox x:Name="gif_image" Height="299" Width="667" SizeMode="StretchImage">
             </wf:PictureBox>
         </wfi:WindowsFormsHost>-->
-        <MediaElement Margin="223,437,289,25" Width="667" Height="299"  x:Name="gif_image" MediaEnded="gif_image_MediaEnded"></MediaElement>
+        <MediaElement Margin="223,437,289,25" Width="667" Height="299"  x:Name="gif_image" MediaEnded="gif_image_MediaEnded" >    </MediaElement>
         <GroupBox Header="考试图片信息" Height="330" HorizontalAlignment="Center" Margin="174,416,224,15" Name="groupBox7" VerticalAlignment="Center" Width="780" Visibility="Visible" />
         <!--<Grid x:Name="shezhi_grid" Visibility="Visible">-->
         <CheckBox Content="显示答案" Height="16" HorizontalAlignment="Center" Margin="36,437,1077,308" Name="checkBox1" VerticalAlignment="Center" />

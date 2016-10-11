@@ -36,19 +36,10 @@ namespace DrivingTest
             System.Windows.Data.CollectionViewSource settingViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("settingViewSource")));
             settingViewSource.View.MoveCurrentToFirst();
 
-           
 
 
 
 
-
-
-
-
-
-
-
-          
 
         }
 

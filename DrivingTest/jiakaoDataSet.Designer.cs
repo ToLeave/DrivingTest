@@ -8164,18 +8164,15 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_amount", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "amount", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `errquest` (`errquest_id`, `user_id`, `question_id`, `amount`) VALUES" +
-                " (?, ?, ?, ?)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `errquest` (`user_id`, `question_id`, `amount`) VALUES (?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("errquest_id", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "errquest_id", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("user_id", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "user_id", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("question_id", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "question_id", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("amount", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "amount", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `errquest` SET `errquest_id` = ?, `user_id` = ?, `question_id` = ?, `amount` = ? WHERE ((`errquest_id` = ?) AND ((? = 1 AND `user_id` IS NULL) OR (`user_id` = ?)) AND ((? = 1 AND `question_id` IS NULL) OR (`question_id` = ?)) AND ((? = 1 AND `amount` IS NULL) OR (`amount` = ?)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `errquest` SET `user_id` = ?, `question_id` = ?, `amount` = ? WHERE ((`errquest_id` = ?) AND ((? = 1 AND `user_id` IS NULL) OR (`user_id` = ?)) AND ((? = 1 AND `question_id` IS NULL) OR (`question_id` = ?)) AND ((? = 1 AND `amount` IS NULL) OR (`amount` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("errquest_id", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "errquest_id", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("user_id", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "user_id", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("question_id", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "question_id", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("amount", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "amount", global::System.Data.DataRowVersion.Current, false, null));
@@ -8308,25 +8305,24 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int errquest_id, global::System.Nullable<int> user_id, global::System.Nullable<int> question_id, global::System.Nullable<int> amount) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(errquest_id));
+        public virtual int Insert(global::System.Nullable<int> user_id, global::System.Nullable<int> question_id, global::System.Nullable<int> amount) {
             if ((user_id.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(user_id.Value));
+                this.Adapter.InsertCommand.Parameters[0].Value = ((int)(user_id.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            if ((question_id.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(question_id.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((question_id.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(question_id.Value));
+            if ((amount.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(amount.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            if ((amount.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((int)(amount.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -8348,50 +8344,49 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int errquest_id, global::System.Nullable<int> user_id, global::System.Nullable<int> question_id, global::System.Nullable<int> amount, int Original_errquest_id, global::System.Nullable<int> Original_user_id, global::System.Nullable<int> Original_question_id, global::System.Nullable<int> Original_amount) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(errquest_id));
+        public virtual int Update(global::System.Nullable<int> user_id, global::System.Nullable<int> question_id, global::System.Nullable<int> amount, int Original_errquest_id, global::System.Nullable<int> Original_user_id, global::System.Nullable<int> Original_question_id, global::System.Nullable<int> Original_amount) {
             if ((user_id.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(user_id.Value));
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(user_id.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            if ((question_id.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(question_id.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((question_id.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(question_id.Value));
+            if ((amount.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(amount.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            if ((amount.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(amount.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_errquest_id));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_errquest_id));
             if ((Original_user_id.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_user_id.Value));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_user_id.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             if ((Original_question_id.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_question_id.Value));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_question_id.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             if ((Original_amount.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_amount.Value));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_amount.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -8407,14 +8402,6 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
                     this.Adapter.UpdateCommand.Connection.Close();
                 }
             }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> user_id, global::System.Nullable<int> question_id, global::System.Nullable<int> amount, int Original_errquest_id, global::System.Nullable<int> Original_user_id, global::System.Nullable<int> Original_question_id, global::System.Nullable<int> Original_amount) {
-            return this.Update(Original_errquest_id, user_id, question_id, amount, Original_errquest_id, Original_user_id, Original_question_id, Original_amount);
         }
     }
     

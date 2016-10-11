@@ -111,6 +111,7 @@ namespace DrivingTest
             cwin.Show();
             //this.Content = ma;
             cwin.WindowState = C1.WPF.C1WindowState.Maximized;
+            
         }
         //随机练习
         private void suijilianxi_Click(object sender, RoutedEventArgs e)
