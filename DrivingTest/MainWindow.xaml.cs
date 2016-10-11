@@ -1435,6 +1435,8 @@ where T : DependencyObject
             //if (main.Visibility == Visibility.Hidden)
             //{
             maincanvas.Visibility = Visibility.Visible;
+            maincanvas.Width = 0;
+            maincanvas.Height = 0;
             //}
         }
         //a1a3b1

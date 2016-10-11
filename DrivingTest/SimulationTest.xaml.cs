@@ -43,7 +43,11 @@ namespace DrivingTest
             C1.WPF.C1Window ma1 = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "科目一");
             if (ma != null)
             {
-                ma1.Hide();
+                //ma1.Visibility = System.Windows.Visibility.Collapsed;
+                ma1.Close();
+                ma1.Width = 0;
+                ma1.Height = 0;
+               
             }
             c1pr.IsActive = true;
         }

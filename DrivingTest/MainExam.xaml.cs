@@ -1186,10 +1186,10 @@ where T : DependencyObject
         }
 
         //字体颜色
-        private void ziti_c1ColorPicker_SelectedColorChanged(object sender, C1.WPF.PropertyChangedEventArgs<Color> e)
-        {
-            timu_textBlock.Foreground = new SolidColorBrush(ziti_c1ColorPicker.SelectedColor);
-        }
+        //private void ziti_c1ColorPicker_SelectedColorChanged(object sender, C1.WPF.PropertyChangedEventArgs<Color> e)
+        //{
+        //    timu_textBlock.Foreground = new SolidColorBrush(ziti_c1ColorPicker.SelectedColor);
+        //}
 
 
         //交卷
@@ -1218,12 +1218,23 @@ where T : DependencyObject
             if (SecondArea.Text=="00:00:00")
             {
                 timer.Stop();
-                EndTest en = new EndTest();
-                C1.WPF.C1Window c1 = new C1.WPF.C1Window();
-                c1.Name = "end";
-                c1.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - en.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - en.Height / 2, 0, 0);
-                c1.Content = en;
-                c1.ShowModal();
+                //EndTest en = new EndTest();
+                //C1.WPF.C1Window c1 = new C1.WPF.C1Window();
+                //c1.Name = "end";
+                //c1.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - en.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - en.Height / 2, 0, 0);
+                //c1.Content = en;
+                //c1.ShowModal();
+
+                Assignment ass = new Assignment();
+                C1.WPF.C1Window c1w = new C1.WPF.C1Window();
+                c1w.Content = ass;
+                c1w.ShowModal();
+                c1w.Name = "交卷";
+                c1w.Header = "提示";
+             
+                c1w.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ass.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ass.Height / 2, 0, 0); ;
+                ass.queren_button_Click(null, null);
+                c1w.IsActive = true;
             }
             else
             {

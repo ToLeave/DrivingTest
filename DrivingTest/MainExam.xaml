@@ -38,7 +38,7 @@
         <TextBlock Height="20" HorizontalAlignment="Center" Margin="72,384,1103,357" Text=":" Name="HourSplitMinute"   VerticalAlignment="Center" FontSize="14" />
         <TextBlock Height="20" HorizontalAlignment="Center" Margin="76,384,1085,357" Text="00" Name="MinuteArea" VerticalAlignment="Center" FontSize="14"  />
         <TextBlock Height="20" HorizontalAlignment="Center" Margin="95,384,1080,357" Text=":" Name="MinuteSplitSecond"   VerticalAlignment="Center" FontSize="14" />-->
-        <TextBlock Height="20" HorizontalAlignment="Center" Margin="-1000,30,0,0" Text="00:00:10" Name="SecondArea" VerticalAlignment="Center" FontSize="14" />
+        <TextBlock Height="20" HorizontalAlignment="Center" Margin="-1000,30,0,0" Text="00:00:20" Name="SecondArea" VerticalAlignment="Center" FontSize="14" />
         <GroupBox Header="剩余时间" Height="52" HorizontalAlignment="Center" Margin="26,364,1026,346" Name="groupBox3" VerticalAlignment="Center" Width="126" Visibility="Visible" />
 
         <TextBlock Height="105" HorizontalAlignment="Center" Margin="185,42,351,614" Name="timu_textBlock" Text="" VerticalAlignment="Center" Width="642" TextWrapping="Wrap" FontWeight="Bold" FontSize="16" Visibility="Visible"  />
@@ -114,13 +114,13 @@
         <TextBlock Height="23" HorizontalAlignment="Center" Margin="1072,566,50,172"  x:Name="shouzheng" Text="100" VerticalAlignment="Center" TextAlignment="Center" />
         <Label Content="%" Height="28" HorizontalAlignment="Center" Margin="1132,562,25,171" Name="label21" VerticalAlignment="Center" />
         <Label Content="按答题比成绩" Height="28" HorizontalAlignment="Center" Margin="996,600,100,133" Name="label22" VerticalAlignment="Center" />
-        <TextBlock Height="23" HorizontalAlignment="Center" Margin="1072,472,50,0" x:Name="dati_precent" Text="100" VerticalAlignment="Center" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="1072,472,50,0" x:Name="dati_precent" Text="0" VerticalAlignment="Center" />
         <Label Content="分" Height="28" HorizontalAlignment="Center" Margin="1131,600,25,134" Name="label23" VerticalAlignment="Center" />
         <Label Content="按抽题比成绩" Height="28" HorizontalAlignment="Center" Margin="996,634,100,98" Name="label24" VerticalAlignment="Center" />
-        <TextBlock Height="23" HorizontalAlignment="Center" Margin="1071,639,51,98" x:Name="chouti_precent" Text="100" VerticalAlignment="Center" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="1071,639,51,98" x:Name="chouti_precent" Text="0" VerticalAlignment="Center" />
         <Label Content="分" Height="28" HorizontalAlignment="Center" Margin="1131,634,25,99" Name="label25" VerticalAlignment="Center" />
         <GroupBox Header="练习结果" Height="330" HorizontalAlignment="Center" Margin="977,416,12,14" Name="groupBox10" VerticalAlignment="Center" Width="189" Visibility="Visible" />
-        <c1:C1ColorPicker HorizontalAlignment="Left" Margin="819,329,0,0" Name="ziti_c1ColorPicker" VerticalAlignment="Top" SelectedColorChanged="ziti_c1ColorPicker_SelectedColorChanged" />
+        <!--<c1:C1ColorPicker HorizontalAlignment="Left" Margin="819,329,0,0" Name="ziti_c1ColorPicker" VerticalAlignment="Top" SelectedColorChanged="ziti_c1ColorPicker_SelectedColorChanged" />-->
         <!--</Grid>-->
       
     </Grid>

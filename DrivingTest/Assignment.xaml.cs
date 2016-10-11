@@ -35,7 +35,7 @@ namespace DrivingTest
         }
 
         //确认交卷
-        private void queren_button_Click(object sender, RoutedEventArgs e)
+        public void queren_button_Click(object sender, RoutedEventArgs e)
         {
             diyiye_grid.Visibility = System.Windows.Visibility.Hidden;
             dierye_grid.Visibility = System.Windows.Visibility.Visible;
@@ -59,11 +59,14 @@ namespace DrivingTest
             C1.WPF.C1Window me = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "驾考");
             if (me != null)
             {
-                MainExam ma = new MainExam();
+                MainExam ma = me.Content as MainExam;
+                ma.jiaojuan_button.Visibility = System.Windows.Visibility.Hidden;
                 ma.chongkao_button.Visibility = System.Windows.Visibility.Visible;
                 ma.zongfen_TextBlock.Visibility = System.Windows.Visibility.Visible;
-                ma.zongfen_TextBlock.Text = PublicClass.fenshu.ToString();
-                me.Content = ma;
+                ma.zongfen_TextBlock.Text = "得分:" + PublicClass.fenshu.ToString() + "分";
+                
+                //me.Content = ma;
+
             }
 
             C1.WPF.C1Window cp = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "交卷");
