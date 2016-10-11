@@ -959,9 +959,9 @@ where T : DependencyObject
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            //PublicClass.http = @"http://192.168.1.98:3000";
+            PublicClass.http = @"http://192.168.1.98:3000";
 
-            PublicClass.http = @"http://jiakao.cloudtimesoft.com";
+            //PublicClass.http = @"http://jiakao.cloudtimesoft.com";
             //maincanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
 
 
