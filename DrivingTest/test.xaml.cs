@@ -28,18 +28,63 @@ namespace DrivingTest
 
         private void ss_Click(object sender, RoutedEventArgs e)
         {
+            ServicePointManager.DefaultConnectionLimit = 1000;
             HttpWebResponse response = null;
             StreamReader reader = null;
-            for (int i = 0; i < 1000; i++)
+            //string url = PublicClass.http + @"/returnjsons/t_errquests?";
+
+            List<int> q_list = new List<int>();
+            List<int> a_list = new List<int>();
+            Random ran = new Random();
+            for (int i = 0; i < 10000; i++)
             {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/t_errquests?login=" + i);//
-                show.Text = i.ToString();
+                q_list.Add(i);
+                a_list.Add(i);
+            }
+
+            int arr_count = q_list.Count / 50;
+            arr_count++;
+
+
+
+            for (int cou = 0; cou < arr_count; cou++)
+            {
+                string url = PublicClass.http + @"/returnjsons/t_errquests?user_id=1&";
+                for (int i = cou * 50; i < (cou + 1) * 50; i++)
+                {
+                    if (i < a_list.Count)
+                    {
+                        url += "q[]=" + q_list[i] + "&a[]=" + a_list[i] + "&";
+                    }
+                }
+                url = url.Substring(0, url.Length - 1);
+                int a = url.Length;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//
                 request.Method = "GET";
+                
                 request.Timeout = 10000;
                 response = (HttpWebResponse)request.GetResponse();
                 response.Close();
-                System.Windows.Forms.Application.DoEvents();
             }
+
+
+            //int tem = 1000;
+            //for (int i = 100; i < 200; i++)
+            //{
+            //    url += "q[]=" + i + "&" + "a[]=" + i + "&";
+            //}
+            //if (tem != 0)
+            //{
+
+            //    url = url.Substring(0, url.Length - 1);
+            //    int a = url.Length;
+            //    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//
+            //    request.Method = "GET";
+            //    request.Timeout = 10000;
+            //    response = (HttpWebResponse)request.GetResponse();
+            //    response.Close();
+            //}
+            
         }
     }
 }
