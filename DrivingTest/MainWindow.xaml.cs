@@ -849,8 +849,29 @@ where T : DependencyObject
         private bool testlogin()
         {
 
-            string loginstr = null;
-            string passwordstr = null;
+            string loginstr = null;//数据流
+            string passwordstr = null;//数据流
+
+            string login_status = "";//登录验证状态
+            int login_id = 0;//登录账号ID
+
+            //登录用户信息
+            string login_head = "";
+            string login_studentid = "";
+            string login_sex = "";
+            string login_age = "";
+            string login_idcard = "";
+            string login_name = "";
+            string login_money = "";
+            string login_model = "";
+            string login_Subject = "";
+            string login_type = "";
+            string login_number = "";
+            string login_time = "";
+            string login_education = "";
+            string login_phonenumber = "";
+            string login_part = "";
+
             HttpWebResponse response = null;
             StreamReader reader = null;
 
@@ -879,7 +900,7 @@ where T : DependencyObject
                 GetIP();
                 request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/getuser?login=" + userlogin + "&validate=" + loginMD5 + "&ip=" + ip);//验证 url
                 request.Method = "GET";
-                request.Timeout = 10000;
+                request.Timeout = 20000;
                 response = (HttpWebResponse)request.GetResponse();
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 passwordstr = reader.ReadToEnd();
@@ -888,17 +909,38 @@ where T : DependencyObject
                     passwordstr = "[" + passwordstr + "]";
                 }
                 JArray passwordMD5_json = JArray.Parse(passwordstr);
-
-                string login_status = "";
-                try
+                string json = passwordMD5_json.ToString();
+         
+                login_status = passwordMD5_json[0]["status"].ToString();
+                
+                if (login_status == "error")//验证不通过
                 {
-                    login_status = passwordMD5_json[0]["status"].ToString();
-                    return true;
-                }
-                catch
-                {
+                    MessageBox.Show("账号或密码错误!");
                     return false;
                 }
+                else //验证通过
+                {
+                    login_id = int.Parse(passwordMD5_json[0]["id"].ToString());
+                    PublicClass.user_id = login_id;
+                    login_head = passwordMD5_json[0]["head"].ToString();
+                    login_studentid = passwordMD5_json[0]["studentid"].ToString();
+                    login_sex = passwordMD5_json[0]["sex"].ToString();
+                    login_age = passwordMD5_json[0]["age"].ToString();
+                    login_idcard = passwordMD5_json[0]["idcard"].ToString();
+                    login_name = passwordMD5_json[0]["name"].ToString();
+                    login_money = passwordMD5_json[0]["money"].ToString();
+                    login_model = passwordMD5_json[0]["model"].ToString();
+                    login_Subject = passwordMD5_json[0]["Subject"].ToString();
+                    login_type = passwordMD5_json[0]["logintype"].ToString();
+                    login_number = passwordMD5_json[0]["loginnumber"].ToString();
+                    login_time = passwordMD5_json[0]["logintime"].ToString();
+                    login_education = passwordMD5_json[0]["education"].ToString();
+                    login_phonenumber = passwordMD5_json[0]["phonenumber"].ToString();
+                    login_part = passwordMD5_json[0]["part"].ToString();
+
+                    return true;
+                }
+
 
 
             }
@@ -1065,10 +1107,10 @@ where T : DependencyObject
             }
 
 
-            test re = new test();
-            C1.WPF.C1Window cc = new C1.WPF.C1Window();
-            cc.Content = re;
-            cc.Show();
+            //test re = new test();
+            //C1.WPF.C1Window cc = new C1.WPF.C1Window();
+            //cc.Content = re;
+            //cc.Show();
 
         }
 

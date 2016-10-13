@@ -31,18 +31,17 @@ namespace DrivingTest
             ServicePointManager.DefaultConnectionLimit = 1000;
             HttpWebResponse response = null;
             StreamReader reader = null;
-            //string url = PublicClass.http + @"/returnjsons/t_errquests?";
 
             List<int> q_list = new List<int>();
             List<int> a_list = new List<int>();
             Random ran = new Random();
-            for (int i = 0; i < 10000; i++)
+            for (int i = 0; i < 240; i++)
             {
                 q_list.Add(i);
                 a_list.Add(i);
             }
 
-            int arr_count = q_list.Count / 50;
+            int arr_count = q_list.Count / 60;
             arr_count++;
 
 
@@ -50,7 +49,7 @@ namespace DrivingTest
             for (int cou = 0; cou < arr_count; cou++)
             {
                 string url = PublicClass.http + @"/returnjsons/t_errquests?user_id=1&";
-                for (int i = cou * 50; i < (cou + 1) * 50; i++)
+                for (int i = cou * 60; i < (cou + 1) * 60; i++)
                 {
                     if (i < a_list.Count)
                     {
@@ -68,22 +67,7 @@ namespace DrivingTest
             }
 
 
-            //int tem = 1000;
-            //for (int i = 100; i < 200; i++)
-            //{
-            //    url += "q[]=" + i + "&" + "a[]=" + i + "&";
-            //}
-            //if (tem != 0)
-            //{
 
-            //    url = url.Substring(0, url.Length - 1);
-            //    int a = url.Length;
-            //    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//
-            //    request.Method = "GET";
-            //    request.Timeout = 10000;
-            //    response = (HttpWebResponse)request.GetResponse();
-            //    response.Close();
-            //}
             
         }
     }

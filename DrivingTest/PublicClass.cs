@@ -28,6 +28,7 @@ namespace DrivingTest
         public static string http { get; set; }
 
         public static string login = "";//登录用户名
+        public static int user_id = -1;//登录用户ID
         public static int fenshu = 0;//考试总分数
     }
 }

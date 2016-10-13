@@ -48,6 +48,7 @@ namespace DrivingTest
         {
             InitializeComponent();
             //this.Loaded += new RoutedEventHandler(Window_Loaded);
+            
         }
 
 
@@ -797,8 +798,8 @@ where T : DependencyObject
             DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
             jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
 
-            DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
-            jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
+            //DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
+            //jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
 
             //    var answer = from c in jiakaoDataSet.answer where c.question_id == question_list[question_id].question_id select c;
             foreach (var lab in dati_canvas.Children)
@@ -831,7 +832,7 @@ where T : DependencyObject
                 }
                 else
                 {
-                    jiakaoDataSeterrquestTableAdapter.Insert(1, question_list[id].question_id, 1);
+                    jiakaoDataSeterrquestTableAdapter.Insert(PublicClass.user_id, question_list[id].question_id, 1);
                 }
                 jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
                 jiakaoDataSet.errquest.AcceptChanges();

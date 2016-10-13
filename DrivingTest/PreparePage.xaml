@@ -1,8 +1,12 @@
 ﻿<UserControl x:Class="DrivingTest.PreparePage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Height="650" Width="820" x:Name="preparepage">
-    <Grid>
+        Height="650" Width="820" x:Name="preparepage" xmlns:my="clr-namespace:DrivingTest" Loaded="preparepage_Loaded">
+    <UserControl.Resources>
+        <my:jiakaoDataSet x:Key="jiakaoDataSet" />
+        <CollectionViewSource x:Key="errquestViewSource" Source="{Binding Path=errquest, Source={StaticResource jiakaoDataSet}}" />
+    </UserControl.Resources>
+    <Grid DataContext="{StaticResource errquestViewSource}">
         <Image Source="/DrivingTest;component/Images/驾考考试1.png" StretchDirection="DownOnly" />
         <Button Content="开始考试"  Name="kaikao" Width="75" Height="30" Click="kaikao_Click" Margin="490,382,233,199" />
         <TextBlock Height="23" Width="30"  Margin="510,241,258,347" Name="textBlock4" Text="001" FontWeight="Bold" />
