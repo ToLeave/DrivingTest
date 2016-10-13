@@ -1309,10 +1309,10 @@ namespace DrivingTest {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public errquestRow AdderrquestRow(int errquest_id, int user_id, int question_id, int amount) {
+            public errquestRow AdderrquestRow(int user_id, int question_id, int amount) {
                 errquestRow rowerrquestRow = ((errquestRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        errquest_id,
+                        null,
                         user_id,
                         question_id,
                         amount};
@@ -1364,6 +1364,9 @@ namespace DrivingTest {
                 base.Columns.Add(this.columnamount);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnerrquest_id}, true));
+                this.columnerrquest_id.AutoIncrement = true;
+                this.columnerrquest_id.AutoIncrementSeed = -1;
+                this.columnerrquest_id.AutoIncrementStep = -1;
                 this.columnerrquest_id.AllowDBNull = false;
                 this.columnerrquest_id.Unique = true;
             }

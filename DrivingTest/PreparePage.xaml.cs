@@ -43,40 +43,36 @@ namespace DrivingTest
             cwin.Show();
             cwin.Closing += new System.ComponentModel.CancelEventHandler(cwin_Closing);
 
-            //this.Content = ma;
-            //cwin.WindowState = C1.WPF.C1WindowState.Maximized;
-            //cwin.CenterOnScreen();
-            //cwin.Margin = new Thickness(0);
-            //cwin.Width = SystemParameters.PrimaryScreenWidth;
-            //cwin.Height = SystemParameters.WorkArea.Height;
             cwin.WindowState = C1.WPF.C1WindowState.Maximized;
         }
 
+        //关闭时上传错题
         void cwin_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
             jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
 
-            //List<int> q_list = new List<int>();
-            //List<int> a_list = new List<int>();
+            var errquestion = (from c in jiakaoDataSet.errquest where c.user_id == PublicClass.user_id && c.user_id > 0 && c.user_id == PublicClass.user_id select c).ToArray();
 
-            //var login = from c in jiakaoDataSet.user where c.login == PublicClass.login select c;
-            //int loginid = 0;
-            //foreach (var id in login)
-            //{
-            //    loginid = id.user_id;
-            //}
+            try
+            {
+                ServicePointManager.DefaultConnectionLimit = 1000;
+                HttpWebResponse response = null;
 
-            var errquestion = (from c in jiakaoDataSet.errquest where c.user_id == PublicClass.user_id && c.user_id > 0 select c).ToArray();
-            //var err_list = errquestion.ToArray();
-            //int errquestion_id = 0;
-            //foreach (var id in errquestion)
-            //{
-            //        q_list.Add(id.question_id);
-            //        a_list.Add(id.amount);
-            //}
-   
+                string url = PublicClass.http + @"/returnjsons/t_errquests?" + "command=clear&user_id=" + PublicClass.user_id ;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//提交请求
+                request.Method = "GET";
+
+                request.Timeout = 10000;
+                response = (HttpWebResponse)request.GetResponse();
+                response.Close();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
             try
             {
                 ServicePointManager.DefaultConnectionLimit = 1000;
@@ -88,7 +84,7 @@ namespace DrivingTest
 
                 for (int cou = 0; cou < arr_count; cou++)
                 {
-                    string url = PublicClass.http + @"/returnjsons/t_errquests?" + PublicClass.user_id + "&";
+                    string url = PublicClass.http + @"/returnjsons/t_errquests?user_id=" + PublicClass.user_id + "&";
                     for (int i = cou * 60; i < (cou + 1) * 60; i++)
                     {
                         if (i < errquestion.Count())
@@ -98,7 +94,7 @@ namespace DrivingTest
                     }
                     url = url.Substring(0, url.Length - 1);
                     int a = url.Length;
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//上传题目
                     request.Method = "GET";
 
                     request.Timeout = 10000;
@@ -111,8 +107,6 @@ namespace DrivingTest
                 MessageBox.Show(ex.Message);
             }
 
-            //jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
-            //jiakaoDataSet.errquest.AcceptChanges();
 
         }
 

@@ -340,7 +340,7 @@ where T : DependencyObject
 
                 #region 题目表和答案表写入和更新
                 //写入和更新题目表
-                foreach (var remotequestion in question_json)
+                foreach (var remotequestion in question_json) 
                 {
                     var localquestion = from c in jiakaoDataSet.question where remotequestion["id"].ToString() == c.question_id.ToString() select c;
 
@@ -848,6 +848,12 @@ where T : DependencyObject
         //登录验证
         private bool testlogin()
         {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 user 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter jiakaoDataSetuserTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter();
+            jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
+
+
 
             string loginstr = null;//数据流
             string passwordstr = null;//数据流
@@ -941,7 +947,7 @@ where T : DependencyObject
                     return true;
                 }
 
-
+                
 
             }
             catch (Exception ex)
@@ -1017,6 +1023,8 @@ where T : DependencyObject
                 // 将数据加载到表 setting 中。可以根据需要修改此代码。
                 DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
                 jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+             
 
                 var setting = from c in jiakaoDataSet.setting where c.setting_id.ToString() == "1" select c;
                 foreach (var se in setting)
@@ -1101,7 +1109,7 @@ where T : DependencyObject
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -1111,6 +1119,7 @@ where T : DependencyObject
             //C1.WPF.C1Window cc = new C1.WPF.C1Window();
             //cc.Content = re;
             //cc.Show();
+
 
         }
 
@@ -1338,7 +1347,8 @@ where T : DependencyObject
         private void login_Click(object sender, RoutedEventArgs e)
         {
             if (testlogin() == false)//验证
-            { }
+            { 
+            }
             else
             {
                 #region 登陆后控件的显示隐藏
@@ -1364,8 +1374,58 @@ where T : DependencyObject
                 login.Visibility = System.Windows.Visibility.Hidden;
                 qianlunqipao.Visibility = System.Windows.Visibility.Hidden;
                 houlunqipao.Visibility = System.Windows.Visibility.Hidden;
-
                 #endregion
+
+                DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+                // 将数据加载到表 question 中。可以根据需要修改此代码。
+
+                DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
+                jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
+
+
+                string err= null;//数据流
+                HttpWebResponse response = null;
+                StreamReader reader = null;
+
+                try
+                {
+                    string url = PublicClass.http + @"/returnjsons/r_errquests?" + "user_id=" + PublicClass.user_id;
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//提交请求
+                    request.Method = "GET";
+
+                    request.Timeout = 10000;
+                    response = (HttpWebResponse)request.GetResponse();
+                    reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
+                    err = reader.ReadToEnd();
+
+                    JArray errquestion_json = JArray.Parse(err);//错题 json
+                    string json = errquestion_json.ToString();
+
+                    foreach (var err_question in errquestion_json)//写入错题
+                    {
+                        var errquestion = from c in jiakaoDataSet.errquest where c.question_id.ToString() == err_question["question_id"].ToString() select c;
+          
+                        if (errquestion.Count() == 0)
+                        {
+                            jiakaoDataSet.errquest.AdderrquestRow(int.Parse(err_question["user_id"].ToString()), int.Parse(err_question["question_id"].ToString()), int.Parse(err_question["amount"].ToString()));
+                        }
+                        else
+                        {
+                            errquestion.First().amount = int.Parse(err_question["amount"].ToString());
+                        }
+                        jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
+                        jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
+                        jiakaoDataSet.errquest.AcceptChanges();
+                        
+                    }
+
+                    response.Close();
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 

@@ -825,7 +825,7 @@ where T : DependencyObject
 
             if (question_list[id].check_answer == false && is_click_flag)
             {
-                var err = from c in jiakaoDataSet.errquest where c.question_id == question_list[id].question_id select c;
+                var err = from c in jiakaoDataSet.errquest where c.question_id == question_list[id].question_id && c.user_id == PublicClass.user_id select c;
                 if (err.Count() > 0)
                 {
                     err.First().amount += 1;

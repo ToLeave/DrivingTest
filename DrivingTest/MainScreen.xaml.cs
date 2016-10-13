@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Net;
 
 namespace DrivingTest
 {
@@ -109,10 +110,12 @@ namespace DrivingTest
             cwin.Name = "驾考";
             cwin.Header = "驾驶理论考试系统";
             cwin.Show();
-            //this.Content = ma;
             cwin.WindowState = C1.WPF.C1WindowState.Maximized;
+            cwin.Closing += new System.ComponentModel.CancelEventHandler(cwin_Closing);
             
         }
+
+        
         //随机练习
         private void suijilianxi_Click(object sender, RoutedEventArgs e)
         {
@@ -135,6 +138,7 @@ namespace DrivingTest
             cwin.Show();
             //this.Content = ma;
             cwin.WindowState = C1.WPF.C1WindowState.Maximized;
+            cwin.Closing += new System.ComponentModel.CancelEventHandler(cwin_Closing);
         }
         //专项练习
         private void zhuanxianglianxi_Click(object sender, RoutedEventArgs e)
@@ -183,7 +187,69 @@ namespace DrivingTest
             list_bangding(cartype, subjection);
         }
 
+        //关闭时上传错题
+        void cwin_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
+            jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
 
+            var errquestion = (from c in jiakaoDataSet.errquest where c.user_id == PublicClass.user_id && c.user_id > 0 && c.user_id == PublicClass.user_id select c).ToArray();
+
+            try
+            {
+                ServicePointManager.DefaultConnectionLimit = 1000;
+                HttpWebResponse response = null;
+
+                string url = PublicClass.http + @"/returnjsons/t_errquests?" + "command=clear&user_id=" + PublicClass.user_id;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//提交请求
+                request.Method = "GET";
+
+                request.Timeout = 10000;
+                response = (HttpWebResponse)request.GetResponse();
+                response.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            try
+            {
+                ServicePointManager.DefaultConnectionLimit = 1000;
+                HttpWebResponse response = null;
+                //StreamReader reader = null;
+
+                int arr_count = errquestion.Count() / 60;
+                arr_count++;
+
+                for (int cou = 0; cou < arr_count; cou++)
+                {
+                    string url = PublicClass.http + @"/returnjsons/t_errquests?" + PublicClass.user_id + "&";
+                    for (int i = cou * 60; i < (cou + 1) * 60; i++)
+                    {
+                        if (i < errquestion.Count())
+                        {
+                            url += "q[]=" + errquestion[i].question_id + "&a[]=" + errquestion[i].amount + "&";
+                        }
+                    }
+                    url = url.Substring(0, url.Length - 1);
+                    int a = url.Length;
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//
+                    request.Method = "GET";
+
+                    request.Timeout = 10000;
+                    response = (HttpWebResponse)request.GetResponse();
+                    response.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        //绑定list
         private void list_bangding(string cartype, string subjection)
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
