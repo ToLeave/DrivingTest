@@ -4,8 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
+             Height="300" Width="300" xmlns:my="clr-namespace:DrivingTest" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <my:jiakaoDataSet x:Key="jiakaoDataSet" />
+        <CollectionViewSource x:Key="errquestViewSource" Source="{Binding Path=errquest, Source={StaticResource jiakaoDataSet}}" />
+        <CollectionViewSource x:Key="subjectViewSource" Source="{Binding Path=subject, Source={StaticResource jiakaoDataSet}}" />
+    </UserControl.Resources>
+    <Grid DataContext="{StaticResource errquestViewSource}">
+        <RadioButton Content="错一次错题" Height="16" HorizontalAlignment="Left" Margin="87,49,0,0" Name="cuo_radioButton1" VerticalAlignment="Top" />
+        <RadioButton Content="错两次错题" Height="16" HorizontalAlignment="Left" Margin="87,97,0,0" Name="cuo_radioButton2" VerticalAlignment="Top" />
+        <RadioButton Content="错三次及以上错题" Height="16" HorizontalAlignment="Left" Margin="87,145,0,0" Name="cuo_radioButton3" VerticalAlignment="Top"/>
+        <CheckBox Content="自动去除答对题目" Height="16" HorizontalAlignment="Left" Margin="175,194,0,0" Name="quchu_checkBox" VerticalAlignment="Top" />
+        <Button Content="顺序练习" Height="23" HorizontalAlignment="Left" Margin="44,245,0,0" Name="shunxu_button" VerticalAlignment="Top" Width="75" Click="shunxu_button_Click" />
+        <Button Content="随机练习" Height="23" HorizontalAlignment="Left" Margin="179,245,0,0" Name="suiji_button" VerticalAlignment="Top" Width="75" Click="suiji_button_Click" />
     </Grid>
 </UserControl>

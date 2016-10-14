@@ -39,7 +39,7 @@
         <TextBlock Height="20" HorizontalAlignment="Center" Margin="72,384,1103,357" Text=":" Name="HourSplitMinute"   VerticalAlignment="Center" FontSize="14" />
         <TextBlock Height="20" HorizontalAlignment="Center" Margin="76,384,1085,357" Text="00" Name="MinuteArea" VerticalAlignment="Center" FontSize="14"  />
         <TextBlock Height="20" HorizontalAlignment="Center" Margin="95,384,1080,357" Text=":" Name="MinuteSplitSecond"   VerticalAlignment="Center" FontSize="14" />-->
-        <TextBlock Height="20" HorizontalAlignment="Center" Margin="-1000,30,0,0" Text="00:00:20" Name="SecondArea" VerticalAlignment="Center" FontSize="14" />
+        <TextBlock Height="20" HorizontalAlignment="Center" Margin="-1000,30,0,0" Text="00:45:00" Name="SecondArea" VerticalAlignment="Center" FontSize="14" />
         <GroupBox Header="剩余时间" Height="52" HorizontalAlignment="Center" Margin="26,364,1026,346" Name="groupBox3" VerticalAlignment="Center" Width="126" Visibility="Visible" />
 
         <TextBlock Height="105" HorizontalAlignment="Center" Margin="185,42,351,614" Name="timu_textBlock" Text="" VerticalAlignment="Center" Width="642" TextWrapping="Wrap" FontWeight="Bold" FontSize="16" Visibility="Visible"  />

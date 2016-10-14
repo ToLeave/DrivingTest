@@ -174,7 +174,7 @@ where T : DependencyObject
         }
 
         //生成题库
-        public void create_question(int create_method, int question_mode, string cartpye,string subject, List<int> questions_id)// cerate_method 0 顺序,1随机; question_mode 0 练习,1考试; cartype 车型;subject 科目; questions_id 题库ID
+        public void create_question(int create_method, int question_mode, string cartpye,string subject, List<int> questions_id)// cerate_method 0 顺序,1随机; question_mode 0 练习,1考试,2错题; cartype 车型;subject 科目; questions_id 题库ID
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 question 中。可以根据需要修改此代码。

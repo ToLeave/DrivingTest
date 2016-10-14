@@ -25,8 +25,7 @@ namespace DrivingTest
             //this.Closing += F;
         }
 
-        public string cartype = "";
-        public string subjection = "";
+
         List<int> chapter_index = new List<int>();
         int subject_id;
         string subject_name;
@@ -84,7 +83,15 @@ namespace DrivingTest
         //我的错题
         private void my_mistakes_Click(object sender, RoutedEventArgs e)
         {
-
+            MyError my = new MyError();
+            C1.WPF.C1Window cmy = new C1.WPF.C1Window();
+            cmy.Name = "错题";
+            cmy.Header = "我的错题";
+            cmy.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - my.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - my.Height / 2, 0, 0); 
+            cmy.Content = my;
+            cmy.Show();
+            
+            
 
         }
         //顺序练习
@@ -95,7 +102,7 @@ namespace DrivingTest
 
             DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
             jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
-            var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.subject_id == subject_id && c.chapter_id == chapter_index[listBox.SelectedIndex] select c;
+            var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.chapter_id == chapter_index[listBox.SelectedIndex] select c;
             questions_id.Clear();
             foreach (var qu in questions)
             {
@@ -105,7 +112,7 @@ namespace DrivingTest
 
 
             C1.WPF.C1Window cwin = new C1.WPF.C1Window();
-            ma.create_question(0, 0, cartype, subject_name, questions_id);
+            ma.create_question(0, 0, PublicClass.cartype, subject_name, questions_id);
             cwin.Content = ma;
             cwin.Name = "驾考";
             cwin.Header = "驾驶理论考试系统";
@@ -123,7 +130,7 @@ namespace DrivingTest
 
             DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
             jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
-            var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.subject_id == subject_id && c.chapter_id == chapter_index[listBox.SelectedIndex] select c;
+            var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.chapter_id == chapter_index[listBox.SelectedIndex] select c;
             questions_id.Clear();
             foreach (var qu in questions)
             {
@@ -131,7 +138,7 @@ namespace DrivingTest
             }
             MainExam ma = new MainExam();
             C1.WPF.C1Window cwin = new C1.WPF.C1Window();
-            ma.create_question(1, 0, cartype, subject_name, questions_id);
+            ma.create_question(1, 0, PublicClass.cartype, subject_name, questions_id);
             cwin.Content = ma;
             cwin.Name = "驾考";
             cwin.Header = "驾驶理论考试系统";
@@ -183,8 +190,8 @@ namespace DrivingTest
             jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
             System.Windows.Data.CollectionViewSource chapterViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("chapterViewSource")));
             chapterViewSource.View.MoveCurrentToFirst();
-           
-            list_bangding(cartype, subjection);
+
+            list_bangding(PublicClass.cartype, PublicClass.subjection);
         }
 
         //关闭时上传错题

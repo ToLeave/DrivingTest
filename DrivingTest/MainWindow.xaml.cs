@@ -99,19 +99,22 @@ where T : DependencyObject
             System.Net.NetworkInformation.Ping ping;
             System.Net.NetworkInformation.PingReply res;
             ping = new System.Net.NetworkInformation.Ping();
-            try
+            bool is_ping = false;
+            for (int i = 0; i < 2; i++)
             {
-                res = ping.Send("www.baidu.com");
-                if (res.Status != System.Net.NetworkInformation.IPStatus.Success)
-                    return false;
-                else
-                    return true;
+
+                    res = ping.Send("www.baidu.com");
+                    if (res.Status == System.Net.NetworkInformation.IPStatus.Success)
+                    {
+                        is_ping = true;
+                        i = 2;
+                    }
+
             }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+            if (is_ping)
+                return true;
+            else
                 return false;
-            }
         }
 
 
@@ -1007,9 +1010,9 @@ where T : DependencyObject
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            PublicClass.http = @"http://192.168.1.98:3000";
+            //PublicClass.http = @"http://192.168.1.98:3000";
 
-            //PublicClass.http = @"http://jiakao.cloudtimesoft.com";
+            PublicClass.http = @"http://jiakao.cloudtimesoft.com";
             //maincanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
 
 
@@ -1403,7 +1406,7 @@ where T : DependencyObject
 
                     foreach (var err_question in errquestion_json)//写入错题
                     {
-                        var errquestion = from c in jiakaoDataSet.errquest where c.question_id.ToString() == err_question["question_id"].ToString() select c;
+                        var errquestion = from c in jiakaoDataSet.errquest where c.question_id.ToString() == err_question["question_id"].ToString() && c.user_id.ToString() == err_question["user_id"].ToString( ) select c;
           
                         if (errquestion.Count() == 0)
                         {
@@ -1496,8 +1499,8 @@ where T : DependencyObject
                 {
                     MainScreen ma = new MainScreen();
                     C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
-                    ma.cartype = "C1";
-                    ma.subjection = "科目一";
+                    PublicClass.cartype = "C1";
+                    PublicClass.subjection = "科目一";
                     c1ma.Content = ma;
                     
                     c1ma.ToolTip = "小车类:科目一";
@@ -1518,8 +1521,8 @@ where T : DependencyObject
                 {
                     MainScreen ma = new MainScreen();
                     C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
-                    ma.cartype = "C1";
-                    ma.subjection = "科目四";
+                    PublicClass.cartype = "C1";
+                    PublicClass.subjection = "科目四";
                     c1ma.Content = ma;
                     c1ma.Show();
                     c1ma.ToolTip = "小车类:科目四";
@@ -1554,8 +1557,8 @@ where T : DependencyObject
                 {
                     MainScreen ma = new MainScreen();
                     C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
-                    ma.cartype = "A1";
-                    ma.subjection = "科目一";
+                    PublicClass.cartype = "A1";
+                    PublicClass.subjection = "科目一";
                     c1ma.Content = ma;
                     c1ma.Show();
                     c1ma.ToolTip = "客车类:科目一";
@@ -1568,8 +1571,8 @@ where T : DependencyObject
                 {
                     MainScreen ma = new MainScreen();
                     C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
-                    ma.cartype = "A1";
-                    ma.subjection = "科目四";
+                    PublicClass.cartype = "A1";
+                    PublicClass.subjection = "科目四";
                     c1ma.Content = ma;
                     c1ma.Show();
                     c1ma.ToolTip = "客车类:科目四";
@@ -1592,8 +1595,8 @@ where T : DependencyObject
                 {
                     MainScreen ma = new MainScreen();
                     C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
-                    ma.cartype = "A2";
-                    ma.subjection = "科目一";
+                    PublicClass.cartype = "A2";
+                    PublicClass.subjection = "科目一";
                     c1ma.Content = ma;
                     c1ma.Show();
                     c1ma.ToolTip = "货车类:科目一";
@@ -1606,8 +1609,8 @@ where T : DependencyObject
                 {
                     MainScreen ma = new MainScreen();
                     C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
-                    ma.cartype = "A2";
-                    ma.subjection = "科目四";
+                    PublicClass.cartype = "A2";
+                    PublicClass.subjection = "科目四";
                     c1ma.Content = ma;
                     c1ma.Show();
                     c1ma.ToolTip = "货车类:科目四";
@@ -1630,8 +1633,8 @@ where T : DependencyObject
                 {
                     MainScreen ma = new MainScreen();
                     C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
-                    ma.cartype = "D";
-                    ma.subjection = "科目一";
+                    PublicClass.cartype = "D";
+                    PublicClass.subjection = "科目一";
                     c1ma.Content = ma;
                     c1ma.Show();
                     c1ma.ToolTip = "摩托车类:科目一";
@@ -1644,8 +1647,8 @@ where T : DependencyObject
                 {
                     MainScreen ma = new MainScreen();
                     C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
-                    ma.cartype = "D";
-                    ma.subjection = "科目四";
+                    PublicClass.cartype = "D";
+                    PublicClass.subjection = "科目四";
                     c1ma.Content = ma;
                     c1ma.Show();
                     c1ma.ToolTip = "摩托车类:科目四";
