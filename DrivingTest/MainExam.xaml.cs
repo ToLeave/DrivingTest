@@ -234,7 +234,7 @@ where T : DependencyObject
                 }
 
             }
-            else
+            else //练习
             {
                 if (create_method == 0)
                 {
@@ -836,6 +836,17 @@ where T : DependencyObject
                 }
                 jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
                 jiakaoDataSet.errquest.AcceptChanges();
+            }
+            else if (question_list[id].check_answer == true && PublicClass.delerr)
+            {
+                var delquestion = from c in jiakaoDataSet.errquest where c.question_id == question_list[id].question_id && c.user_id == PublicClass.user_id select c;
+                if (delquestion.Count() != 0)
+                {
+                    delquestion.First().Delete();
+                }
+                jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
+                jiakaoDataSet.errquest.AcceptChanges();
+
             }
             is_click_flag = false;
         }

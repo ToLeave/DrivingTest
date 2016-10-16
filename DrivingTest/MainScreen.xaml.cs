@@ -282,7 +282,8 @@ namespace DrivingTest
                     chapter_list_id.Add(myquestion.chapter_id);
                 }
             }
-
+            
+            
             listBox.Items.Clear();
             foreach (var mysub in chapter_list_id)
             {
@@ -290,6 +291,8 @@ namespace DrivingTest
                 listBox.Items.Add(temsub.First().chapter);
                 chapter_index.Add(temsub.First().chapter_id);
             }
+
+            listBox.SelectedIndex = 0;
 
 
         }

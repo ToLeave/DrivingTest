@@ -9,9 +9,10 @@
         <my:jiakaoDataSet x:Key="jiakaoDataSet" />
         <CollectionViewSource x:Key="errquestViewSource" Source="{Binding Path=errquest, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="subjectViewSource" Source="{Binding Path=subject, Source={StaticResource jiakaoDataSet}}" />
+        <CollectionViewSource x:Key="questionViewSource" Source="{Binding Path=question, Source={StaticResource jiakaoDataSet}}" />
     </UserControl.Resources>
     <Grid DataContext="{StaticResource errquestViewSource}">
-        <RadioButton Content="错一次错题" Height="16" HorizontalAlignment="Left" Margin="87,49,0,0" Name="cuo_radioButton1" VerticalAlignment="Top" />
+        <RadioButton Content="错一次错题" Height="16" HorizontalAlignment="Left" Margin="87,49,0,0" Name="cuo_radioButton1" VerticalAlignment="Top"  />
         <RadioButton Content="错两次错题" Height="16" HorizontalAlignment="Left" Margin="87,97,0,0" Name="cuo_radioButton2" VerticalAlignment="Top" />
         <RadioButton Content="错三次及以上错题" Height="16" HorizontalAlignment="Left" Margin="87,145,0,0" Name="cuo_radioButton3" VerticalAlignment="Top"/>
         <CheckBox Content="自动去除答对题目" Height="16" HorizontalAlignment="Left" Margin="175,194,0,0" Name="quchu_checkBox" VerticalAlignment="Top" />
