@@ -86,6 +86,22 @@ namespace DrivingTest
                 geren_grid.Visibility = System.Windows.Visibility.Hidden;
             }
         }
+
+        private void jibenshezhi_IsActiveChanged(object sender, EventArgs e)
+        {
+            int a;
+            if (jibenshezhi.IsActive == true)
+            {
+                geren_radioButton.IsChecked = true;
+            }
+        }
+
+        private void jibenshezhi_IsSelectedChanged(object sender, EventArgs e)
+        {
+            int b;   
+        }
+
+   
     }
 }
 public class Employee

@@ -4,9 +4,9 @@
         xmlns:avalon="http://schemas.xceed.com/wpf/xaml/avalondock"
         Title="设置" Height="600" Width="500" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" xmlns:my="clr-namespace:DrivingTest">
     <Window.Resources>
-        <!--<my:jiakaoDataSet x:Key="jiakaoDataSet" />
-        <CollectionViewSource x:Key="settingViewSource" Source="{Binding Path=setting, Source={StaticResource jiakaoDataSet}}" />-->
-        <!--<CollectionViewSource x:Key="userViewSource" Source="{Binding Path=user,Source={StaticResource jiaokaoDataSet}}"/>-->
+        <my:jiakaoDataSet x:Key="jiakaoDataSet" />
+        <CollectionViewSource x:Key="settingViewSource" Source="{Binding Path=setting, Source={StaticResource jiakaoDataSet}}" />
+        <CollectionViewSource x:Key="userViewSource" Source="{Binding Path=user,Source={StaticResource jiaokaoDataSet}}"/>
     </Window.Resources>
 
     <Grid>
@@ -45,7 +45,7 @@
                                 <Button Content="Button" Height="23" HorizontalAlignment="Left" Margin="162,461,0,0" Name="button6" VerticalAlignment="Top" Width="75" />
                             </Grid>
                         </avalon:LayoutAnchorable>
-                        <avalon:LayoutAnchorable Title=" 基本设置 " CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True">
+                        <avalon:LayoutAnchorable Title=" 基本设置 " x:Name="jibenshezhi" CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True" IsActiveChanged="jibenshezhi_IsActiveChanged" IsSelectedChanged="jibenshezhi_IsSelectedChanged">
                             <Grid>
                                 <Label Content="选择考试所在省份" Width="110" Height="25" Margin="18,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
                                 <ComboBox Height="25" HorizontalAlignment="Left" Margin="134,15,0,0" Name="shengfen_comboBox" VerticalAlignment="Top" Width="120" ItemsSource=""  DisplayMemberPath="Name"   SelectedValuePath="EmpID"/>
@@ -53,7 +53,7 @@
                                 <GroupBox Header="设置省份" Height="50" Width="450" Margin="6,1,0,0" Name="groupBox1" VerticalAlignment="Top" HorizontalAlignment="Left" />
                                 
                                 <RadioButton Content="个人模式" Height="16" HorizontalAlignment="Left" Margin="108,69,0,0" Name="geren_radioButton" VerticalAlignment="Top"  Checked="geren_radioButton_Checked" />
-                                <RadioButton Content="驾校模式" Height="16" HorizontalAlignment="Left" Margin="249,69,0,0" Name="jiaxiao_radioButton" VerticalAlignment="Top" Checked="jiaxiao_radioButton_Checked" />
+                                <RadioButton Content="驾校模式" Height="16" HorizontalAlignment="Left" Margin="249,69,0,0" Name="jiaxiao_radioButton" VerticalAlignment="Top" Checked="jiaxiao_radioButton_Checked" />  
 
                                 <TextBlock Text="个人模式:更便于个人学习使用1.可以保存学习进度              2.涵盖科目一二三四全部内容" Height="45" HorizontalAlignment="Left" Margin="84,91,0,0" Name="textBox1" VerticalAlignment="Top" Width="135" FontSize="10" TextWrapping="Wrap" />
                                 <Line X1="400" Margin="34,137,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="2" Width="400"  Stroke="Black" StrokeDashArray="5"   StrokeThickness="1" />
@@ -168,23 +168,23 @@
                             <Grid>
                                 <CheckBox Content="注册流程" Height="16" HorizontalAlignment="Left" Margin="50,21,0,0" Name="checkBox24" VerticalAlignment="Top" />
                                 <Line X1="400" Width="400" Height="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38,43,0,0" StrokeDashArray="1" StrokeThickness="5" Stroke="Black"/>
-                                <TextBox Height="100" HorizontalAlignment="Left" Margin="50,51,0,0" Name="textBox11" VerticalAlignment="Top" Width="380" TextWrapping="Wrap" />
-                                <GroupBox Header="注册流程" Height="155" HorizontalAlignment="Left" Margin="21,3,0,0" Name="groupBox9" VerticalAlignment="Top" Width="430" />
+                                <TextBox Height="100" HorizontalAlignment="Left" Margin="50,51,0,0" Name="textBox11" VerticalAlignment="Top" Width="380" TextWrapping="Wrap" Text="{Binding Path=registration_process, Source={StaticResource settingViewSource},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                <GroupBox Header="注册流程" Height="155" HorizontalAlignment="Left" Margin="21,3,0,0" Name="groupBox9" VerticalAlignment="Top" Width="430" Visibility="Hidden" />
                                 
                                 <CheckBox Content="付款链接" Height="16" HorizontalAlignment="Left" Margin="50,181,0,0" Name="checkBox25" VerticalAlignment="Top" />
                                 <Label Content="文字" Height="28" HorizontalAlignment="Left" Margin="50,203,0,0" Name="label16" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="106,203,0,0" Name="textBox12" VerticalAlignment="Top" Width="200" />
                                 <Label Content="链接" Height="28" HorizontalAlignment="Left" Margin="50,231,0,0" Name="label17" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="106,233,0,0" Name="textBox13" VerticalAlignment="Top" Width="330" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="106,233,0,0" Name="textBox13" VerticalAlignment="Top" Width="330" Text="{Binding Path=payment_link, Source={StaticResource settingViewSource},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                                 <CheckBox Content="客服QQ" Height="16" HorizontalAlignment="Left" Margin="50,265,0,0" Name="checkBox26" VerticalAlignment="Top" />
                                 <Label Content="QQ号码" Height="28" HorizontalAlignment="Left" Margin="50,287,0,0" Name="label18" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="106,287,0,0" Name="textBox14" VerticalAlignment="Top" Width="200" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="106,287,0,0" Name="textBox14" VerticalAlignment="Top" Width="200" Text="{Binding Path=customer_service_QQ, Source={StaticResource settingViewSource},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                                 <CheckBox Content="客服旺旺" Height="16" HorizontalAlignment="Left" Margin="50,321,0,0" Name="checkBox27" VerticalAlignment="Top" />
                                 <Label Content="旺旺号" Height="28" HorizontalAlignment="Left" Margin="50,343,0,0" Name="label19" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="106,343,0,0" Name="textBox15" VerticalAlignment="Top" Width="200" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="106,343,0,0" Name="textBox15" VerticalAlignment="Top" Width="200" Text="{Binding Path=customer_service_WW, Source={StaticResource settingViewSource},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                                 <CheckBox Content="备注" Height="16" HorizontalAlignment="Left" Margin="50,372,0,0" Name="checkBox28" VerticalAlignment="Top" />
-                                <TextBox Height="100" HorizontalAlignment="Left" Margin="50,394,0,0" Name="textBox16" VerticalAlignment="Top" Width="380" TextWrapping="Wrap" />
-                                <GroupBox Header="注册说明" Height="340" HorizontalAlignment="Left" Margin="21,161,0,0" Name="groupBox10" VerticalAlignment="Top" Width="430"></GroupBox>
+                                <TextBox Height="100" HorizontalAlignment="Left" Margin="50,394,0,0" Name="textBox16" VerticalAlignment="Top" Width="380" TextWrapping="Wrap" Text="{Binding Path=comments, Source={StaticResource settingViewSource},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                <GroupBox Header="注册说明" Height="340" HorizontalAlignment="Left" Margin="21,161,0,0" Name="groupBox10" VerticalAlignment="Top" Width="430" Visibility="Hidden"></GroupBox>
                                 <Button Content="保存设置" Height="23" Name="button5" Width="75" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="376,500,0,0" />
                             </Grid>
                         </avalon:LayoutAnchorable>

@@ -109,7 +109,7 @@ where T : DependencyObject
                         is_ping = true;
                         i = 2;
                     }
-
+                 
             }
             if (is_ping)
                 return true;
@@ -1667,6 +1667,7 @@ where T : DependencyObject
         {
             MainScreen ma = new MainScreen();
             C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+            PublicClass.cartype = "HF";
             c1ma.Content = ma;
             c1ma.ToolTip = "恢复驾驶资格类";
             c1ma.Name = "恢复驾驶资格类";
