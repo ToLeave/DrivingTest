@@ -34,13 +34,25 @@ namespace DrivingTest
             var set = from c in jiakaoDataSet.setting select c;
             foreach (var s in set)
             {
- 
+                if (password_textBox.Text == s.close_password)
+                {
+                    SetUp se = new SetUp();
+                    se.Show();
+                }
+                else
+                {
+                    MessageBox.Show("密码错误!", "提示");
+                }
             }
         }
 
         private void no_button_Click(object sender, RoutedEventArgs e)
         {
-            
+            C1.WPF.C1Window cp = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "管理员密码");
+            if (cp != null)
+            {
+                cp.Close();
+            }
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

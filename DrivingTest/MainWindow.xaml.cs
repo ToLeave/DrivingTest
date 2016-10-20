@@ -22,6 +22,7 @@ using Newtonsoft.Json.Linq;
 using System.Threading;
 using System.Text.RegularExpressions;
 using System.ComponentModel;
+using System.Data;
 
 namespace DrivingTest
 {
@@ -47,11 +48,39 @@ namespace DrivingTest
         public MainWindow()
         {
             InitializeComponent();
+            this.Closing += F;
             //IsConn();
             //kkkk(new string[] {"2006", "2007"});
         }
 
+        private void F(object o, System.ComponentModel.CancelEventArgs e)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
+            var set = from c in jiakaoDataSet.setting where c.power_on == 1 select c;
+            DataTable aa = new DataTable();
+
+            foreach (var s in set)
+            {
+
+                if (s.close_password == null)
+                {
+                    this.Close();
+                }
+                else
+                {
+                    QuitPassword qu = new QuitPassword();
+                    C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    c1ma.Content = qu;
+                    c1ma.Show();
+                    c1ma.Name = "管理员密码";
+                    c1ma.Header = "管理员密码";
+                }
+            }
+        }
 
         public static T FindChild<T>(DependencyObject parent, string childName)//查找控件
 where T : DependencyObject
@@ -1488,10 +1517,13 @@ where T : DependencyObject
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
-            var set = from c in jiakaoDataSet.setting select c;
+            var set = from c in jiakaoDataSet.setting where c.power_on == 1 select c;
+            DataTable aa = new DataTable();
+            
             foreach (var s in set)
             {
-                if (s.close_password == "")
+               
+                if (s.close_password==null)
                 {
                     SetUp se = new SetUp();
                     se.Height = 600;

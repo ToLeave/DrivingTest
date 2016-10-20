@@ -20,7 +20,7 @@
             <avalon:LayoutRoot>
                 <avalon:LayoutPanel Orientation="Horizontal">
                     <avalon:LayoutDocumentPane >
-                        <!--<avalon:LayoutAnchorable Title=" 注册 " CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True">
+                        <avalon:LayoutAnchorable Title=" 注册 " CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True">
                             <Grid>
                                 <Label Content="  姓  名  " Height="28" HorizontalAlignment="Left" Margin="38,28,0,0" Name="label1" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="99,28,0,0" Name="name_textBox" Text="" VerticalAlignment="Top" Width="120" />
@@ -44,7 +44,7 @@
                                 <Button Content="上传本地图片" Height="23" HorizontalAlignment="Left" Margin="257,378,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
                                 <Button Content="Button" Height="23" HorizontalAlignment="Left" Margin="162,461,0,0" Name="button6" VerticalAlignment="Top" Width="75" />
                             </Grid>
-                        </avalon:LayoutAnchorable>-->
+                        </avalon:LayoutAnchorable>
                         <avalon:LayoutAnchorable Title=" 基本设置 " x:Name="jibenshezhi" CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True" IsActiveChanged="jibenshezhi_IsActiveChanged" >
                             <Grid>
                                 <Label Content="选择考试所在省份" Width="110" Height="25" Margin="18,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -80,7 +80,7 @@
                                 <Label Content="驾校图片" Height="28" HorizontalAlignment="Left" Margin="39,341,0,0" Name="label27" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="105,346,0,0" Name="textBox" VerticalAlignment="Top" Width="150" />
                                 <Label Content="(200×200)" Height="28" HorizontalAlignment="Left" Margin="261,344,0,0" Name="label28" VerticalAlignment="Top" />
-                                <Button Content="浏览图片" Height="23" HorizontalAlignment="Left" Margin="359,346,0,0" Name="liulan_button" VerticalAlignment="Top" Width="75" />
+                                <Button Content="浏览图片" Height="23" HorizontalAlignment="Left" Margin="359,346,0,0" Name="liulan_button" VerticalAlignment="Top" Width="75" Click="liulan_button_Click" />
                                 </Grid>
                                 <GroupBox Header="模式" Height="325" Width="450" Margin="6,51,0,0" Name="groupBox2" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Visible" />
                                 
@@ -95,7 +95,7 @@
                                 <Button Content="保存密码" Height="23" HorizontalAlignment="Left" Margin="381,420,0,0" Name="baocun_passbutton" VerticalAlignment="Top" Width="60" Click="baocun_passbutton_Click" />
                                 <TextBlock Text="注意:设置密码后,进入设置页面和退出程序(驾校模式)需要输入密码" Height="20" HorizontalAlignment="Left" Margin="38,449,0,0" Name="textBox70" VerticalAlignment="Top" Width="400" FontSize="11" />
                                 <CheckBox Content="显示最新通知(科目一页面,学习状态统计下面)" Height="16" HorizontalAlignment="Left" Margin="34,467,0,0" Name="checkBox4" VerticalAlignment="Top" />
-                                <Button Content="保存设置" Height="23" HorizontalAlignment="Left" Margin="361,497,0,0" Name="jibenshezhi_button" VerticalAlignment="Top" Width="75" />
+                                <Button Content="保存设置" Height="23" HorizontalAlignment="Left" Margin="361,497,0,0" Name="jibenshezhi_button" VerticalAlignment="Top" Width="75" Click="jibenshezhi_button_Click" />
                                 <GroupBox Header="基础设置" Height="120" Width="450" Margin="6,375,0,0" Name="groupBox3" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Visible" />
                             </Grid>
                         </avalon:LayoutAnchorable>

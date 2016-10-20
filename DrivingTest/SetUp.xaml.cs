@@ -172,6 +172,18 @@ namespace DrivingTest
 
         }
 
+        //浏览图片
+        private void liulan_button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        //基本设置保存
+        private void jibenshezhi_button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
    
     }
 }
