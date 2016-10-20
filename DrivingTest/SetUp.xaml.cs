@@ -26,6 +26,8 @@ namespace DrivingTest
             InitializeComponent();
         }
 
+        bool power_on = false;//开机启动变量
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -33,39 +35,61 @@ namespace DrivingTest
             // 将数据加载到表 setting 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
-            System.Windows.Data.CollectionViewSource settingViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("settingViewSource")));
-            settingViewSource.View.MoveCurrentToFirst();
 
+            DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter jiakaoDataSetuserTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter();
+            jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
 
-
-
-
+            
 
         }
 
         //设置开机启动
         private void kaiji_checkBox_Checked(object sender, RoutedEventArgs e)
         {
-            if (kaiji_checkBox.IsChecked == true) //设置开机自启动  
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            var set = from c in jiakaoDataSet.setting select c;
+            foreach (var s in set)
             {
-                MessageBox.Show("设置开机自启动，需要修改注册表", "提示");
-                string path = Assembly.GetExecutingAssembly().Location; ;
-                RegistryKey rk = Registry.LocalMachine;
-                RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
-                rk2.SetValue("JcShutdown", path);
-                rk2.Close();
-                rk.Close();
+                if (kaiji_checkBox.IsChecked == true) //设置开机自启动  
+                {
+                    s.power_on = 1;
+
+                    if (s.power_on == 1)
+                    {
+                        power_on = true;//开机启动
+                        MessageBox.Show("设置开机自启动，需要修改注册表", "提示");
+                        string path = Assembly.GetExecutingAssembly().Location; ;
+                        RegistryKey rk = Registry.LocalMachine;
+                        RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
+                        rk2.SetValue("JcShutdown", path);
+                        rk2.Close();
+                        rk.Close();
+                    }
+                }
+                else //取消开机自启动  
+                {
+                    s.power_on = 0;
+
+                    if (s.power_on == 0)
+                    {
+                        power_on = false;//开机不启动
+                        MessageBox.Show("取消开机自启动，需要修改注册表", "提示");
+                        string path = Assembly.GetExecutingAssembly().Location;
+                        RegistryKey rk = Registry.LocalMachine;
+                        RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
+                        rk2.DeleteValue("JcShutdown", false);
+                        rk2.Close();
+                        rk.Close();
+                    }
+                }  
             }
-            else //取消开机自启动  
-            {
-                MessageBox.Show("取消开机自启动，需要修改注册表", "提示");
-                string path = Assembly.GetExecutingAssembly().Location;
-                RegistryKey rk = Registry.LocalMachine;
-                RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
-                rk2.DeleteValue("JcShutdown", false);
-                rk2.Close();
-                rk.Close();
-            }  
+
+
+            
         }
 
         //个人模式
@@ -87,18 +111,65 @@ namespace DrivingTest
             }
         }
 
+        //基本设置
         private void jibenshezhi_IsActiveChanged(object sender, EventArgs e)
         {
-            int a;
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
             if (jibenshezhi.IsActive == true)
             {
                 geren_radioButton.IsChecked = true;
             }
+
+            var set = from c in jiakaoDataSet.setting select c;
+            //
+            foreach (var s in set)
+            {
+                if (s.power_on == 1)
+                {
+                    power_on = true;
+                }
+                else
+                {
+                    power_on = false;
+                }
+            }
         }
 
-        private void jibenshezhi_IsSelectedChanged(object sender, EventArgs e)
+
+
+        private void xinxibaocun_button_Click(object sender, RoutedEventArgs e)
         {
-            int b;   
+
+        }
+
+        //保存设置密码和退出密码
+        private void baocun_passbutton_Click(object sender, RoutedEventArgs e)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            var set = from c in jiakaoDataSet.setting select c;
+
+            foreach (var s in set)
+            {
+                if (tuipassword_textBox.Text == quepassword_textBox.Text)
+                {
+                    s.close_password = tuipassword_textBox.Text;
+                }
+                else
+                {
+                    MessageBox.Show("两次密码不一致!", "提示");
+                }
+            }
+
+
+
         }
 
    

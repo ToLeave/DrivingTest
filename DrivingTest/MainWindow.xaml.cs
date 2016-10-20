@@ -1483,10 +1483,33 @@ where T : DependencyObject
         //设置
         private void set_up_Click(object sender, RoutedEventArgs e)
         {
-            SetUp se = new SetUp();
-            se.Height = 600;
-            se.Width = 500;
-            se.Show();
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            var set = from c in jiakaoDataSet.setting select c;
+            foreach (var s in set)
+            {
+                if (s.close_password == "")
+                {
+                    SetUp se = new SetUp();
+                    se.Height = 600;
+                    se.Width = 500;
+                    se.Show();
+                }
+                else
+                {
+                    QuitPassword qu = new QuitPassword();
+                    C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    c1ma.Content = qu;
+                    c1ma.Show();
+                    c1ma.Name = "管理员密码";
+                    c1ma.Header = "管理员密码";
+                }
+            }
+
+
         }
 
         //c1c2c3c4

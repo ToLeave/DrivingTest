@@ -34,5 +34,6 @@ namespace DrivingTest
         public static string cartype = "";//车型
         public static string subjection = "";//科目
         public static bool delerr = false;//是否删除错题
+        public static string shezhi = "";//设置或退出
     }
 }

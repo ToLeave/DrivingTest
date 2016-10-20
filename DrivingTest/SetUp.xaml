@@ -20,7 +20,7 @@
             <avalon:LayoutRoot>
                 <avalon:LayoutPanel Orientation="Horizontal">
                     <avalon:LayoutDocumentPane >
-                        <avalon:LayoutAnchorable Title=" 注册 " CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True">
+                        <!--<avalon:LayoutAnchorable Title=" 注册 " CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True">
                             <Grid>
                                 <Label Content="  姓  名  " Height="28" HorizontalAlignment="Left" Margin="38,28,0,0" Name="label1" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="99,28,0,0" Name="name_textBox" Text="" VerticalAlignment="Top" Width="120" />
@@ -44,8 +44,8 @@
                                 <Button Content="上传本地图片" Height="23" HorizontalAlignment="Left" Margin="257,378,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
                                 <Button Content="Button" Height="23" HorizontalAlignment="Left" Margin="162,461,0,0" Name="button6" VerticalAlignment="Top" Width="75" />
                             </Grid>
-                        </avalon:LayoutAnchorable>
-                        <avalon:LayoutAnchorable Title=" 基本设置 " x:Name="jibenshezhi" CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True" IsActiveChanged="jibenshezhi_IsActiveChanged" IsSelectedChanged="jibenshezhi_IsSelectedChanged">
+                        </avalon:LayoutAnchorable>-->
+                        <avalon:LayoutAnchorable Title=" 基本设置 " x:Name="jibenshezhi" CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True" IsActiveChanged="jibenshezhi_IsActiveChanged" >
                             <Grid>
                                 <Label Content="选择考试所在省份" Width="110" Height="25" Margin="18,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
                                 <ComboBox Height="25" HorizontalAlignment="Left" Margin="134,15,0,0" Name="shengfen_comboBox" VerticalAlignment="Top" Width="120" ItemsSource=""  DisplayMemberPath="Name"   SelectedValuePath="EmpID"/>
@@ -85,17 +85,17 @@
                                 <GroupBox Header="模式" Height="325" Width="450" Margin="6,51,0,0" Name="groupBox2" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Visible" />
                                 
                                 <Line X1="400" Margin="36,412,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" Height="2" Stroke="Black" StrokeDashArray="5"   StrokeThickness="1" />
-                                
-                                <CheckBox Content="软件随系统启动" Height="16" HorizontalAlignment="Left" Margin="84,388,0,0" Name="kaiji_checkBox" VerticalAlignment="Top" Checked="kaiji_checkBox_Checked" />
+
+                                <CheckBox Content="软件随系统启动" Height="16" HorizontalAlignment="Left" Margin="84,388,0,0" Name="kaiji_checkBox" VerticalAlignment="Top" IsChecked="{Binding Path=power_on,Mode=TwoWay}" Checked="kaiji_checkBox_Checked" />
                                 <CheckBox Content="关闭软件是需要密码" Height="16" HorizontalAlignment="Left" Margin="291,388,0,0" Name="checkBox3" VerticalAlignment="Top" />
                                 <Label Content="密码" Height="28" HorizontalAlignment="Left" Margin="38,420,0,0" Name="label6" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="84,420,0,0" Name="tuipassword_textBox" VerticalAlignment="Top" Width="100" />
                                 <Label Content="再次输入密码" Height="28" HorizontalAlignment="Left" Margin="190,419,0,0" Name="label7" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="274,420,0,0" Name="textBox6" VerticalAlignment="Top" Width="100" />
-                                <Button Content="保存密码" Height="23" HorizontalAlignment="Left" Margin="381,420,0,0" Name="button2" VerticalAlignment="Top" Width="60" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="274,420,0,0" Name="quepassword_textBox" VerticalAlignment="Top" Width="100" />
+                                <Button Content="保存密码" Height="23" HorizontalAlignment="Left" Margin="381,420,0,0" Name="baocun_passbutton" VerticalAlignment="Top" Width="60" Click="baocun_passbutton_Click" />
                                 <TextBlock Text="注意:设置密码后,进入设置页面和退出程序(驾校模式)需要输入密码" Height="20" HorizontalAlignment="Left" Margin="38,449,0,0" Name="textBox70" VerticalAlignment="Top" Width="400" FontSize="11" />
                                 <CheckBox Content="显示最新通知(科目一页面,学习状态统计下面)" Height="16" HorizontalAlignment="Left" Margin="34,467,0,0" Name="checkBox4" VerticalAlignment="Top" />
-                                <Button Content="保存设置" Height="23" HorizontalAlignment="Left" Margin="361,497,0,0" Name="button3" VerticalAlignment="Top" Width="75" />
+                                <Button Content="保存设置" Height="23" HorizontalAlignment="Left" Margin="361,497,0,0" Name="jibenshezhi_button" VerticalAlignment="Top" Width="75" />
                                 <GroupBox Header="基础设置" Height="120" Width="450" Margin="6,375,0,0" Name="groupBox3" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Visible" />
                             </Grid>
                         </avalon:LayoutAnchorable>
@@ -185,7 +185,7 @@
                                 <CheckBox Content="备注" Height="16" HorizontalAlignment="Left" Margin="50,372,0,0" Name="checkBox28" VerticalAlignment="Top" />
                                 <TextBox Height="100" HorizontalAlignment="Left" Margin="50,394,0,0" Name="textBox16" VerticalAlignment="Top" Width="380" TextWrapping="Wrap" Text="{Binding Path=comments, Source={StaticResource settingViewSource},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                 <GroupBox Header="注册说明" Height="340" HorizontalAlignment="Left" Margin="21,161,0,0" Name="groupBox10" VerticalAlignment="Top" Width="430" Visibility="Hidden"></GroupBox>
-                                <Button Content="保存设置" Height="23" Name="button5" Width="75" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="376,500,0,0" />
+                                <Button Content="保存设置" Height="23" Name="xinxibaocun_button" Width="75" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="376,500,0,0" Click="xinxibaocun_button_Click" />
                             </Grid>
                         </avalon:LayoutAnchorable>
                     </avalon:LayoutDocumentPane>

@@ -129,6 +129,9 @@
     <Compile Include="QuestionNum.xaml.cs">
       <DependentUpon>QuestionNum.xaml</DependentUpon>
     </Compile>
+    <Compile Include="QuitPassword.xaml.cs">
+      <DependentUpon>QuitPassword.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ramp.xaml.cs">
       <DependentUpon>Ramp.xaml</DependentUpon>
     </Compile>
@@ -225,6 +228,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="QuestionNum.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QuitPassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
