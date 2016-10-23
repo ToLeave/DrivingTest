@@ -23,6 +23,7 @@ using System.Threading;
 using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 
 namespace DrivingTest
 {
@@ -60,25 +61,24 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
-            var set = from c in jiakaoDataSet.setting where c.power_on == 1 select c;
-            DataTable aa = new DataTable();
-
+            var set = from c in jiakaoDataSet.setting select c;
+            PublicClass.shezhi = "退出";
             foreach (var s in set)
             {
 
-                if (s.close_password == null)
+                if (!s.Isclose_passwordNull())
                 {
-                    this.Close();
-                }
-                else
-                {
+                    e.Cancel = true;
                     QuitPassword qu = new QuitPassword();
                     C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - qu.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - qu.Height / 2, 0, 0);
                     c1ma.Content = qu;
                     c1ma.Show();
                     c1ma.Name = "管理员密码";
                     c1ma.Header = "管理员密码";
                 }
+                else
+                { }
             }
         }
 
@@ -1517,13 +1517,13 @@ where T : DependencyObject
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
-            var set = from c in jiakaoDataSet.setting where c.power_on == 1 select c;
-            DataTable aa = new DataTable();
-            
+            var set = from c in jiakaoDataSet.setting select c;
+            PublicClass.shezhi = "设置";
+
             foreach (var s in set)
             {
-               
-                if (s.close_password==null)
+                
+                if (s.Isclose_passwordNull()) //OleDbDataReader["close_password"].toString() != "")
                 {
                     SetUp se = new SetUp();
                     se.Height = 600;
@@ -1534,6 +1534,7 @@ where T : DependencyObject
                 {
                     QuitPassword qu = new QuitPassword();
                     C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - qu.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - qu.Height / 2, 0, 0);
                     c1ma.Content = qu;
                     c1ma.Show();
                     c1ma.Name = "管理员密码";
@@ -1801,6 +1802,17 @@ where T : DependencyObject
         {
             move = "";
         }
+
+        //密码框回车事件
+        private void password_textBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                login_Click(null, null);
+            }
+        }
+
+
 
 
 

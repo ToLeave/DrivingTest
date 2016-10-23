@@ -34,14 +34,28 @@ namespace DrivingTest
             var set = from c in jiakaoDataSet.setting select c;
             foreach (var s in set)
             {
-                if (password_textBox.Text == s.close_password)
+                if (PublicClass.shezhi == "设置")
                 {
-                    SetUp se = new SetUp();
-                    se.Show();
+                    if (password_textBox.Text == s.close_password)
+                    {
+                        SetUp se = new SetUp();
+                        se.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("密码错误!", "提示");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("密码错误!", "提示");
+                    if (password_textBox.Text == s.close_password)
+                    {
+                        Application.Current.Shutdown();
+                    }
+                    else
+                    {
+                        MessageBox.Show("密码错误!", "提示");
+                    }
                 }
             }
         }
@@ -58,6 +72,14 @@ namespace DrivingTest
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void password_textBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                ok_button_Click(null, null);
+            }
         }
     }
 }

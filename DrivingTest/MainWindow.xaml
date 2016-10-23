@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="450" Width="1100" 
-        AllowsTransparency="True" WindowStyle="None" Background="Transparent"   OpacityMask="White"  Loaded="Window_Loaded" xmlns:my="clr-namespace:DrivingTest" WindowState="Maximized" >
+        AllowsTransparency="True" WindowStyle="None" Background="Transparent"   OpacityMask="White"  Loaded="Window_Loaded" xmlns:my="clr-namespace:DrivingTest" WindowState="Maximized">
 
     <Control.Resources>
         <!--控件模板，Key为必需，并且设定目标类型为RadioButton-->
@@ -45,7 +45,7 @@
         <Label Content="用户名" Height="28" HorizontalAlignment="Left" Margin="257,304,0,0" Name="user_label" VerticalAlignment="Top" Padding="5" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="303,304,0,0" Name="user_textBox" VerticalAlignment="Top" Width="120" LostKeyboardFocus="user_textBox_LostKeyboardFocus" GotFocus="user_textBox_GotFocus" />
         <Label Content="密码" Height="28" HorizontalAlignment="Left" Margin="467,302,0,0" Name="password_label" VerticalAlignment="Top" />
-        <PasswordBox Height="23" HorizontalAlignment="Left" Margin="513,304,0,0" Name="password_textBox" VerticalAlignment="Top" Width="120" />
+        <PasswordBox Height="23" HorizontalAlignment="Left" Margin="513,304,0,0" Name="password_textBox" VerticalAlignment="Top" Width="120" KeyDown="password_textBox_KeyDown" />
 
         <Button Content="C1|C2|C3|C4" Height="23" HorizontalAlignment="Left" Margin="243,243,0,0" Name="car_button" VerticalAlignment="Top" Width="75" Visibility="Visible" Click="car_button_Click" />
         <Button Content="A1|A3|B1" Height="23" HorizontalAlignment="Left" Margin="324,243,0,0" Name="bus_button" VerticalAlignment="Top" Width="75" Visibility="Visible" Click="bus_button_Click" />

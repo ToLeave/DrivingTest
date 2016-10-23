@@ -140,11 +140,7 @@ namespace DrivingTest
         }
 
 
-
-        private void xinxibaocun_button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
         //保存设置密码和退出密码
         private void baocun_passbutton_Click(object sender, RoutedEventArgs e)
@@ -184,6 +180,11 @@ namespace DrivingTest
 
         }
 
+        //信息保存
+        private void xinxibaocun_button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
    
     }
 }
