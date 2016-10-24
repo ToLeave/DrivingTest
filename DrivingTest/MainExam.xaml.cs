@@ -198,6 +198,7 @@ where T : DependencyObject
             {
                 shezhi_grid.Visibility = System.Windows.Visibility.Hidden;
                 xianshi_grid.Visibility = System.Windows.Visibility.Hidden;
+
                 timer_type = "考试";
                 var question_pd = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.question_type.Contains("PD") && c.subject_id == local_subject.First().subject_id select c;
 

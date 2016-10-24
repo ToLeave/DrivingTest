@@ -7,7 +7,7 @@
              xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
              xmlns:c1="http://schemas.componentone.com/winfx/2006/xaml"
              mc:Ignorable="d" 
-             Height="800" Width="1200"  Loaded="Window_Loaded" xmlns:my="clr-namespace:DrivingTest" >
+             Height="768" Width="1024"  Loaded="Window_Loaded" xmlns:my="clr-namespace:DrivingTest" >
     <UserControl.Resources>
         <my:jiakaoDataSet x:Key="jiakaoDataSet" />
         <CollectionViewSource x:Key="questionViewSource" Source="{Binding Path=question, Source={StaticResource jiakaoDataSet}}" />
