@@ -442,7 +442,7 @@ where T : DependencyObject
                 int x = i / 10;
                 int y = i % 10;
                 x *= 36;
-                y *= 31;
+                y *= 24;
                 QuestionNum qu = new QuestionNum();
 
                 qu.Margin = new Thickness(y, x, 0, 0);
