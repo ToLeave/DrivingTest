@@ -14,7 +14,44 @@
         <CollectionViewSource x:Key="answerViewSource" Source="{Binding Path=answer, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="subjectViewSource" Source="{Binding Path=subject, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="errquestViewSource" Source="{Binding Path=errquest, Source={StaticResource jiakaoDataSet}}" />
+
+        <!-- 快捷键  -->
+        <RoutedUICommand x:Key="ButtonA" Text="选项A和对" />
+        <RoutedUICommand x:Key="ButtonB" Text="选项B和错" />
+        <RoutedUICommand x:Key="ButtonC" Text="选项C" />
+        <RoutedUICommand x:Key="ButtonD" Text="选项D" />
+        <RoutedUICommand x:Key="ButtonUpOne" Text="上一题" />
+        <RoutedUICommand x:Key="ButtonNextOne" Text="下一题" />
+        <RoutedUICommand x:Key="ButtonFirstOne" Text="第一题" />
+        <RoutedUICommand x:Key="ButtonLastOne" Text="最后题" />
+        <RoutedUICommand x:Key="ButtonHandExams" Text="交卷" />
+        <RoutedUICommand x:Key="ButtonConfirmHandExams" Text="确认交卷" />
     </UserControl.Resources>
+    <UserControl.InputBindings>
+        <KeyBinding x:Name="key_ButtonA" Key="A" Command="{StaticResource ButtonA}"/>
+        <KeyBinding x:Name="key_ButtonB" Key="B" Command="{StaticResource ButtonB}"/>
+        <KeyBinding x:Name="key_ButtonC" Key="C" Command="{StaticResource ButtonC}"/>
+        <KeyBinding x:Name="key_ButtonD" Key="D" Command="{StaticResource ButtonD}"/>
+        <KeyBinding x:Name="key_ButtonUpOne" Key="q" Command="{StaticResource ButtonUpOne}"/>
+        <KeyBinding x:Name="key_ButtonNextOne" Key="e" Command="{StaticResource ButtonNextOne}"/>
+        <KeyBinding x:Name="key_ButtonFirstOne" Gesture="" Command="{StaticResource ButtonFirstOne}"/>
+        <KeyBinding x:Name="key_ButtonLastOne" Gesture="" Command="{StaticResource ButtonLastOne}"/>
+        <KeyBinding x:Name="key_ButtonHandExams" Gesture="" Command="{StaticResource ButtonHandExams}"/>
+        <KeyBinding x:Name="key_ButtonConfirmHandExams" Gesture="" Command="{StaticResource ButtonConfirmHandExams}"/>
+    </UserControl.InputBindings>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource ButtonA}" Executed="CommandBinding_ButtonA_Executed"/>
+        <CommandBinding Command="{StaticResource ButtonB}" Executed="CommandBinding_ButtonB_Executed"/>
+        <CommandBinding Command="{StaticResource ButtonC}" Executed="CommandBinding_ButtonC_Executed"/>
+        <CommandBinding Command="{StaticResource ButtonD}" Executed="CommandBinding_ButtonD_Executed"/>
+        <CommandBinding Command="{StaticResource ButtonUpOne}" Executed="CommandBinding_ButtonUpOne_Executed"/>
+        <CommandBinding Command="{StaticResource ButtonNextOne}" Executed="CommandBinding_ButtonNextOne_Executed"/>
+        <CommandBinding Command="{StaticResource ButtonFirstOne}" Executed="CommandBinding_ButtonFirstOne_Executed"/>
+        <CommandBinding Command="{StaticResource ButtonLastOne}" Executed="CommandBinding_ButtonLastOne_Executed"/>
+        <CommandBinding Command="{StaticResource ButtonHandExams}" Executed="CommandBinding_ButtonHandExams_Executed"/>
+        <CommandBinding Command="{StaticResource ButtonConfirmHandExams}" Executed="CommandBinding_ButtonConfirmHandExams_Executed"/>
+    </UserControl.CommandBindings>
+
     <!--<DockPanel LastChildFill="True" >
         <Menu DockPanel.Dock="Top" VerticalAlignment="Top" ></Menu>
         <Viewbox Stretch="Fill" >
@@ -70,7 +107,7 @@
         <TextBlock Height="23" HorizontalAlignment="Center" Margin="207,285,748,461" Name="xuanxiang_textBlock"  VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Width="69" TextAlignment="Center" />
         
         <ScrollViewer Height="300" Width="261"  HorizontalScrollBarVisibility="Hidden" Margin="750,28,12,440" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <Canvas Margin="0,0,0,0" x:Name="dati_canvas" Width="261"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Canvas Margin="0,0,0,0" x:Name="dati_canvas" Width="261"  HorizontalAlignment="Left" VerticalAlignment="Top" />
         </ScrollViewer>
 
         <GroupBox Header="答题信息" Height="331" HorizontalAlignment="Center" Margin="745,8,5,429" Name="groupBox5" VerticalAlignment="Center" Width="275" Visibility="Visible"/>

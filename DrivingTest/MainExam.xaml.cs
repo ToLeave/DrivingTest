@@ -1266,7 +1266,6 @@ where T : DependencyObject
 
 
         //选项
-      //  bool is_right=false
         private void xuanxiang_button_Click(object sender, RoutedEventArgs e)
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
@@ -1490,7 +1489,7 @@ where T : DependencyObject
         }
 
         //字体大小
-        private void xiao_button_Click(object sender, RoutedEventArgs e)
+        private void xiao_button_Click(object sender, RoutedEventArgs e)//变小
         {
             if (timu_textBlock.FontSize > 14)
             {
@@ -1499,15 +1498,32 @@ where T : DependencyObject
                 xuanxiang_textBlock2.FontSize -= 2;
                 xuanxiang_textBlock3.FontSize -= 2;
                 xuanxiang_textBlock4.FontSize -= 2;
+
+                if (timu_textBlock.FontSize != 14)
+                {
+                    if (timu_textBlock.FontSize != 24)
+                    {
+                        da_button.IsEnabled = true;
+                    }
+                }
+                else
+                {
+                    xiao_button.IsEnabled = false;
+                    da_button.IsEnabled = true;
+                }
             }
             else if (timu_textBlock.FontSize == 14)
             {
                 xiao_button.IsEnabled = false;
                 da_button.IsEnabled = true;
             }
+            //else if (timu_textBlock.FontSize < 24)
+            //{
+            //    da_button.IsEnabled = true;
+            //}
         }
 
-        private void da_button_Click(object sender, RoutedEventArgs e)
+        private void da_button_Click(object sender, RoutedEventArgs e)//变大
         {
             if (timu_textBlock.FontSize < 24)
             {
@@ -1516,12 +1532,29 @@ where T : DependencyObject
                 xuanxiang_textBlock2.FontSize += 2;
                 xuanxiang_textBlock3.FontSize += 2;
                 xuanxiang_textBlock4.FontSize += 2;
+
+                if (timu_textBlock.FontSize != 24)
+                {
+                    if (timu_textBlock.FontSize != 14)
+                    {
+                        xiao_button.IsEnabled = true;
+                    }
+                }
+                else
+                {
+                    xiao_button.IsEnabled = true;
+                    da_button.IsEnabled = false;
+                }
             }
             else if (timu_textBlock.FontSize == 24)
             {
                 xiao_button.IsEnabled = true;
                 da_button.IsEnabled = false;
             }
+            //else if (timu_textBlock.FontSize > 14)
+            //{
+            //    xiao_button.IsEnabled = true;
+            //}
         }
 
         //字体颜色
@@ -1607,6 +1640,49 @@ where T : DependencyObject
             }
         }
 
+        //快捷键触发事件
+        private void CommandBinding_ButtonA_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            xuanxiang_button_Click(a_button,null);
+        }
+        private void CommandBinding_ButtonB_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            xuanxiang_button_Click(b_button, null);
+        }
+        private void CommandBinding_ButtonC_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            xuanxiang_button_Click(c_button, null);
+        }
+        private void CommandBinding_ButtonD_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            xuanxiang_button_Click(d_button, null);
+        }
+        private void CommandBinding_ButtonUpOne_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            up_button_Click(null, null);
+        }
+        private void CommandBinding_ButtonNextOne_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            do_button_Click(null, null);
+        }
+        private void CommandBinding_ButtonFirstOne_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+        private void CommandBinding_ButtonLastOne_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+        private void CommandBinding_ButtonHandExams_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+        private void CommandBinding_ButtonConfirmHandExams_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+
 
         #region 计时器
         /// <summary>
@@ -1674,6 +1750,9 @@ where T : DependencyObject
 
             return false;
         }
+
+        
+
 
         
 

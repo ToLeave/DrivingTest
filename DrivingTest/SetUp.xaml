@@ -6,7 +6,12 @@
     <Window.Resources>
         <my:jiakaoDataSet x:Key="jiakaoDataSet" />
         <CollectionViewSource x:Key="settingViewSource" Source="{Binding Path=setting, Source={StaticResource jiakaoDataSet}}" />
-        <CollectionViewSource x:Key="userViewSource" Source="{Binding Path=user,Source={StaticResource jiaokaoDataSet}}"/>
+        <CollectionViewSource x:Key="userViewSource" Source="{Binding Path=user,Source={StaticResource jiakaoDataSet}}" />
+        
+        
+        
+        
+        
     </Window.Resources>
 
     <Grid>
@@ -162,7 +167,9 @@
                             </Grid>
                         </avalon:LayoutAnchorable>
                         <avalon:LayoutAnchorable Title=" 键 盘 " CanClose="False" CanFloat="False" CanHide="False">
-                            <Label></Label>
+                            <Grid>
+                                <Image Height="300" HorizontalAlignment="Left" Margin="86,6,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="300" />
+                            </Grid>
                         </avalon:LayoutAnchorable>
                         <avalon:LayoutAnchorable Title=" 信息设置 " CanClose="False" CanFloat="False" CanHide="False">
                             <Grid>
