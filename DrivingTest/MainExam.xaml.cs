@@ -95,6 +95,8 @@ where T : DependencyObject
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+
+            KeyGesture cl = new KeyGesture(Key.NumPad0);
             this.Name = "mainW";
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 question 中。可以根据需要修改此代码。

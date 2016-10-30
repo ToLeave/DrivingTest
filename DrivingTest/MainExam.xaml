@@ -28,16 +28,16 @@
         <RoutedUICommand x:Key="ButtonConfirmHandExams" Text="确认交卷" />
     </UserControl.Resources>
     <UserControl.InputBindings>
-        <KeyBinding x:Name="key_ButtonA" Key="A" Command="{StaticResource ButtonA}"/>
-        <KeyBinding x:Name="key_ButtonB" Key="B" Command="{StaticResource ButtonB}"/>
-        <KeyBinding x:Name="key_ButtonC" Key="C" Command="{StaticResource ButtonC}"/>
-        <KeyBinding x:Name="key_ButtonD" Key="D" Command="{StaticResource ButtonD}"/>
-        <KeyBinding x:Name="key_ButtonUpOne" Key="q" Command="{StaticResource ButtonUpOne}"/>
-        <KeyBinding x:Name="key_ButtonNextOne" Key="e" Command="{StaticResource ButtonNextOne}"/>
-        <KeyBinding x:Name="key_ButtonFirstOne" Gesture="" Command="{StaticResource ButtonFirstOne}"/>
-        <KeyBinding x:Name="key_ButtonLastOne" Gesture="" Command="{StaticResource ButtonLastOne}"/>
-        <KeyBinding x:Name="key_ButtonHandExams" Gesture="" Command="{StaticResource ButtonHandExams}"/>
-        <KeyBinding x:Name="key_ButtonConfirmHandExams" Gesture="" Command="{StaticResource ButtonConfirmHandExams}"/>
+        <KeyBinding x:Name="key_ButtonA" Key="" Command="{StaticResource ButtonA}"/>
+        <KeyBinding x:Name="key_ButtonB" Key="" Command="{StaticResource ButtonB}"/>
+        <KeyBinding x:Name="key_ButtonC" Key="" Command="{StaticResource ButtonC}"/>
+        <KeyBinding x:Name="key_ButtonD" Key="" Command="{StaticResource ButtonD}"/>
+        <KeyBinding x:Name="key_ButtonUpOne" Key="" Command="{StaticResource ButtonUpOne}"/>
+        <KeyBinding x:Name="key_ButtonNextOne" Key="" Command="{StaticResource ButtonNextOne}"/>
+        <KeyBinding x:Name="key_ButtonFirstOne" Key="" Command="{StaticResource ButtonFirstOne}"/>
+        <KeyBinding x:Name="key_ButtonLastOne" Key="" Command="{StaticResource ButtonLastOne}"/>
+        <KeyBinding x:Name="key_ButtonHandExams" Key="" Command="{StaticResource ButtonHandExams}"/>
+        <KeyBinding x:Name="key_ButtonConfirmHandExams" Key="" Command="{StaticResource ButtonConfirmHandExams}"/>
     </UserControl.InputBindings>
     <UserControl.CommandBindings>
         <CommandBinding Command="{StaticResource ButtonA}" Executed="CommandBinding_ButtonA_Executed"/>

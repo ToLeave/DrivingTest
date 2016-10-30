@@ -25,7 +25,7 @@
             <avalon:LayoutRoot>
                 <avalon:LayoutPanel Orientation="Horizontal">
                     <avalon:LayoutDocumentPane >
-                        <avalon:LayoutAnchorable Title=" 注册 " CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True">
+                        <!--<avalon:LayoutAnchorable Title=" 注册 " CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True">
                             <Grid>
                                 <Label Content="  姓  名  " Height="28" HorizontalAlignment="Left" Margin="38,28,0,0" Name="label1" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="99,28,0,0" Name="name_textBox" Text="" VerticalAlignment="Top" Width="120" />
@@ -49,8 +49,8 @@
                                 <Button Content="上传本地图片" Height="23" HorizontalAlignment="Left" Margin="257,378,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
                                 <Button Content="Button" Height="23" HorizontalAlignment="Left" Margin="162,461,0,0" Name="button6" VerticalAlignment="Top" Width="75" />
                             </Grid>
-                        </avalon:LayoutAnchorable>
-                        <avalon:LayoutAnchorable Title=" 基本设置 " x:Name="jibenshezhi" CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True" IsActiveChanged="jibenshezhi_IsActiveChanged" >
+                        </avalon:LayoutAnchorable>-->
+                        <!--<avalon:LayoutAnchorable Title=" 基本设置 " x:Name="jibenshezhi" CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True" IsActiveChanged="jibenshezhi_IsActiveChanged" >
                             <Grid>
                                 <Label Content="选择考试所在省份" Width="110" Height="25" Margin="18,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
                                 <ComboBox Height="25" HorizontalAlignment="Left" Margin="134,15,0,0" Name="shengfen_comboBox" VerticalAlignment="Top" Width="120" ItemsSource=""  DisplayMemberPath="Name"   SelectedValuePath="EmpID"/>
@@ -103,8 +103,8 @@
                                 <Button Content="保存设置" Height="23" HorizontalAlignment="Left" Margin="361,497,0,0" Name="jibenshezhi_button" VerticalAlignment="Top" Width="75" Click="jibenshezhi_button_Click" />
                                 <GroupBox Header="基础设置" Height="120" Width="450" Margin="6,375,0,0" Name="groupBox3" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Visible" />
                             </Grid>
-                        </avalon:LayoutAnchorable>
-                        <avalon:LayoutAnchorable Title="功能-标题" CanClose="False" CanFloat="False" CanHide="False">
+                        </avalon:LayoutAnchorable>-->
+                        <!--<avalon:LayoutAnchorable Title="功能-标题" CanClose="False" CanFloat="False" CanHide="False">
                             <Grid>
                                 <Label Content="软件标题" Height="28" HorizontalAlignment="Left" Margin="16,6,0,0" Name="label8" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="91,11,0,0" Name="textBox7" VerticalAlignment="Top" Width="350" />
@@ -165,7 +165,7 @@
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="259,499,0,0" Name="textBox10" VerticalAlignment="Top" Width="80" />
                                 <Button Content="保存设置" Height="23" HorizontalAlignment="Left" Margin="371,501,0,0" Name="button4" VerticalAlignment="Top" Width="75" />
                             </Grid>
-                        </avalon:LayoutAnchorable>
+                        </avalon:LayoutAnchorable>-->
                         <avalon:LayoutAnchorable Title=" 键 盘 " CanClose="False" CanFloat="False" CanHide="False">
                             <Grid>
                                 <Image Height="300" HorizontalAlignment="Left" Margin="86,6,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="300" />
