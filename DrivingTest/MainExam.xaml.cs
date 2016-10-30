@@ -1643,43 +1643,51 @@ where T : DependencyObject
         }
 
         //快捷键触发事件
-        private void CommandBinding_ButtonA_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void CommandBinding_ButtonA_Executed(object sender, ExecutedRoutedEventArgs e)//A
         {
             xuanxiang_button_Click(a_button,null);
         }
-        private void CommandBinding_ButtonB_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void CommandBinding_ButtonB_Executed(object sender, ExecutedRoutedEventArgs e)//B
         {
             xuanxiang_button_Click(b_button, null);
         }
-        private void CommandBinding_ButtonC_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void CommandBinding_ButtonC_Executed(object sender, ExecutedRoutedEventArgs e)//C
         {
             xuanxiang_button_Click(c_button, null);
         }
-        private void CommandBinding_ButtonD_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void CommandBinding_ButtonD_Executed(object sender, ExecutedRoutedEventArgs e)//D
         {
             xuanxiang_button_Click(d_button, null);
         }
-        private void CommandBinding_ButtonUpOne_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void CommandBinding_ButtonYes_Executed(object sender, ExecutedRoutedEventArgs e)//对
+        {
+            xuanxiang_button_Click(a_button, null);
+        }
+        private void CommandBinding_ButtonNo_Executed(object sender, ExecutedRoutedEventArgs e)//错
+        {
+            xuanxiang_button_Click(b_button, null);
+        }
+        private void CommandBinding_ButtonUpOne_Executed(object sender, ExecutedRoutedEventArgs e)//上一题
         {
             up_button_Click(null, null);
         }
-        private void CommandBinding_ButtonNextOne_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void CommandBinding_ButtonNextOne_Executed(object sender, ExecutedRoutedEventArgs e)//下一题
         {
             do_button_Click(null, null);
         }
-        private void CommandBinding_ButtonFirstOne_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void CommandBinding_ButtonFirstOne_Executed(object sender, ExecutedRoutedEventArgs e)//第一题
+        {
+            questionindex();
+        }
+        private void CommandBinding_ButtonLastOne_Executed(object sender, ExecutedRoutedEventArgs e)//最后一题
         {
 
         }
-        private void CommandBinding_ButtonLastOne_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void CommandBinding_ButtonHandExams_Executed(object sender, ExecutedRoutedEventArgs e)//交卷
         {
-
+            jiaojuan_button_Click(null, null);
         }
-        private void CommandBinding_ButtonHandExams_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-
-        }
-        private void CommandBinding_ButtonConfirmHandExams_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void CommandBinding_ButtonConfirmHandExams_Executed(object sender, ExecutedRoutedEventArgs e)//确认交卷
         {
 
         }

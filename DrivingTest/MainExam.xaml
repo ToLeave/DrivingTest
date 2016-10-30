@@ -20,6 +20,8 @@
         <RoutedUICommand x:Key="ButtonB" Text="选项B和错" />
         <RoutedUICommand x:Key="ButtonC" Text="选项C" />
         <RoutedUICommand x:Key="ButtonD" Text="选项D" />
+        <RoutedUICommand x:Key="ButtonYes" Text="选项对" />
+        <RoutedUICommand x:Key="ButtonNo" Text="选项错" />
         <RoutedUICommand x:Key="ButtonUpOne" Text="上一题" />
         <RoutedUICommand x:Key="ButtonNextOne" Text="下一题" />
         <RoutedUICommand x:Key="ButtonFirstOne" Text="第一题" />
@@ -32,6 +34,8 @@
         <KeyBinding x:Name="key_ButtonB" Key="" Command="{StaticResource ButtonB}"/>
         <KeyBinding x:Name="key_ButtonC" Key="" Command="{StaticResource ButtonC}"/>
         <KeyBinding x:Name="key_ButtonD" Key="" Command="{StaticResource ButtonD}"/>
+        <KeyBinding x:Name="Key_ButtonYes" Key="" Command="{StaticResource ButtonYes}"/>
+        <KeyBinding x:Name="Key_ButtonNo" Key="" Command="{StaticResource ButtonNo}"/>
         <KeyBinding x:Name="key_ButtonUpOne" Key="" Command="{StaticResource ButtonUpOne}"/>
         <KeyBinding x:Name="key_ButtonNextOne" Key="" Command="{StaticResource ButtonNextOne}"/>
         <KeyBinding x:Name="key_ButtonFirstOne" Key="" Command="{StaticResource ButtonFirstOne}"/>
@@ -44,6 +48,8 @@
         <CommandBinding Command="{StaticResource ButtonB}" Executed="CommandBinding_ButtonB_Executed"/>
         <CommandBinding Command="{StaticResource ButtonC}" Executed="CommandBinding_ButtonC_Executed"/>
         <CommandBinding Command="{StaticResource ButtonD}" Executed="CommandBinding_ButtonD_Executed"/>
+        <CommandBinding Command="{StaticResource ButtonYes}" Executed="CommandBinding_ButtonYes_Executed"/>
+        <CommandBinding Command="{StaticResource ButtonNo}" Executed="CommandBinding_ButtonNo_Executed"/>
         <CommandBinding Command="{StaticResource ButtonUpOne}" Executed="CommandBinding_ButtonUpOne_Executed"/>
         <CommandBinding Command="{StaticResource ButtonNextOne}" Executed="CommandBinding_ButtonNextOne_Executed"/>
         <CommandBinding Command="{StaticResource ButtonFirstOne}" Executed="CommandBinding_ButtonFirstOne_Executed"/>
