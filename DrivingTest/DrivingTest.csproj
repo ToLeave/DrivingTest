@@ -353,6 +353,12 @@
     <Resource Include="Images\qxxs.gif" />
     <Resource Include="Images\考试确认窗口.png" />
     <Resource Include="Images\信息提示.png" />
+    <Resource Include="Images\方案一.png" />
+    <Resource Include="Images\方案二.png" />
+    <Resource Include="Images\方案三.png" />
+    <Resource Include="Images\方案四.png" />
+    <Resource Include="Images\方案五.png" />
+    <Resource Include="Images\自定义.png" />
     <Content Include="jiakao.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -1056,15 +1056,23 @@ where T : DependencyObject
                 DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
                 jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
+
+
+
              
 
-                var setting = from c in jiakaoDataSet.setting where c.setting_id.ToString() == "1" select c;
-                foreach (var se in setting)
+                var setting = from c in jiakaoDataSet.setting select c;
+                if (setting.Count() == 0)//初始化设置表
                 {
-                    if (se.not_show.ToString() == "0")
+                    foreach (var se in setting)
                     {
-                        Notice no = new Notice();
-                        no.Show();
+                        
+
+                        if (se.not_show.ToString() == "0")
+                        {
+                            Notice no = new Notice();
+                            no.Show();
+                        }
                     }
                 }
 

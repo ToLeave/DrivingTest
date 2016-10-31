@@ -35,5 +35,7 @@ namespace DrivingTest
         public static string subjection = "";//科目
         public static bool delerr = false;//是否删除错题
         public static string shezhi = "";//设置或退出
+
+        public static string[] key = new string[12];//快捷键数组 索引从0开始依次为 A;B;C;D;对;错;上一题;下一题;第一题;最后题;交卷;确认交卷
     }
 }

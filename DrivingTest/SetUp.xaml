@@ -50,7 +50,7 @@
                                 <Button Content="Button" Height="23" HorizontalAlignment="Left" Margin="162,461,0,0" Name="button6" VerticalAlignment="Top" Width="75" />
                             </Grid>
                         </avalon:LayoutAnchorable>-->
-                        <!--<avalon:LayoutAnchorable Title=" 基本设置 " x:Name="jibenshezhi" CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True" IsActiveChanged="jibenshezhi_IsActiveChanged" >
+                        <avalon:LayoutAnchorable Title=" 基本设置 " x:Name="jibenshezhi" CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True" IsActiveChanged="jibenshezhi_IsActiveChanged" >
                             <Grid>
                                 <Label Content="选择考试所在省份" Width="110" Height="25" Margin="18,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
                                 <ComboBox Height="25" HorizontalAlignment="Left" Margin="134,15,0,0" Name="shengfen_comboBox" VerticalAlignment="Top" Width="120" ItemsSource=""  DisplayMemberPath="Name"   SelectedValuePath="EmpID"/>
@@ -103,8 +103,8 @@
                                 <Button Content="保存设置" Height="23" HorizontalAlignment="Left" Margin="361,497,0,0" Name="jibenshezhi_button" VerticalAlignment="Top" Width="75" Click="jibenshezhi_button_Click" />
                                 <GroupBox Header="基础设置" Height="120" Width="450" Margin="6,375,0,0" Name="groupBox3" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Visible" />
                             </Grid>
-                        </avalon:LayoutAnchorable>-->
-                        <!--<avalon:LayoutAnchorable Title="功能-标题" CanClose="False" CanFloat="False" CanHide="False">
+                        </avalon:LayoutAnchorable>
+                        <avalon:LayoutAnchorable Title="功能-标题" CanClose="False" CanFloat="False" CanHide="False">
                             <Grid>
                                 <Label Content="软件标题" Height="28" HorizontalAlignment="Left" Margin="16,6,0,0" Name="label8" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="91,11,0,0" Name="textBox7" VerticalAlignment="Top" Width="350" />
@@ -165,40 +165,41 @@
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="259,499,0,0" Name="textBox10" VerticalAlignment="Top" Width="80" />
                                 <Button Content="保存设置" Height="23" HorizontalAlignment="Left" Margin="371,501,0,0" Name="button4" VerticalAlignment="Top" Width="75" />
                             </Grid>
-                        </avalon:LayoutAnchorable>-->
-                        <avalon:LayoutAnchorable Title=" 键 盘 " CanClose="False" CanFloat="False" CanHide="False">
+                        </avalon:LayoutAnchorable>
+                        <avalon:LayoutAnchorable x:Name="jianpanshezhi" Title=" 键 盘 " CanClose="False" CanFloat="False" CanHide="False" IsActiveChanged="jianpanshezhi_IsActiveChanged">
                             <Grid>
-                                <Image Height="300" HorizontalAlignment="Left" Margin="86,6,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="300" />
-                                <RadioButton Content="方案一" Height="16" HorizontalAlignment="Left" Margin="49,343,0,0" Name="radioButton1" VerticalAlignment="Top" />
-                                <RadioButton Content="方案二" Height="16" HorizontalAlignment="Left" Margin="107,343,0,0" Name="radioButton2" VerticalAlignment="Top" />
-                                <RadioButton Content="方案三" Height="16" HorizontalAlignment="Left" Margin="165,343,0,0" Name="radioButton3" VerticalAlignment="Top" />
-                                <RadioButton Content="方案四" Height="16" HorizontalAlignment="Left" Margin="231,343,0,0" Name="radioButton4" VerticalAlignment="Top" />
-                                <RadioButton Content="方案五" Height="16" HorizontalAlignment="Left" Margin="289,343,0,0" Name="radioButton5" VerticalAlignment="Top" />
-                                <RadioButton Content="自定义" Height="16" HorizontalAlignment="Left" Margin="347,343,0,0" Name="radioButton6" VerticalAlignment="Top" />
-                                <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="49,382,0,0" Name="label1" VerticalAlignment="Top" />
-                                <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="49,416,0,0" Name="label2" VerticalAlignment="Top" />
-                                <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="49,450,0,0" Name="label3" VerticalAlignment="Top" />
-                                <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="142,382,0,0" Name="label4" VerticalAlignment="Top" />
-                                <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="142,416,0,0" Name="label5" VerticalAlignment="Top" />
-                                <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="142,450,0,0" Name="label6" VerticalAlignment="Top" />
-                                <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="239,382,0,0" Name="label7" VerticalAlignment="Top" />
-                                <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="239,416,0,0" Name="label8" VerticalAlignment="Top" />
-                                <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="239,450,0,0" Name="label9" VerticalAlignment="Top" />
-                                <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="334,382,0,0" Name="label10" VerticalAlignment="Top" />
-                                <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="334,416,0,0" Name="label11" VerticalAlignment="Top" />
-                                <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="334,450,0,0" Name="label12" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="86,384,0,0" Name="textBox1" VerticalAlignment="Top" Width="50" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="86,416,0,0" Name="textBox2" VerticalAlignment="Top" Width="50" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="86,450,0,0" Name="textBox3" VerticalAlignment="Top" Width="50" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="180,384,0,0" Name="textBox4" VerticalAlignment="Top" Width="50" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="180,416,0,0" Name="textBox5" VerticalAlignment="Top" Width="50" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="180,450,0,0" Name="textBox6" VerticalAlignment="Top" Width="50" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="279,384,0,0" Name="textBox7" VerticalAlignment="Top" Width="50" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="279,416,0,0" Name="textBox8" VerticalAlignment="Top" Width="50" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="279,452,0,0" Name="textBox9" VerticalAlignment="Top" Width="50" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="377,384,0,0" Name="textBox10" VerticalAlignment="Top" Width="50" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="377,416,0,0" Name="textBox17" VerticalAlignment="Top" Width="50" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="377,450,0,0" Name="textBox18" VerticalAlignment="Top" Width="50" />
+                                <Image Height="300" HorizontalAlignment="Left" Margin="96,22,0,0" Name="fangan_image" Stretch="Fill" VerticalAlignment="Top" Width="260"  />
+                                <RadioButton Content="方案一" Height="16" HorizontalAlignment="Left" Margin="49,343,0,0" Name="radioButton20" VerticalAlignment="Top" Checked="radioButton20_Checked" />
+                                <RadioButton Content="方案二" Height="16" HorizontalAlignment="Left" Margin="107,343,0,0" Name="radioButton21" VerticalAlignment="Top" Checked="radioButton21_Checked" />
+                                <RadioButton Content="方案三" Height="16" HorizontalAlignment="Left" Margin="165,343,0,0" Name="radioButton22" VerticalAlignment="Top" Checked="radioButton22_Checked" />
+                                <RadioButton Content="方案四" Height="16" HorizontalAlignment="Left" Margin="231,343,0,0" Name="radioButton23" VerticalAlignment="Top" Checked="radioButton23_Checked" />
+                                <RadioButton Content="方案五" Height="16" HorizontalAlignment="Left" Margin="289,343,0,0" Name="radioButton24" VerticalAlignment="Top" Checked="radioButton24_Checked" />
+                                <RadioButton Content="自定义" Height="16" HorizontalAlignment="Left" Margin="347,343,0,0" Name="radioButton25" VerticalAlignment="Top" Checked="radioButton25_Checked" />
+                                <Label Content="A" Height="28" HorizontalAlignment="Left" Margin="44,382,0,0" Name="label50" VerticalAlignment="Top" />
+                                <Label Content="B" Height="28" HorizontalAlignment="Left" Margin="44,416,0,0" Name="label51" VerticalAlignment="Top" />
+                                <Label Content="C" Height="28" HorizontalAlignment="Left" Margin="44,450,0,0" Name="label52" VerticalAlignment="Top" />
+                                <Label Content="D" Height="28" HorizontalAlignment="Left" Margin="133,382,0,0" Name="label53" VerticalAlignment="Top" />
+                                <Label Content="对" Height="28" HorizontalAlignment="Left" Margin="133,416,0,0" Name="label54" VerticalAlignment="Top" />
+                                <Label Content="错" Height="28" HorizontalAlignment="Left" Margin="133,450,0,0" Name="label55" VerticalAlignment="Top" />
+                                <Label Content="上一题" Height="28" HorizontalAlignment="Left" Margin="222,382,0,0" Name="label56" VerticalAlignment="Top" />
+                                <Label Content="下一题" Height="28" HorizontalAlignment="Left" Margin="222,416,0,0" Name="label57" VerticalAlignment="Top" />
+                                <Label Content="第一题" Height="28" HorizontalAlignment="Left" Margin="222,450,0,0" Name="label58" VerticalAlignment="Top" />
+                                <Label Content="最后题" Height="28" HorizontalAlignment="Left" Margin="322,382,0,0" Name="label59" VerticalAlignment="Top" />
+                                <Label Content="交卷" Height="28" HorizontalAlignment="Left" Margin="322,416,0,0" Name="label60" VerticalAlignment="Top" />
+                                <Label Content="确认交卷" Height="28" HorizontalAlignment="Left" Margin="322,450,0,0" Name="label61" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="68,384,0,0" Name="a_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False" KeyDown="textBox_KeyDown" TextChanged="textBox_TextChanged" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="68,416,0,0" Name="b_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="68,450,0,0" Name="c_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="160,384,0,0" Name="d_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="160,416,0,0" Name="dui_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="160,450,0,0" Name="cuo_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="267,384,0,0" Name="up_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="267,416,0,0" Name="down_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="267,452,0,0" Name="head_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="376,384,0,0" Name="end_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="376,416,0,0" Name="jiaojuan_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="376,450,0,0" Name="queren_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
+                                <Button Content="保存" Height="23" HorizontalAlignment="Left" Margin="376,497,0,0" Name="jianpanshezhi_button" VerticalAlignment="Top" Width="75" Click="jianpanshezhi_button_Click" />
                             </Grid>
                         </avalon:LayoutAnchorable>
                         <avalon:LayoutAnchorable Title=" 信息设置 " CanClose="False" CanFloat="False" CanHide="False">

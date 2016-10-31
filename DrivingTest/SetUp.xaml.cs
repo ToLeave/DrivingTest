@@ -39,7 +39,7 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter jiakaoDataSetuserTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter();
             jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
 
-            
+
 
         }
 
@@ -85,11 +85,11 @@ namespace DrivingTest
                         rk2.Close();
                         rk.Close();
                     }
-                }  
+                }
             }
 
 
-            
+
         }
 
         //个人模式
@@ -140,7 +140,7 @@ namespace DrivingTest
         }
 
 
-        
+
 
         //保存设置密码和退出密码
         private void baocun_passbutton_Click(object sender, RoutedEventArgs e)
@@ -171,7 +171,7 @@ namespace DrivingTest
         //浏览图片
         private void liulan_button_Click(object sender, RoutedEventArgs e)
         {
-      
+
         }
 
         //基本设置保存
@@ -180,12 +180,137 @@ namespace DrivingTest
 
         }
 
-        //信息保存
+        //信息设置保存
         private void xinxibaocun_button_Click(object sender, RoutedEventArgs e)
         {
 
         }
-   
+
+        //键盘设置保存
+        private void jianpanshezhi_button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        //验证输入
+        private void textBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox.Text.Trim().Length > 0)
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = false;
+            }
+            if (textBox.Text.Length >= 1)
+            {
+                e.Handled = true;
+            }
+
+
+        }
+
+        //屏蔽中文输入和非法字符粘贴输入
+        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //TextBox textBox = sender as TextBox;
+            //TextChange[] change = new TextChange[e.Changes.Count];
+            //e.Changes.CopyTo(change, 0);
+
+            //int offset = change[0].Offset;
+            //if (change[0].AddedLength > 0)
+            //{
+            //    double num = 0;
+            //    if (!Double.TryParse(textBox.Text, out num))
+            //    {
+            //        textBox.Text = textBox.Text.Remove(offset, change[0].AddedLength);
+            //        textBox.Select(offset, 0);
+            //    }
+            //}
+        }
+
+        //禁用所有text
+        private void readonly_false()
+        {
+            a_textBox.IsReadOnly = true;
+            b_textBox.IsReadOnly = true;
+            c_textBox.IsReadOnly = true;
+            d_textBox.IsReadOnly = true;
+            dui_textBox.IsReadOnly = true;
+            cuo_textBox.IsReadOnly = true;
+            up_textBox.IsReadOnly = true;
+            down_textBox.IsReadOnly = true;
+            head_textBox.IsReadOnly = true;
+            end_textBox.IsReadOnly = true;
+            jiaojuan_textBox.IsReadOnly = true;
+            queren_textBox.IsReadOnly = true;
+        }
+        //启用所有text
+        private void readonly_true()
+        {
+            a_textBox.IsReadOnly = false;
+            b_textBox.IsReadOnly = false;
+            c_textBox.IsReadOnly = false;
+            d_textBox.IsReadOnly = false;
+            dui_textBox.IsReadOnly = false;
+            cuo_textBox.IsReadOnly = false;
+            up_textBox.IsReadOnly = false;
+            down_textBox.IsReadOnly = false;
+            head_textBox.IsReadOnly = false;
+            end_textBox.IsReadOnly = false;
+            jiaojuan_textBox.IsReadOnly = false;
+            queren_textBox.IsReadOnly = false;
+        }
+
+        //
+        private void jianpanshezhi_IsActiveChanged(object sender, EventArgs e)
+        {
+            if (jianpanshezhi.IsActive == true)
+            {
+                radioButton20.IsChecked = true;
+            }
+        }
+
+        //方案一单选框
+        private void radioButton20_Checked(object sender, RoutedEventArgs e)
+        {
+            readonly_false();
+            fangan_image.Source = new BitmapImage(new Uri("\\Images\\方案一.png", UriKind.Relative));
+
+        }
+        //方案二单选框
+        private void radioButton21_Checked(object sender, RoutedEventArgs e)
+        {
+            readonly_false();
+            fangan_image.Source = new BitmapImage(new Uri("\\Images\\方案二.png", UriKind.Relative));
+        }
+        //方案三单选框
+        private void radioButton22_Checked(object sender, RoutedEventArgs e)
+        {
+            readonly_false();
+            fangan_image.Source = new BitmapImage(new Uri("\\Images\\方案三.png", UriKind.Relative));
+        }
+        //方案四单选框
+        private void radioButton23_Checked(object sender, RoutedEventArgs e)
+        {
+            readonly_false();
+            fangan_image.Source = new BitmapImage(new Uri("\\Images\\方案四.png", UriKind.Relative));
+        }
+        //方案五单选框
+        private void radioButton24_Checked(object sender, RoutedEventArgs e)
+        {
+            readonly_false();
+            fangan_image.Source = new BitmapImage(new Uri("\\Images\\方案五.png", UriKind.Relative));
+        }
+        //自定义方案单选框
+        private void radioButton25_Checked(object sender, RoutedEventArgs e)
+        {
+            readonly_true();
+            fangan_image.Source = new BitmapImage(new Uri("\\Images\\自定义.png", UriKind.Relative));
+        }
+
     }
 }
 public class Employee
