@@ -417,7 +417,7 @@ namespace DrivingTest {
         private void InitClass() {
             this.DataSetName = "jiakaoDataSet";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/jiakaoDataSet.xsd";
+            this.Namespace = "http://tempuri.org/jiakaoDataSet1.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableanswer = new answerDataTable();
@@ -10311,13 +10311,7 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT   setting_id, autormerr, showerrcount, model, [password], pre_scores, scores, driverschool_name, contact, address, 
-                introduction, testbench_number, driverschool_picture, province, power_on, close_password, show_notification, 
-                software_title, hide_driver_license, hide_setting, text_replace, scrolling_text, functional_module, subject_module, 
-                learning_module, display_test, reshuffling, auto_clear, subject_four_button, registration_process, payment_link, 
-                customer_service_QQ, customer_service_WW, comments, registration_display, setting_account, rolling_speed, 
-                tts_sex, font_size, hidden_learning_settings, not_show, shortcut_key
-FROM      setting";
+            this._commandCollection[0].CommandText = @"SELECT setting_id, autormerr, showerrcount, model, [password], pre_scores, scores, driverschool_name, contact, address, introduction, testbench_number, driverschool_picture, province, power_on, close_password, show_notification, software_title, hide_driver_license, hide_setting, text_replace, scrolling_text, functional_module, subject_module, learning_module, display_test, reshuffling, auto_clear, subject_four_button, registration_process, payment_link, customer_service_QQ, customer_service_WW, comments, registration_display, setting_account, rolling_speed, tts_sex, font_size, hidden_learning_settings, not_show, shortcut_key FROM setting";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

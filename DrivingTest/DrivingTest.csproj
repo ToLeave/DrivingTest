@@ -92,10 +92,10 @@
     <Compile Include="ErrorMessages.xaml.cs">
       <DependentUpon>ErrorMessages.xaml</DependentUpon>
     </Compile>
-    <Compile Include="jiakaoDataSet.Designer.cs">
+    <Compile Include="jiakaoDataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>jiakaoDataSet.xsd</DependentUpon>
+      <DependentUpon>jiakaoDataSet1.xsd</DependentUpon>
     </Compile>
     <Compile Include="LabelArray.xaml.cs">
       <DependentUpon>LabelArray.xaml</DependentUpon>
@@ -304,16 +304,16 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="jiakaoDataSet.xsc">
-      <DependentUpon>jiakaoDataSet.xsd</DependentUpon>
+    <None Include="jiakaoDataSet1.xsc">
+      <DependentUpon>jiakaoDataSet1.xsd</DependentUpon>
     </None>
-    <None Include="jiakaoDataSet.xsd">
+    <None Include="jiakaoDataSet1.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>jiakaoDataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>jiakaoDataSet1.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="jiakaoDataSet.xss">
-      <DependentUpon>jiakaoDataSet.xsd</DependentUpon>
+    <None Include="jiakaoDataSet1.xss">
+      <DependentUpon>jiakaoDataSet1.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

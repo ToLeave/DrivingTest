@@ -1059,14 +1059,31 @@ where T : DependencyObject
 
 
 
-             
 
+                string key = "NumPad1,NumPad2,NumPad3,NumPad5,NumPad4,NumPad6,Subtract,Add,None,None,Divide,None";//初始默认快捷键为方案一
                 var setting = from c in jiakaoDataSet.setting select c;
                 if (setting.Count() == 0)//初始化设置表
                 {
+                    //int? a = null;
+                    //int b = a.Value;
+                    jiakaoDataSet.setting.AddsettingRow(0, 0, 0, "", 0, 0, "", "", "", "", 0, "", "", 0, "", 0, "", 0, 0, 0, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, "", "", 0, key);
+                    jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
+                    jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+                    jiakaoDataSet.setting.AcceptChanges();
                     foreach (var se in setting)
                     {
-                        
+
+                        if (se.not_show.ToString() == "0")
+                        {
+                            Notice no = new Notice();
+                            no.Show();
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var se in setting)
+                    {
 
                         if (se.not_show.ToString() == "0")
                         {

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="jiakaoDataSet" targetNamespace="http://tempuri.org/jiakaoDataSet.xsd" xmlns:mstns="http://tempuri.org/jiakaoDataSet.xsd" xmlns="http://tempuri.org/jiakaoDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+<xs:schema id="jiakaoDataSet" targetNamespace="http://tempuri.org/jiakaoDataSet1.xsd" xmlns:mstns="http://tempuri.org/jiakaoDataSet1.xsd" xmlns="http://tempuri.org/jiakaoDataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
@@ -542,13 +542,7 @@
                 </InsertCommand>
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT   setting_id, autormerr, showerrcount, model, [password], pre_scores, scores, driverschool_name, contact, address, 
-                introduction, testbench_number, driverschool_picture, province, power_on, close_password, show_notification, 
-                software_title, hide_driver_license, hide_setting, text_replace, scrolling_text, functional_module, subject_module, 
-                learning_module, display_test, reshuffling, auto_clear, subject_four_button, registration_process, payment_link, 
-                customer_service_QQ, customer_service_WW, comments, registration_display, setting_account, rolling_speed, 
-                tts_sex, font_size, hidden_learning_settings, not_show, shortcut_key
-FROM      setting</CommandText>
+                    <CommandText>SELECT setting_id, autormerr, showerrcount, model, [password], pre_scores, scores, driverschool_name, contact, address, introduction, testbench_number, driverschool_picture, province, power_on, close_password, show_notification, software_title, hide_driver_license, hide_setting, text_replace, scrolling_text, functional_module, subject_module, learning_module, display_test, reshuffling, auto_clear, subject_four_button, registration_process, payment_link, customer_service_QQ, customer_service_WW, comments, registration_display, setting_account, rolling_speed, tts_sex, font_size, hidden_learning_settings, not_show, shortcut_key FROM setting</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>

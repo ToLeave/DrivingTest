@@ -96,7 +96,6 @@ where T : DependencyObject
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            KeyGesture cl = new KeyGesture(Key.NumPad0);
             this.Name = "mainW";
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 question 中。可以根据需要修改此代码。
@@ -108,6 +107,7 @@ where T : DependencyObject
             jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
 
 
+            register_key();//注册快捷键
 
             //random_question();//随机抽题
 
@@ -128,7 +128,7 @@ where T : DependencyObject
             #region 启动定时器
 
             //设置定时器
-            
+
             timer.Interval = new TimeSpan(10000000);   //时间间隔为一秒
             timer.Tick += new EventHandler(timer_Tick);
 
@@ -144,8 +144,9 @@ where T : DependencyObject
             //CountDown += new CountDownHandler(processCount.ProcessCountDown);
 
 
-           
+
             #endregion
+            
         }
 
         //随机题目
@@ -178,7 +179,7 @@ where T : DependencyObject
 
         }
 
-        
+
         //生成题库
         public void create_question(int create_method, int question_mode, string cartype, string subject, List<int> questions_id)// cerate_method 0 顺序,1随机; question_mode 0 练习,1考试,2错题; cartype 车型;subject 科目; questions_id 题库ID
         {
@@ -510,7 +511,7 @@ where T : DependencyObject
                 }
 
 
-               
+
 
             }
             else
@@ -674,7 +675,7 @@ where T : DependencyObject
 
             }
 
-            
+
 
 
 
@@ -704,7 +705,7 @@ where T : DependencyObject
                     {
                         timu_textBlock.Text = "未注册用户,只能练习前10题,注册后可以练习全部试题,无任何限制!";
                     }
-                    
+
                 }
                 break;
             }
@@ -776,65 +777,65 @@ where T : DependencyObject
             }
             else //没有用户登录为试用10题
             {
-             
-                    if (question_index < 10)//前10题正常显示
-                    {
-                        if (!question_list[question_index].question_type.Contains("PD"))
-                        {
-                            foreach (var an in question_list[question_index].answer)
-                            {
-                                PublicClass.Answer myan = an as PublicClass.Answer;
-                                var teman = from c in jiakaoDataSet.answer where c.answer_id == myan.answer_id select c;
-                                foreach (var temann in teman)
-                                {
-                                    switch (step)
-                                    {
-                                        case 0:
-                                            xuanxiang_textBlock1.Text = "A." + temann.answer;
-                                            break;
-                                        case 1:
-                                            xuanxiang_textBlock2.Text = "B." + temann.answer;
-                                            break;
-                                        case 2:
-                                            xuanxiang_textBlock3.Text = "C." + temann.answer;
-                                            break;
-                                        case 3:
-                                            xuanxiang_textBlock4.Text = "D." + temann.answer;
-                                            break;
-                                    }
 
+                if (question_index < 10)//前10题正常显示
+                {
+                    if (!question_list[question_index].question_type.Contains("PD"))
+                    {
+                        foreach (var an in question_list[question_index].answer)
+                        {
+                            PublicClass.Answer myan = an as PublicClass.Answer;
+                            var teman = from c in jiakaoDataSet.answer where c.answer_id == myan.answer_id select c;
+                            foreach (var temann in teman)
+                            {
+                                switch (step)
+                                {
+                                    case 0:
+                                        xuanxiang_textBlock1.Text = "A." + temann.answer;
+                                        break;
+                                    case 1:
+                                        xuanxiang_textBlock2.Text = "B." + temann.answer;
+                                        break;
+                                    case 2:
+                                        xuanxiang_textBlock3.Text = "C." + temann.answer;
+                                        break;
+                                    case 3:
+                                        xuanxiang_textBlock4.Text = "D." + temann.answer;
+                                        break;
                                 }
 
-                                step++;
                             }
-                            abcd();
+
+                            step++;
                         }
-                        else
-                        {
-                            xuanxiang_textBlock1.Text = "";
-                            xuanxiang_textBlock2.Text = "";
-                            xuanxiang_textBlock3.Text = "";
-                            xuanxiang_textBlock4.Text = "";
-                            duicuo();
-                        }
-
-                        judge_answer();
-                        answer_UI();
-                        shouzheng_cal(last_index);
-                        errquestion(last_index);
-                        play_voice(timu_textBlock.Text);
-
-                        showright_answer(question_index);
-
+                        abcd();
                     }
-                    else//超出10题不予显示
+                    else
                     {
-                       abcd();
-                       xuanxiang_textBlock1.Text = "";
-                       xuanxiang_textBlock2.Text = "";
-                       xuanxiang_textBlock3.Text = "";
-                       xuanxiang_textBlock4.Text = "";
+                        xuanxiang_textBlock1.Text = "";
+                        xuanxiang_textBlock2.Text = "";
+                        xuanxiang_textBlock3.Text = "";
+                        xuanxiang_textBlock4.Text = "";
+                        duicuo();
                     }
+
+                    judge_answer();
+                    answer_UI();
+                    shouzheng_cal(last_index);
+                    errquestion(last_index);
+                    play_voice(timu_textBlock.Text);
+
+                    showright_answer(question_index);
+
+                }
+                else//超出10题不予显示
+                {
+                    abcd();
+                    xuanxiang_textBlock1.Text = "";
+                    xuanxiang_textBlock2.Text = "";
+                    xuanxiang_textBlock3.Text = "";
+                    xuanxiang_textBlock4.Text = "";
+                }
             }
 
 
@@ -877,7 +878,10 @@ where T : DependencyObject
                 shouzheng_cal(question_id + 1);
                 errquestion(question_id + 1);
                 play_voice(timu_textBlock.Text);
-                showright_answer(question_id);
+                if (question_id > -1)
+                {
+                    showright_answer(question_id);
+                }
             }
 
             //xuanxiang_textBlock.Text = "";
@@ -919,7 +923,10 @@ where T : DependencyObject
                 shouzheng_cal(question_id - 1);
                 errquestion(question_id - 1);
                 play_voice(timu_textBlock.Text);
-                showright_answer(question_id);
+                if (question_id < 100)
+                {
+                    showright_answer(question_id);
+                }
             }
 
             //xuanxiang_textBlock.Text = "";
@@ -1480,12 +1487,12 @@ where T : DependencyObject
                 {
                     do_button_Click(null, null);
                 }
-               // int question_ind = int.Parse(mylab.Name.ToString().Substring(1, mylab.Name.ToString().Length - 1));
+                // int question_ind = int.Parse(mylab.Name.ToString().Substring(1, mylab.Name.ToString().Length - 1));
 
 
 
             }
-          
+
 
 
         }
@@ -1642,10 +1649,54 @@ where T : DependencyObject
             }
         }
 
+        //快捷键注册
+        private void register_key()
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            var key = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+            foreach (var k in key)
+            {
+                PublicClass.key = k.shortcut_key.Split(',');
+
+                KeyConverter ke = new KeyConverter();
+
+                Key mykey = (Key)ke.ConvertFromString(PublicClass.key[0]);
+                key_ButtonA.Key = mykey;
+                mykey = (Key)ke.ConvertFromString(PublicClass.key[1]);
+                key_ButtonB.Key = mykey;
+                mykey = (Key)ke.ConvertFromString(PublicClass.key[2]);
+                key_ButtonC.Key = mykey;
+                mykey = (Key)ke.ConvertFromString(PublicClass.key[3]);
+                key_ButtonD.Key = mykey;
+                mykey = (Key)ke.ConvertFromString(PublicClass.key[4]);
+                Key_ButtonYes.Key = mykey;
+                mykey = (Key)ke.ConvertFromString(PublicClass.key[5]);
+                Key_ButtonNo.Key = mykey;
+                mykey = (Key)ke.ConvertFromString(PublicClass.key[6]);
+                key_ButtonUpOne.Key = mykey;
+                mykey = (Key)ke.ConvertFromString(PublicClass.key[7]);
+                key_ButtonNextOne.Key = mykey;
+                mykey = (Key)ke.ConvertFromString(PublicClass.key[8]);
+                key_ButtonFirstOne.Key = mykey;
+                mykey = (Key)ke.ConvertFromString(PublicClass.key[9]);
+                key_ButtonLastOne.Key = mykey;
+                mykey = (Key)ke.ConvertFromString(PublicClass.key[10]);
+                key_ButtonHandExams.Key = mykey;
+                mykey = (Key)ke.ConvertFromString(PublicClass.key[11]);
+                key_ButtonConfirmHandExams.Key = mykey;
+                
+            }
+        }
+
+
         //快捷键触发事件
         private void CommandBinding_ButtonA_Executed(object sender, ExecutedRoutedEventArgs e)//A
         {
-            xuanxiang_button_Click(a_button,null);
+            xuanxiang_button_Click(a_button, null);
         }
         private void CommandBinding_ButtonB_Executed(object sender, ExecutedRoutedEventArgs e)//B
         {
@@ -1669,11 +1720,11 @@ where T : DependencyObject
         }
         private void CommandBinding_ButtonUpOne_Executed(object sender, ExecutedRoutedEventArgs e)//上一题
         {
-            up_button_Click(null, null);
+            up_button_Click(up_button, null);
         }
         private void CommandBinding_ButtonNextOne_Executed(object sender, ExecutedRoutedEventArgs e)//下一题
         {
-            do_button_Click(null, null);
+            do_button_Click(do_button, null);
         }
         private void CommandBinding_ButtonFirstOne_Executed(object sender, ExecutedRoutedEventArgs e)//第一题
         {
@@ -1761,10 +1812,10 @@ where T : DependencyObject
             return false;
         }
 
-        
 
 
-        
+
+
 
 
 

@@ -27,6 +27,7 @@ namespace DrivingTest
         }
 
         bool power_on = false;//开机启动变量
+        string[] interim_key;//临时快捷键数组 索引从0开始依次为 A;B;C;D;对;错;上一题;下一题;第一题;最后题;交卷;确认交卷
 
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -92,6 +93,19 @@ namespace DrivingTest
 
         }
 
+        //题库包含地方题库
+        private void difan_checkBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (difan_checkBox.IsChecked == true)
+            {
+                shengfen_comboBox.IsEnabled = true;
+            }
+            else
+            {
+                shengfen_comboBox.IsEnabled = false;
+            }
+        }
+
         //个人模式
         private void geren_radioButton_Checked(object sender, RoutedEventArgs e)
         {
@@ -119,26 +133,139 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+
             if (jibenshezhi.IsActive == true)
             {
-                geren_radioButton.IsChecked = true;
+                foreach (var s in set)
+                {
+                    if (s.province != "")//是否有省份
+                    {
+                        shengfen_comboBox.SelectedIndex = int.Parse(s.province);
+                        difan_checkBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        shengfen_comboBox.IsEnabled = false;
+                    }
+
+                    if (s.model == 0)//个人还是驾校模式
+                    {
+                        geren_radioButton.IsChecked = true;
+                    }
+                    else
+                    {
+                        jiaxiao_radioButton.IsChecked = true;
+                    }
+
+                    //是否有驾照类型
+
+                    if (s.power_on == 0)//是否开机启动
+                    {
+                        kaiji_checkBox.IsChecked = false;
+                    }
+                    else
+                    {
+                        kaiji_checkBox.IsChecked = true;
+                    }
+
+                    if (s.close_password == "")//是否有开机及设置密码
+                    {
+                        guanbi_checkBox.IsChecked = false;
+                    }
+                    else
+                    {
+                        guanbi_checkBox.IsChecked = true;
+                    }
+
+                    if (s.show_notification == 0)//是否显示最新通知
+                    {
+                        tongzhi_checkBox.IsChecked = false;
+                    }
+                    else
+                    {
+                        tongzhi_checkBox.IsChecked = true;
+                    }
+
+                    
+
+
+                }
             }
 
-            var set = from c in jiakaoDataSet.setting select c;
-            //
-            foreach (var s in set)
-            {
-                if (s.power_on == 1)
-                {
-                    power_on = true;
-                }
-                else
-                {
-                    power_on = false;
-                }
-            }
         }
+        //功能标题
+        private void gongnegnbiaoti_IsActiveChanged(object sender, EventArgs e)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+
+            if (gongnegnbiaoti.IsActive == true)
+            {
+                #region 个人与驾校模式的控件显示与隐藏
+                if (geren_radioButton.IsChecked == true)//个人模式隐藏选择驾照类型-设置,功能模块和学习统计-驾校信息设置
+                {
+                    checkBox5.IsEnabled = false;
+                    checkBox6.IsEnabled = false;
+                    checkBox7.IsEnabled = false;
+                    gundong_textBox.IsEnabled = false;
+                    label9.IsEnabled = false;
+                    slider1.IsEnabled = false;
+                    label10.IsEnabled = false;
+                    label11.IsEnabled = false;
+
+                    checkBox8.IsEnabled = false;
+                    checkBox9.IsEnabled = false;
+                    checkBox10.IsEnabled = false;
+                    checkBox11.IsEnabled = false;
+                    checkBox12.IsEnabled = false;
+                    checkBox13.IsEnabled = false;
+
+                    label12.IsEnabled = false;
+                    checkBox17.IsEnabled = false;
+                    label13.IsEnabled = false;
+                    radioButton65.IsEnabled = false;
+                    yukao_textBox.IsEnabled = false;
+                    label14.IsEnabled = false;
+                    radioButton66.IsEnabled = false;
+                    checkBox18.IsEnabled = false;
+
+                }
+                else if (jiaxiao_radioButton.IsChecked == true)//驾校模式显示选择驾照类型-设置,功能模块和学习统计-驾校信息设置
+                {
+                    checkBox5.IsEnabled = true;
+                    checkBox6.IsEnabled = true;
+                    checkBox7.IsEnabled = true;
+                    gundong_textBox.IsEnabled = true;
+                    label9.IsEnabled = true;
+                    slider1.IsEnabled = true;
+                    label10.IsEnabled = true;
+                    label11.IsEnabled = true;
+
+                    checkBox8.IsEnabled = true;
+                    checkBox9.IsEnabled = true;
+                    checkBox10.IsEnabled = true;
+                    checkBox11.IsEnabled = true;
+                    checkBox12.IsEnabled = true;
+                    checkBox13.IsEnabled = true;
+
+                    label12.IsEnabled = true;
+                    checkBox17.IsEnabled = true;
+                    label13.IsEnabled = true;
+                    radioButton65.IsEnabled = true;
+                    yukao_textBox.IsEnabled = true;
+                    label14.IsEnabled = true;
+                    radioButton66.IsEnabled = true;
+                    checkBox18.IsEnabled = true;
+                }
+                #endregion
+            }
+
+        }
 
 
 
@@ -150,7 +277,7 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
-            var set = from c in jiakaoDataSet.setting select c;
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
 
             foreach (var s in set)
             {
@@ -177,6 +304,13 @@ namespace DrivingTest
         //基本设置保存
         private void jibenshezhi_button_Click(object sender, RoutedEventArgs e)
         {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+
 
         }
 
@@ -186,11 +320,7 @@ namespace DrivingTest
 
         }
 
-        //键盘设置保存
-        private void jianpanshezhi_button_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
 
         //验证输入
         private void textBox_KeyDown(object sender, KeyEventArgs e)
@@ -203,6 +333,54 @@ namespace DrivingTest
             else
             {
                 e.Handled = false;
+                if (sender == a_textBox)
+                {
+                    interim_key[0] = e.Key.ToString();
+                }
+                if (sender == b_textBox)
+                {
+                    interim_key[1] = e.Key.ToString();
+                }
+                if (sender == c_textBox)
+                {
+                    interim_key[2] = e.Key.ToString();
+                }
+                if (sender == d_textBox)
+                {
+                    interim_key[3] = e.Key.ToString();
+                }
+                if (sender == dui_textBox)
+                {
+                    interim_key[4] = e.Key.ToString();
+                }
+                if (sender == cuo_textBox)
+                {
+                    interim_key[5] = e.Key.ToString();
+                }
+                if (sender == up_textBox)
+                {
+                    interim_key[6] = e.Key.ToString();
+                }
+                if (sender == down_textBox)
+                {
+                    interim_key[7] = e.Key.ToString();
+                }
+                if (sender == head_textBox)
+                {
+                    interim_key[8] = e.Key.ToString();
+                }
+                if (sender == end_textBox)
+                {
+                    interim_key[9] = e.Key.ToString();
+                }
+                if (sender == jiaojuan_textBox)
+                {
+                    interim_key[10] = e.Key.ToString();
+                }
+                if (sender == queren_textBox)
+                {
+                    interim_key[11] = e.Key.ToString();
+                }
             }
             if (textBox.Text.Length >= 1)
             {
@@ -231,7 +409,7 @@ namespace DrivingTest
             //}
         }
 
-        //禁用所有text
+        //禁用所有快捷键text
         private void readonly_false()
         {
             a_textBox.IsReadOnly = true;
@@ -247,7 +425,7 @@ namespace DrivingTest
             jiaojuan_textBox.IsReadOnly = true;
             queren_textBox.IsReadOnly = true;
         }
-        //启用所有text
+        //启用所有快捷键text
         private void readonly_true()
         {
             a_textBox.IsReadOnly = false;
@@ -273,11 +451,13 @@ namespace DrivingTest
             }
         }
 
+        //string[] interim_key = new string[12];//临时快捷键数组 索引从0开始依次为 A;B;C;D;对;错;上一题;下一题;第一题;最后题;交卷;确认交卷
         //方案一单选框
         private void radioButton20_Checked(object sender, RoutedEventArgs e)
         {
             readonly_false();
             fangan_image.Source = new BitmapImage(new Uri("\\Images\\方案一.png", UriKind.Relative));
+            interim_key = new string[12] { "NumPad1", "NumPad2", "NumPad3", "NumPad5", "NumPad4", "NumPad6", "Subtract", "Add", "None", "None", "Divide", "None" };
 
         }
         //方案二单选框
@@ -285,75 +465,214 @@ namespace DrivingTest
         {
             readonly_false();
             fangan_image.Source = new BitmapImage(new Uri("\\Images\\方案二.png", UriKind.Relative));
+            interim_key = new string[12] { "NumPad7", "NumPad8", "NumPad9", "NumPad5", "NumPad4", "NumPad6", "Subtract", "Add", "None", "None", "NumPad0", "None" };
         }
         //方案三单选框
         private void radioButton22_Checked(object sender, RoutedEventArgs e)
         {
             readonly_false();
             fangan_image.Source = new BitmapImage(new Uri("\\Images\\方案三.png", UriKind.Relative));
+            interim_key = new string[12] { "NumPad7", "NumPad8", "NumPad9", "Add", "NumPad4", "NumPad6", "NumPad1", "NumPad3", "None", "None", "Subtract", "Return" };
         }
         //方案四单选框
         private void radioButton23_Checked(object sender, RoutedEventArgs e)
         {
             readonly_false();
             fangan_image.Source = new BitmapImage(new Uri("\\Images\\方案四.png", UriKind.Relative));
+            interim_key = new string[12] { "NumPad7", "NumPad8", "NumPad9", "NumPad4", "NumPad1", "NumPad3", "NumPad5", "NumPad6", "None", "None", "Divide", "Return" };
         }
         //方案五单选框
         private void radioButton24_Checked(object sender, RoutedEventArgs e)
         {
             readonly_false();
             fangan_image.Source = new BitmapImage(new Uri("\\Images\\方案五.png", UriKind.Relative));
+            interim_key = new string[12] { "NumPad1", "NumPad2", "NumPad3", "NumPad0", "NumPad1", "NumPad2", "Subtract", "Add", "None", "None", "Return", "None" };
         }
         //自定义方案单选框
         private void radioButton25_Checked(object sender, RoutedEventArgs e)
         {
             readonly_true();
             fangan_image.Source = new BitmapImage(new Uri("\\Images\\自定义.png", UriKind.Relative));
+            interim_key = new string[12];
+
         }
 
+        //键盘设置保存
+        private void jianpanshezhi_button_Click(object sender, RoutedEventArgs e)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            var key = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+
+            if (radioButton25.IsChecked == true)//自定义
+            {
+                #region 自定义Key不设置为空
+                if (a_textBox.Text == "")
+                {
+                    interim_key[0] = "None";
+                }
+                if (b_textBox.Text == "")
+                {
+                    interim_key[1] = "None";
+                }
+                if (c_textBox.Text == "")
+                {
+                    interim_key[2] = "None";
+                }
+                if (d_textBox.Text == "")
+                {
+                    interim_key[3] = "None";
+                }
+                if (dui_textBox.Text == "")
+                {
+                    interim_key[4] = "None";
+                }
+                if (cuo_textBox.Text == "")
+                {
+                    interim_key[5] = "None";
+                }
+                if (up_textBox.Text == "")
+                {
+                    interim_key[6] = "None";
+                }
+                if (down_textBox.Text == "")
+                {
+                    interim_key[7] = "None";
+                }
+                if (head_textBox.Text == "")
+                {
+                    interim_key[8] = "None";
+                }
+                if (end_textBox.Text == "")
+                {
+                    interim_key[9] = "None";
+                }
+                if (jiaojuan_textBox.Text == "")
+                {
+                    interim_key[10] = "None";
+                }
+                if (queren_textBox.Text == "")
+                {
+                    interim_key[11] = "None";
+                }
+                #endregion
+
+                foreach (var k in key)
+                {
+                    string keystring = "";
+                    for (int i = 0; i <= 11; i++)
+                    {
+                        if (i < 11)
+                        {
+                            keystring += interim_key[i] + ",";
+                        }
+                        else
+                        {
+                            keystring += interim_key[i];
+                        }
+                    }
+                    k.shortcut_key = keystring;
+                }
+
+                PublicClass.key = (string[])interim_key.Clone();
+
+            }
+            else
+            {
+                foreach (var k in key)
+                {
+                    string keystring = "";
+                    for (int i = 0; i <= 11; i++)
+                    {
+                        if (i < 11)
+                        {
+                            keystring += interim_key[i] + ",";
+                        }
+                        else
+                        {
+                            keystring += interim_key[i];
+                        }
+                    }
+                    k.shortcut_key = keystring;
+                }
+                PublicClass.key = (string[])interim_key.Clone();
+            }
+            jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+            jiakaoDataSet.setting.AcceptChanges();
+        }
+
+        
+
+
+
     }
-}
-public class Employee
-{
-    public string Name { set; get; }
-    public int EmpID { set; get; }
+
+    //ComboBox数据绑定
+    public class Province//省份
+    {
+        public string region { set; get; }
+        public int reID { set; get; }
+    }
+
+    public class Driving//驾照类型
+    {
+        public string type { set; get; }
+        public int tyID { set; get; }
+    }
+
+    public class ProvinceArr : ObservableCollection<Province>//省份
+    {
+        public ProvinceArr()
+        {
+            this.Add(new Province { reID = 0, region = "北京" });
+            this.Add(new Province { reID = 1, region = "天津" });
+            this.Add(new Province { reID = 2, region = "上海" });
+            this.Add(new Province { reID = 3, region = "重庆" });
+            this.Add(new Province { reID = 4, region = "河北" });
+            this.Add(new Province { reID = 5, region = "山西" });
+            this.Add(new Province { reID = 6, region = "辽宁" });
+            this.Add(new Province { reID = 7, region = "吉林" });
+            this.Add(new Province { reID = 8, region = "黑龙江" });
+            this.Add(new Province { reID = 9, region = "江苏" });
+            this.Add(new Province { reID = 10, region = "浙江" });
+            this.Add(new Province { reID = 11, region = "安徽" });
+            this.Add(new Province { reID = 12, region = "福建" });
+            this.Add(new Province { reID = 13, region = "江西" });
+            this.Add(new Province { reID = 14, region = "山东" });
+            this.Add(new Province { reID = 15, region = "河南" });
+            this.Add(new Province { reID = 16, region = "湖北" });
+            this.Add(new Province { reID = 17, region = "湖南" });
+            this.Add(new Province { reID = 18, region = "广东" });
+            this.Add(new Province { reID = 19, region = "海南" });
+            this.Add(new Province { reID = 20, region = "四川" });
+            this.Add(new Province { reID = 21, region = "贵州" });
+            this.Add(new Province { reID = 22, region = "陕西" });
+            this.Add(new Province { reID = 23, region = "甘肃" });
+            this.Add(new Province { reID = 24, region = "青海" });
+            this.Add(new Province { reID = 25, region = "台湾" });
+            this.Add(new Province { reID = 26, region = "内蒙古" });
+            this.Add(new Province { reID = 27, region = "广西" });
+            this.Add(new Province { reID = 28, region = "宁夏" });
+            this.Add(new Province { reID = 29, region = "新疆" });
+            this.Add(new Province { reID = 30, region = "西藏" });
+        }
+    }
+
+    public class DrivingArr : ObservableCollection<Driving>//驾照类型
+    {
+        public DrivingArr()
+        {
+            this.Add(new Driving { tyID = 0, type = "C1C2C3C4" });
+            this.Add(new Driving { tyID = 1, type = "A1A3B1" });
+            this.Add(new Driving { tyID = 2, type = "A2B2" });
+            this.Add(new Driving { tyID = 3, type = "DEF" });
+            this.Add(new Driving { tyID = 4, type = "恢复驾照" });
+        }
+    }
+
 }
 
-public class EmployeeArr : ObservableCollection<Employee>
-{
-    public EmployeeArr()
-    {
-        this.Add(new Employee { EmpID = 1, Name = "北京" });
-        this.Add(new Employee { EmpID = 2, Name = "天津" });
-        this.Add(new Employee { EmpID = 3, Name = "上海" });
-        this.Add(new Employee { EmpID = 4, Name = "重庆" });
-        this.Add(new Employee { EmpID = 5, Name = "河北" });
-        this.Add(new Employee { EmpID = 6, Name = "山西" });
-        this.Add(new Employee { EmpID = 7, Name = "辽宁" });
-        this.Add(new Employee { EmpID = 8, Name = "吉林" });
-        this.Add(new Employee { EmpID = 9, Name = "黑龙江" });
-        this.Add(new Employee { EmpID = 10, Name = "江苏" });
-        this.Add(new Employee { EmpID = 11, Name = "浙江" });
-        this.Add(new Employee { EmpID = 12, Name = "安徽" });
-        this.Add(new Employee { EmpID = 13, Name = "福建" });
-        this.Add(new Employee { EmpID = 14, Name = "江西" });
-        this.Add(new Employee { EmpID = 15, Name = "山东" });
-        this.Add(new Employee { EmpID = 16, Name = "河南" });
-        this.Add(new Employee { EmpID = 17, Name = "湖北" });
-        this.Add(new Employee { EmpID = 18, Name = "湖南" });
-        this.Add(new Employee { EmpID = 19, Name = "广东" });
-        this.Add(new Employee { EmpID = 20, Name = "海南" });
-        this.Add(new Employee { EmpID = 21, Name = "四川" });
-        this.Add(new Employee { EmpID = 22, Name = "贵州" });
-        this.Add(new Employee { EmpID = 23, Name = "云南" });
-        this.Add(new Employee { EmpID = 24, Name = "陕西" });
-        this.Add(new Employee { EmpID = 25, Name = "甘肃" });
-        this.Add(new Employee { EmpID = 26, Name = "青海" });
-        this.Add(new Employee { EmpID = 27, Name = "台湾" });
-        this.Add(new Employee { EmpID = 28, Name = "内蒙古" });
-        this.Add(new Employee { EmpID = 29, Name = "广西" });
-        this.Add(new Employee { EmpID = 30, Name = "宁夏" });
-        this.Add(new Employee { EmpID = 31, Name = "新疆" });
-        this.Add(new Employee { EmpID = 32, Name = "西藏" });
-    }
-}

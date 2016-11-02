@@ -2,16 +2,13 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:avalon="http://schemas.xceed.com/wpf/xaml/avalondock"
-        Title="设置" Height="600" Width="500" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" xmlns:my="clr-namespace:DrivingTest">
+        Title="设置" Height="600" Width="500" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" xmlns:my="clr-namespace:DrivingTest" xmlns:c="clr-namespace:DrivingTest">
     <Window.Resources>
         <my:jiakaoDataSet x:Key="jiakaoDataSet" />
         <CollectionViewSource x:Key="settingViewSource" Source="{Binding Path=setting, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="userViewSource" Source="{Binding Path=user,Source={StaticResource jiakaoDataSet}}" />
-        
-        
-        
-        
-        
+        <c:ProvinceArr x:Key="ProCols"/>
+        <c:DrivingArr x:Key="DriCols"/>
     </Window.Resources>
 
     <Grid>
@@ -53,8 +50,8 @@
                         <avalon:LayoutAnchorable Title=" 基本设置 " x:Name="jibenshezhi" CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True" IsActiveChanged="jibenshezhi_IsActiveChanged" >
                             <Grid>
                                 <Label Content="选择考试所在省份" Width="110" Height="25" Margin="18,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                                <ComboBox Height="25" HorizontalAlignment="Left" Margin="134,15,0,0" Name="shengfen_comboBox" VerticalAlignment="Top" Width="120" ItemsSource=""  DisplayMemberPath="Name"   SelectedValuePath="EmpID"/>
-                                <CheckBox Content="题库包含地方题" Height="23" HorizontalAlignment="Left" Margin="299,20,0,0" Name="difan_checkBox" VerticalAlignment="Top"/>
+                                <ComboBox Height="25" HorizontalAlignment="Left" Margin="134,15,0,0" Name="shengfen_comboBox" VerticalAlignment="Top" Width="120" ItemsSource="{StaticResource ProCols}"  DisplayMemberPath="region"   SelectedValuePath="reID"/>
+                                <CheckBox Content="题库包含地方题" Height="23" HorizontalAlignment="Left" Margin="299,20,0,0" Name="difan_checkBox" VerticalAlignment="Top" Checked="difan_checkBox_Checked" />
                                 <GroupBox Header="设置省份" Height="50" Width="450" Margin="6,1,0,0" Name="groupBox1" VerticalAlignment="Top" HorizontalAlignment="Left" />
                                 
                                 <RadioButton Content="个人模式" Height="16" HorizontalAlignment="Left" Margin="108,69,0,0" Name="geren_radioButton" VerticalAlignment="Top"  Checked="geren_radioButton_Checked" />
@@ -65,7 +62,7 @@
                                 
                                 <Grid x:Name="geren_grid" Visibility="Visible">
                                 <Label Content="驾照类型" Height="28" HorizontalAlignment="Left" Margin="38,176,0,0" Name="label3" VerticalAlignment="Top" />
-                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="99,176,0,0" Name="jiazhao_comboBox" VerticalAlignment="Top" Width="120" />
+                                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="99,176,0,0" Name="jiazhao_comboBox" VerticalAlignment="Top" Width="120" ItemsSource="{StaticResource DriCols}"  DisplayMemberPath="type"   SelectedValuePath="drID"/>
                                 <Label Content="所在驾校" Height="28" HorizontalAlignment="Left" Margin="38,210,0,0" Name="label4" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="99,210,0,0" Name="jiaixao_textBox" VerticalAlignment="Top" Width="300" />
                                 <Label Content="驾校简称" Height="28" HorizontalAlignment="Left" Margin="38,242,0,0" Name="label5" VerticalAlignment="Top" />
@@ -92,19 +89,19 @@
                                 <Line X1="400" Margin="36,412,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" Height="2" Stroke="Black" StrokeDashArray="5"   StrokeThickness="1" />
 
                                 <CheckBox Content="软件随系统启动" Height="16" HorizontalAlignment="Left" Margin="84,388,0,0" Name="kaiji_checkBox" VerticalAlignment="Top" IsChecked="{Binding Path=power_on,Mode=TwoWay}" Checked="kaiji_checkBox_Checked" />
-                                <CheckBox Content="关闭软件是需要密码" Height="16" HorizontalAlignment="Left" Margin="291,388,0,0" Name="checkBox3" VerticalAlignment="Top" />
+                                <CheckBox Content="关闭软件是需要密码" Height="16" HorizontalAlignment="Left" Margin="291,388,0,0" Name="guanbi_checkBox" VerticalAlignment="Top" />
                                 <Label Content="密码" Height="28" HorizontalAlignment="Left" Margin="38,420,0,0" Name="label6" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="84,420,0,0" Name="tuipassword_textBox" VerticalAlignment="Top" Width="100" />
                                 <Label Content="再次输入密码" Height="28" HorizontalAlignment="Left" Margin="190,419,0,0" Name="label7" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="274,420,0,0" Name="quepassword_textBox" VerticalAlignment="Top" Width="100" />
                                 <Button Content="保存密码" Height="23" HorizontalAlignment="Left" Margin="381,420,0,0" Name="baocun_passbutton" VerticalAlignment="Top" Width="60" Click="baocun_passbutton_Click" />
                                 <TextBlock Text="注意:设置密码后,进入设置页面和退出程序(驾校模式)需要输入密码" Height="20" HorizontalAlignment="Left" Margin="38,449,0,0" Name="textBox70" VerticalAlignment="Top" Width="400" FontSize="11" />
-                                <CheckBox Content="显示最新通知(科目一页面,学习状态统计下面)" Height="16" HorizontalAlignment="Left" Margin="34,467,0,0" Name="checkBox4" VerticalAlignment="Top" />
+                                <CheckBox Content="显示最新通知(科目一页面,学习状态统计下面)" Height="16" HorizontalAlignment="Left" Margin="34,467,0,0" Name="tongzhi_checkBox" VerticalAlignment="Top" />
                                 <Button Content="保存设置" Height="23" HorizontalAlignment="Left" Margin="361,497,0,0" Name="jibenshezhi_button" VerticalAlignment="Top" Width="75" Click="jibenshezhi_button_Click" />
                                 <GroupBox Header="基础设置" Height="120" Width="450" Margin="6,375,0,0" Name="groupBox3" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Visible" />
                             </Grid>
                         </avalon:LayoutAnchorable>
-                        <avalon:LayoutAnchorable Title="功能-标题" CanClose="False" CanFloat="False" CanHide="False">
+                        <avalon:LayoutAnchorable x:Name="gongnegnbiaoti" Title="功能-标题" CanClose="False" CanFloat="False" CanHide="False" IsActiveChanged="gongnegnbiaoti_IsActiveChanged">
                             <Grid>
                                 <Label Content="软件标题" Height="28" HorizontalAlignment="Left" Margin="16,6,0,0" Name="label8" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="91,11,0,0" Name="textBox7" VerticalAlignment="Top" Width="350" />
@@ -137,7 +134,7 @@
                                 <CheckBox Content="显示学习统计信息和显示最近十次成绩柱状图" Height="16" HorizontalAlignment="Left" Margin="45,287,0,0" Name="checkBox17" VerticalAlignment="Top" />
                                 <Label Content="及格分数线:" Height="28" HorizontalAlignment="Left" Margin="45,305,0,0" Name="label13" VerticalAlignment="Top" />
                                 <RadioButton Content="预考:" Height="16" HorizontalAlignment="Left" Margin="163,310,0,0" Name="radioButton65" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="211,307,0,0" Name="textBox9" VerticalAlignment="Top" Width="50" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="211,307,0,0" Name="yukao_textBox" VerticalAlignment="Top" Width="50" />
                                 <Label Content="分" Height="28" HorizontalAlignment="Left" Margin="259,305,0,0" Name="label14" VerticalAlignment="Top"/>
                                 <RadioButton Content="正式考试: 90 分" Height="16" HorizontalAlignment="Left" Margin="321,310,0,0" Name="radioButton66" VerticalAlignment="Top" />
                                 <CheckBox Content="显示驾校图片和驾校简介文字" Height="16" HorizontalAlignment="Left" Margin="45,331,0,0" Name="checkBox18" VerticalAlignment="Top" />
@@ -157,7 +154,7 @@
                                 <CheckBox Content="打开软件后自动清空学习记录" Height="16" HorizontalAlignment="Left" Margin="45,421,0,0" Name="checkBox19" VerticalAlignment="Top" />
                                 <CheckBox Content="模拟考试显示(重考)按钮" Height="16" HorizontalAlignment="Left" Margin="259,421,0,0" Name="checkBox20" VerticalAlignment="Top" />
                                 <CheckBox Content="打开软件后自动清空强化练习" Height="16" HorizontalAlignment="Left" Margin="45,443,0,0" Name="checkBox21" VerticalAlignment="Top" />
-                                <CheckBox Content="模拟考试选择题选项打乱顺序(正式考试时打乱顺序)" Height="16" HorizontalAlignment="Left" Margin="45,465,0,0" Name="checkBox22" VerticalAlignment="Top" />
+                                <!--<CheckBox Content="模拟考试选择题选项打乱顺序(正式考试时打乱顺序)" Height="16" HorizontalAlignment="Left" Margin="45,465,0,0" Name="checkBox22" VerticalAlignment="Top" />-->
                                 <GroupBox Header="功能" Height="85" HorizontalAlignment="Left" Margin="16,404,0,0" Name="groupBox8" VerticalAlignment="Top" Width="430"/>
                                 
                                 <CheckBox Content="隐藏学习页面设置选项" Height="16" HorizontalAlignment="Left" Margin="16,499,0,0" Name="checkBox23" VerticalAlignment="Top" />
@@ -188,17 +185,17 @@
                                 <Label Content="交卷" Height="28" HorizontalAlignment="Left" Margin="322,416,0,0" Name="label60" VerticalAlignment="Top" />
                                 <Label Content="确认交卷" Height="28" HorizontalAlignment="Left" Margin="322,450,0,0" Name="label61" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="68,384,0,0" Name="a_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False" KeyDown="textBox_KeyDown" TextChanged="textBox_TextChanged" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="68,416,0,0" Name="b_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="68,450,0,0" Name="c_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="160,384,0,0" Name="d_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="160,416,0,0" Name="dui_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="160,450,0,0" Name="cuo_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="267,384,0,0" Name="up_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="267,416,0,0" Name="down_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="267,452,0,0" Name="head_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="376,384,0,0" Name="end_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="376,416,0,0" Name="jiaojuan_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="376,450,0,0" Name="queren_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="68,416,0,0" Name="b_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False" KeyDown="textBox_KeyDown"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="68,450,0,0" Name="c_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False" KeyDown="textBox_KeyDown"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="160,384,0,0" Name="d_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False" KeyDown="textBox_KeyDown"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="160,416,0,0" Name="dui_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False" KeyDown="textBox_KeyDown"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="160,450,0,0" Name="cuo_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False" KeyDown="textBox_KeyDown"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="267,384,0,0" Name="up_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False" KeyDown="textBox_KeyDown"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="267,416,0,0" Name="down_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False" KeyDown="textBox_KeyDown"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="267,452,0,0" Name="head_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False" KeyDown="textBox_KeyDown"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="376,384,0,0" Name="end_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False" KeyDown="textBox_KeyDown"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="376,416,0,0" Name="jiaojuan_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False" KeyDown="textBox_KeyDown"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="376,450,0,0" Name="queren_textBox" VerticalAlignment="Top" Width="50" InputMethod.IsInputMethodEnabled="False" KeyDown="textBox_KeyDown"/>
                                 <Button Content="保存" Height="23" HorizontalAlignment="Left" Margin="376,497,0,0" Name="jianpanshezhi_button" VerticalAlignment="Top" Width="75" Click="jianpanshezhi_button_Click" />
                             </Grid>
                         </avalon:LayoutAnchorable>
