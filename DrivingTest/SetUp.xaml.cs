@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using Microsoft.Win32;
 using System.Reflection;
+using System.IO;
 
 namespace DrivingTest
 {
@@ -52,45 +53,52 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
-            var set = from c in jiakaoDataSet.setting select c;
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+
             foreach (var s in set)
             {
                 if (kaiji_checkBox.IsChecked == true) //设置开机自启动  
                 {
-                    s.power_on = 1;
-
-                    if (s.power_on == 1)
-                    {
-                        power_on = true;//开机启动
-                        MessageBox.Show("设置开机自启动，需要修改注册表", "提示");
-                        string path = Assembly.GetExecutingAssembly().Location; ;
-                        RegistryKey rk = Registry.LocalMachine;
-                        RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
-                        rk2.SetValue("JcShutdown", path);
-                        rk2.Close();
-                        rk.Close();
-                    }
-                }
-                else //取消开机自启动  
-                {
-                    s.power_on = 0;
-
-                    if (s.power_on == 0)
-                    {
-                        power_on = false;//开机不启动
-                        MessageBox.Show("取消开机自启动，需要修改注册表", "提示");
-                        string path = Assembly.GetExecutingAssembly().Location;
-                        RegistryKey rk = Registry.LocalMachine;
-                        RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
-                        rk2.DeleteValue("JcShutdown", false);
-                        rk2.Close();
-                        rk.Close();
-                    }
+                    string path = Assembly.GetExecutingAssembly().Location; ;
+                    //MessageBox.Show("设置开机自启动，需要修改注册表", "提示");
+                    RegistryKey rk = Registry.LocalMachine;
+                    RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
+                    rk2.SetValue("JcShutdown", path);
+                    rk2.Close();
+                    rk.Close();
+                    s.power_on = 1; 
                 }
             }
+            jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+            jiakaoDataSet.setting.AcceptChanges();
 
+        }
+        private void kaiji_checkBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
-
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+            foreach (var s in set)
+            {
+                if (kaiji_checkBox.IsChecked == false) //取消开机自启动  
+                {
+                    string path = Assembly.GetExecutingAssembly().Location;
+                    //MessageBox.Show("取消开机自启动，需要修改注册表", "提示");
+                    RegistryKey rk = Registry.LocalMachine;
+                    RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
+                    rk2.DeleteValue("JcShutdown", false);
+                    rk2.Close();
+                    rk.Close();
+                    s.power_on = 0;
+                }
+            }
+            jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+            jiakaoDataSet.setting.AcceptChanges();
         }
 
         //题库包含地方题库
@@ -100,9 +108,27 @@ namespace DrivingTest
             {
                 shengfen_comboBox.IsEnabled = true;
             }
-            else
+
+        }
+        private void difan_checkBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (difan_checkBox.IsChecked == false)
             {
                 shengfen_comboBox.IsEnabled = false;
+            }
+        }
+
+        //关闭软件时需要密码
+        private void guanbi_checkBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (guanbi_checkBox.IsChecked == true)//启用
+            {
+            }
+        }
+        private void guanbi_checkBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (guanbi_checkBox.IsChecked == false)//不启用
+            {
             }
         }
 
@@ -113,6 +139,13 @@ namespace DrivingTest
             {
                 geren_grid.Visibility = System.Windows.Visibility.Visible;
                 jiaxiao_grid.Visibility = System.Windows.Visibility.Hidden;
+                guanbi_checkBox.IsEnabled = false;
+                label6.IsEnabled = false;
+                tuipassword_textBox.IsEnabled = false;
+                label7.IsEnabled = false;
+                quepassword_textBox.IsEnabled = false;
+                baocun_passbutton.IsEnabled = false;
+
             }
         }
         //驾校模式
@@ -122,10 +155,16 @@ namespace DrivingTest
             {
                 jiaxiao_grid.Visibility = System.Windows.Visibility.Visible;
                 geren_grid.Visibility = System.Windows.Visibility.Hidden;
+                guanbi_checkBox.IsEnabled = true;
+                label6.IsEnabled = true;
+                tuipassword_textBox.IsEnabled = true;
+                label7.IsEnabled = true;
+                quepassword_textBox.IsEnabled = true;
+                baocun_passbutton.IsEnabled = true;
             }
         }
 
-        //基本设置
+        //基本设置选项卡
         private void jibenshezhi_IsActiveChanged(object sender, EventArgs e)
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
@@ -169,7 +208,7 @@ namespace DrivingTest
                         kaiji_checkBox.IsChecked = true;
                     }
 
-                    if (s.close_password == "")//是否有开机及设置密码
+                    if (s.close_password == 0)//是否有开机及设置密码
                     {
                         guanbi_checkBox.IsChecked = false;
                     }
@@ -187,14 +226,14 @@ namespace DrivingTest
                         tongzhi_checkBox.IsChecked = true;
                     }
 
-                    
+
 
 
                 }
             }
 
         }
-        //功能标题
+        //功能标题选项卡
         private void gongnegnbiaoti_IsActiveChanged(object sender, EventArgs e)
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
@@ -283,7 +322,8 @@ namespace DrivingTest
             {
                 if (tuipassword_textBox.Text == quepassword_textBox.Text)
                 {
-                    s.close_password = tuipassword_textBox.Text;
+                    s.password = tuipassword_textBox.Text;
+                    MessageBox.Show("密码设置成功!", "提示");
                 }
                 else
                 {
@@ -298,7 +338,14 @@ namespace DrivingTest
         //浏览图片
         private void liulan_button_Click(object sender, RoutedEventArgs e)
         {
-
+            Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
+            dialog.Filter = "PNG files (*.png)|*.png|JPG files (*.jpg)|*.jpg|JPEG files (*.jpeg)|*.jpeg";
+            
+            if (dialog.ShowDialog() == true)
+            {
+                tupian_textBox.Text = dialog.FileName;
+            }
+      
         }
 
         //基本设置保存
@@ -310,6 +357,76 @@ namespace DrivingTest
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
             var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+
+            foreach (var s in set)
+            {
+                if (geren_radioButton.IsChecked == true)//个人保存
+                {
+                    if (difan_checkBox.IsChecked == true)
+                    {
+                        s.province = shengfen_comboBox.SelectedValue.ToString();
+                    }
+                    else
+                    {
+                        s.province = "";
+                    }
+                    if (kaiji_checkBox.IsChecked == true)
+                    {
+                        s.power_on = 1;
+                    }
+                    else
+                    {
+                        s.power_on = 0;
+                    }
+                    if (tongzhi_checkBox.IsChecked == true)
+                    {
+                        s.show_notification = 1;
+                    }
+                    else
+                    {
+                        s.show_notification = 0;
+                    }
+
+                }
+                else//驾校保存
+                {
+                    s.driverschool_name = quancheng_textBox.Text;
+                    s.contact = lianxi_textBox.Text;
+                    s.address = dizhi_textBox.Text;
+                    s.introduction = jianjie_textBox.Text;
+                    s.testbench_number = int.Parse(kaotai_textBox.Text);
+                    s.driverschool_picture = tupian_textBox.Text;
+                    if (kaiji_checkBox.IsChecked == true)
+                    {
+                        s.power_on = 1;
+                    }
+                    else
+                    {
+                        s.power_on = 0;
+                    }
+                    if (guanbi_checkBox.IsChecked == true)
+                    {
+                        s.close_password = 1;
+                    }
+                    else
+                    {
+                        s.close_password = 0;
+                    }
+                    if (tongzhi_checkBox.IsChecked == true)
+                    {
+                        s.show_notification = 1;
+                    }
+                    else
+                    {
+                        s.show_notification = 0;
+                    }
+
+                }
+                
+            }
+            jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+            jiakaoDataSet.setting.AcceptChanges();
 
 
         }
@@ -605,7 +722,11 @@ namespace DrivingTest
             jiakaoDataSet.setting.AcceptChanges();
         }
 
-        
+
+
+
+
+
 
 
 

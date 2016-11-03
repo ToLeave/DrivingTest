@@ -2969,7 +2969,7 @@ namespace DrivingTest {
                         string driverschool_picture, 
                         string province, 
                         int power_on, 
-                        string close_password, 
+                        int close_password, 
                         int show_notification, 
                         string software_title, 
                         int hide_driver_license, 
@@ -3146,7 +3146,7 @@ namespace DrivingTest {
                 base.Columns.Add(this.columnprovince);
                 this.columnpower_on = new global::System.Data.DataColumn("power_on", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnpower_on);
-                this.columnclose_password = new global::System.Data.DataColumn("close_password", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnclose_password = new global::System.Data.DataColumn("close_password", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnclose_password);
                 this.columnshow_notification = new global::System.Data.DataColumn("show_notification", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnshow_notification);
@@ -3214,7 +3214,6 @@ namespace DrivingTest {
                 this.columnintroduction.MaxLength = 255;
                 this.columndriverschool_picture.MaxLength = 255;
                 this.columnprovince.MaxLength = 255;
-                this.columnclose_password.MaxLength = 255;
                 this.columnsoftware_title.MaxLength = 255;
                 this.columnscrolling_text.MaxLength = 255;
                 this.columnfunctional_module.MaxLength = 255;
@@ -5434,10 +5433,10 @@ namespace DrivingTest {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string close_password {
+            public int close_password {
                 get {
                     try {
-                        return ((string)(this[this.tablesetting.close_passwordColumn]));
+                        return ((int)(this[this.tablesetting.close_passwordColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("表“setting”中列“close_password”的值为 DBNull。", e);
@@ -10030,7 +10029,7 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_power_on", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "power_on", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_power_on", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "power_on", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_close_password", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "close_password", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_close_password", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "close_password", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_close_password", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "close_password", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_show_notification", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "show_notification", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_show_notification", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "show_notification", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_software_title", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "software_title", global::System.Data.DataRowVersion.Original, true, null));
@@ -10099,7 +10098,7 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("driverschool_picture", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "driverschool_picture", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("province", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "province", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("power_on", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "power_on", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("close_password", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "close_password", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("close_password", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "close_password", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("show_notification", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "show_notification", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("software_title", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "software_title", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("hide_driver_license", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "hide_driver_license", global::System.Data.DataRowVersion.Current, false, null));
@@ -10188,7 +10187,7 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("driverschool_picture", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "driverschool_picture", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("province", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "province", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("power_on", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "power_on", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("close_password", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "close_password", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("close_password", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "close_password", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("show_notification", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "show_notification", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("software_title", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "software_title", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("hide_driver_license", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "hide_driver_license", global::System.Data.DataRowVersion.Current, false, null));
@@ -10245,7 +10244,7 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_power_on", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "power_on", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_power_on", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "power_on", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_close_password", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "close_password", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_close_password", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "close_password", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_close_password", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "close_password", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_show_notification", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "show_notification", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_show_notification", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "show_notification", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_software_title", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "software_title", global::System.Data.DataRowVersion.Original, true, null));
@@ -10311,7 +10310,13 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT setting_id, autormerr, showerrcount, model, [password], pre_scores, scores, driverschool_name, contact, address, introduction, testbench_number, driverschool_picture, province, power_on, close_password, show_notification, software_title, hide_driver_license, hide_setting, text_replace, scrolling_text, functional_module, subject_module, learning_module, display_test, reshuffling, auto_clear, subject_four_button, registration_process, payment_link, customer_service_QQ, customer_service_WW, comments, registration_display, setting_account, rolling_speed, tts_sex, font_size, hidden_learning_settings, not_show, shortcut_key FROM setting";
+            this._commandCollection[0].CommandText = @"SELECT   setting_id, autormerr, showerrcount, model, [password], pre_scores, scores, driverschool_name, contact, address, 
+                introduction, testbench_number, driverschool_picture, province, power_on, close_password, show_notification, 
+                software_title, hide_driver_license, hide_setting, text_replace, scrolling_text, functional_module, subject_module, 
+                learning_module, display_test, reshuffling, auto_clear, subject_four_button, registration_process, payment_link, 
+                customer_service_QQ, customer_service_WW, comments, registration_display, setting_account, rolling_speed, 
+                tts_sex, font_size, hidden_learning_settings, not_show, shortcut_key
+FROM      setting";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -10388,7 +10393,7 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
                     string Original_driverschool_picture, 
                     string Original_province, 
                     global::System.Nullable<int> Original_power_on, 
-                    string Original_close_password, 
+                    global::System.Nullable<int> Original_close_password, 
                     global::System.Nullable<int> Original_show_notification, 
                     string Original_software_title, 
                     global::System.Nullable<int> Original_hide_driver_license, 
@@ -10527,13 +10532,13 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
                 this.Adapter.DeleteCommand.Parameters[27].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[28].Value = global::System.DBNull.Value;
             }
-            if ((Original_close_password == null)) {
-                this.Adapter.DeleteCommand.Parameters[29].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[30].Value = global::System.DBNull.Value;
+            if ((Original_close_password.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[29].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[30].Value = ((int)(Original_close_password.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[29].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[30].Value = ((string)(Original_close_password));
+                this.Adapter.DeleteCommand.Parameters[29].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[30].Value = global::System.DBNull.Value;
             }
             if ((Original_show_notification.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[31].Value = ((object)(0));
@@ -10770,7 +10775,7 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
                     string driverschool_picture, 
                     string province, 
                     global::System.Nullable<int> power_on, 
-                    string close_password, 
+                    global::System.Nullable<int> close_password, 
                     global::System.Nullable<int> show_notification, 
                     string software_title, 
                     global::System.Nullable<int> hide_driver_license, 
@@ -10881,11 +10886,11 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
-            if ((close_password == null)) {
-                this.Adapter.InsertCommand.Parameters[14].Value = global::System.DBNull.Value;
+            if ((close_password.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[14].Value = ((int)(close_password.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[14].Value = ((string)(close_password));
+                this.Adapter.InsertCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
             if ((show_notification.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[15].Value = ((int)(show_notification.Value));
@@ -11078,7 +11083,7 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
                     string driverschool_picture, 
                     string province, 
                     global::System.Nullable<int> power_on, 
-                    string close_password, 
+                    global::System.Nullable<int> close_password, 
                     global::System.Nullable<int> show_notification, 
                     string software_title, 
                     global::System.Nullable<int> hide_driver_license, 
@@ -11120,7 +11125,7 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
                     string Original_driverschool_picture, 
                     string Original_province, 
                     global::System.Nullable<int> Original_power_on, 
-                    string Original_close_password, 
+                    global::System.Nullable<int> Original_close_password, 
                     global::System.Nullable<int> Original_show_notification, 
                     string Original_software_title, 
                     global::System.Nullable<int> Original_hide_driver_license, 
@@ -11230,11 +11235,11 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
-            if ((close_password == null)) {
-                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
+            if ((close_password.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((int)(close_password.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((string)(close_password));
+                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
             if ((show_notification.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(show_notification.Value));
@@ -11505,13 +11510,13 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
                 this.Adapter.UpdateCommand.Parameters[68].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[69].Value = global::System.DBNull.Value;
             }
-            if ((Original_close_password == null)) {
-                this.Adapter.UpdateCommand.Parameters[70].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[71].Value = global::System.DBNull.Value;
+            if ((Original_close_password.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[70].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[71].Value = ((int)(Original_close_password.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[70].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[71].Value = ((string)(Original_close_password));
+                this.Adapter.UpdateCommand.Parameters[70].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[71].Value = global::System.DBNull.Value;
             }
             if ((Original_show_notification.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[72].Value = ((object)(0));

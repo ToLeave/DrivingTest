@@ -51,7 +51,7 @@
                             <Grid>
                                 <Label Content="选择考试所在省份" Width="110" Height="25" Margin="18,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
                                 <ComboBox Height="25" HorizontalAlignment="Left" Margin="134,15,0,0" Name="shengfen_comboBox" VerticalAlignment="Top" Width="120" ItemsSource="{StaticResource ProCols}"  DisplayMemberPath="region"   SelectedValuePath="reID"/>
-                                <CheckBox Content="题库包含地方题" Height="23" HorizontalAlignment="Left" Margin="299,20,0,0" Name="difan_checkBox" VerticalAlignment="Top" Checked="difan_checkBox_Checked" />
+                                <CheckBox Content="题库包含地方题" Height="23" HorizontalAlignment="Left" Margin="299,20,0,0" Name="difan_checkBox" VerticalAlignment="Top" Checked="difan_checkBox_Checked" Unchecked="difan_checkBox_Unchecked" />
                                 <GroupBox Header="设置省份" Height="50" Width="450" Margin="6,1,0,0" Name="groupBox1" VerticalAlignment="Top" HorizontalAlignment="Left" />
                                 
                                 <RadioButton Content="个人模式" Height="16" HorizontalAlignment="Left" Margin="108,69,0,0" Name="geren_radioButton" VerticalAlignment="Top"  Checked="geren_radioButton_Checked" />
@@ -80,7 +80,7 @@
                                 <Label Content="考台号" Height="28" HorizontalAlignment="Left" Margin="39,311,0,0" Name="label26" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="105,313,0,0" Name="kaotai_textBox" VerticalAlignment="Top" Width="120" />
                                 <Label Content="驾校图片" Height="28" HorizontalAlignment="Left" Margin="39,341,0,0" Name="label27" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="105,346,0,0" Name="textBox" VerticalAlignment="Top" Width="150" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="105,346,0,0" Name="tupian_textBox" VerticalAlignment="Top" Width="150" />
                                 <Label Content="(200×200)" Height="28" HorizontalAlignment="Left" Margin="261,344,0,0" Name="label28" VerticalAlignment="Top" />
                                 <Button Content="浏览图片" Height="23" HorizontalAlignment="Left" Margin="359,346,0,0" Name="liulan_button" VerticalAlignment="Top" Width="75" Click="liulan_button_Click" />
                                 </Grid>
@@ -88,8 +88,8 @@
                                 
                                 <Line X1="400" Margin="36,412,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" Height="2" Stroke="Black" StrokeDashArray="5"   StrokeThickness="1" />
 
-                                <CheckBox Content="软件随系统启动" Height="16" HorizontalAlignment="Left" Margin="84,388,0,0" Name="kaiji_checkBox" VerticalAlignment="Top" IsChecked="{Binding Path=power_on,Mode=TwoWay}" Checked="kaiji_checkBox_Checked" />
-                                <CheckBox Content="关闭软件是需要密码" Height="16" HorizontalAlignment="Left" Margin="291,388,0,0" Name="guanbi_checkBox" VerticalAlignment="Top" />
+                                <CheckBox Content="软件随系统启动" Height="16" HorizontalAlignment="Left" Margin="84,388,0,0" Name="kaiji_checkBox" VerticalAlignment="Top" IsChecked="{Binding Path=power_on,Mode=TwoWay}" Checked="kaiji_checkBox_Checked" Unchecked="kaiji_checkBox_Unchecked" />
+                                <CheckBox Content="关闭软件时需要密码" Height="16" HorizontalAlignment="Left" Margin="291,388,0,0" Name="guanbi_checkBox" VerticalAlignment="Top" Checked="guanbi_checkBox_Checked" Unchecked="guanbi_checkBox_Unchecked" />
                                 <Label Content="密码" Height="28" HorizontalAlignment="Left" Margin="38,420,0,0" Name="label6" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="84,420,0,0" Name="tuipassword_textBox" VerticalAlignment="Top" Width="100" />
                                 <Label Content="再次输入密码" Height="28" HorizontalAlignment="Left" Margin="190,419,0,0" Name="label7" VerticalAlignment="Top" />

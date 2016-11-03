@@ -31,12 +31,12 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
-            var set = from c in jiakaoDataSet.setting select c;
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
             foreach (var s in set)
             {
                 if (PublicClass.shezhi == "设置")
                 {
-                    if (password_textBox.Text == s.close_password)
+                    if (password_textBox.Text == s.password)
                     {
                         SetUp se = new SetUp();
                         se.Show();
@@ -48,7 +48,7 @@ namespace DrivingTest
                 }
                 else
                 {
-                    if (password_textBox.Text == s.close_password)
+                    if (password_textBox.Text == s.password)
                     {
                         Application.Current.Shutdown();
                     }

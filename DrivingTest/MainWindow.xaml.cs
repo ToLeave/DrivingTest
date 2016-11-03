@@ -51,7 +51,6 @@ namespace DrivingTest
             InitializeComponent();
             this.Closing += F;
             //IsConn();
-            //kkkk(new string[] {"2006", "2007"});
         }
 
         private void F(object o, System.ComponentModel.CancelEventArgs e)
@@ -61,12 +60,12 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
-            var set = from c in jiakaoDataSet.setting select c;
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
             PublicClass.shezhi = "退出";
             foreach (var s in set)
             {
 
-                if (!s.Isclose_passwordNull())
+                if (s.close_password != 0)
                 {
                     e.Cancel = true;
                     QuitPassword qu = new QuitPassword();
@@ -77,8 +76,6 @@ namespace DrivingTest
                     c1ma.Name = "管理员密码";
                     c1ma.Header = "管理员密码";
                 }
-                else
-                { }
             }
         }
 
@@ -1066,7 +1063,7 @@ where T : DependencyObject
                 {
                     //int? a = null;
                     //int b = a.Value;
-                    jiakaoDataSet.setting.AddsettingRow(0, 0, 0, "", 0, 0, "", "", "", "", 0, "", "", 0, "", 0, "", 0, 0, 0, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, "", "", 0, key);
+                    jiakaoDataSet.setting.AddsettingRow(0, 0, 0, "", 0, 0, "", "", "", "", 0, "", "", 0, 0, 0, "", 0, 0, 0, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, "", "", 0, key);
                     jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
                     jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
                     jiakaoDataSet.setting.AcceptChanges();
@@ -1542,13 +1539,13 @@ where T : DependencyObject
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
-            var set = from c in jiakaoDataSet.setting select c;
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
             PublicClass.shezhi = "设置";
 
             foreach (var s in set)
             {
                 
-                if (s.Isclose_passwordNull()) //OleDbDataReader["close_password"].toString() != "")
+                if (s.password == "") //OleDbDataReader["close_password"].toString() != "")
                 {
                     SetUp se = new SetUp();
                     se.Height = 600;
