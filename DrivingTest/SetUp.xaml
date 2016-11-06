@@ -78,7 +78,7 @@
                                 <Label Content="  简  介" Height="28" HorizontalAlignment="Left" Margin="39,223,0,0" Name="label25" VerticalAlignment="Top" />
                                 <TextBox Height="80" HorizontalAlignment="Left" Margin="105,225,0,0" Name="jianjie_textBox" VerticalAlignment="Top" Width="300" TextWrapping="Wrap" />
                                 <Label Content="考台号" Height="28" HorizontalAlignment="Left" Margin="39,311,0,0" Name="label26" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="105,313,0,0" Name="kaotai_textBox" VerticalAlignment="Top" Width="120" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="105,313,0,0" Name="kaotai_textBox" Text="001" VerticalAlignment="Top" Width="120" />
                                 <Label Content="驾校图片" Height="28" HorizontalAlignment="Left" Margin="39,341,0,0" Name="label27" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="105,346,0,0" Name="tupian_textBox" VerticalAlignment="Top" Width="150" />
                                 <Label Content="(200×200)" Height="28" HorizontalAlignment="Left" Margin="261,344,0,0" Name="label28" VerticalAlignment="Top" />
@@ -140,17 +140,17 @@
                                 <CheckBox Content="显示驾校图片和驾校简介文字" Height="16" HorizontalAlignment="Left" Margin="45,331,0,0" Name="checkBox18" VerticalAlignment="Top" />
                                 <GroupBox Header="学习统计-驾校信息设置(仅驾校模式下有效)" Height="100" HorizontalAlignment="Left" Margin="16,252,0,0" Name="groupBox7" VerticalAlignment="Top" Width="430" Visibility="Visible" />
 
-                                <Grid Height="30" HorizontalAlignment="Left" Margin="17,360,0,0" Name="grid1" VerticalAlignment="Top" Width="430">
+                                <!--Grid Height="30" HorizontalAlignment="Left" Margin="17,360,0,0" Name="grid1" VerticalAlignment="Top" Width="430">
                                     <RadioButton Content="小" Height="16" HorizontalAlignment="Left" Margin="127,6,0,0" Name="radioButton5" VerticalAlignment="Top" />
                                     <RadioButton Content="大" Height="16" HorizontalAlignment="Left" Margin="296,6,0,0" Name="radioButton6" VerticalAlignment="Top" />
                                     <Label Content="题目字体:" Height="28" HorizontalAlignment="Left" Margin="21,1,0,0" Name="label20" VerticalAlignment="Top" />
-                                </Grid>
-                                <Grid Height="30" HorizontalAlignment="Left" Margin="17,380,0,0" Name="grid2" VerticalAlignment="Top" Width="430">
+                                </Grid>-->
+                                <Grid Height="30" HorizontalAlignment="Left" Margin="22,373,0,0" Name="grid2" VerticalAlignment="Top" Width="430">
                                     <RadioButton Content="女声" Height="16" HorizontalAlignment="Left" Margin="127,6,0,0" Name="radioButton7" VerticalAlignment="Top" />
                                     <RadioButton Content="男声" Height="16" HorizontalAlignment="Left" Margin="296,5,0,0" Name="radioButton8" VerticalAlignment="Top" />
                                     <Label Content="语音朗读:" Height="28" HorizontalAlignment="Left" Margin="21,0,0,0" Name="label21" VerticalAlignment="Top" />
                                 </Grid>
-                                <GroupBox Header="字体-朗读" Height="52" HorizontalAlignment="Left" Margin="18,351,0,0" Name="groupBox11" VerticalAlignment="Top" Width="427" Visibility="Visible" />
+                                <GroupBox Header="语音朗读" Height="52" HorizontalAlignment="Left" Margin="18,351,0,0" Name="groupBox11" VerticalAlignment="Top" Width="427" Visibility="Visible" />
                                 <CheckBox Content="打开软件后自动清空学习记录" Height="16" HorizontalAlignment="Left" Margin="45,421,0,0" Name="checkBox19" VerticalAlignment="Top" />
                                 <CheckBox Content="模拟考试显示(重考)按钮" Height="16" HorizontalAlignment="Left" Margin="259,421,0,0" Name="checkBox20" VerticalAlignment="Top" />
                                 <CheckBox Content="打开软件后自动清空强化练习" Height="16" HorizontalAlignment="Left" Margin="45,443,0,0" Name="checkBox21" VerticalAlignment="Top" />
@@ -159,7 +159,7 @@
                                 
                                 <CheckBox Content="隐藏学习页面设置选项" Height="16" HorizontalAlignment="Left" Margin="16,499,0,0" Name="checkBox23" VerticalAlignment="Top" />
                                 <Label Content="科目四 按钮名称:" Height="28" HorizontalAlignment="Left" Margin="161,495,0,0" Name="label15" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="259,499,0,0" Name="textBox10" VerticalAlignment="Top" Width="80" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="259,499,0,0" Name="textBox10" Text="科目四" VerticalAlignment="Top" Width="80" />
                                 <Button Content="保存设置" Height="23" HorizontalAlignment="Left" Margin="371,501,0,0" Name="button4" VerticalAlignment="Top" Width="75" />
                             </Grid>
                         </avalon:LayoutAnchorable>

@@ -48,57 +48,45 @@ namespace DrivingTest
         //设置开机启动
         private void kaiji_checkBox_Checked(object sender, RoutedEventArgs e)
         {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 setting 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
-            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+            //DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            //// 将数据加载到表 setting 中。可以根据需要修改此代码。
+            //DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            //jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
-            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+            //var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
 
-            foreach (var s in set)
-            {
-                if (kaiji_checkBox.IsChecked == true) //设置开机自启动  
-                {
-                    string path = Assembly.GetExecutingAssembly().Location; ;
-                    //MessageBox.Show("设置开机自启动，需要修改注册表", "提示");
-                    RegistryKey rk = Registry.LocalMachine;
-                    RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
-                    rk2.SetValue("JcShutdown", path);
-                    rk2.Close();
-                    rk.Close();
-                    s.power_on = 1; 
-                }
-            }
-            jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
-            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
-            jiakaoDataSet.setting.AcceptChanges();
+            //foreach (var s in set)
+            //{
+            //    if (kaiji_checkBox.IsChecked == true) //设置开机自启动  
+            //    {
+           
+            //        s.power_on = 1; 
+            //    }
+            //}
+            //jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
+            ////jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting); 
+            //jiakaoDataSet.setting.AcceptChanges();
 
         }
         private void kaiji_checkBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 setting 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
-            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+            //DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            //// 将数据加载到表 setting 中。可以根据需要修改此代码。
+            //DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            //jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
-            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
-            foreach (var s in set)
-            {
-                if (kaiji_checkBox.IsChecked == false) //取消开机自启动  
-                {
-                    string path = Assembly.GetExecutingAssembly().Location;
-                    //MessageBox.Show("取消开机自启动，需要修改注册表", "提示");
-                    RegistryKey rk = Registry.LocalMachine;
-                    RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
-                    rk2.DeleteValue("JcShutdown", false);
-                    rk2.Close();
-                    rk.Close();
-                    s.power_on = 0;
-                }
-            }
-            jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
-            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
-            jiakaoDataSet.setting.AcceptChanges();
+            //var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+            //foreach (var s in set)
+            //{
+            //    if (kaiji_checkBox.IsChecked == false) //取消开机自启动  
+            //    {
+                    
+            //        s.power_on = 0;
+            //    }
+            //}
+            //jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
+            ////jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+            //jiakaoDataSet.setting.AcceptChanges();
         }
 
         //题库包含地方题库
@@ -174,14 +162,14 @@ namespace DrivingTest
 
             var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
 
-            if (jibenshezhi.IsActive == true)
+            if (jibenshezhi.IsActive == true)  
             {
                 foreach (var s in set)
                 {
                     if (s.province != "")//是否有省份
                     {
-                        shengfen_comboBox.SelectedIndex = int.Parse(s.province);
-                        difan_checkBox.IsChecked = true;
+                       shengfen_comboBox.SelectedIndex = int.Parse(s.province);
+                       difan_checkBox.IsChecked = true;
                     }
                     else
                     {
@@ -245,6 +233,10 @@ namespace DrivingTest
 
             if (gongnegnbiaoti.IsActive == true)
             {
+                foreach (var s in set)
+                {
+                    
+                }
                 #region 个人与驾校模式的控件显示与隐藏
                 if (geren_radioButton.IsChecked == true)//个人模式隐藏选择驾照类型-设置,功能模块和学习统计-驾校信息设置
                 {
@@ -330,7 +322,8 @@ namespace DrivingTest
                     MessageBox.Show("两次密码不一致!", "提示");
                 }
             }
-
+            jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
+            jiakaoDataSet.setting.AcceptChanges();
 
 
         }
@@ -338,12 +331,12 @@ namespace DrivingTest
         //浏览图片
         private void liulan_button_Click(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
-            dialog.Filter = "PNG files (*.png)|*.png|JPG files (*.jpg)|*.jpg|JPEG files (*.jpeg)|*.jpeg";
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "图片文件 (*.png*.jpg*.jpeg)|*.png;*.jpg;*.jpeg|PNG files (*.png)|*.png|JPG files (*.jpg*.jpeg)|*.jpg;*.jpeg";
             
             if (dialog.ShowDialog() == true)
             {
-                tupian_textBox.Text = dialog.FileName;
+                tupian_textBox.Text   = dialog.FileName;
             }
       
         }
@@ -356,7 +349,7 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
-            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1  select c;
 
             foreach (var s in set)
             {
@@ -372,10 +365,24 @@ namespace DrivingTest
                     }
                     if (kaiji_checkBox.IsChecked == true)
                     {
+                        string path = Assembly.GetExecutingAssembly().Location; ;
+                        MessageBox.Show("设置开机自启动，需要修改注册表", "提示");
+                        RegistryKey rk = Registry.LocalMachine;
+                        RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
+                        rk2.SetValue("JcShutdown", path);
+                        rk2.Close();
+                        rk.Close();
                         s.power_on = 1;
                     }
                     else
                     {
+                        string path = Assembly.GetExecutingAssembly().Location;
+                        MessageBox.Show("取消开机自启动，需要修改注册表", "提示");
+                        RegistryKey rk = Registry.LocalMachine;
+                        RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
+                        rk2.DeleteValue("JcShutdown", false);
+                        rk2.Close();
+                        rk.Close();
                         s.power_on = 0;
                     }
                     if (tongzhi_checkBox.IsChecked == true)
@@ -422,10 +429,9 @@ namespace DrivingTest
                     }
 
                 }
-                
             }
+                
             jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
-            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
             jiakaoDataSet.setting.AcceptChanges();
 
 

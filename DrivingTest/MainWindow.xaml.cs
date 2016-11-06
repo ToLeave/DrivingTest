@@ -1063,7 +1063,7 @@ where T : DependencyObject
                 {
                     //int? a = null;
                     //int b = a.Value;
-                    jiakaoDataSet.setting.AddsettingRow(0, 0, 0, "", 0, 0, "", "", "", "", 0, "", "", 0, 0, 0, "", 0, 0, 0, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, "", "", 0, key);
+                    jiakaoDataSet.setting.AddsettingRow(0, 0, 0, "", 0, 0, "", "", "", "", 0, "", "", 0, 0, "", 0, 0, 0, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, "", "", 0, key,0);
                     jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
                     jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
                     jiakaoDataSet.setting.AcceptChanges();
