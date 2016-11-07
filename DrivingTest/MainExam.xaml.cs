@@ -1732,7 +1732,7 @@ where T : DependencyObject
         }
         private void CommandBinding_ButtonLastOne_Executed(object sender, ExecutedRoutedEventArgs e)//最后一题
         {
-
+            select_question(question_c - 1);
         }
         private void CommandBinding_ButtonHandExams_Executed(object sender, ExecutedRoutedEventArgs e)//交卷
         {
@@ -1770,12 +1770,12 @@ where T : DependencyObject
 
                     Assignment ass = new Assignment();
                     C1.WPF.C1Window c1w = new C1.WPF.C1Window();
-                    c1w.Content = ass;
+                    c1w.Content = ass; 
                     c1w.ShowModal();
                     c1w.Name = "交卷";
                     c1w.Header = "提示";
 
-                    c1w.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ass.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ass.Height / 2, 0, 0); ;
+                    c1w.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ass.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ass.Height / 2, 0, 0); 
                     ass.queren_button_Click(null, null);
                     c1w.IsActive = true;
                 }

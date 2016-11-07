@@ -160,7 +160,7 @@
                                 <CheckBox Content="隐藏学习页面设置选项" Height="16" HorizontalAlignment="Left" Margin="16,499,0,0" Name="checkBox23" VerticalAlignment="Top" />
                                 <Label Content="科目四 按钮名称:" Height="28" HorizontalAlignment="Left" Margin="161,495,0,0" Name="label15" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="259,499,0,0" Name="textBox10" Text="科目四" VerticalAlignment="Top" Width="80" />
-                                <Button Content="保存设置" Height="23" HorizontalAlignment="Left" Margin="371,501,0,0" Name="button4" VerticalAlignment="Top" Width="75" />
+                                <Button Content="保存设置" Height="23" HorizontalAlignment="Left" Margin="371,501,0,0" Name="gongneng_button" VerticalAlignment="Top" Width="75" Click="gongneng_button_Click" />
                             </Grid>
                         </avalon:LayoutAnchorable>
                         <avalon:LayoutAnchorable x:Name="jianpanshezhi" Title=" 键 盘 " CanClose="False" CanFloat="False" CanHide="False" IsActiveChanged="jianpanshezhi_IsActiveChanged">

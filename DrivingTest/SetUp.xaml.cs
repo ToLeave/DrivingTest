@@ -437,10 +437,35 @@ namespace DrivingTest
 
         }
 
+        //功能标题设置保存
+        private void gongneng_button_Click(object sender, RoutedEventArgs e)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+
+            foreach (var s in set)
+            { 
+
+            }
+        }
+
         //信息设置保存
         private void xinxibaocun_button_Click(object sender, RoutedEventArgs e)
         {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+            foreach (var s in set)
+            {
+ 
+            }
         }
 
 
@@ -727,6 +752,8 @@ namespace DrivingTest
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
             jiakaoDataSet.setting.AcceptChanges();
         }
+
+
 
 
 
