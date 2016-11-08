@@ -22,14 +22,31 @@ namespace DrivingTest
     /// </summary>
     public partial class SetUp : Window
     {
+        public delegate void ChangeTextHandler();//定义委托
+        public event ChangeTextHandler ChangeTextEvent;
+
         public SetUp()
         {
             InitializeComponent();
+            this.Closing += F;
         }
 
         bool power_on = false;//开机启动变量
         string[] interim_key;//临时快捷键数组 索引从0开始依次为 A;B;C;D;对;错;上一题;下一题;第一题;最后题;交卷;确认交卷
 
+        private void F(object o, System.ComponentModel.CancelEventArgs e)
+        {
+            StrikeEvent();
+        }
+
+        //触发事件改变MainWindow的值
+        private void StrikeEvent()
+        {
+            if (ChangeTextEvent != null)
+            {
+                ChangeTextEvent();
+            }
+        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -118,6 +135,16 @@ namespace DrivingTest
             if (guanbi_checkBox.IsChecked == false)//不启用
             {
             }
+        }
+
+        //功能模块
+        private void gongneng_checkBox_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void gongneng_checkBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+
         }
 
         //个人模式
@@ -235,7 +262,93 @@ namespace DrivingTest
             {
                 foreach (var s in set)
                 {
-                    
+                    if (s.functional_module != "")
+                    {
+                        PublicClass.gongneng = s.functional_module.Split(',');
+                    }
+                    else
+                    {
+                        PublicClass.gongneng = new string[6] {"","","","","",""};
+                    }
+
+                    biaoti_textBox.Text = s.software_title; 
+
+                    if (PublicClass.gongneng[0] == "1")
+                    {
+                        zhangjie_checkBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        zhangjie_checkBox.IsChecked = false;
+                    }
+                    if (PublicClass.gongneng[1] == "1")
+                    {
+                        shunxu_checkBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        shunxu_checkBox.IsChecked = false;
+                    }
+                    if (PublicClass.gongneng[2] == "1")
+                    {
+                        suiji_checkBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        suiji_checkBox.IsChecked = false;
+                    }
+                    if (PublicClass.gongneng[3] == "1")
+                    {
+                        zhuanxiang_checkBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        zhuanxiang_checkBox.IsChecked = false;
+                    }
+                    if (PublicClass.gongneng[4] == "1")
+                    {
+                        moni_checkBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        moni_checkBox.IsChecked = false;
+                    }
+                    if (PublicClass.gongneng[5] == "1")
+                    {
+                        cuoti_checkBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        cuoti_checkBox.IsChecked = false;
+                    }
+                    if (s.subject_module != "")
+                    {
+                        if (s.subject_module.Substring(0, 1) == "1")
+                        {
+                            kemu2_checkBox.IsChecked = true;
+                        }
+                        else
+                        {
+                            kemu2_checkBox.IsChecked = false;
+                        }
+                        if (s.subject_module.Substring(2, 1) == "1")
+                        {
+                            kemu3_checkBox.IsChecked = true;
+                        }
+                        else
+                        {
+                            kemu3_checkBox.IsChecked = false;
+                        }
+                    }
+                    else
+                    {
+                        kemu2_checkBox.IsChecked = false;
+                        kemu3_checkBox.IsChecked = false;
+                    }
+
+                    kemu4_textBox.Text = s.subject_four_button;
+
+
                 }
                 #region 个人与驾校模式的控件显示与隐藏
                 if (geren_radioButton.IsChecked == true)//个人模式隐藏选择驾照类型-设置,功能模块和学习统计-驾校信息设置
@@ -249,12 +362,12 @@ namespace DrivingTest
                     label10.IsEnabled = false;
                     label11.IsEnabled = false;
 
-                    checkBox8.IsEnabled = false;
-                    checkBox9.IsEnabled = false;
-                    checkBox10.IsEnabled = false;
-                    checkBox11.IsEnabled = false;
-                    checkBox12.IsEnabled = false;
-                    checkBox13.IsEnabled = false;
+                    zhangjie_checkBox.IsEnabled = false;
+                    shunxu_checkBox.IsEnabled = false;
+                    suiji_checkBox.IsEnabled = false;
+                    zhuanxiang_checkBox.IsEnabled = false;
+                    moni_checkBox.IsEnabled = false;
+                    cuoti_checkBox.IsEnabled = false;
 
                     label12.IsEnabled = false;
                     checkBox17.IsEnabled = false;
@@ -277,12 +390,12 @@ namespace DrivingTest
                     label10.IsEnabled = true;
                     label11.IsEnabled = true;
 
-                    checkBox8.IsEnabled = true;
-                    checkBox9.IsEnabled = true;
-                    checkBox10.IsEnabled = true;
-                    checkBox11.IsEnabled = true;
-                    checkBox12.IsEnabled = true;
-                    checkBox13.IsEnabled = true;
+                    zhangjie_checkBox.IsEnabled = true;
+                    shunxu_checkBox.IsEnabled = true;
+                    suiji_checkBox.IsEnabled = true;
+                    zhuanxiang_checkBox.IsEnabled = true;
+                    moni_checkBox.IsEnabled = true;
+                    cuoti_checkBox.IsEnabled = true;
 
                     label12.IsEnabled = true;
                     checkBox17.IsEnabled = true;
@@ -298,7 +411,80 @@ namespace DrivingTest
 
         }
 
+        //信息设置选项卡
+        private void xingixshezhi_IsActiveChanged(object sender, EventArgs e)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+
+            if (xinxishezhi.IsActive == true)
+            {
+                foreach (var s in set)
+                {
+                    if (s.registration_display != "")
+                    {
+                        PublicClass.xinxi = s.registration_display.Split(',');
+                    }
+                    else
+                    {
+                        PublicClass.xinxi = new string[5] { "", "", "", "", "" };
+                    }
+
+                    if (PublicClass.xinxi[0] == "1")
+                    {
+                        liucheng_checkBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        liucheng_checkBox.IsChecked = false;
+                    }
+                    if (PublicClass.xinxi[1] == "1")
+                    {
+                        lianjie_checkBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        lianjie_checkBox.IsChecked = false;
+                    }
+                    if (PublicClass.xinxi[2] == "1")
+                    {
+                        QQ_checkBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        QQ_checkBox.IsChecked = false;
+                    }
+                    if (PublicClass.xinxi[3] == "1")
+                    {
+                        WW_checkBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        WW_checkBox.IsChecked = false;
+                    }
+                    if (PublicClass.xinxi[4] == "1")
+                    {
+                        beizhu_checkBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        beizhu_checkBox.IsChecked = false;
+                    }
+
+                    liucheng_textBox.Text = s.registration_process;
+                    lianjie_textBox.Text = s.payment_link;
+                    QQ_textBox.Text = s.customer_service_QQ;
+                    WW_textBox.Text = s.customer_service_WW;
+                    beizhu_textBox.Text = s.comments;
+                     
+
+                }
+            }
+        }
 
         //保存设置密码和退出密码
         private void baocun_passbutton_Click(object sender, RoutedEventArgs e)
@@ -447,10 +633,98 @@ namespace DrivingTest
 
             var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
 
-            foreach (var s in set)
-            { 
+            string[] gongneng = new string[6];//索引从0开始依次为 章节练习;顺序练习;随机练习;专项练习;模拟考试;错题强化; 0为启用不选中,1为禁用选中
+            string gongstring = "";
+            string kemuer = "";
+            string kemusan = "";
 
+            if (zhangjie_checkBox.IsChecked == true)
+            {
+                gongneng[0] = "1";
             }
+            else
+            {
+                gongneng[0] = "0";
+            }
+            if (shunxu_checkBox.IsChecked == true)
+            {
+                gongneng[1] = "1";
+            }
+            else
+            {
+                gongneng[1] = "0";
+            }
+            if (suiji_checkBox.IsChecked == true)
+            {
+                gongneng[2] = "1";
+            }
+            else
+            {
+                gongneng[2] = "0";
+            }
+            if (zhuanxiang_checkBox.IsChecked == true)
+            {
+                gongneng[3] = "1";
+            }
+            else
+            {
+                gongneng[3] = "0";
+            }
+            if (moni_checkBox.IsChecked == true)
+            {
+                gongneng[4] = "1";
+            }
+            else
+            {
+                gongneng[4] = "0";
+            }
+            if (cuoti_checkBox.IsChecked == true)
+            {
+                gongneng[5] = "1";
+            }
+            else
+            {
+                gongneng[5] = "0";
+            }
+
+            for (int i = 0; i <= 5; i++)
+            {
+                if (i < 5)
+                {
+                    gongstring += gongneng[i] + ",";
+                }
+                else
+                {
+                    gongstring += gongneng[i];
+                }
+            }
+
+            if (kemu2_checkBox.IsChecked == true)
+            {
+                kemuer = "1";
+            }
+            else
+            {
+                kemuer = "0";
+            }
+            if (kemu3_checkBox.IsChecked == true)
+            {
+                kemusan = "1";
+            }
+            else
+            {
+                kemusan = "0";
+            }
+
+            foreach (var s in set)
+            {
+                s.software_title = biaoti_textBox.Text;
+                s.functional_module = gongstring;
+                s.subject_module = kemuer + "," + kemusan;
+                s.subject_four_button = kemu4_textBox.Text;
+            }
+            jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
+            jiakaoDataSet.setting.AcceptChanges();
         }
 
         //信息设置保存
@@ -462,10 +736,74 @@ namespace DrivingTest
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
             var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+
+            string[] xinxi = new string[5];//索引从0开始依次为 注册流程;付款链接;客服QQ;客服旺旺;备注; 0为启用不选中,1为禁用选中
+            string xinxistring = "";
+
+            if (liucheng_checkBox.IsChecked == true)
+            {
+                xinxi[0] = "1";
+            }
+            else
+            {
+                xinxi[0] = "0";
+            }
+            if (lianjie_checkBox.IsChecked == true)
+            {
+                xinxi[1] = "1";
+            }
+            else
+            {
+                xinxi[1] = "0";
+            }
+            if (QQ_checkBox.IsChecked == true)
+            {
+                xinxi[2] = "1";
+            }
+            else
+            {
+                xinxi[2] = "0";
+            }
+            if (WW_checkBox.IsChecked == true)
+            {
+                xinxi[3] = "1";
+            }
+            else
+            {
+                xinxi[3] = "0";
+            }
+            if (beizhu_checkBox.IsChecked == true)
+            {
+                xinxi[4] = "1";
+            }
+            else
+            {
+                xinxi[4] = "0";
+            }
+
+            for (int i = 0; i <= 4; i++)
+            {
+                if (i < 4)
+                {
+                    xinxistring += xinxi[i] + ",";
+                }
+                else
+                {
+                    xinxistring += xinxi[i];
+                }
+            }
+
             foreach (var s in set)
             {
- 
+                s.registration_display = xinxistring;
+                s.registration_process = liucheng_textBox.Text;
+                s.payment_link = lianjie_textBox.Text;
+                s.customer_service_QQ = QQ_textBox.Text;
+                s.customer_service_WW = WW_textBox.Text;
+                s.comments = beizhu_textBox.Text;
             }
+            jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
+            jiakaoDataSet.setting.AcceptChanges();
         }
 
 
@@ -752,6 +1090,12 @@ namespace DrivingTest
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
             jiakaoDataSet.setting.AcceptChanges();
         }
+
+
+
+
+
+
 
 
 

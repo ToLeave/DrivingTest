@@ -104,7 +104,7 @@
                         <avalon:LayoutAnchorable x:Name="gongnegnbiaoti" Title="功能-标题" CanClose="False" CanFloat="False" CanHide="False" IsActiveChanged="gongnegnbiaoti_IsActiveChanged">
                             <Grid>
                                 <Label Content="软件标题" Height="28" HorizontalAlignment="Left" Margin="16,6,0,0" Name="label8" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="91,11,0,0" Name="textBox7" VerticalAlignment="Top" Width="350" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="91,11,0,0" Name="biaoti_textBox" VerticalAlignment="Top" Width="350" />
                                 
                                 <CheckBox Content="隐藏(驾照说明)按钮" Height="16" HorizontalAlignment="Left" Margin="45,52,0,0" Name="checkBox5" VerticalAlignment="Top" />
                                 <CheckBox Content="隐藏(设置按钮)" Height="16" HorizontalAlignment="Left" Margin="312,52,0,0" Name="checkBox6" VerticalAlignment="Top" />
@@ -116,18 +116,18 @@
                                 <Line X1="260" Margin="149,151,0,0" StrokeThickness="3" StrokeDashArray="0.5" Height="3" Width="260" HorizontalAlignment="Left" VerticalAlignment="Top" Stroke="Black" />
                                 <Label Content="快" Height="25" HorizontalAlignment="Left" Margin="406,127,0,0" Name="label11" VerticalAlignment="Top" FontSize="10" />
                                 <GroupBox Header="选择驾照类型-设置" Height="120" HorizontalAlignment="Left" Margin="16,35,0,0" Name="groupBox4" VerticalAlignment="Top" Width="430"/>
-                                
-                                <CheckBox Content="章节练习" Height="16" HorizontalAlignment="Left" Margin="45,173,0,0" Name="checkBox8" VerticalAlignment="Top" />
-                                <CheckBox Content="顺序练习" Height="16" HorizontalAlignment="Left" Margin="197,173,0,0" Name="checkBox9" VerticalAlignment="Top" />
-                                <CheckBox Content="随机练习" Height="16" HorizontalAlignment="Left" Margin="336,173,0,0" Name="checkBox10" VerticalAlignment="Top" />
-                                <CheckBox Content="专项练习" Height="16" HorizontalAlignment="Left" Margin="45,194,0,0" Name="checkBox11" VerticalAlignment="Top" />
-                                <CheckBox Content="模拟考试" Height="16" HorizontalAlignment="Left" Margin="197,194,0,0" Name="checkBox12" VerticalAlignment="Top" />
-                                <CheckBox Content="错题强化" Height="16" HorizontalAlignment="Left" Margin="336,194,0,0" Name="checkBox13" VerticalAlignment="Top" />
+
+                                <CheckBox Content="章节练习" Height="16" HorizontalAlignment="Left" Margin="45,173,0,0" Name="zhangjie_checkBox" VerticalAlignment="Top" Checked="gongneng_checkBox_Checked" Unchecked="gongneng_checkBox_Unchecked" />
+                                <CheckBox Content="顺序练习" Height="16" HorizontalAlignment="Left" Margin="197,173,0,0" Name="shunxu_checkBox" VerticalAlignment="Top" Checked="gongneng_checkBox_Checked" Unchecked="gongneng_checkBox_Unchecked"/>
+                                <CheckBox Content="随机练习" Height="16" HorizontalAlignment="Left" Margin="336,173,0,0" Name="suiji_checkBox" VerticalAlignment="Top" Checked="gongneng_checkBox_Checked" Unchecked="gongneng_checkBox_Unchecked"/>
+                                <CheckBox Content="专项练习" Height="16" HorizontalAlignment="Left" Margin="45,194,0,0" Name="zhuanxiang_checkBox" VerticalAlignment="Top" Checked="gongneng_checkBox_Checked" Unchecked="gongneng_checkBox_Unchecked"/>
+                                <CheckBox Content="模拟考试" Height="16" HorizontalAlignment="Left" Margin="197,194,0,0" Name="moni_checkBox" VerticalAlignment="Top" Checked="gongneng_checkBox_Checked" Unchecked="gongneng_checkBox_Unchecked"/>
+                                <CheckBox Content="错题强化" Height="16" HorizontalAlignment="Left" Margin="336,194,0,0" Name="cuoti_checkBox" VerticalAlignment="Top" Checked="gongneng_checkBox_Checked" Unchecked="gongneng_checkBox_Unchecked"/>
                                 <GroupBox Header="功能模块(仅驾校模式下有效)" Height="60" HorizontalAlignment="Left" Margin="16,154,0,0" Name="groupBox5" VerticalAlignment="Top" Width="430"/>
                                 
-                                <CheckBox Content="科目二" Height="16" HorizontalAlignment="Left" Margin="45,230,0,0" Name="checkBox14" VerticalAlignment="Top" />
-                                <CheckBox Content="科目三" Height="16" HorizontalAlignment="Left" Margin="197,230,0,0" Name="checkBox15" VerticalAlignment="Top" />
-                                <CheckBox Content="相关知识" Height="16" HorizontalAlignment="Left" Margin="336,230,0,0" Name="checkBox16" VerticalAlignment="Top" />  
+                                <CheckBox Content="科目二" Height="16" HorizontalAlignment="Left" Margin="45,230,0,0" Name="kemu2_checkBox" VerticalAlignment="Top" />
+                                <CheckBox Content="科目三" Height="16" HorizontalAlignment="Left" Margin="197,230,0,0" Name="kemu3_checkBox" VerticalAlignment="Top" />
+                                <!--<CheckBox Content="相关知识" Height="16" HorizontalAlignment="Left" Margin="336,230,0,0" Name="checkBox16" VerticalAlignment="Top" />-->  
                                 <GroupBox Header="显示-科目二,三,相关知识-项目" Height="40" HorizontalAlignment="Left" Margin="16,212,0,0" Name="groupBox6" VerticalAlignment="Top" Width="430"/>
                                 
                                 <Label Content="学习状态统计-最近十次成绩柱状图位置:" Height="28" HorizontalAlignment="Left" Margin="45,262,0,0" Name="label12" VerticalAlignment="Top" />
@@ -140,7 +140,7 @@
                                 <CheckBox Content="显示驾校图片和驾校简介文字" Height="16" HorizontalAlignment="Left" Margin="45,331,0,0" Name="checkBox18" VerticalAlignment="Top" />
                                 <GroupBox Header="学习统计-驾校信息设置(仅驾校模式下有效)" Height="100" HorizontalAlignment="Left" Margin="16,252,0,0" Name="groupBox7" VerticalAlignment="Top" Width="430" Visibility="Visible" />
 
-                                <!--Grid Height="30" HorizontalAlignment="Left" Margin="17,360,0,0" Name="grid1" VerticalAlignment="Top" Width="430">
+                                <!--<Grid Height="30" HorizontalAlignment="Left" Margin="17,360,0,0" Name="grid1" VerticalAlignment="Top" Width="430">
                                     <RadioButton Content="小" Height="16" HorizontalAlignment="Left" Margin="127,6,0,0" Name="radioButton5" VerticalAlignment="Top" />
                                     <RadioButton Content="大" Height="16" HorizontalAlignment="Left" Margin="296,6,0,0" Name="radioButton6" VerticalAlignment="Top" />
                                     <Label Content="题目字体:" Height="28" HorizontalAlignment="Left" Margin="21,1,0,0" Name="label20" VerticalAlignment="Top" />
@@ -159,7 +159,7 @@
                                 
                                 <CheckBox Content="隐藏学习页面设置选项" Height="16" HorizontalAlignment="Left" Margin="16,499,0,0" Name="checkBox23" VerticalAlignment="Top" />
                                 <Label Content="科目四 按钮名称:" Height="28" HorizontalAlignment="Left" Margin="161,495,0,0" Name="label15" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="259,499,0,0" Name="textBox10" Text="科目四" VerticalAlignment="Top" Width="80" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="259,499,0,0" Name="kemu4_textBox" Text="科目四" VerticalAlignment="Top" Width="80" />
                                 <Button Content="保存设置" Height="23" HorizontalAlignment="Left" Margin="371,501,0,0" Name="gongneng_button" VerticalAlignment="Top" Width="75" Click="gongneng_button_Click" />
                             </Grid>
                         </avalon:LayoutAnchorable>
@@ -199,26 +199,26 @@
                                 <Button Content="保存" Height="23" HorizontalAlignment="Left" Margin="376,497,0,0" Name="jianpanshezhi_button" VerticalAlignment="Top" Width="75" Click="jianpanshezhi_button_Click" />
                             </Grid>
                         </avalon:LayoutAnchorable>
-                        <avalon:LayoutAnchorable Title=" 信息设置 " CanClose="False" CanFloat="False" CanHide="False">
+                        <avalon:LayoutAnchorable Title=" 信息设置 " x:Name="xinxishezhi" CanClose="False" CanFloat="False" CanHide="False" IsActiveChanged="xingixshezhi_IsActiveChanged">
                             <Grid>
-                                <CheckBox Content="注册流程" Height="16" HorizontalAlignment="Left" Margin="50,21,0,0" Name="checkBox24" VerticalAlignment="Top" />
+                                <CheckBox Content="注册流程" Height="16" HorizontalAlignment="Left" Margin="50,21,0,0" Name="liucheng_checkBox" VerticalAlignment="Top" />
                                 <Line X1="400" Width="400" Height="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38,43,0,0" StrokeDashArray="1" StrokeThickness="5" Stroke="Black"/>
-                                <TextBox Height="100" HorizontalAlignment="Left" Margin="50,51,0,0" Name="textBox11" VerticalAlignment="Top" Width="380" TextWrapping="Wrap" Text="{Binding Path=registration_process, Source={StaticResource settingViewSource},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Height="100" HorizontalAlignment="Left" Margin="50,51,0,0" Name="liucheng_textBox" VerticalAlignment="Top" Width="380" TextWrapping="Wrap" Text="" />
                                 <GroupBox Header="注册流程" Height="155" HorizontalAlignment="Left" Margin="21,3,0,0" Name="groupBox9" VerticalAlignment="Top" Width="430" Visibility="Hidden" />
                                 
-                                <CheckBox Content="付款链接" Height="16" HorizontalAlignment="Left" Margin="50,181,0,0" Name="checkBox25" VerticalAlignment="Top" />
+                                <CheckBox Content="付款链接" Height="16" HorizontalAlignment="Left" Margin="50,181,0,0" Name="lianjie_checkBox" VerticalAlignment="Top" />
                                 <Label Content="文字" Height="28" HorizontalAlignment="Left" Margin="50,203,0,0" Name="label16" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="106,203,0,0" Name="textBox12" VerticalAlignment="Top" Width="200" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="106,203,0,0" Name="wenzi_textBox" VerticalAlignment="Top" Width="200" />
                                 <Label Content="链接" Height="28" HorizontalAlignment="Left" Margin="50,231,0,0" Name="label17" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="106,233,0,0" Name="textBox13" VerticalAlignment="Top" Width="330" Text="{Binding Path=payment_link, Source={StaticResource settingViewSource},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                                <CheckBox Content="客服QQ" Height="16" HorizontalAlignment="Left" Margin="50,265,0,0" Name="checkBox26" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="106,233,0,0" Name="lianjie_textBox" VerticalAlignment="Top" Width="330" Text="" />
+                                <CheckBox Content="客服QQ" Height="16" HorizontalAlignment="Left" Margin="50,265,0,0" Name="QQ_checkBox" VerticalAlignment="Top" />
                                 <Label Content="QQ号码" Height="28" HorizontalAlignment="Left" Margin="50,287,0,0" Name="label18" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="106,287,0,0" Name="textBox14" VerticalAlignment="Top" Width="200" Text="{Binding Path=customer_service_QQ, Source={StaticResource settingViewSource},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                                <CheckBox Content="客服旺旺" Height="16" HorizontalAlignment="Left" Margin="50,321,0,0" Name="checkBox27" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="106,287,0,0" Name="QQ_textBox" VerticalAlignment="Top" Width="200" Text="" />
+                                <CheckBox Content="客服旺旺" Height="16" HorizontalAlignment="Left" Margin="50,321,0,0" Name="WW_checkBox" VerticalAlignment="Top" />
                                 <Label Content="旺旺号" Height="28" HorizontalAlignment="Left" Margin="50,343,0,0" Name="label19" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="106,343,0,0" Name="textBox15" VerticalAlignment="Top" Width="200" Text="{Binding Path=customer_service_WW, Source={StaticResource settingViewSource},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                                <CheckBox Content="备注" Height="16" HorizontalAlignment="Left" Margin="50,372,0,0" Name="checkBox28" VerticalAlignment="Top" />
-                                <TextBox Height="100" HorizontalAlignment="Left" Margin="50,394,0,0" Name="textBox16" VerticalAlignment="Top" Width="380" TextWrapping="Wrap" Text="{Binding Path=comments, Source={StaticResource settingViewSource},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="106,343,0,0" Name="WW_textBox" VerticalAlignment="Top" Width="200" Text="" />
+                                <CheckBox Content="备注" Height="16" HorizontalAlignment="Left" Margin="50,372,0,0" Name="beizhu_checkBox" VerticalAlignment="Top" />
+                                <TextBox Height="100" HorizontalAlignment="Left" Margin="50,394,0,0" Name="beizhu_textBox" VerticalAlignment="Top" Width="380" TextWrapping="Wrap" Text=""/>
                                 <GroupBox Header="注册说明" Height="340" HorizontalAlignment="Left" Margin="21,161,0,0" Name="groupBox10" VerticalAlignment="Top" Width="430" Visibility="Hidden"></GroupBox>
                                 <Button Content="保存设置" Height="23" Name="xinxibaocun_button" Width="75" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="376,500,0,0" Click="xinxibaocun_button_Click" />
                             </Grid>

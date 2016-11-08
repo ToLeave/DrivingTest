@@ -103,7 +103,7 @@ namespace DrivingTest
             }
             else
             {
-                MessageBox.Show("做错次数为"+err_count+"的错题为0题","提示");
+                MessageBox.Show("做错次数为" + err_count + "的错题为0题","提示");
             }
  
 

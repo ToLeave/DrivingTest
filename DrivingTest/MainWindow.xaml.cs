@@ -41,10 +41,10 @@ namespace DrivingTest
         int cur_cown_count = 1;//正在下载附件数
         List<string> img_down_list = new List<string>();
         List<string> voice_down_list = new List<string>();
-        JArray question_json ;//题目json
-        JArray answer_json ;//答案json
-        JArray chapter_json ;//章节json
-        JArray subject_json ;//科目json
+        JArray question_json;//题目json
+        JArray answer_json;//答案json
+        JArray chapter_json;//章节json
+        JArray subject_json;//科目json
 
         public MainWindow()
         {
@@ -117,7 +117,219 @@ where T : DependencyObject
             return foundChild;
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
 
+            //PublicClass.http = @"http://192.168.1.98:3000";
+
+            PublicClass.http = @"http://jiakao.cloudtimesoft.com";
+            //maincanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
+
+
+
+            try
+            {
+                DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+                // 将数据加载到表 updatecheck 中。可以根据需要修改此代码。
+                DrivingTest.jiakaoDataSetTableAdapters.updatecheckTableAdapter jiakaoDataSetupdatecheckTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.updatecheckTableAdapter();
+                jiakaoDataSetupdatecheckTableAdapter.Fill(jiakaoDataSet.updatecheck);
+                // 将数据加载到表 setting 中。可以根据需要修改此代码。
+                DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+                jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+
+
+
+
+                string key = "NumPad1,NumPad2,NumPad3,NumPad5,NumPad4,NumPad6,Subtract,Add,None,None,Divide,None";//初始默认快捷键为方案一
+                var setting = from c in jiakaoDataSet.setting select c;
+                if (setting.Count() == 0)//初始化设置表
+                {
+                    //int? a = null;
+                    //int b = a.Value;
+                    jiakaoDataSet.setting.AddsettingRow(0, 0, 0, "", 0, 0, "", "", "", "", 0, "", "", 0, 0, "", 0, 0, 0, "", "", "", "", "", "", "", "科目四", "", "", "", "", "", "", "", "", 0, "", "", 0, key, 0);
+                    jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
+                    jiakaoDataSet.setting.AcceptChanges();
+                    foreach (var se in setting)
+                    {
+                        if (se.not_show.ToString() == "0")
+                        {
+                            Notice no = new Notice();
+                            no.Show();
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var se in setting)
+                    {
+                        if (se.subject_module != "")
+                        {
+                            if (se.subject_module.Substring(0, 1) == "1")
+                            {
+                                subject2.Visibility = System.Windows.Visibility.Hidden;
+                            }
+                            else
+                            {
+                                subject2.Visibility = System.Windows.Visibility.Visible;
+                            }
+                            if (se.subject_module.Substring(2, 1) == "1")
+                            {
+                                subject3.Visibility = System.Windows.Visibility.Hidden;
+                            }
+                            else
+                            {
+                                subject3.Visibility = System.Windows.Visibility.Visible;
+                            }
+                        }
+                        else
+                        {
+                            subject2.Visibility = System.Windows.Visibility.Visible;
+                            subject3.Visibility = System.Windows.Visibility.Visible;
+                        }
+
+                        if (se.not_show.ToString() == "0")
+                        {
+                            Notice no = new Notice();
+                            no.Show();
+                        }
+                    }
+                }
+
+
+
+
+
+
+                Thread newthread = new Thread(new ThreadStart(() =>
+                {
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        xianshi.Text = "正在检查更新";
+                        System.Windows.Forms.Application.DoEvents();
+                        if (checknetwork())
+                        {
+                            var chkupd = from c in jiakaoDataSet.updatecheck select c;
+                            var getchkupdstr = getupdatecheck();
+                            var localchkupdstr = "";
+                            foreach (var mychkupd in chkupd)
+                            {
+                                localchkupdstr = mychkupd.updatecheck;
+                            }
+                            if (getchkupdstr == localchkupdstr)
+                            {
+                                xianshi.Text = "已是最新版本";
+                            }
+                            else
+                            {
+                                updatequestion();
+                                //updatedownload();
+                                version(getchkupdstr);
+                                //xianshi.Text = "下载完毕,更新已完成";
+                            }
+                        }
+                        else
+                        {
+                            xianshi.Text = "无法连接网络,脱机模式下请到注册页面联系客服购买注册码";
+
+                        }
+
+
+
+
+
+                    }));
+
+
+
+                }));
+                newthread.SetApartmentState(ApartmentState.MTA);
+                newthread.IsBackground = true;
+                newthread.Priority = ThreadPriority.Lowest;
+                newthread.Start();
+
+
+
+
+
+
+
+
+
+                qianlunqipao.MouseEnter += new MouseEventHandler(qianlun_MouseEnter);
+                qianlunqipao.MouseLeave += new MouseEventHandler(qianlun_MouseLeave);
+                houlunqipao.MouseEnter += new MouseEventHandler(houlun_MouseEnter);
+                houlunqipao.MouseLeave += new MouseEventHandler(houlun_MouseLeave);
+
+                //显示账号剩余次数、帐号毕业、帐号异常、在其它机器登陆
+                string zhanghao = "";
+                if (user_textBox.Text != "")
+                {
+                    xianshi.Text = zhanghao;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
+            //test re = new test();
+            //C1.WPF.C1Window cc = new C1.WPF.C1Window();
+            //cc.Content = re;
+            //cc.Show();
+
+
+        }
+
+
+        public void updateUI()
+        {
+            Thread t = new Thread(new ThreadStart(ThreadMethod));
+            t.Start();
+        }
+        void ThreadMethod()
+        {
+            this.Dispatcher.Invoke(new MyDelegate(DelegateMethod), "通过委托跨线程访问");
+        }
+        delegate void MyDelegate(string param);
+        void DelegateMethod(string param)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            var setting = from c in jiakaoDataSet.setting select c;
+            foreach (var se in setting)
+            {
+                if (se.subject_module != "")
+                {
+                    if (se.subject_module.Substring(0, 1) == "1")
+                    {
+                        subject2.Visibility = System.Windows.Visibility.Hidden;
+                    }
+                    else
+                    {
+                        subject2.Visibility = System.Windows.Visibility.Visible;
+                    }
+                    if (se.subject_module.Substring(2, 1) == "1")
+                    {
+                        subject3.Visibility = System.Windows.Visibility.Hidden;
+                    }
+                    else
+                    {
+                        subject3.Visibility = System.Windows.Visibility.Visible;
+                    }
+                }
+                else
+                {
+                    subject2.Visibility = System.Windows.Visibility.Visible;
+                    subject3.Visibility = System.Windows.Visibility.Visible;
+                }
+            }
+        }
 
         //登录界面判断本机是否联网
         private bool checknetwork()
@@ -129,13 +341,13 @@ where T : DependencyObject
             for (int i = 0; i < 2; i++)
             {
 
-                    res = ping.Send("www.baidu.com");
-                    if (res.Status == System.Net.NetworkInformation.IPStatus.Success)
-                    {
-                        is_ping = true;
-                        i = 2;
-                    }
-                 
+                res = ping.Send("www.baidu.com");
+                if (res.Status == System.Net.NetworkInformation.IPStatus.Success)
+                {
+                    is_ping = true;
+                    i = 2;
+                }
+
             }
             if (is_ping)
                 return true;
@@ -236,7 +448,7 @@ where T : DependencyObject
 
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 str = "";
                 MessageBox.Show(ex.Message);
@@ -369,7 +581,7 @@ where T : DependencyObject
 
                 #region 题目表和答案表写入和更新
                 //写入和更新题目表
-                foreach (var remotequestion in question_json) 
+                foreach (var remotequestion in question_json)
                 {
                     var localquestion = from c in jiakaoDataSet.question where remotequestion["id"].ToString() == c.question_id.ToString() select c;
 
@@ -763,14 +975,14 @@ where T : DependencyObject
             //    e.BytesReceived / 1024 / 1024,
             //    e.TotalBytesToReceive / 1024 / 1024,
             //    e.ProgressPercentage.ToString("N2"));
-            
+
             if (e.ProgressPercentage > progress.Value)
             {
                 progress.Value = e.ProgressPercentage;
                 System.Windows.Forms.Application.DoEvents();
             }
             //xianshi.Text = e.ProgressPercentage.ToString();
-            
+
         }
 
         //下载完成时发生
@@ -945,9 +1157,9 @@ where T : DependencyObject
                 }
                 JArray passwordMD5_json = JArray.Parse(passwordstr);
                 string json = passwordMD5_json.ToString();
-         
+
                 login_status = passwordMD5_json[0]["status"].ToString();
-                
+
                 if (login_status == "error")//验证不通过
                 {
                     MessageBox.Show("账号或密码错误!");
@@ -976,7 +1188,7 @@ where T : DependencyObject
                     return true;
                 }
 
-                
+
 
             }
             catch (Exception ex)
@@ -1007,7 +1219,7 @@ where T : DependencyObject
             string tempip = "";
             try
             {
-                
+
                 WebRequest request = WebRequest.Create("http://ip.qq.com/");
                 request.Timeout = 10000;
                 WebResponse response = request.GetResponse();
@@ -1032,150 +1244,6 @@ where T : DependencyObject
             }
         }
 
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-
-            //PublicClass.http = @"http://192.168.1.98:3000";
-
-            PublicClass.http = @"http://jiakao.cloudtimesoft.com";
-            //maincanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
-
-
-
-            try
-            {
-                DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-                // 将数据加载到表 updatecheck 中。可以根据需要修改此代码。
-                DrivingTest.jiakaoDataSetTableAdapters.updatecheckTableAdapter jiakaoDataSetupdatecheckTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.updatecheckTableAdapter();
-                jiakaoDataSetupdatecheckTableAdapter.Fill(jiakaoDataSet.updatecheck);
-                // 将数据加载到表 setting 中。可以根据需要修改此代码。
-                DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
-                jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
-
-
-
-
-
-                string key = "NumPad1,NumPad2,NumPad3,NumPad5,NumPad4,NumPad6,Subtract,Add,None,None,Divide,None";//初始默认快捷键为方案一
-                var setting = from c in jiakaoDataSet.setting select c;
-                if (setting.Count() == 0)//初始化设置表
-                {
-                    //int? a = null;
-                    //int b = a.Value;
-                    jiakaoDataSet.setting.AddsettingRow(0, 0, 0, "", 0, 0, "", "", "", "", 0, "", "", 0, 0, "", 0, 0, 0, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, "", "", 0, key,0);
-                    jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
-                    jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
-                    jiakaoDataSet.setting.AcceptChanges();
-                    foreach (var se in setting)
-                    {
-
-                        if (se.not_show.ToString() == "0")
-                        {
-                            Notice no = new Notice();
-                            no.Show();
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (var se in setting)
-                    {
-
-                        if (se.not_show.ToString() == "0")
-                        {
-                            Notice no = new Notice();
-                            no.Show();
-                        }
-                    }
-                }
-
-
-
-
-
-
-                Thread newthread = new Thread(new ThreadStart(() =>
-        {
-            Dispatcher.Invoke(new Action(() =>
-                {
-                    xianshi.Text = "正在检查更新";
-                    System.Windows.Forms.Application.DoEvents();
-                    if (checknetwork())
-                    {
-                        var chkupd = from c in jiakaoDataSet.updatecheck select c;
-                        var getchkupdstr = getupdatecheck();
-                        var localchkupdstr = "";
-                        foreach (var mychkupd in chkupd)
-                        {
-                            localchkupdstr = mychkupd.updatecheck;
-                        }
-                        if (getchkupdstr == localchkupdstr)
-                        {
-                            xianshi.Text = "已是最新版本";
-                        }
-                        else
-                        {
-                            updatequestion();
-                            //updatedownload();
-                            version(getchkupdstr);
-                            //xianshi.Text = "下载完毕,更新已完成";
-                        }
-                    }
-                    else
-                    {
-                        xianshi.Text = "无法连接网络,脱机模式下请到注册页面联系客服购买注册码";
-
-                    }
-
-
-
-
-
-                }));
-
-
-
-        }));
-                newthread.SetApartmentState(ApartmentState.MTA);
-                newthread.IsBackground = true;
-                newthread.Priority = ThreadPriority.Lowest;
-                newthread.Start();
-
-
-
-
-
-
-
-
-
-                qianlunqipao.MouseEnter += new MouseEventHandler(qianlun_MouseEnter);
-                qianlunqipao.MouseLeave += new MouseEventHandler(qianlun_MouseLeave);
-                houlunqipao.MouseEnter += new MouseEventHandler(houlun_MouseEnter);
-                houlunqipao.MouseLeave += new MouseEventHandler(houlun_MouseLeave);
-
-                //显示账号剩余次数、帐号毕业、帐号异常、在其它机器登陆
-                string zhanghao = "";
-                if (user_textBox.Text != "")
-                {
-                    xianshi.Text = zhanghao;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-
-            //test re = new test();
-            //C1.WPF.C1Window cc = new C1.WPF.C1Window();
-            //cc.Content = re;
-            //cc.Show();
-
-
-        }
 
         #region 首页动画
         //指针进入前轮
@@ -1401,7 +1469,7 @@ where T : DependencyObject
         private void login_Click(object sender, RoutedEventArgs e)
         {
             if (testlogin() == false)//验证
-            { 
+            {
             }
             else
             {
@@ -1437,7 +1505,7 @@ where T : DependencyObject
                 jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
 
 
-                string err= null;//数据流
+                string err = null;//数据流
                 HttpWebResponse response = null;
                 StreamReader reader = null;
 
@@ -1457,8 +1525,8 @@ where T : DependencyObject
 
                     foreach (var err_question in errquestion_json)//写入错题
                     {
-                        var errquestion = from c in jiakaoDataSet.errquest where c.question_id.ToString() == err_question["question_id"].ToString() && c.user_id.ToString() == err_question["user_id"].ToString( ) select c;
-          
+                        var errquestion = from c in jiakaoDataSet.errquest where c.question_id.ToString() == err_question["question_id"].ToString() && c.user_id.ToString() == err_question["user_id"].ToString() select c;
+
                         if (errquestion.Count() == 0)
                         {
                             jiakaoDataSet.errquest.AdderrquestRow(int.Parse(err_question["user_id"].ToString()), int.Parse(err_question["question_id"].ToString()), int.Parse(err_question["amount"].ToString()));
@@ -1470,7 +1538,7 @@ where T : DependencyObject
                         jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
                         jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
                         jiakaoDataSet.errquest.AcceptChanges();
-                        
+
                     }
 
                     response.Close();
@@ -1544,13 +1612,14 @@ where T : DependencyObject
 
             foreach (var s in set)
             {
-                
+
                 if (s.password == "") //OleDbDataReader["close_password"].toString() != "")
                 {
                     SetUp se = new SetUp();
                     se.Height = 600;
                     se.Width = 500;
-                    se.Show();
+                    se.ChangeTextEvent += new DrivingTest.SetUp.ChangeTextHandler(updateUI);
+                    se.ShowDialog();
                 }
                 else
                 {
@@ -1580,18 +1649,18 @@ where T : DependencyObject
                     PublicClass.cartype = "C1";
                     PublicClass.subjection = "科目一";
                     c1ma.Content = ma;
-                    
+
                     c1ma.ToolTip = "小车类:科目一";
                     c1ma.Name = "科目一";
                     c1ma.Header = "小车类:科目一";
                     c1ma.Show();
 
-         
+
 
                     c1ma.IsResizable = false;
-          
-                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2-ma.Width/2, SystemParameters.PrimaryScreenHeight/ 2-ma.Height/2, 0, 0);
-           
+
+                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+
                     maincanvas.Visibility = Visibility.Hidden;
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
@@ -1805,7 +1874,7 @@ where T : DependencyObject
             old_point = e.GetPosition(maincanvas);
             old_margin = maincanvas.Margin;
             move = "move";
-          
+
         }
 
         private void maincanvas_PreviewMouseMove(object sender, MouseEventArgs e)
@@ -1813,9 +1882,9 @@ where T : DependencyObject
 
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                if ( move == "move")
+                if (move == "move")
                 {
-                    maincanvas.Margin = new Thickness(old_margin.Left + e.GetPosition(maincanvas).X - old_point.X, old_margin.Top + e.GetPosition(maincanvas).Y - old_point.Y,0, 0);
+                    maincanvas.Margin = new Thickness(old_margin.Left + e.GetPosition(maincanvas).X - old_point.X, old_margin.Top + e.GetPosition(maincanvas).Y - old_point.Y, 0, 0);
                 }
             }
         }

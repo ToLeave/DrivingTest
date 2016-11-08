@@ -188,9 +188,74 @@ namespace DrivingTest
             // 将数据加载到表 chapter 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
             jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
-            System.Windows.Data.CollectionViewSource chapterViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("chapterViewSource")));
-            chapterViewSource.View.MoveCurrentToFirst();
 
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+
+            foreach (var s in set)
+            {
+                if (s.functional_module != "")
+                {
+                    PublicClass.gongneng = s.functional_module.Split(',');
+                }
+                else
+                {
+                    PublicClass.gongneng = new string[6] { "", "", "", "", "", "" };
+                }
+                if (PublicClass.gongneng[0] == "1")
+                {
+                    zhangjielianxi.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else
+                {
+                    zhangjielianxi.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.gongneng[1] == "1")
+                {
+                    shunxulianxi.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else
+                {
+                    shunxulianxi.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.gongneng[2] == "1")
+                {
+                    suijilianxi.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else
+                {
+                    suijilianxi.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.gongneng[3] == "1")
+                {
+                    zhuanxianglianxi.Visibility = System.Windows.Visibility.Hidden;
+                    zhuanxiangmoni.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else
+                {
+                    zhuanxianglianxi.Visibility = System.Windows.Visibility.Visible;
+                    zhuanxiangmoni.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.gongneng[4] == "1")
+                {
+                    simulation_test.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else
+                {
+                    simulation_test.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.gongneng[5] == "1")
+                {
+                    my_mistakes.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else
+                {
+                    my_mistakes.Visibility = System.Windows.Visibility.Visible;
+                }
+            }
             list_bangding(PublicClass.cartype, PublicClass.subjection);
         }
 
