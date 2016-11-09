@@ -148,7 +148,7 @@ where T : DependencyObject
                     //int? a = null;
                     //int b = a.Value;
                     jiakaoDataSet.setting.AddsettingRow(0, 0, 0, "", 0, 0, "", "", "", "", 0, "", "", 0, 0, "", 0, 0, 0, "", "", "", "", "", "", "", "科目四", "", "", "", "", "", "", "", "", 0, "", "", 0, key, 0);
-                    jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
+                    jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting); 
                     jiakaoDataSet.setting.AcceptChanges();
                     foreach (var se in setting)
                     {
@@ -301,7 +301,7 @@ where T : DependencyObject
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
-            var setting = from c in jiakaoDataSet.setting select c;
+            var setting = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
             foreach (var se in setting)
             {
                 if (se.subject_module != "")

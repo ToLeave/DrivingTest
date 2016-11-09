@@ -25,8 +25,8 @@
         <GroupBox Header="注册流程" Height="151" HorizontalAlignment="Left" Margin="18,91,0,0" Name="groupBox1" VerticalAlignment="Top" Width="439" Visibility="Visible" />
         
         <Label Content="付费注册:" Height="28" HorizontalAlignment="Left" Margin="38,254,0,0" Name="label4" VerticalAlignment="Top" />
-        <TextBlock Height="23" HorizontalAlignment="Left" Margin="98,259,0,0" Name="textBlock1" Text="" VerticalAlignment="Top" Width="325">
-            <Hyperlink  Name="HypeLink"  NavigateUri="{Binding Path=payment_link}"  RequestNavigate="HypeLink1_RequestNavigate">付款链接</Hyperlink>
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="98,259,0,0" Name="lianjie_textBlock" Text="" VerticalAlignment="Top" Width="325" Visibility="Visible">
+            <Hyperlink  Name="HypeLink"  NavigateUri=""  RequestNavigate="HypeLink1_RequestNavigate">付款链接</Hyperlink>
         </TextBlock>
         
         <Label Content="客服:" Height="28" HorizontalAlignment="Left" Margin="38,288,0,0" Name="label5" VerticalAlignment="Top" />

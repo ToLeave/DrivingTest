@@ -1,12 +1,18 @@
-﻿<Window x:Class="DrivingTest.ErrorMessages"
+﻿<UserControl x:Class="DrivingTest.ErrorMessages"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="ErrorMessages" Height="400" Width="600">
+        Height="600" Width="800" Loaded="UserControl_Loaded">
     <Grid>
         <TextBlock Height="71" HorizontalAlignment="Left" Margin="12,12,0,0" Name="textBlock1" Text="TextBlock" VerticalAlignment="Top" Width="554" />
         <TextBlock Height="34" HorizontalAlignment="Left" Margin="12,89,0,0" Name="textBlock2" Text="TextBlock" VerticalAlignment="Top" Width="554" />
         <TextBlock Height="29" HorizontalAlignment="Left" Margin="12,138,0,0" Name="textBlock3" Text="TextBlock" VerticalAlignment="Top" Width="554" />
         <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,181,0,0" Name="textBlock4" Text="TextBlock" VerticalAlignment="Top" Width="554" />
         <TextBlock Height="21" HorizontalAlignment="Left" Margin="12,227,0,0" Name="textBlock5" Text="TextBlock" VerticalAlignment="Top" Width="554" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="312,266,0,0" Name="textBlock6" Text="TextBlock" VerticalAlignment="Top" />
+        <!--<Image Height="193" HorizontalAlignment="Left" Margin="197,254,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="349" />-->
+        <MediaElement Margin="197,295,0,0" Height="193"  x:Name="image1" MediaEnded="image_MediaEnded" HorizontalAlignment="Left" VerticalAlignment="Top" Width="349"  />
+        <Button Content="继续考试" Height="30" HorizontalAlignment="Left" Margin="312,494,0,0" Name="jixu_button" VerticalAlignment="Top" Width="102" Click="jixu_button_Click" />
+        <Label Content="以上正确答案确认无误后点击'继续考试'按钮开始下一题答题" Height="28" HorizontalAlignment="Left" Margin="173,530,0,0" Name="label1" VerticalAlignment="Top" Width="479" FontSize="14" />
+        
     </Grid>
-</Window>
+</UserControl>

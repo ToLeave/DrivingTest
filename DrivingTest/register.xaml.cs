@@ -289,11 +289,87 @@ namespace DrivingTest
 
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 setting 中。可以根据需要修改此代码。
-
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
+            var setting = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+            foreach (var se in setting)
+            {
+                if (se.registration_display != "")
+                {
+                    PublicClass.xinxi = se.registration_display.Split(',');
+                }
+                else
+                {
+                    PublicClass.xinxi = new string[5] { "", "", "", "", ""};
+                }
+                if (PublicClass.xinxi[0] == "1")
+                {
+                    liucheng_textBox.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else
+                {
+                    liucheng_textBox.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.xinxi[1] == "1")
+                {
+                    label4.Visibility = System.Windows.Visibility.Hidden;
+                    lianjie_textBlock.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else
+                {
+                    label4.Visibility = System.Windows.Visibility.Hidden;
+                    lianjie_textBlock.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.xinxi[2] == "1")
+                {
+                    label6.Visibility = System.Windows.Visibility.Hidden;
+                    qq_textblock.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else
+                {
+                    label6.Visibility = System.Windows.Visibility.Hidden;
+                    qq_textblock.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.xinxi[3] == "1")
+                {
+                    label7.Visibility = System.Windows.Visibility.Hidden;
+                    ww_textblock.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else
+                {
+                    label7.Visibility = System.Windows.Visibility.Visible;
+                    ww_textblock.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.xinxi[4] == "1")
+                {
+                    beizhu_textblock.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else
+                {
+                    beizhu_textblock.Visibility = System.Windows.Visibility.Visible;
+                }
 
+                liucheng_textBox.Text = se.registration_process;
+                if (se.payment_link != "")
+                {
+                    if (se.payment_link.Substring(0, 8) == "https://" && se.payment_link.Substring(0, 7) == "http://")
+                    {
+                        HypeLink.NavigateUri = new Uri(se.payment_link);
+                    }
+                    else
+                    {
+                        HypeLink.NavigateUri = new Uri("https://" + se.payment_link);
+                    }
+                }
+                else
+                {
+                    HypeLink.NavigateUri = new Uri("https://www.baidu.com");
+                }
+                qq_textblock.Text = se.customer_service_QQ;
+                ww_textblock.Text = se.customer_service_WW;
+                beizhu_textblock.Text = se.comments;
+            }
         }
 
         //注册码文本框格式
