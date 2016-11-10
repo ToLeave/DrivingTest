@@ -2548,6 +2548,14 @@ namespace DrivingTest {
             
             private global::System.Data.DataColumn columnclose_password;
             
+            private global::System.Data.DataColumn columnphonetic_reading;
+            
+            private global::System.Data.DataColumn columnvoice_prompt;
+            
+            private global::System.Data.DataColumn columnnext_question;
+            
+            private global::System.Data.DataColumn columndisplay_answers;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public settingDataTable() {
@@ -2919,6 +2927,38 @@ namespace DrivingTest {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn phonetic_readingColumn {
+                get {
+                    return this.columnphonetic_reading;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn voice_promptColumn {
+                get {
+                    return this.columnvoice_prompt;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn next_questionColumn {
+                get {
+                    return this.columnnext_question;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn display_answersColumn {
+                get {
+                    return this.columndisplay_answers;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2995,7 +3035,11 @@ namespace DrivingTest {
                         string hidden_learning_settings, 
                         int not_show, 
                         string shortcut_key, 
-                        int close_password) {
+                        int close_password, 
+                        int phonetic_reading, 
+                        string voice_prompt, 
+                        int next_question, 
+                        int display_answers) {
                 settingRow rowsettingRow = ((settingRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -3039,7 +3083,11 @@ namespace DrivingTest {
                         hidden_learning_settings,
                         not_show,
                         shortcut_key,
-                        close_password};
+                        close_password,
+                        phonetic_reading,
+                        voice_prompt,
+                        next_question,
+                        display_answers};
                 rowsettingRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowsettingRow);
                 return rowsettingRow;
@@ -3111,6 +3159,10 @@ namespace DrivingTest {
                 this.columnnot_show = base.Columns["not_show"];
                 this.columnshortcut_key = base.Columns["shortcut_key"];
                 this.columnclose_password = base.Columns["close_password"];
+                this.columnphonetic_reading = base.Columns["phonetic_reading"];
+                this.columnvoice_prompt = base.Columns["voice_prompt"];
+                this.columnnext_question = base.Columns["next_question"];
+                this.columndisplay_answers = base.Columns["display_answers"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3200,6 +3252,14 @@ namespace DrivingTest {
                 base.Columns.Add(this.columnshortcut_key);
                 this.columnclose_password = new global::System.Data.DataColumn("close_password", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnclose_password);
+                this.columnphonetic_reading = new global::System.Data.DataColumn("phonetic_reading", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnphonetic_reading);
+                this.columnvoice_prompt = new global::System.Data.DataColumn("voice_prompt", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnvoice_prompt);
+                this.columnnext_question = new global::System.Data.DataColumn("next_question", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnext_question);
+                this.columndisplay_answers = new global::System.Data.DataColumn("display_answers", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndisplay_answers);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnsetting_id}, true));
                 this.columnsetting_id.AutoIncrement = true;
@@ -3234,6 +3294,7 @@ namespace DrivingTest {
                 this.columnfont_size.MaxLength = 255;
                 this.columnhidden_learning_settings.MaxLength = 255;
                 this.columnshortcut_key.MaxLength = 255;
+                this.columnvoice_prompt.MaxLength = 255;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5865,6 +5926,70 @@ namespace DrivingTest {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int phonetic_reading {
+                get {
+                    try {
+                        return ((int)(this[this.tablesetting.phonetic_readingColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("表“setting”中列“phonetic_reading”的值为 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tablesetting.phonetic_readingColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string voice_prompt {
+                get {
+                    try {
+                        return ((string)(this[this.tablesetting.voice_promptColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("表“setting”中列“voice_prompt”的值为 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tablesetting.voice_promptColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int next_question {
+                get {
+                    try {
+                        return ((int)(this[this.tablesetting.next_questionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("表“setting”中列“next_question”的值为 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tablesetting.next_questionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int display_answers {
+                get {
+                    try {
+                        return ((int)(this[this.tablesetting.display_answersColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("表“setting”中列“display_answers”的值为 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tablesetting.display_answersColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsautormerrNull() {
                 return this.IsNull(this.tablesetting.autormerrColumn);
             }
@@ -6353,6 +6478,54 @@ namespace DrivingTest {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Setclose_passwordNull() {
                 this[this.tablesetting.close_passwordColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isphonetic_readingNull() {
+                return this.IsNull(this.tablesetting.phonetic_readingColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setphonetic_readingNull() {
+                this[this.tablesetting.phonetic_readingColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isvoice_promptNull() {
+                return this.IsNull(this.tablesetting.voice_promptColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setvoice_promptNull() {
+                this[this.tablesetting.voice_promptColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isnext_questionNull() {
+                return this.IsNull(this.tablesetting.next_questionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setnext_questionNull() {
+                this[this.tablesetting.next_questionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isdisplay_answersNull() {
+                return this.IsNull(this.tablesetting.display_answersColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setdisplay_answersNull() {
+                this[this.tablesetting.display_answersColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -9960,6 +10133,10 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("not_show", "not_show");
             tableMapping.ColumnMappings.Add("shortcut_key", "shortcut_key");
             tableMapping.ColumnMappings.Add("close_password", "close_password");
+            tableMapping.ColumnMappings.Add("phonetic_reading", "phonetic_reading");
+            tableMapping.ColumnMappings.Add("voice_prompt", "voice_prompt");
+            tableMapping.ColumnMappings.Add("next_question", "next_question");
+            tableMapping.ColumnMappings.Add("display_answers", "display_answers");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -9997,7 +10174,10 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
                 "rning_settings` IS NULL) OR (`hidden_learning_settings` = ?)) AND ((? = 1 AND `n" +
                 "ot_show` IS NULL) OR (`not_show` = ?)) AND ((? = 1 AND `shortcut_key` IS NULL) O" +
                 "R (`shortcut_key` = ?)) AND ((? = 1 AND `close_password` IS NULL) OR (`close_pas" +
-                "sword` = ?)))";
+                "sword` = ?)) AND ((? = 1 AND `phonetic_reading` IS NULL) OR (`phonetic_reading` " +
+                "= ?)) AND ((? = 1 AND `voice_prompt` IS NULL) OR (`voice_prompt` = ?)) AND ((? =" +
+                " 1 AND `next_question` IS NULL) OR (`next_question` = ?)) AND ((? = 1 AND `displ" +
+                "ay_answers` IS NULL) OR (`display_answers` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_setting_id", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "setting_id", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_autormerr", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "autormerr", global::System.Data.DataRowVersion.Original, true, null));
@@ -10080,9 +10260,17 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_shortcut_key", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "shortcut_key", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_close_password", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "close_password", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_close_password", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "close_password", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_phonetic_reading", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "phonetic_reading", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_phonetic_reading", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "phonetic_reading", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_voice_prompt", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "voice_prompt", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_voice_prompt", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "voice_prompt", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_next_question", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "next_question", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_next_question", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "next_question", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_display_answers", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "display_answers", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_display_answers", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "display_answers", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO `setting` (`autormerr`, `showerrcount`, `model`, `password`, `pre_scores`, `scores`, `driverschool_name`, `contact`, `address`, `introduction`, `testbench_number`, `driverschool_picture`, `province`, `power_on`, `show_notification`, `software_title`, `hide_driver_license`, `hide_setting`, `text_replace`, `scrolling_text`, `functional_module`, `subject_module`, `learning_module`, `display_test`, `reshuffling`, `auto_clear`, `subject_four_button`, `registration_process`, `payment_link`, `customer_service_QQ`, `customer_service_WW`, `comments`, `registration_display`, `setting_account`, `rolling_speed`, `tts_sex`, `font_size`, `hidden_learning_settings`, `not_show`, `shortcut_key`, `close_password`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO `setting` (`autormerr`, `showerrcount`, `model`, `password`, `pre_scores`, `scores`, `driverschool_name`, `contact`, `address`, `introduction`, `testbench_number`, `driverschool_picture`, `province`, `power_on`, `show_notification`, `software_title`, `hide_driver_license`, `hide_setting`, `text_replace`, `scrolling_text`, `functional_module`, `subject_module`, `learning_module`, `display_test`, `reshuffling`, `auto_clear`, `subject_four_button`, `registration_process`, `payment_link`, `customer_service_QQ`, `customer_service_WW`, `comments`, `registration_display`, `setting_account`, `rolling_speed`, `tts_sex`, `font_size`, `hidden_learning_settings`, `not_show`, `shortcut_key`, `close_password`, `phonetic_reading`, `voice_prompt`, `next_question`, `display_answers`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("autormerr", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "autormerr", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("showerrcount", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "showerrcount", global::System.Data.DataRowVersion.Current, false, null));
@@ -10125,6 +10313,10 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("not_show", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "not_show", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("shortcut_key", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "shortcut_key", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("close_password", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "close_password", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("phonetic_reading", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "phonetic_reading", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("voice_prompt", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "voice_prompt", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("next_question", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "next_question", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("display_answers", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "display_answers", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "UPDATE `setting` SET `autormerr` = ?, `showerrcount` = ?, `model` = ?, `password`" +
@@ -10137,41 +10329,46 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
                 "` = ?, `registration_process` = ?, `payment_link` = ?, `customer_service_QQ` = ?" +
                 ", `customer_service_WW` = ?, `comments` = ?, `registration_display` = ?, `settin" +
                 "g_account` = ?, `rolling_speed` = ?, `tts_sex` = ?, `font_size` = ?, `hidden_lea" +
-                "rning_settings` = ?, `not_show` = ?, `shortcut_key` = ?, `close_password` = ? WH" +
-                "ERE ((`setting_id` = ?) AND ((? = 1 AND `autormerr` IS NULL) OR (`autormerr` = ?" +
-                ")) AND ((? = 1 AND `showerrcount` IS NULL) OR (`showerrcount` = ?)) AND ((? = 1 " +
-                "AND `model` IS NULL) OR (`model` = ?)) AND ((? = 1 AND `password` IS NULL) OR (`" +
-                "password` = ?)) AND ((? = 1 AND `pre_scores` IS NULL) OR (`pre_scores` = ?)) AND" +
-                " ((? = 1 AND `scores` IS NULL) OR (`scores` = ?)) AND ((? = 1 AND `driverschool_" +
-                "name` IS NULL) OR (`driverschool_name` = ?)) AND ((? = 1 AND `contact` IS NULL) " +
-                "OR (`contact` = ?)) AND ((? = 1 AND `address` IS NULL) OR (`address` = ?)) AND (" +
-                "(? = 1 AND `introduction` IS NULL) OR (`introduction` = ?)) AND ((? = 1 AND `tes" +
-                "tbench_number` IS NULL) OR (`testbench_number` = ?)) AND ((? = 1 AND `driverscho" +
-                "ol_picture` IS NULL) OR (`driverschool_picture` = ?)) AND ((? = 1 AND `province`" +
-                " IS NULL) OR (`province` = ?)) AND ((? = 1 AND `power_on` IS NULL) OR (`power_on" +
-                "` = ?)) AND ((? = 1 AND `show_notification` IS NULL) OR (`show_notification` = ?" +
-                ")) AND ((? = 1 AND `software_title` IS NULL) OR (`software_title` = ?)) AND ((? " +
-                "= 1 AND `hide_driver_license` IS NULL) OR (`hide_driver_license` = ?)) AND ((? =" +
-                " 1 AND `hide_setting` IS NULL) OR (`hide_setting` = ?)) AND ((? = 1 AND `text_re" +
-                "place` IS NULL) OR (`text_replace` = ?)) AND ((? = 1 AND `scrolling_text` IS NUL" +
-                "L) OR (`scrolling_text` = ?)) AND ((? = 1 AND `functional_module` IS NULL) OR (`" +
-                "functional_module` = ?)) AND ((? = 1 AND `subject_module` IS NULL) OR (`subject_" +
-                "module` = ?)) AND ((? = 1 AND `learning_module` IS NULL) OR (`learning_module` =" +
-                " ?)) AND ((? = 1 AND `display_test` IS NULL) OR (`display_test` = ?)) AND ((? = " +
-                "1 AND `reshuffling` IS NULL) OR (`reshuffling` = ?)) AND ((? = 1 AND `auto_clear" +
-                "` IS NULL) OR (`auto_clear` = ?)) AND ((? = 1 AND `subject_four_button` IS NULL)" +
-                " OR (`subject_four_button` = ?)) AND ((? = 1 AND `registration_process` IS NULL)" +
-                " OR (`registration_process` = ?)) AND ((? = 1 AND `payment_link` IS NULL) OR (`p" +
-                "ayment_link` = ?)) AND ((? = 1 AND `customer_service_QQ` IS NULL) OR (`customer_" +
-                "service_QQ` = ?)) AND ((? = 1 AND `customer_service_WW` IS NULL) OR (`customer_s" +
-                "ervice_WW` = ?)) AND ((? = 1 AND `registration_display` IS NULL) OR (`registrati" +
-                "on_display` = ?)) AND ((? = 1 AND `setting_account` IS NULL) OR (`setting_accoun" +
-                "t` = ?)) AND ((? = 1 AND `rolling_speed` IS NULL) OR (`rolling_speed` = ?)) AND " +
-                "((? = 1 AND `tts_sex` IS NULL) OR (`tts_sex` = ?)) AND ((? = 1 AND `font_size` I" +
-                "S NULL) OR (`font_size` = ?)) AND ((? = 1 AND `hidden_learning_settings` IS NULL" +
-                ") OR (`hidden_learning_settings` = ?)) AND ((? = 1 AND `not_show` IS NULL) OR (`" +
-                "not_show` = ?)) AND ((? = 1 AND `shortcut_key` IS NULL) OR (`shortcut_key` = ?))" +
-                " AND ((? = 1 AND `close_password` IS NULL) OR (`close_password` = ?)))";
+                "rning_settings` = ?, `not_show` = ?, `shortcut_key` = ?, `close_password` = ?, `" +
+                "phonetic_reading` = ?, `voice_prompt` = ?, `next_question` = ?, `display_answers" +
+                "` = ? WHERE ((`setting_id` = ?) AND ((? = 1 AND `autormerr` IS NULL) OR (`autorm" +
+                "err` = ?)) AND ((? = 1 AND `showerrcount` IS NULL) OR (`showerrcount` = ?)) AND " +
+                "((? = 1 AND `model` IS NULL) OR (`model` = ?)) AND ((? = 1 AND `password` IS NUL" +
+                "L) OR (`password` = ?)) AND ((? = 1 AND `pre_scores` IS NULL) OR (`pre_scores` =" +
+                " ?)) AND ((? = 1 AND `scores` IS NULL) OR (`scores` = ?)) AND ((? = 1 AND `drive" +
+                "rschool_name` IS NULL) OR (`driverschool_name` = ?)) AND ((? = 1 AND `contact` I" +
+                "S NULL) OR (`contact` = ?)) AND ((? = 1 AND `address` IS NULL) OR (`address` = ?" +
+                ")) AND ((? = 1 AND `introduction` IS NULL) OR (`introduction` = ?)) AND ((? = 1 " +
+                "AND `testbench_number` IS NULL) OR (`testbench_number` = ?)) AND ((? = 1 AND `dr" +
+                "iverschool_picture` IS NULL) OR (`driverschool_picture` = ?)) AND ((? = 1 AND `p" +
+                "rovince` IS NULL) OR (`province` = ?)) AND ((? = 1 AND `power_on` IS NULL) OR (`" +
+                "power_on` = ?)) AND ((? = 1 AND `show_notification` IS NULL) OR (`show_notificat" +
+                "ion` = ?)) AND ((? = 1 AND `software_title` IS NULL) OR (`software_title` = ?)) " +
+                "AND ((? = 1 AND `hide_driver_license` IS NULL) OR (`hide_driver_license` = ?)) A" +
+                "ND ((? = 1 AND `hide_setting` IS NULL) OR (`hide_setting` = ?)) AND ((? = 1 AND " +
+                "`text_replace` IS NULL) OR (`text_replace` = ?)) AND ((? = 1 AND `scrolling_text" +
+                "` IS NULL) OR (`scrolling_text` = ?)) AND ((? = 1 AND `functional_module` IS NUL" +
+                "L) OR (`functional_module` = ?)) AND ((? = 1 AND `subject_module` IS NULL) OR (`" +
+                "subject_module` = ?)) AND ((? = 1 AND `learning_module` IS NULL) OR (`learning_m" +
+                "odule` = ?)) AND ((? = 1 AND `display_test` IS NULL) OR (`display_test` = ?)) AN" +
+                "D ((? = 1 AND `reshuffling` IS NULL) OR (`reshuffling` = ?)) AND ((? = 1 AND `au" +
+                "to_clear` IS NULL) OR (`auto_clear` = ?)) AND ((? = 1 AND `subject_four_button` " +
+                "IS NULL) OR (`subject_four_button` = ?)) AND ((? = 1 AND `registration_process` " +
+                "IS NULL) OR (`registration_process` = ?)) AND ((? = 1 AND `payment_link` IS NULL" +
+                ") OR (`payment_link` = ?)) AND ((? = 1 AND `customer_service_QQ` IS NULL) OR (`c" +
+                "ustomer_service_QQ` = ?)) AND ((? = 1 AND `customer_service_WW` IS NULL) OR (`cu" +
+                "stomer_service_WW` = ?)) AND ((? = 1 AND `registration_display` IS NULL) OR (`re" +
+                "gistration_display` = ?)) AND ((? = 1 AND `setting_account` IS NULL) OR (`settin" +
+                "g_account` = ?)) AND ((? = 1 AND `rolling_speed` IS NULL) OR (`rolling_speed` = " +
+                "?)) AND ((? = 1 AND `tts_sex` IS NULL) OR (`tts_sex` = ?)) AND ((? = 1 AND `font" +
+                "_size` IS NULL) OR (`font_size` = ?)) AND ((? = 1 AND `hidden_learning_settings`" +
+                " IS NULL) OR (`hidden_learning_settings` = ?)) AND ((? = 1 AND `not_show` IS NUL" +
+                "L) OR (`not_show` = ?)) AND ((? = 1 AND `shortcut_key` IS NULL) OR (`shortcut_ke" +
+                "y` = ?)) AND ((? = 1 AND `close_password` IS NULL) OR (`close_password` = ?)) AN" +
+                "D ((? = 1 AND `phonetic_reading` IS NULL) OR (`phonetic_reading` = ?)) AND ((? =" +
+                " 1 AND `voice_prompt` IS NULL) OR (`voice_prompt` = ?)) AND ((? = 1 AND `next_qu" +
+                "estion` IS NULL) OR (`next_question` = ?)) AND ((? = 1 AND `display_answers` IS " +
+                "NULL) OR (`display_answers` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("autormerr", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "autormerr", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("showerrcount", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "showerrcount", global::System.Data.DataRowVersion.Current, false, null));
@@ -10214,6 +10411,10 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("not_show", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "not_show", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("shortcut_key", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "shortcut_key", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("close_password", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "close_password", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("phonetic_reading", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "phonetic_reading", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("voice_prompt", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "voice_prompt", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("next_question", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "next_question", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("display_answers", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "display_answers", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_setting_id", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "setting_id", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_autormerr", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "autormerr", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_autormerr", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "autormerr", global::System.Data.DataRowVersion.Original, false, null));
@@ -10295,6 +10496,14 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_shortcut_key", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "shortcut_key", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_close_password", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "close_password", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_close_password", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "close_password", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_phonetic_reading", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "phonetic_reading", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_phonetic_reading", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "phonetic_reading", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_voice_prompt", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "voice_prompt", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_voice_prompt", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "voice_prompt", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_next_question", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "next_question", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_next_question", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "next_question", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_display_answers", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "display_answers", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_display_answers", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "display_answers", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10310,7 +10519,7 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT setting_id, autormerr, showerrcount, model, [password], pre_scores, scores, driverschool_name, contact, address, introduction, testbench_number, driverschool_picture, province, power_on, show_notification, software_title, hide_driver_license, hide_setting, text_replace, scrolling_text, functional_module, subject_module, learning_module, display_test, reshuffling, auto_clear, subject_four_button, registration_process, payment_link, customer_service_QQ, customer_service_WW, comments, registration_display, setting_account, rolling_speed, tts_sex, font_size, hidden_learning_settings, not_show, shortcut_key, close_password FROM setting";
+            this._commandCollection[0].CommandText = @"SELECT setting_id, autormerr, showerrcount, model, [password], pre_scores, scores, driverschool_name, contact, address, introduction, testbench_number, driverschool_picture, province, power_on, show_notification, software_title, hide_driver_license, hide_setting, text_replace, scrolling_text, functional_module, subject_module, learning_module, display_test, reshuffling, auto_clear, subject_four_button, registration_process, payment_link, customer_service_QQ, customer_service_WW, comments, registration_display, setting_account, rolling_speed, tts_sex, font_size, hidden_learning_settings, not_show, shortcut_key, close_password, phonetic_reading, voice_prompt, next_question, display_answers FROM setting";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -10412,7 +10621,11 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
                     string Original_hidden_learning_settings, 
                     global::System.Nullable<int> Original_not_show, 
                     string Original_shortcut_key, 
-                    global::System.Nullable<int> Original_close_password) {
+                    global::System.Nullable<int> Original_close_password, 
+                    global::System.Nullable<int> Original_phonetic_reading, 
+                    string Original_voice_prompt, 
+                    global::System.Nullable<int> Original_next_question, 
+                    global::System.Nullable<int> Original_display_answers) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_setting_id));
             if ((Original_autormerr.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
@@ -10734,6 +10947,38 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
                 this.Adapter.DeleteCommand.Parameters[79].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[80].Value = global::System.DBNull.Value;
             }
+            if ((Original_phonetic_reading.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[81].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[82].Value = ((int)(Original_phonetic_reading.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[81].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[82].Value = global::System.DBNull.Value;
+            }
+            if ((Original_voice_prompt == null)) {
+                this.Adapter.DeleteCommand.Parameters[83].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[84].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[83].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[84].Value = ((string)(Original_voice_prompt));
+            }
+            if ((Original_next_question.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[85].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[86].Value = ((int)(Original_next_question.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[85].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[86].Value = global::System.DBNull.Value;
+            }
+            if ((Original_display_answers.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[87].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[88].Value = ((int)(Original_display_answers.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[87].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[88].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -10795,7 +11040,11 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
                     string hidden_learning_settings, 
                     global::System.Nullable<int> not_show, 
                     string shortcut_key, 
-                    global::System.Nullable<int> close_password) {
+                    global::System.Nullable<int> close_password, 
+                    global::System.Nullable<int> phonetic_reading, 
+                    string voice_prompt, 
+                    global::System.Nullable<int> next_question, 
+                    global::System.Nullable<int> display_answers) {
             if ((autormerr.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((int)(autormerr.Value));
             }
@@ -11042,6 +11291,30 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[40].Value = global::System.DBNull.Value;
             }
+            if ((phonetic_reading.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[41].Value = ((int)(phonetic_reading.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[41].Value = global::System.DBNull.Value;
+            }
+            if ((voice_prompt == null)) {
+                this.Adapter.InsertCommand.Parameters[42].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[42].Value = ((string)(voice_prompt));
+            }
+            if ((next_question.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[43].Value = ((int)(next_question.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[43].Value = global::System.DBNull.Value;
+            }
+            if ((display_answers.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[44].Value = ((int)(display_answers.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[44].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -11104,6 +11377,10 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
                     global::System.Nullable<int> not_show, 
                     string shortcut_key, 
                     global::System.Nullable<int> close_password, 
+                    global::System.Nullable<int> phonetic_reading, 
+                    string voice_prompt, 
+                    global::System.Nullable<int> next_question, 
+                    global::System.Nullable<int> display_answers, 
                     int Original_setting_id, 
                     global::System.Nullable<int> Original_autormerr, 
                     global::System.Nullable<int> Original_showerrcount, 
@@ -11144,7 +11421,11 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
                     string Original_hidden_learning_settings, 
                     global::System.Nullable<int> Original_not_show, 
                     string Original_shortcut_key, 
-                    global::System.Nullable<int> Original_close_password) {
+                    global::System.Nullable<int> Original_close_password, 
+                    global::System.Nullable<int> Original_phonetic_reading, 
+                    string Original_voice_prompt, 
+                    global::System.Nullable<int> Original_next_question, 
+                    global::System.Nullable<int> Original_display_answers) {
             if ((autormerr.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(autormerr.Value));
             }
@@ -11391,326 +11672,382 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[40].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[41].Value = ((int)(Original_setting_id));
-            if ((Original_autormerr.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[42].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[43].Value = ((int)(Original_autormerr.Value));
+            if ((phonetic_reading.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[41].Value = ((int)(phonetic_reading.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[42].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[41].Value = global::System.DBNull.Value;
+            }
+            if ((voice_prompt == null)) {
+                this.Adapter.UpdateCommand.Parameters[42].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[42].Value = ((string)(voice_prompt));
+            }
+            if ((next_question.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[43].Value = ((int)(next_question.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[43].Value = global::System.DBNull.Value;
             }
-            if ((Original_showerrcount.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[44].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[45].Value = ((int)(Original_showerrcount.Value));
+            if ((display_answers.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[44].Value = ((int)(display_answers.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[44].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[45].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[44].Value = global::System.DBNull.Value;
             }
-            if ((Original_model.HasValue == true)) {
+            this.Adapter.UpdateCommand.Parameters[45].Value = ((int)(Original_setting_id));
+            if ((Original_autormerr.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[46].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[47].Value = ((int)(Original_model.Value));
+                this.Adapter.UpdateCommand.Parameters[47].Value = ((int)(Original_autormerr.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[46].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[47].Value = global::System.DBNull.Value;
             }
-            if ((Original_password == null)) {
+            if ((Original_showerrcount.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[48].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[49].Value = ((int)(Original_showerrcount.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[48].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[49].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[48].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[49].Value = ((string)(Original_password));
-            }
-            if ((Original_pre_scores.HasValue == true)) {
+            if ((Original_model.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[50].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[51].Value = ((int)(Original_pre_scores.Value));
+                this.Adapter.UpdateCommand.Parameters[51].Value = ((int)(Original_model.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[50].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[51].Value = global::System.DBNull.Value;
             }
-            if ((Original_scores.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[52].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[53].Value = ((int)(Original_scores.Value));
-            }
-            else {
+            if ((Original_password == null)) {
                 this.Adapter.UpdateCommand.Parameters[52].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[53].Value = global::System.DBNull.Value;
             }
-            if ((Original_driverschool_name == null)) {
+            else {
+                this.Adapter.UpdateCommand.Parameters[52].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[53].Value = ((string)(Original_password));
+            }
+            if ((Original_pre_scores.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[54].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[55].Value = ((int)(Original_pre_scores.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[54].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[55].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[54].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[55].Value = ((string)(Original_driverschool_name));
+            if ((Original_scores.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[56].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[57].Value = ((int)(Original_scores.Value));
             }
-            if ((Original_contact == null)) {
+            else {
                 this.Adapter.UpdateCommand.Parameters[56].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[57].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[56].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[57].Value = ((string)(Original_contact));
-            }
-            if ((Original_address == null)) {
+            if ((Original_driverschool_name == null)) {
                 this.Adapter.UpdateCommand.Parameters[58].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[59].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[58].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[59].Value = ((string)(Original_address));
+                this.Adapter.UpdateCommand.Parameters[59].Value = ((string)(Original_driverschool_name));
             }
-            if ((Original_introduction == null)) {
+            if ((Original_contact == null)) {
                 this.Adapter.UpdateCommand.Parameters[60].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[61].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[60].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[61].Value = ((string)(Original_introduction));
+                this.Adapter.UpdateCommand.Parameters[61].Value = ((string)(Original_contact));
             }
-            if ((Original_testbench_number.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[62].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[63].Value = ((int)(Original_testbench_number.Value));
-            }
-            else {
+            if ((Original_address == null)) {
                 this.Adapter.UpdateCommand.Parameters[62].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[63].Value = global::System.DBNull.Value;
             }
-            if ((Original_driverschool_picture == null)) {
+            else {
+                this.Adapter.UpdateCommand.Parameters[62].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[63].Value = ((string)(Original_address));
+            }
+            if ((Original_introduction == null)) {
                 this.Adapter.UpdateCommand.Parameters[64].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[65].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[64].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[65].Value = ((string)(Original_driverschool_picture));
+                this.Adapter.UpdateCommand.Parameters[65].Value = ((string)(Original_introduction));
             }
-            if ((Original_province == null)) {
+            if ((Original_testbench_number.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[66].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[67].Value = ((int)(Original_testbench_number.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[66].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[67].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[66].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[67].Value = ((string)(Original_province));
-            }
-            if ((Original_power_on.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[68].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[69].Value = ((int)(Original_power_on.Value));
-            }
-            else {
+            if ((Original_driverschool_picture == null)) {
                 this.Adapter.UpdateCommand.Parameters[68].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[69].Value = global::System.DBNull.Value;
             }
-            if ((Original_show_notification.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[70].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[71].Value = ((int)(Original_show_notification.Value));
-            }
             else {
+                this.Adapter.UpdateCommand.Parameters[68].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[69].Value = ((string)(Original_driverschool_picture));
+            }
+            if ((Original_province == null)) {
                 this.Adapter.UpdateCommand.Parameters[70].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[71].Value = global::System.DBNull.Value;
             }
-            if ((Original_software_title == null)) {
+            else {
+                this.Adapter.UpdateCommand.Parameters[70].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[71].Value = ((string)(Original_province));
+            }
+            if ((Original_power_on.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[72].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[73].Value = ((int)(Original_power_on.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[72].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[73].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[72].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[73].Value = ((string)(Original_software_title));
-            }
-            if ((Original_hide_driver_license.HasValue == true)) {
+            if ((Original_show_notification.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[74].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[75].Value = ((int)(Original_hide_driver_license.Value));
+                this.Adapter.UpdateCommand.Parameters[75].Value = ((int)(Original_show_notification.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[74].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[75].Value = global::System.DBNull.Value;
             }
-            if ((Original_hide_setting.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[76].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[77].Value = ((int)(Original_hide_setting.Value));
-            }
-            else {
+            if ((Original_software_title == null)) {
                 this.Adapter.UpdateCommand.Parameters[76].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[77].Value = global::System.DBNull.Value;
             }
-            if ((Original_text_replace.HasValue == true)) {
+            else {
+                this.Adapter.UpdateCommand.Parameters[76].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[77].Value = ((string)(Original_software_title));
+            }
+            if ((Original_hide_driver_license.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[78].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[79].Value = ((int)(Original_text_replace.Value));
+                this.Adapter.UpdateCommand.Parameters[79].Value = ((int)(Original_hide_driver_license.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[78].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[79].Value = global::System.DBNull.Value;
             }
-            if ((Original_scrolling_text == null)) {
+            if ((Original_hide_setting.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[80].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[81].Value = ((int)(Original_hide_setting.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[80].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[81].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[80].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[81].Value = ((string)(Original_scrolling_text));
+            if ((Original_text_replace.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[82].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[83].Value = ((int)(Original_text_replace.Value));
             }
-            if ((Original_functional_module == null)) {
+            else {
                 this.Adapter.UpdateCommand.Parameters[82].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[83].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[82].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[83].Value = ((string)(Original_functional_module));
-            }
-            if ((Original_subject_module == null)) {
+            if ((Original_scrolling_text == null)) {
                 this.Adapter.UpdateCommand.Parameters[84].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[85].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[84].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[85].Value = ((string)(Original_subject_module));
+                this.Adapter.UpdateCommand.Parameters[85].Value = ((string)(Original_scrolling_text));
             }
-            if ((Original_learning_module == null)) {
+            if ((Original_functional_module == null)) {
                 this.Adapter.UpdateCommand.Parameters[86].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[87].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[86].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[87].Value = ((string)(Original_learning_module));
+                this.Adapter.UpdateCommand.Parameters[87].Value = ((string)(Original_functional_module));
             }
-            if ((Original_display_test == null)) {
+            if ((Original_subject_module == null)) {
                 this.Adapter.UpdateCommand.Parameters[88].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[89].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[88].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[89].Value = ((string)(Original_display_test));
+                this.Adapter.UpdateCommand.Parameters[89].Value = ((string)(Original_subject_module));
             }
-            if ((Original_reshuffling == null)) {
+            if ((Original_learning_module == null)) {
                 this.Adapter.UpdateCommand.Parameters[90].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[91].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[90].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[91].Value = ((string)(Original_reshuffling));
+                this.Adapter.UpdateCommand.Parameters[91].Value = ((string)(Original_learning_module));
             }
-            if ((Original_auto_clear == null)) {
+            if ((Original_display_test == null)) {
                 this.Adapter.UpdateCommand.Parameters[92].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[93].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[92].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[93].Value = ((string)(Original_auto_clear));
+                this.Adapter.UpdateCommand.Parameters[93].Value = ((string)(Original_display_test));
             }
-            if ((Original_subject_four_button == null)) {
+            if ((Original_reshuffling == null)) {
                 this.Adapter.UpdateCommand.Parameters[94].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[95].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[94].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[95].Value = ((string)(Original_subject_four_button));
+                this.Adapter.UpdateCommand.Parameters[95].Value = ((string)(Original_reshuffling));
             }
-            if ((Original_registration_process == null)) {
+            if ((Original_auto_clear == null)) {
                 this.Adapter.UpdateCommand.Parameters[96].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[97].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[96].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[97].Value = ((string)(Original_registration_process));
+                this.Adapter.UpdateCommand.Parameters[97].Value = ((string)(Original_auto_clear));
             }
-            if ((Original_payment_link == null)) {
+            if ((Original_subject_four_button == null)) {
                 this.Adapter.UpdateCommand.Parameters[98].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[99].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[98].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[99].Value = ((string)(Original_payment_link));
+                this.Adapter.UpdateCommand.Parameters[99].Value = ((string)(Original_subject_four_button));
             }
-            if ((Original_customer_service_QQ == null)) {
+            if ((Original_registration_process == null)) {
                 this.Adapter.UpdateCommand.Parameters[100].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[101].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[100].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[101].Value = ((string)(Original_customer_service_QQ));
+                this.Adapter.UpdateCommand.Parameters[101].Value = ((string)(Original_registration_process));
             }
-            if ((Original_customer_service_WW == null)) {
+            if ((Original_payment_link == null)) {
                 this.Adapter.UpdateCommand.Parameters[102].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[103].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[102].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[103].Value = ((string)(Original_customer_service_WW));
+                this.Adapter.UpdateCommand.Parameters[103].Value = ((string)(Original_payment_link));
             }
-            if ((Original_registration_display == null)) {
+            if ((Original_customer_service_QQ == null)) {
                 this.Adapter.UpdateCommand.Parameters[104].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[105].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[104].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[105].Value = ((string)(Original_registration_display));
+                this.Adapter.UpdateCommand.Parameters[105].Value = ((string)(Original_customer_service_QQ));
             }
-            if ((Original_setting_account == null)) {
+            if ((Original_customer_service_WW == null)) {
                 this.Adapter.UpdateCommand.Parameters[106].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[107].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[106].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[107].Value = ((string)(Original_setting_account));
+                this.Adapter.UpdateCommand.Parameters[107].Value = ((string)(Original_customer_service_WW));
             }
-            if ((Original_rolling_speed == null)) {
+            if ((Original_registration_display == null)) {
                 this.Adapter.UpdateCommand.Parameters[108].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[109].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[108].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[109].Value = ((string)(Original_rolling_speed));
+                this.Adapter.UpdateCommand.Parameters[109].Value = ((string)(Original_registration_display));
             }
-            if ((Original_tts_sex.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[110].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[111].Value = ((int)(Original_tts_sex.Value));
-            }
-            else {
+            if ((Original_setting_account == null)) {
                 this.Adapter.UpdateCommand.Parameters[110].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[111].Value = global::System.DBNull.Value;
             }
-            if ((Original_font_size == null)) {
+            else {
+                this.Adapter.UpdateCommand.Parameters[110].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[111].Value = ((string)(Original_setting_account));
+            }
+            if ((Original_rolling_speed == null)) {
                 this.Adapter.UpdateCommand.Parameters[112].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[113].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[112].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[113].Value = ((string)(Original_font_size));
+                this.Adapter.UpdateCommand.Parameters[113].Value = ((string)(Original_rolling_speed));
             }
-            if ((Original_hidden_learning_settings == null)) {
+            if ((Original_tts_sex.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[114].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[115].Value = ((int)(Original_tts_sex.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[114].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[115].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[114].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[115].Value = ((string)(Original_hidden_learning_settings));
-            }
-            if ((Original_not_show.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[116].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[117].Value = ((int)(Original_not_show.Value));
-            }
-            else {
+            if ((Original_font_size == null)) {
                 this.Adapter.UpdateCommand.Parameters[116].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[117].Value = global::System.DBNull.Value;
             }
-            if ((Original_shortcut_key == null)) {
+            else {
+                this.Adapter.UpdateCommand.Parameters[116].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[117].Value = ((string)(Original_font_size));
+            }
+            if ((Original_hidden_learning_settings == null)) {
                 this.Adapter.UpdateCommand.Parameters[118].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[119].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[118].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[119].Value = ((string)(Original_shortcut_key));
+                this.Adapter.UpdateCommand.Parameters[119].Value = ((string)(Original_hidden_learning_settings));
             }
-            if ((Original_close_password.HasValue == true)) {
+            if ((Original_not_show.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[120].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[121].Value = ((int)(Original_close_password.Value));
+                this.Adapter.UpdateCommand.Parameters[121].Value = ((int)(Original_not_show.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[120].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[121].Value = global::System.DBNull.Value;
+            }
+            if ((Original_shortcut_key == null)) {
+                this.Adapter.UpdateCommand.Parameters[122].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[123].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[122].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[123].Value = ((string)(Original_shortcut_key));
+            }
+            if ((Original_close_password.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[124].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[125].Value = ((int)(Original_close_password.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[124].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[125].Value = global::System.DBNull.Value;
+            }
+            if ((Original_phonetic_reading.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[126].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[127].Value = ((int)(Original_phonetic_reading.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[126].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[127].Value = global::System.DBNull.Value;
+            }
+            if ((Original_voice_prompt == null)) {
+                this.Adapter.UpdateCommand.Parameters[128].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[129].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[128].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[129].Value = ((string)(Original_voice_prompt));
+            }
+            if ((Original_next_question.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[130].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[131].Value = ((int)(Original_next_question.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[130].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[131].Value = global::System.DBNull.Value;
+            }
+            if ((Original_display_answers.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[132].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[133].Value = ((int)(Original_display_answers.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[132].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[133].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 

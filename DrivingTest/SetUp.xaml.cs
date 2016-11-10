@@ -76,7 +76,7 @@ namespace DrivingTest
             //{
             //    if (kaiji_checkBox.IsChecked == true) //设置开机自启动  
             //    {
-           
+
             //        s.power_on = 1; 
             //    }
             //}
@@ -97,7 +97,7 @@ namespace DrivingTest
             //{
             //    if (kaiji_checkBox.IsChecked == false) //取消开机自启动  
             //    {
-                    
+
             //        s.power_on = 0;
             //    }
             //}
@@ -189,14 +189,14 @@ namespace DrivingTest
 
             var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
 
-            if (jibenshezhi.IsActive == true)  
+            if (jibenshezhi.IsActive == true)
             {
                 foreach (var s in set)
                 {
                     if (s.province != "")//是否有省份
                     {
-                       shengfen_comboBox.SelectedIndex = int.Parse(s.province);
-                       difan_checkBox.IsChecked = true;
+                        shengfen_comboBox.SelectedIndex = int.Parse(s.province);
+                        difan_checkBox.IsChecked = true;
                     }
                     else
                     {
@@ -268,10 +268,18 @@ namespace DrivingTest
                     }
                     else
                     {
-                        PublicClass.gongneng = new string[6] {"","","","","",""};
+                        PublicClass.gongneng = new string[6] { "0", "0", "0", "0", "0", "0" };
+                    }
+                    if (s.voice_prompt != "")
+                    {
+                        PublicClass.yuyin = s.voice_prompt.Split(',');
+                    }
+                    else
+                    {
+                        PublicClass.yuyin = new string[3] { "0", "0", "0" };
                     }
 
-                    biaoti_textBox.Text = s.software_title; 
+                    biaoti_textBox.Text = s.software_title;
 
                     if (PublicClass.gongneng[0] == "1")
                     {
@@ -346,6 +354,76 @@ namespace DrivingTest
                         kemu3_checkBox.IsChecked = false;
                     }
 
+                    if (s.phonetic_reading == 0)
+                    {
+                        nv_radioButton.IsChecked = true;
+                    }
+                    else if (s.phonetic_reading == 1)
+                    {
+                        nan_radioButton.IsChecked = true;
+                    }
+                    else
+                    {
+                        guan_radioButton.IsChecked = true;
+                    }
+
+                    if (PublicClass.yuyin[0] == "1")
+                    {
+                        jiangjie_checkBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        jiangjie_checkBox.IsChecked = false;
+                    }
+                    if (PublicClass.yuyin[1] == "1")
+                    {
+                        duicuo_checkBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        duicuo_checkBox.IsChecked = false;
+                    }
+                    if (PublicClass.yuyin[2] == "1")
+                    {
+                        dacuo_checkBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        dacuo_checkBox.IsChecked = false;
+                    }
+
+                    if (s.next_question == 0)
+                    {
+                        shoudong_radioButton.IsChecked = true;
+                    }
+                    else if (s.next_question == 1)
+                    {
+                        zidong_radioButton.IsChecked = true;
+                    }
+                    else
+                    {
+                        dadui_radioButton.IsChecked = true;
+                    }
+
+                    if (s.display_answers == 1)
+                    {
+                        zhengque_checkBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        zhengque_checkBox.IsChecked = false;
+                    }
+
+                    if (s.display_test == "1")
+                    {
+                        chongkao_checkBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        chongkao_checkBox.IsChecked = false;
+                    }
+
+
                     kemu4_textBox.Text = s.subject_four_button;
 
 
@@ -376,7 +454,7 @@ namespace DrivingTest
                     yukao_textBox.IsEnabled = false;
                     label14.IsEnabled = false;
                     radioButton66.IsEnabled = false;
-                    checkBox18.IsEnabled = false;
+                    //checkBox18.IsEnabled = false;
 
                 }
                 else if (jiaxiao_radioButton.IsChecked == true)//驾校模式显示选择驾照类型-设置,功能模块和学习统计-驾校信息设置
@@ -404,7 +482,7 @@ namespace DrivingTest
                     yukao_textBox.IsEnabled = true;
                     label14.IsEnabled = true;
                     radioButton66.IsEnabled = true;
-                    checkBox18.IsEnabled = true;
+                    //checkBox18.IsEnabled = true;
                 }
                 #endregion
             }
@@ -480,7 +558,7 @@ namespace DrivingTest
                     QQ_textBox.Text = s.customer_service_QQ;
                     WW_textBox.Text = s.customer_service_WW;
                     beizhu_textBox.Text = s.comments;
-                     
+
 
                 }
             }
@@ -519,12 +597,12 @@ namespace DrivingTest
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "图片文件 (*.png*.jpg*.jpeg)|*.png;*.jpg;*.jpeg|PNG files (*.png)|*.png|JPG files (*.jpg*.jpeg)|*.jpg;*.jpeg";
-            
+
             if (dialog.ShowDialog() == true)
             {
-                tupian_textBox.Text   = dialog.FileName;
+                tupian_textBox.Text = dialog.FileName;
             }
-      
+
         }
 
         //基本设置保存
@@ -535,7 +613,7 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
-            var set = from c in jiakaoDataSet.setting where c.setting_id == 1  select c;
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
 
             foreach (var s in set)
             {
@@ -616,7 +694,7 @@ namespace DrivingTest
 
                 }
             }
-                
+
             jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
             jiakaoDataSet.setting.AcceptChanges();
 
@@ -634,9 +712,15 @@ namespace DrivingTest
             var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
 
             string[] gongneng = new string[6];//索引从0开始依次为 章节练习;顺序练习;随机练习;专项练习;模拟考试;错题强化; 0为启用不选中,1为禁用选中
+            string[] yuyin = new string[3];//索引从0 开始依次为 提示语音讲解;语音提示对错;答错语音提示 0为不启用,1为启用
             string gongstring = "";
+            string yustring = "";
             string kemuer = "";
             string kemusan = "";
+            int langdu = 0;
+            int fanti = 0;
+            int zhengque = 0;
+            string chongkao = "0";
 
             if (zhangjie_checkBox.IsChecked == true)
             {
@@ -687,6 +771,31 @@ namespace DrivingTest
                 gongneng[5] = "0";
             }
 
+            if (jiangjie_checkBox.IsChecked == true)
+            {
+                yuyin[0] = "1";
+            }
+            else
+            {
+                yuyin[0] = "0";
+            }
+            if (duicuo_checkBox.IsChecked == true)
+            {
+                yuyin[1] = "1";
+            }
+            else
+            {
+                yuyin[1] = "0";
+            }
+            if (dacuo_checkBox.IsChecked == true)
+            {
+                yuyin[2] = "1";
+            }
+            else
+            {
+                yuyin[2] = "0";
+            }
+
             for (int i = 0; i <= 5; i++)
             {
                 if (i < 5)
@@ -696,6 +805,18 @@ namespace DrivingTest
                 else
                 {
                     gongstring += gongneng[i];
+                }
+            }
+
+            for (int i = 0; i <= 2; i++)
+            {
+                if (i < 2)
+                {
+                    yustring += yuyin[i] + ",";
+                }
+                else
+                {
+                    yustring += yuyin[i];
                 }
             }
 
@@ -716,11 +837,60 @@ namespace DrivingTest
                 kemusan = "0";
             }
 
+            if (nv_radioButton.IsChecked == true)
+            {
+                langdu = 0;
+            }
+            else if (nan_radioButton.IsChecked == true)
+            {
+                langdu = 1;
+            }
+            else
+            {
+                langdu = 2;
+            }
+
+            if (shoudong_radioButton.IsChecked == true)
+            {
+                fanti = 0;
+            }
+            else if (zidong_radioButton.IsChecked == true)
+            {
+                fanti = 1;
+            }
+            else
+            {
+                fanti = 2;
+            }
+
+            if (zhengque_checkBox.IsChecked == true)
+            {
+                zhengque = 1;
+            }
+            else
+            {
+                zhengque = 0;
+            }
+
+            if (chongkao_checkBox.IsChecked == true)
+            {
+                chongkao = "1";
+            }
+            else
+            {
+                chongkao = "0";
+            }
+
             foreach (var s in set)
             {
                 s.software_title = biaoti_textBox.Text;
                 s.functional_module = gongstring;
                 s.subject_module = kemuer + "," + kemusan;
+                s.phonetic_reading = langdu;
+                s.voice_prompt = yustring;
+                s.next_question = fanti;
+                s.display_answers = zhengque;
+                s.display_test = chongkao;
                 s.subject_four_button = kemu4_textBox.Text;
             }
             jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);

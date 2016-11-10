@@ -147,8 +147,8 @@ where T : DependencyObject
                 {
                     //int? a = null;
                     //int b = a.Value;
-                    jiakaoDataSet.setting.AddsettingRow(0, 0, 0, "", 0, 0, "", "", "", "", 0, "", "", 0, 0, "", 0, 0, 0, "", "", "", "", "", "", "", "科目四", "", "", "", "", "", "", "", "", 0, "", "", 0, key, 0);
-                    jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting); 
+                    jiakaoDataSet.setting.AddsettingRow(0, 0, 0, "", 0, 0, "", "", "", "", 0, "", "", 0, 0, "", 0, 0, 0, "", "", "", "", "1", "", "", "科目四", "", "", "", "", "", "", "", "", 0, "", "", 0, key,0,2,"0,0,0",0,0);
+                    jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);  
                     jiakaoDataSet.setting.AcceptChanges();
                     foreach (var se in setting)
                     {

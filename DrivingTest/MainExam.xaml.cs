@@ -30,7 +30,7 @@ namespace DrivingTest
         private ProcessCount processCount;
 
         List<string> question_pd_list = new List<string>();//随机题号列表
-        
+
 
         int question_c = 0;//总题数
         int question_x = 0;//选择题总题数
@@ -39,7 +39,7 @@ namespace DrivingTest
         int lab_index = 0;
         bool is_click_flag = false;//选答案判断
         string timer_type = "";
-        SpeechSynthesizer synth = new SpeechSynthesizer();
+        SpeechSynthesizer synth = new SpeechSynthesizer();//语音阅读
         // Configure the audio output. 
         string current_question_type = "S";//S=单选 M=多选 P=判断
 
@@ -146,7 +146,7 @@ where T : DependencyObject
 
 
             #endregion
-            
+
         }
 
         //随机题目
@@ -253,6 +253,7 @@ where T : DependencyObject
             {
                 timer_type = "练习";
                 SecondArea.Text = "00:00:00";
+                display_answers();//判断试都显示正确答案
                 if (create_method == 0)
                 {
                     for (int i = 0; i < questions_id.Count(); i++)
@@ -561,35 +562,45 @@ where T : DependencyObject
         //显示正确答案
         private void showright_answer(int question_index)
         {
-            zhengque_textBlock.Text = "";
-            if (current_question_type == "S" || current_question_type == "M")
+            try
             {
-                if (PublicClass.question_list[question_index].answer[0].isright == 1)
+                zhengque_textBlock.Text = "";
+                if (current_question_type == "S" || current_question_type == "M")
                 {
-                    zhengque_textBlock.Text += 'A';
+                    if (PublicClass.question_list[question_index].answer[0].isright == 1)
+                    {
+                        zhengque_textBlock.Text += 'A';
+                    }
+                    if (PublicClass.question_list[question_index].answer[1].isright == 1)
+                    {
+                        zhengque_textBlock.Text += 'B';
+                    }
+                    if (PublicClass.question_list[question_index].answer[2].isright == 1)
+                    {
+                        zhengque_textBlock.Text += 'C';
+                    }
+                    if (PublicClass.question_list[question_index].answer[3].isright == 1)
+                    {
+                        zhengque_textBlock.Text += 'D';
+                    }
                 }
-                if (PublicClass.question_list[question_index].answer[1].isright == 1)
+                else
                 {
-                    zhengque_textBlock.Text += 'B';
-                }
-                if (PublicClass.question_list[question_index].answer[2].isright == 1)
-                {
-                    zhengque_textBlock.Text += 'C';
-                }
-                if (PublicClass.question_list[question_index].answer[3].isright == 1)
-                {
-                    zhengque_textBlock.Text += 'D';
+                    if (PublicClass.question_list[question_index].question_type.Contains("XD"))
+                    {
+                        zhengque_textBlock.Text = "√";
+                    }
+                    if (PublicClass.question_list[question_index].question_type.Contains("XC"))
+                    {
+                        zhengque_textBlock.Text = "×";
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                if (PublicClass.question_list[question_index].question_type.Contains("XD"))
+                if (ex.Message.Substring(0, 6) == "索引超出范围")
                 {
-                    zhengque_textBlock.Text = "√";
-                }
-                if (PublicClass.question_list[question_index].question_type.Contains("XC"))
-                {
-                    zhengque_textBlock.Text = "×";
+                    MessageBox.Show("数据异常");
                 }
             }
 
@@ -941,19 +952,20 @@ where T : DependencyObject
         //做错时提示
         private void error_messages(int question_id)
         {
-            if (PublicClass.question_list[question_id].check_answer == false)
+            if (timer_type == "考试")
             {
-                ErrorMessages err = new ErrorMessages();
-                
-
-                C1.WPF.C1Window c1w = new C1.WPF.C1Window();
-                c1w.Content = err;
-                c1w.ShowModal();
-                c1w.Name = "做错";
-                c1w.Header = "提示";
-                c1w.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - err.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - err.Height / 2, 0, 0);
-                PublicClass.err_questionid = question_id;
-                PublicClass.question_answer = zhengque_textBlock.Text;
+                if (PublicClass.question_list[question_id].check_answer == false)
+                {
+                    ErrorMessages err = new ErrorMessages();
+                    C1.WPF.C1Window c1w = new C1.WPF.C1Window();
+                    c1w.Content = err;
+                    c1w.ShowModal();
+                    c1w.Name = "做错";
+                    c1w.Header = "提示";
+                    c1w.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - err.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - err.Height / 2, 0, 0);
+                    PublicClass.err_questionid = question_id;
+                    PublicClass.question_answer = zhengque_textBlock.Text;
+                }
             }
         }
 
@@ -1287,11 +1299,35 @@ where T : DependencyObject
             }
         }
 
+        //语音朗读
         private void play_voice(string playtxt)
         {
-            synth.SpeakAsyncCancelAll();
-            synth.SpeakAsync(playtxt);
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+            foreach (var s in set)
+            {
+                if (s.phonetic_reading != 2)//启用
+                {
+                    if (s.phonetic_reading == 0)//女声
+                    {
+                        synth.SpeakAsyncCancelAll();
+                        synth.SelectVoiceByHints(VoiceGender.Female, VoiceAge.Adult);
+                        synth.SpeakAsync(playtxt);
+                    }
+                    else//男声
+                    {
+                        synth.SpeakAsyncCancelAll();
+                        synth.SelectVoiceByHints(VoiceGender.Male, VoiceAge.Adult);
+                        synth.SpeakAsync(playtxt);
+                    }
+                }
+                else//不启用
+                {}
+            }
         }
 
 
@@ -1306,6 +1342,12 @@ where T : DependencyObject
             // 将数据加载到表 answer 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
             jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            
 
             var question_index = 0;
             string select_lab = "";
@@ -1490,28 +1532,30 @@ where T : DependencyObject
             xuanxiang_textBlock.Text = PublicClass.question_list[question_index].select_answer;
             is_click_flag = true;
 
-            if (zidong_radioButton.IsChecked == true)//选择答案后自动下一题
-            {
-                do_button_Click(null, null);
-            }
-            else if (ddzidong_radioButton.IsChecked == true)
-            {
+            string fanti = "";
 
-                //int question_ind = 0;
-                //foreach (var lab in dati_canvas.Children)
-                //{
-                //    QuestionNum mylab = lab as QuestionNum;
-                //   question_ind  = int.Parse(mylab.Name.ToString().Substring(1, mylab.Name.ToString().Length - 1));
-                //   // mylab.check_answer(question_list[question_ind].check_answer);
-                //}
-                if (PublicClass.question_list[question_index].check_answer)
+            if (timer_type == "练习")
+            {
+                var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+                foreach (var s in set)
+                {
+
+                    if (s.next_question == 1)//选择答案后自动下一题
+                    {
+                        fanti = "自动翻题";
+                    }
+                    else if (s.next_question == 2)//答对后自动翻题
+                    {
+                        if (PublicClass.question_list[question_index].check_answer)
+                        {
+                            fanti = "自动翻题";
+                        }
+                    }
+                }
+                if (fanti == "自动翻题")
                 {
                     do_button_Click(null, null);
                 }
-                // int question_ind = int.Parse(mylab.Name.ToString().Substring(1, mylab.Name.ToString().Length - 1));
-
-
-
             }
 
 
@@ -1616,19 +1660,28 @@ where T : DependencyObject
 
 
         //显示答案单击事件
-        private void xianshi_checkBox_Click(object sender, RoutedEventArgs e)
-        {
-            if (xianshi_checkBox.IsChecked == true)
-            {
-                zhengque_label.Visibility = System.Windows.Visibility.Visible;
-                zhengque_textBlock.Visibility = System.Windows.Visibility.Visible;
-            }
-            else
-            {
-                zhengque_label.Visibility = System.Windows.Visibility.Hidden;
-                zhengque_textBlock.Visibility = System.Windows.Visibility.Hidden;
-            }
-        }
+        //private void xianshi_question()
+        //{
+        //    DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+        //    // 将数据加载到表 setting 中。可以根据需要修改此代码。
+        //    DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+        //    jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+        //    var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+        //    foreach (var s in set)
+        //    {
+        //        if (xianshi_checkBox.IsChecked == true)
+        //        {
+        //            zhengque_label.Visibility = System.Windows.Visibility.Visible;
+        //            zhengque_textBlock.Visibility = System.Windows.Visibility.Visible;
+        //        }
+        //        else
+        //        {
+        //            zhengque_label.Visibility = System.Windows.Visibility.Hidden;
+        //            zhengque_textBlock.Visibility = System.Windows.Visibility.Hidden;
+        //        }
+        //    }
+        //}
 
         //显示考试科目和车型
         private void cart_sub(string cartpye, string subject)
@@ -1671,6 +1724,28 @@ where T : DependencyObject
             }
         }
 
+
+        //判断是否显示正确答案
+        private void display_answers()
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+            foreach (var s in set)
+            {
+                if (s.display_answers == 1)
+                {
+                    zhengque_label.Visibility = System.Windows.Visibility.Visible;
+                    zhengque_textBlock.Visibility = System.Windows.Visibility.Visible;
+                }
+                else
+                { }
+            }
+        }
+
         //快捷键注册
         private void register_key()
         {
@@ -1710,7 +1785,7 @@ where T : DependencyObject
                 key_ButtonHandExams.Key = mykey;
                 mykey = (Key)ke.ConvertFromString(PublicClass.key[11]);
                 key_ButtonConfirmHandExams.Key = mykey;
-                
+
             }
         }
 
@@ -1769,6 +1844,11 @@ where T : DependencyObject
 
         #region 计时器
         /// <summary>
+        /// 处理倒计时的委托
+        /// </summary>
+        /// <returns></returns>
+        public delegate bool CountDownHandler();
+        /// <summary>
         /// Timer触发的事件
         /// </summary>
         /// <param name="sender"></param>
@@ -1792,12 +1872,12 @@ where T : DependencyObject
 
                     Assignment ass = new Assignment();
                     C1.WPF.C1Window c1w = new C1.WPF.C1Window();
-                    c1w.Content = ass; 
+                    c1w.Content = ass;
                     c1w.ShowModal();
                     c1w.Name = "交卷";
                     c1w.Header = "提示";
 
-                    c1w.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ass.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ass.Height / 2, 0, 0); 
+                    c1w.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ass.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ass.Height / 2, 0, 0);
                     ass.queren_button_Click(null, null);
                     c1w.IsActive = true;
                 }
@@ -1820,8 +1900,6 @@ where T : DependencyObject
             //this.Close();
         }
 
-
-
         /// <summary>
         /// 处理事件
         /// </summary>
@@ -1833,22 +1911,7 @@ where T : DependencyObject
 
             return false;
         }
-
-
-
-
-
-
-
-
-
     }
-
-    /// <summary>
-    /// 处理倒计时的委托
-    /// </summary>
-    /// <returns></returns>
-    public delegate bool CountDownHandler();
         #endregion
 }
 

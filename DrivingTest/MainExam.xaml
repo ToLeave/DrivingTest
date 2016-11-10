@@ -96,7 +96,7 @@
         <TextBlock Height="37" HorizontalAlignment="Center" Margin="140,201,295,529" Name="xuanxiang_textBlock3" Text="" VerticalAlignment="Center" FontSize="16" Width="589" FontWeight="Bold"  />
         <TextBlock Height="37" HorizontalAlignment="Center" Margin="140,239,295,493" Name="xuanxiang_textBlock4" Text="" VerticalAlignment="Center" FontSize="16" Width="589" FontWeight="Bold"  />
         <Label Content="您的答案:" Height="28" HorizontalAlignment="Center" Margin="140,282,814,458" Name="label8" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" />
-
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="207,290,748,461" Name="xuanxiang_textBlock"  VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Width="69" TextAlignment="Center" />
         <Label Content="选择:" Height="28" HorizontalAlignment="Center" Margin="281,282,700,440" Name="label9" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" />
 
         <ToggleButton Content="A" Height="42" HorizontalAlignment="Center" Margin="346,282,632,444" Name="a_button" VerticalAlignment="Center"  Width="46" FontSize="14" FontWeight="Bold" Click="xuanxiang_button_Click" />
@@ -109,9 +109,7 @@
         <Label Content="正确答案:" Height="28" HorizontalAlignment="Center" Margin="145,304,817,436" Name="zhengque_label" VerticalAlignment="Center" Width="63" Visibility="Hidden" />
         <TextBlock Height="21" HorizontalAlignment="Center" Margin="207,308,748,435" Name="zhengque_textBlock" Text="" VerticalAlignment="Center" Width="69" TextAlignment="Center" Visibility="Hidden" />
         <GroupBox Header="考试题目" Height="331" HorizontalAlignment="Center" Margin="130,8,282,429" Name="groupBox4" VerticalAlignment="Center" Width="612" Opacity="1" Visibility="Visible" />
-
-        <TextBlock Height="23" HorizontalAlignment="Center" Margin="207,285,748,461" Name="xuanxiang_textBlock"  VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Width="69" TextAlignment="Center" />
-        
+       
         <ScrollViewer Height="300" Width="261"  HorizontalScrollBarVisibility="Hidden" Margin="750,28,12,440" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" >
             <Canvas Margin="0,0,0,0" x:Name="dati_canvas" Width="261"  HorizontalAlignment="Left" VerticalAlignment="Top" />
         </ScrollViewer>
@@ -136,8 +134,8 @@
         <MediaElement Margin="155,421,262,57" Height="290"  x:Name="gif_image" MediaEnded="gif_image_MediaEnded" HorizontalAlignment="Center" VerticalAlignment="Center" Width="607">    </MediaElement>
         <GroupBox Header="考试图片信息" Height="320" HorizontalAlignment="Center" Margin="130,398,223,50" Name="groupBox7" VerticalAlignment="Center" Width="671" Visibility="Visible" />
         
-        <Grid x:Name="shezhi_grid" Visibility="Visible">
-        <CheckBox Content="显示答案" Height="16" HorizontalAlignment="Center" Margin="21,423,939,329" Name="xianshi_checkBox" VerticalAlignment="Center" Click="xianshi_checkBox_Click" />
+        <Grid x:Name="shezhi_grid" Visibility="Hidden">
+        <CheckBox Content="显示答案" Height="16" HorizontalAlignment="Center" Margin="21,423,939,329" Name="xianshi_checkBox" VerticalAlignment="Center" />
         <CheckBox Content="显示对错" Height="16" HorizontalAlignment="Center" Margin="21,453,939,299" Name="checkBox2" VerticalAlignment="Center" />
         <CheckBox Content="提示语音讲解" Height="16" HorizontalAlignment="Center" Margin="21,480,911,272" Name="checkBox3" VerticalAlignment="Center" Width="92" />
         <CheckBox Content="语音提示对错" Height="16" HorizontalAlignment="Center" Margin="21,506,911,246" Name="checkBox4" VerticalAlignment="Center" Width="92" />

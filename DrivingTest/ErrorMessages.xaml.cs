@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+using System.Windows.Threading;
 
 namespace DrivingTest
 {
@@ -24,12 +25,13 @@ namespace DrivingTest
             InitializeComponent();
         }
 
-        
+
         string imagename = "";//图片文件名
+        private DispatcherTimer timer = new DispatcherTimer();//计时器
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 question 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
@@ -90,7 +92,9 @@ namespace DrivingTest
             }
             textBlock6.Text = "正确答案为:" + PublicClass.question_answer;
 
-
+            timer.Interval = new TimeSpan(10000000);   //时间间隔为一秒
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();//启动计时器
         }
         //提取图片并显示
         private void question_image()
@@ -135,6 +139,28 @@ namespace DrivingTest
             {
                 cp.Close();
             }
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+
+            int nowtime = int.Parse(textBlock7.Text);
+            nowtime = nowtime - 1;
+            if (textBlock7.Text == "0")
+            {
+                timer.Stop();
+                C1.WPF.C1Window cp = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "做错");
+                if (cp != null)
+                {
+                    cp.Close();
+                }
+            }
+            else
+            {
+                textBlock7.Text = nowtime.ToString();
+            }
+
+
         }
     }
 }
