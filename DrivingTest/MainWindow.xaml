@@ -73,7 +73,7 @@
                 <RotateTransform x:Name="rotateTransform4" Angle="-30" />
             </Button.RenderTransform>
         </Button>
-        <Button Content="设置" Style="{DynamicResource SubjectButton}" Height="40" HorizontalAlignment="Left" Margin="843,195,0,0" Name="set_up" VerticalAlignment="Top" Width="40" Visibility="Hidden" Click="set_up_Click" Canvas.Left="-53" Canvas.Top="-14" FontSize="14" />
+            <Button Content="设置" Style="{DynamicResource SubjectButton}" Height="42" HorizontalAlignment="Left" Margin="843,195,0,0" Name="set_up" VerticalAlignment="Top" Width="42" Visibility="Hidden" Click="set_up_Click" Canvas.Left="-53" Canvas.Top="-14" FontSize="14" />
         <Button Content="改密码" Style="{DynamicResource SubjectButton}"  Height="42" HorizontalAlignment="Left" Margin="890,195,0,0" Name="revisions" VerticalAlignment="Top" Width="42" Visibility="Hidden" Click="revisions_Click" Canvas.Left="-54" Canvas.Top="-14" FontSize="14" />
         <!--<TextBlock FontStretch="Normal" FontStyle="Normal" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Margin="151,285,0,0" Name="label3" Text="注册" VerticalAlignment="Top" Width="41" FontSize="20" />-->
         <!--<TextBlock FontWeight="Bold" Height="28" HorizontalAlignment="Left" Margin="727,285,0,0" Name="label4" Text="登录" VerticalAlignment="Top" FontSize="20" />-->
