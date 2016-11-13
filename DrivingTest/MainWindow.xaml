@@ -34,7 +34,7 @@
         <CollectionViewSource x:Key="userViewSource" Source="{Binding Path=user, Source={StaticResource jiakaoDataSet}}" />
     </Control.Resources>
 
-    <Grid x:Name="maingrid"   MouseLeftButtonDown="Grid_MouseLeftButtonDown" DataContext="{StaticResource updatecheckViewSource}" >
+    <Grid x:Name="maingrid" MouseLeftButtonDown="Grid_MouseLeftButtonDown" DataContext="{StaticResource updatecheckViewSource}" >
         <Canvas x:Name="maincanvas"  Height="370" Width="1000"    PreviewMouseDown="maincanvas_PreviewMouseDown" PreviewMouseMove="maincanvas_PreviewMouseMove" MouseUp="maincanvas_MouseUp">
         <Image Stretch="Fill" Source="/DrivingTest;component/Images/车7.png"  StretchDirection="DownOnly" HorizontalAlignment="Left" VerticalAlignment="Top" Height="370" Width="1000" Canvas.Left="0" Canvas.Top="0"></Image>
         <Image x:Name="qianlun"  Source="/DrivingTest;component/Images/luan.png" Margin="107,237,0,0"  MouseEnter="qianlun_MouseEnter" Width="130" Height="130" RenderTransformOrigin="0.5,0.5" MouseLeave="qianlun_MouseLeave" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="-10" Canvas.Top="-21" />

@@ -120,7 +120,10 @@ where T : DependencyObject
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-
+            maingrid.Width = SystemParameters.WorkArea.Width;
+            maingrid.Height = SystemParameters.WorkArea.Height;
+            
+            
             //PublicClass.http = @"http://192.168.1.98:3000";
 
             PublicClass.http = @"http://jiakao.cloudtimesoft.com";
@@ -1469,11 +1472,18 @@ where T : DependencyObject
         //登录
         private void login_Click(object sender, RoutedEventArgs e)
         {
+            MediaPlayer player = new MediaPlayer();
+
+            string debug = System.AppDomain.CurrentDomain.BaseDirectory;
+            string proj = System.IO.Path.Combine(debug, @"..\..\");
+            player.Open(new Uri(proj + "/sounds/start.wav", UriKind.Relative));
+            player.Play();
             if (testlogin() == false)//验证
             {
             }
             else
             {
+
                 #region 登陆后控件的显示隐藏
                 //登陆后显示
                 subject1.Visibility = System.Windows.Visibility.Visible;
@@ -1872,7 +1882,7 @@ where T : DependencyObject
         string move;
         private void maincanvas_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            old_point = e.GetPosition(maincanvas);
+            old_point = e.GetPosition(this);
             old_margin = maincanvas.Margin;
             move = "move";
 
@@ -1885,7 +1895,8 @@ where T : DependencyObject
             {
                 if (move == "move")
                 {
-                    maincanvas.Margin = new Thickness(old_margin.Left + e.GetPosition(maincanvas).X - old_point.X, old_margin.Top + e.GetPosition(maincanvas).Y - old_point.Y, 0, 0);
+                    maincanvas.Margin = new Thickness(old_margin.Left + e.GetPosition(this).X - old_point.X, old_margin.Top + e.GetPosition(this).Y - old_point.Y, 0, 0);
+                    //user_textBox.Text = maincanvas.Margin.Left.ToString() + "  " + e.GetPosition(this).X.ToString();
                 }
             }
         }

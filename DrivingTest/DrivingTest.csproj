@@ -43,7 +43,7 @@
       <HintPath>C:\Users\CloudTime\Desktop\房产地产管理软件(2016-7-14-am)\房产地产管理软件\fcz\PocclientApplication\PocclientApplication\bin\Debug\C1.WPF.4.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>C:\Users\HY\Desktop\新建文件夹\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\realticket\shishicai\bin\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Luna" />
     <Reference Include="System" />
@@ -69,7 +69,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
     <Reference Include="Xceed.Wpf.AvalonDock">
-      <HintPath>C:\Users\HY\Desktop\新建文件夹\Xceed.Wpf.AvalonDock.dll</HintPath>
+      <HintPath>..\..\realticket\shishicai\bin\Debug\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -340,6 +340,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="sounds\start.wav" />
     <Resource Include="Images\驾照类型.png" />
     <Resource Include="Images\倒车入库02.jpg" />
     <Resource Include="Images\定点停车、坡道起步.jpg" />
