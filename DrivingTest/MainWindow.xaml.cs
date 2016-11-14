@@ -53,6 +53,7 @@ namespace DrivingTest
             //IsConn();
         }
 
+        //关闭事件
         private void F(object o, System.ComponentModel.CancelEventArgs e)
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
@@ -64,7 +65,7 @@ namespace DrivingTest
             PublicClass.shezhi = "退出";
             foreach (var s in set)
             {
-
+                //有关闭密码
                 if (s.close_password != 0)
                 {
                     e.Cancel = true;
@@ -76,6 +77,20 @@ namespace DrivingTest
                     c1ma.Name = "管理员密码";
                     c1ma.Header = "管理员密码";
                 }
+                //无关闭密码
+                else
+                {
+                    MessageBoxResult result = MessageBox.Show("确定退出吗？", "询问", MessageBoxButton.OKCancel);
+
+                    //关闭窗口
+                    if (result == MessageBoxResult.Yes)
+                        e.Cancel = false;
+
+                    //不关闭窗口
+                    if (result == MessageBoxResult.No)
+                        e.Cancel = true;
+                }
+
             }
         }
 
@@ -1915,19 +1930,7 @@ where T : DependencyObject
             }
         }
 
-        private void Window_Closing(object sender, CancelEventArgs e)
-        {
-            MessageBoxResult result = MessageBox.Show("确定是退出吗？", "询问", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            //关闭窗口
-            if (result == MessageBoxResult.Yes)
-                e.Cancel = false;
-
-            //不关闭窗口
-            if (result == MessageBoxResult.No)
-                e.Cancel = true;
-
-        }
 
 
 

@@ -29,6 +29,9 @@ namespace DrivingTest
             InitializeComponent();
         }
 
+        string num = "";
+        string time = "";
+
         #region 获取显示机器码
         /// <summary>
         /// 读取CPU机器码
@@ -186,8 +189,6 @@ namespace DrivingTest
 
         private string cal_license(string license)
         {
-
-
             string ret = "";
 
             for (int license_num = 0; license_num <= 1000; license_num++)
@@ -202,7 +203,9 @@ namespace DrivingTest
 
                     if (license == local_license)
                     {
-                        ret = license_num.ToString() + license_time;
+                        ret = "次数:" + license_num.ToString() + " 截止日期:" + license_time.ToShortDateString();
+                        num = license_num.ToString();
+                        time = license_time.ToShortDateString(); 
                         //return license_num + "," + license_time;
                         //license_count = 1000;
                         license_num = 10000;
@@ -265,23 +268,37 @@ namespace DrivingTest
         {
             machine_code.Select(0, machine_code.Text.Length);
             this.machine_code.Copy();
+            MessageBox.Show("复制成功!");
         }
 
         //注册
         private void zhuce_button_Click(object sender, RoutedEventArgs e)
         {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            var setting = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+
             //int license_count = -1;
-            string license_time = "1900/1/1";
+            //string license_time = "1900/1/1";
             try
             {
                 string license = zhuce_textbox.Text.Trim().ToUpper();
                 license = license.Replace("-", "");
                 string str = cal_license(license);
-                MessageBox.Show(str);
+                foreach (var se in setting)
+                {
+
+                }
+                MessageBox.Show(str + " 激活成功!");
 
             }
-            catch
-            { }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

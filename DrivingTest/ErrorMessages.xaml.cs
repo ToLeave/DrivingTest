@@ -115,7 +115,7 @@ namespace DrivingTest
                 textBlock4.Text = "";
                 textBlock5.Text = "";
             }
-            textBlock6.Text = "正确答案为:" + PublicClass.question_answer;
+            //textBlock6.Text = "正确答案为:" + PublicClass.question_answer;
             textBlock6.Text = "正确答案为:" + PublicClass.question_answer;
 
             timer.Interval = new TimeSpan(10000000);   //时间间隔为一秒
