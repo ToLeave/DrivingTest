@@ -571,15 +571,15 @@ where T : DependencyObject
                     {
                         zhengque_textBlock.Text += 'A';
                     }
-                    if (PublicClass.question_list[question_index].answer[1].isright == 1)
+                    else if (PublicClass.question_list[question_index].answer[1].isright == 1)
                     {
                         zhengque_textBlock.Text += 'B';
                     }
-                    if (PublicClass.question_list[question_index].answer[2].isright == 1)
+                    else if (PublicClass.question_list[question_index].answer[2].isright == 1)
                     {
                         zhengque_textBlock.Text += 'C';
                     }
-                    if (PublicClass.question_list[question_index].answer[3].isright == 1)
+                    else if (PublicClass.question_list[question_index].answer[3].isright == 1)
                     {
                         zhengque_textBlock.Text += 'D';
                     }
@@ -874,6 +874,10 @@ where T : DependencyObject
                     break;
                 }
             }
+            if (question_id == -1)
+            {
+                MessageBoxResult result = MessageBox.Show("已是第一题");
+            }
             process_question_type(question_id + 1);
             if (current_question_type == "S" || current_question_type == "M")
             {
@@ -890,6 +894,7 @@ where T : DependencyObject
                 answer_UI();
                 shouzheng_cal(question_id + 1);
                 errquestion(question_id + 1);
+                err_count(question_id + 1);
                 play_voice(timu_textBlock.Text);
                 if (question_id > -1)
                 {
@@ -919,6 +924,10 @@ where T : DependencyObject
                     break;
                 }
             }
+            if (question_id == PublicClass.question_list.Count())
+            {
+                MessageBoxResult result = MessageBox.Show("已是最后一题");
+            }
             process_question_type(question_id - 1);
             if (current_question_type == "S" || current_question_type == "M")
             {
@@ -936,6 +945,7 @@ where T : DependencyObject
                 answer_UI();
                 shouzheng_cal(question_id - 1);
                 errquestion(question_id - 1);
+                err_count(question_id - 1);
                 play_voice(timu_textBlock.Text);
                 if (question_id < 100)
                 {
@@ -949,6 +959,24 @@ where T : DependencyObject
 
         }
 
+
+        private void err_count(int question_id)//做错次数显示
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
+            jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
+            var myerr = from c in jiakaoDataSet.errquest where question_id == c.amount select c;
+            if (myerr.Count() > 0)
+            {
+                errcount.Text = myerr.First().amount.ToString();
+            }
+            else
+            {
+                errcount.Text = "0";
+            }
+
+        }
+
         //做错时提示
         private void error_messages(int question_id)
         {
@@ -956,6 +984,8 @@ where T : DependencyObject
             {
                 if (PublicClass.question_list[question_id].check_answer == false)
                 {
+
+
                     ErrorMessages err = new ErrorMessages();
                     C1.WPF.C1Window c1w = new C1.WPF.C1Window();
                     c1w.Content = err;

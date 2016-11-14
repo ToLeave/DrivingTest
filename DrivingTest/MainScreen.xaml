@@ -12,7 +12,7 @@
         <CollectionViewSource x:Key="settingViewSource" Source="{Binding Path=setting, Source={StaticResource jiakaoDataSet}}" />
     </UserControl.Resources>
     <Grid DataContext="{StaticResource chapterViewSource}">
-        <TextBlock Height="169" HorizontalAlignment="Left" Margin="60,9,0,0" Name="textBlock1" Text="TextBlock" VerticalAlignment="Top" Width="659" />
+        <TextBlock Height="169" HorizontalAlignment="Left" Margin="60,9,0,0" Name="textBlock1" Text="这是推送测试" VerticalAlignment="Top" Width="659" />
 
         <Button Content="新手速成" Height="23" HorizontalAlignment="Left" Margin="327,188,0,0" Name="sucheng" VerticalAlignment="Top" Width="75" Click="sucheng_Click" />
         <Button Content="速成600" Height="23" HorizontalAlignment="Left" Margin="426,188,0,0" Name="sucheng600" VerticalAlignment="Top" Width="75" Click="sucheng600_Click" />

@@ -1915,6 +1915,20 @@ where T : DependencyObject
             }
         }
 
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("确定是退出吗？", "询问", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            //关闭窗口
+            if (result == MessageBoxResult.Yes)
+                e.Cancel = false;
+
+            //不关闭窗口
+            if (result == MessageBoxResult.No)
+                e.Cancel = true;
+
+        }
+
 
 
 

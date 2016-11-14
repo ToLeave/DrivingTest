@@ -58,6 +58,7 @@ namespace DrivingTest
             {
                 foreach (var an in PublicClass.question_list[PublicClass.err_questionid].answer)
                 {
+
                     PublicClass.Answer myan = an as PublicClass.Answer;
                     var teman = from c in jiakaoDataSet.answer where c.answer_id == myan.answer_id select c;
                     foreach (var temann in teman)
@@ -82,6 +83,30 @@ namespace DrivingTest
 
                     step++;
                 }
+
+
+                //int step = 0;
+                //var an = from c in PublicClass.question_list[PublicClass.err_questionid].answer select c;
+                //foreach (var myan in an)
+                //{
+                //    switch (step)
+                //    {
+                //        case 0:
+                //            textBlock2.Text = "A." + myan.answer;
+                //            break;
+                //        case 1:
+                //            textBlock3.Text = "B." + myan.answer;
+                //            break;
+                //        case 2:
+                //            textBlock4.Text = "C." + myan.answer;
+                //            break;
+                //        case 3:
+                //            textBlock5.Text = "D." + myan.answer;
+                //            break;
+                //    }
+                //    step++;
+                //}
+
             }
             else
             {
@@ -91,11 +116,16 @@ namespace DrivingTest
                 textBlock5.Text = "";
             }
             textBlock6.Text = "正确答案为:" + PublicClass.question_answer;
+            textBlock6.Text = "正确答案为:" + PublicClass.question_answer;
 
             timer.Interval = new TimeSpan(10000000);   //时间间隔为一秒
             timer.Tick += new EventHandler(timer_Tick);
             timer.Start();//启动计时器
         }
+
+        
+
+
         //提取图片并显示
         private void question_image()
         {
