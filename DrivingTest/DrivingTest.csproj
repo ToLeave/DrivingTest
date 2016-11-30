@@ -121,6 +121,9 @@
     <Compile Include="Notice.xaml.cs">
       <DependentUpon>Notice.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OriginalImages.xaml.cs">
+      <DependentUpon>OriginalImages.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PreparePage.xaml.cs">
       <DependentUpon>PreparePage.xaml</DependentUpon>
     </Compile>
@@ -220,6 +223,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Notice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OriginalImages.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

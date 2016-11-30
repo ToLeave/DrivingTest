@@ -715,6 +715,9 @@ where T : DependencyObject
                     else//超出10题不予显示
                     {
                         timu_textBlock.Text = "未注册用户,只能练习前10题,注册后可以练习全部试题,无任何限制!";
+                        register re = new register();
+                        re.Show();
+                        re.Topmost = true;
                     }
 
                 }
@@ -984,14 +987,14 @@ where T : DependencyObject
             {
                 if (PublicClass.question_list[question_id].check_answer == false)
                 {
-
-
                     ErrorMessages err = new ErrorMessages();
                     C1.WPF.C1Window c1w = new C1.WPF.C1Window();
                     c1w.Content = err;
                     c1w.ShowModal();
                     c1w.Name = "做错";
                     c1w.Header = "提示";
+                    c1w.ShowMinimizeButton = false;
+                    c1w.ShowMaximizeButton = false;
                     c1w.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - err.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - err.Height / 2, 0, 0);
                     PublicClass.err_questionid = question_id;
                     PublicClass.question_answer = zhengque_textBlock.Text;
@@ -1119,7 +1122,7 @@ where T : DependencyObject
                 jiakaoDataSet.errquest.AcceptChanges();
 
             }
-            is_click_flag = false;
+              is_click_flag = false;
         }
 
         //生成题目和答案
@@ -1175,6 +1178,9 @@ where T : DependencyObject
                     else//超出10题不予显示
                     {
                         timu_textBlock.Text = "未注册用户,只能练习前10题,注册后可以练习全部试题,无任何限制!";
+                        register re = new register();
+                        re.Show();
+                        re.Topmost = true;
                     }
                 }
                 break;
@@ -1356,7 +1362,7 @@ where T : DependencyObject
                     }
                 }
                 else//不启用
-                {}
+                { }
             }
         }
 
@@ -1377,7 +1383,7 @@ where T : DependencyObject
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
-            
+
 
             var question_index = 0;
             string select_lab = "";
@@ -1680,6 +1686,92 @@ where T : DependencyObject
             c1w.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ass.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ass.Height / 2, 0, 0);
         }
 
+        //手动添加错题
+        private void tianjiacuoti_Click(object sender, RoutedEventArgs e)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 question 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+
+            DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
+            jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
+
+            int question_id = 0;
+            foreach (var lab in dati_canvas.Children)
+            {
+                QuestionNum qu = lab as QuestionNum;
+                if (qu.canvas1.Background == Brushes.SkyBlue)
+                {
+                    question_id = int.Parse(qu.Name.ToString().Substring(1, qu.Name.ToString().Length - 1));
+                    if (question_id >= 0)
+                    {
+                        //errquestion(question_id);
+
+                        var err = from c in jiakaoDataSet.errquest where c.question_id == PublicClass.question_list[question_id].question_id && c.user_id == PublicClass.user_id select c;
+                        if (err.Count() > 0)
+                        {
+                            err.First().amount += 1;
+                        }
+                        else
+                        {
+                            jiakaoDataSeterrquestTableAdapter.Insert(PublicClass.user_id, PublicClass.question_list[question_id].question_id, 1);
+                        }
+                        jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
+                        jiakaoDataSet.errquest.AcceptChanges();
+                    }
+                }
+            }
+        }
+
+        //手动删除错题
+        private void shanchucuoti_Click(object sender, RoutedEventArgs e)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 question 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+
+            DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
+            jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
+
+
+            int question_id = 0;
+            int id = 0;
+            int errid = 0;
+            foreach (var lab in dati_canvas.Children)
+            {
+                QuestionNum qu = lab as QuestionNum;
+                if (qu.canvas1.Background == Brushes.SkyBlue)
+                {
+                    question_id = int.Parse(qu.Name.ToString().Substring(1, qu.Name.ToString().Length - 1));
+                    if (question_id >= 0)
+                    {
+                        var question = from c in jiakaoDataSet.question where c.question_id == PublicClass.question_list[question_id].question_id select c;
+                        foreach (var temqu in question)
+                        {
+                            id = temqu.question_id; //获取需删除题目ID
+                        }
+                        var questionerr = from c in jiakaoDataSet.errquest where c.question_id == id && c.user_id == PublicClass.user_id select c;
+                        foreach (var errqu in questionerr)
+                        {
+                            errid = errqu.errquest_id;
+                        }
+
+                        jiakaoDataSet.errquest.FindByerrquest_id(errid).Delete();//删除错题
+
+                        
+                        jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
+                        jiakaoDataSet.errquest.AcceptChanges();
+                    }
+                }
+            }
+
+        }
+
+
+
+
         private void gif_image_MediaEnded(object sender, RoutedEventArgs e)
         {
             ((MediaElement)sender).Position = ((MediaElement)sender).Position.Add(TimeSpan.FromMilliseconds(1));
@@ -1819,6 +1911,48 @@ where T : DependencyObject
             }
         }
 
+        //点击查看原图
+        private void gif_image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 question 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+
+            int question_id = 0;
+            foreach (var lab in dati_canvas.Children)
+            {
+                QuestionNum qu = lab as QuestionNum;
+                if (qu.canvas1.Background == Brushes.SkyBlue)
+                {
+                    question_id = int.Parse(qu.Name.ToString().Substring(1, qu.Name.ToString().Length - 1));
+                    if (question_id >= 0)
+                    {
+                        var question = from c in jiakaoDataSet.question where c.question_id == PublicClass.question_list[question_id].question_id select c;
+                        foreach (var temqu in question)
+                        {
+                            PublicClass.question_image = temqu.question_image; //获取题目对应图片文件名
+
+                            OriginalImages or = new OriginalImages();
+                            C1.WPF.C1Window co = new C1.WPF.C1Window();
+                            co.Content = or;
+                            co.ShowModal();
+                            co.Name = "查看原图";
+                            co.ToolTip = "查看全图";
+                            co.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - or.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - or.Height / 2, 0, 0);                     
+                            co.ShowMinimizeButton = false;
+                            co.ShowMaximizeButton = false;
+                            co.Focus();
+                            co.IsActive = true;
+                            
+                            
+
+
+                        }
+                    }
+                }
+            }
+        }
 
         //快捷键触发事件
         private void CommandBinding_ButtonA_Executed(object sender, ExecutedRoutedEventArgs e)//A
@@ -1941,6 +2075,8 @@ where T : DependencyObject
 
             return false;
         }
+
+
     }
         #endregion
 }

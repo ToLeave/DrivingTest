@@ -321,6 +321,7 @@ namespace DrivingTest
             }
         }
 
+
         //绑定list
         private void list_bangding(string cartype, string subjection)
         {

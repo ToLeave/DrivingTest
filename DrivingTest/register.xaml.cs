@@ -164,12 +164,16 @@ namespace DrivingTest
                                 //return license_num + "," + license_time;
                                 license_count = 1000;
                                 license_num = 10000;
-                                license_time = license_time.AddYears(10);
+                                license_time = license_time.AddYears(10);     
                             }
 
                         }
                         liucheng_textBox.Text = "license_count;" + license_count + "license_num;" + license_num;
                         System.Windows.Forms.Application.DoEvents();
+
+
+
+
 
                     }
 

@@ -4,39 +4,97 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:input="clr-namespace:System.Windows.Input;assembly=PresentationCore"
+             xmlns:avalon="http://schemas.xceed.com/wpf/xaml/avalondock"
              mc:Ignorable="d" Title="注册"
              Height="500" Width="500" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" xmlns:my="clr-namespace:DrivingTest">
     <Window.Resources>
         <my:jiakaoDataSet x:Key="jiakaoDataSet" />
         <CollectionViewSource x:Key="settingViewSource" Source="{Binding Path=setting, Source={StaticResource jiakaoDataSet}}" />
     </Window.Resources>
-    <Grid Loaded="Grid_Loaded" DataContext="{StaticResource settingViewSource}">
-        <Label Content="机器码:" Height="28" HorizontalAlignment="Left" Margin="79,12,0,0" Name="label1" VerticalAlignment="Top" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="135,14,0,0" x:Name="machine_code"   VerticalAlignment="Top" Width="171" IsReadOnly="True" />
-        <Label Content="注册码:" Height="28" HorizontalAlignment="Left" Margin="79,46,0,0" Name="label2" VerticalAlignment="Top" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="135,46,172,0" Name="zhuce_textbox" VerticalAlignment="Top" Width="171" KeyUp="zhuce_textbox_KeyUp" MaxLength="19" input:InputMethod.IsInputMethodEnabled="False" />
-        
-        <Button Content="复制机器码" Height="23" HorizontalAlignment="Left" Margin="328,14,0,0" Name="fuzhi_button" VerticalAlignment="Top" Width="75" Click="fuzhi_button_Click" />
-        <Button Content="注册" Height="23" HorizontalAlignment="Left" Margin="328,46,0,0" Name="zhuce_button" VerticalAlignment="Top" Width="75" Click="zhuce_button_Click" />
-        
-        <Label Content="请把注册码填到上面文本框后点击注册按钮" Height="28" HorizontalAlignment="Left" Margin="135,77,0,0" Name="label3" VerticalAlignment="Top" Width="238" />
-        
-        <TextBlock Height="123" HorizontalAlignment="Left" Margin="25,109,0,0" Name="liucheng_textBox" VerticalAlignment="Top" Width="423" Text="{Binding Path=registration_process}" />
-        <GroupBox Header="注册流程" Height="151" HorizontalAlignment="Left" Margin="18,91,0,0" Name="groupBox1" VerticalAlignment="Top" Width="439" Visibility="Visible" />
-        
-        <Label Content="付费注册:" Height="28" HorizontalAlignment="Left" Margin="38,254,0,0" Name="label4" VerticalAlignment="Top" />
-        <TextBlock Height="23" HorizontalAlignment="Left" Margin="98,259,0,0" Name="lianjie_textBlock" Text="" VerticalAlignment="Top" Width="325" Visibility="Visible">
-            <Hyperlink  Name="HypeLink"  NavigateUri=""  RequestNavigate="HypeLink1_RequestNavigate">付款链接</Hyperlink>
-        </TextBlock>
-        
-        <Label Content="客服:" Height="28" HorizontalAlignment="Left" Margin="38,288,0,0" Name="label5" VerticalAlignment="Top" />
-        <Label Content="QQ:" Height="28" HorizontalAlignment="Left" Margin="144,283,0,0" Name="label6" VerticalAlignment="Top" />
-        <Label Content="旺旺:" Height="28" HorizontalAlignment="Left" Margin="144,312,0,0" Name="label7" VerticalAlignment="Top" />
-        <TextBlock Height="23" HorizontalAlignment="Left" Margin="191,288,0,0" Name="qq_textblock" Text="{Binding Path=customer_service_QQ}" VerticalAlignment="Top" Width="100" />
-        <TextBlock Height="23" HorizontalAlignment="Left" Margin="191,317,0,0" Name="ww_textblock" Text="{Binding Path=customer_service_WW}" VerticalAlignment="Top" Width="100" />
-        
-        <TextBlock Height="100" HorizontalAlignment="Left" Margin="25,349,0,0" Name="beizhu_textblock" VerticalAlignment="Top" Width="423" Text="{Binding Path=comments}" />
-        <GroupBox Header="注册说明" Height="217" HorizontalAlignment="Left" Margin="18,238,0,0" Name="groupBox2" VerticalAlignment="Top" Width="439" Visibility="Visible" />
-        <ProgressBar Height="10" HorizontalAlignment="Left" Margin="135,72,0,0" Name="zhuce_progressBar" VerticalAlignment="Top" Width="171" />
+    <Grid>
+        <avalon:DockingManager x:Name="dockingManager">
+            <avalon:DockingManager.AnchorableContextMenu>
+                <ContextMenu Visibility="Visible" />
+            </avalon:DockingManager.AnchorableContextMenu>
+            <avalon:DockingManager.ContextMenu>
+                <ContextMenu />
+            </avalon:DockingManager.ContextMenu>
+            <avalon:LayoutRoot>
+                <avalon:LayoutPanel Orientation="Horizontal">
+                    <avalon:LayoutDocumentPane >
+                        <avalon:LayoutAnchorable Title=" 脱机注册 " x:Name="tuojizhuce" CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True">
+                            <Grid Loaded="Grid_Loaded" DataContext="{StaticResource settingViewSource}">
+                                <Label Content="机器码:" Height="28" HorizontalAlignment="Left" Margin="79,12,0,0" Name="label1" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="135,14,0,0" x:Name="machine_code"   VerticalAlignment="Top" Width="171" IsReadOnly="True" />
+                                <Label Content="注册码:" Height="28" HorizontalAlignment="Left" Margin="79,46,0,0" Name="label2" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="135,46,172,0" Name="zhuce_textbox" VerticalAlignment="Top" Width="171" KeyUp="zhuce_textbox_KeyUp" MaxLength="19" input:InputMethod.IsInputMethodEnabled="False" />
+
+                                <Button Content="复制机器码" Height="23" HorizontalAlignment="Left" Margin="328,14,0,0" Name="fuzhi_button" VerticalAlignment="Top" Width="75" Click="fuzhi_button_Click" />
+                                <Button Content="注册" Height="23" HorizontalAlignment="Left" Margin="328,46,0,0" Name="zhuce_button" VerticalAlignment="Top" Width="75" Click="zhuce_button_Click" />
+
+                                <Label Content="请把注册码填到上面文本框后点击注册按钮" Height="28" HorizontalAlignment="Left" Margin="135,77,0,0" Name="label3" VerticalAlignment="Top" Width="238" />
+
+                                <TextBlock Height="123" HorizontalAlignment="Left" Margin="25,109,0,0" Name="liucheng_textBox" VerticalAlignment="Top" Width="423" Text="{Binding Path=registration_process}" />
+                                <GroupBox Header="注册流程" Height="151" HorizontalAlignment="Left" Margin="18,91,0,0" Name="groupBox1" VerticalAlignment="Top" Width="439" Visibility="Visible" />
+
+                                <Label Content="付费注册:" Height="28" HorizontalAlignment="Left" Margin="38,254,0,0" Name="label4" VerticalAlignment="Top" />
+                                <TextBlock Height="23" HorizontalAlignment="Left" Margin="98,259,0,0" Name="lianjie_textBlock" Text="" VerticalAlignment="Top" Width="325" Visibility="Visible">
+                                    <Hyperlink  Name="HypeLink"  NavigateUri=""  RequestNavigate="HypeLink1_RequestNavigate">付款链接</Hyperlink>
+                                </TextBlock>
+
+                                <Label Content="客服:" Height="28" HorizontalAlignment="Left" Margin="38,288,0,0" Name="label5" VerticalAlignment="Top" />
+                                <Label Content="QQ:" Height="28" HorizontalAlignment="Left" Margin="144,283,0,0" Name="label6" VerticalAlignment="Top" />
+                                <Label Content="旺旺:" Height="28" HorizontalAlignment="Left" Margin="144,312,0,0" Name="label7" VerticalAlignment="Top" />
+                                <TextBlock Height="23" HorizontalAlignment="Left" Margin="191,288,0,0" Name="qq_textblock" Text="{Binding Path=customer_service_QQ}" VerticalAlignment="Top" Width="100" />
+                                <TextBlock Height="23" HorizontalAlignment="Left" Margin="191,317,0,0" Name="ww_textblock" Text="{Binding Path=customer_service_WW}" VerticalAlignment="Top" Width="100" />
+
+                                <TextBlock Height="100" HorizontalAlignment="Left" Margin="25,349,0,0" Name="beizhu_textblock" VerticalAlignment="Top" Width="423" Text="{Binding Path=comments}" />
+                                <GroupBox Header="注册说明" Height="217" HorizontalAlignment="Left" Margin="18,238,0,0" Name="groupBox2" VerticalAlignment="Top" Width="439" Visibility="Visible" />
+                                <ProgressBar Height="10" HorizontalAlignment="Left" Margin="135,72,0,0" Name="zhuce_progressBar" VerticalAlignment="Top" Width="171" />
+                            </Grid>
+                        </avalon:LayoutAnchorable>
+                        <avalon:LayoutAnchorable Title=" 驾校注册 " x:Name="jiaxiaozhuce" CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True">
+                            <Grid>
+                                <Label Content="  姓  名  " Height="28" HorizontalAlignment="Left" Margin="26,132,0,0" Name="label11" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,134,0,0" Name="name_textBox" Text="" VerticalAlignment="Top" Width="120" />
+                                <Label Content="性别:" Height="28" HorizontalAlignment="Left" Margin="28,194,0,0" Name="label12" VerticalAlignment="Top" />
+                                <RadioButton Content="男" Height="16" HorizontalAlignment="Left" Margin="92,199,0,0" Name="nan_radioButton" VerticalAlignment="Top" />
+                                <RadioButton Content="女" Height="16" HorizontalAlignment="Left" Margin="142,199,0,0" Name="nv_radioButton" VerticalAlignment="Top" />
+                                <!--<Label Content="年龄" Height="28" HorizontalAlignment="Left" Margin="257,225,0,0" Name="label29" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="318,230,0,0" Name="textBox90" VerticalAlignment="Top" Width="120"/>-->
+                                <Label Content="身份证号" Height="28" HorizontalAlignment="Left" Margin="26,219,0,0" Name="label30" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="87,221,0,0" Name="textBox2" VerticalAlignment="Top" Width="120" />
+                                <Label Content="手机号" Height="28" HorizontalAlignment="Left" Margin="26,166,0,0" Name="label31" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,168,0,0" Name="textBox3" VerticalAlignment="Top" Width="120" />
+                                <Label Content="文化程度" Height="28" HorizontalAlignment="Left" Margin="26,251,0,0" Name="label32" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="87,253,0,0" Name="textBox4" VerticalAlignment="Top" Width="120" />
+                                <Label Content="注册编号" Height="28" HorizontalAlignment="Left" Margin="26,294,0,0" Name="label33" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="87,296,0,0" Name="textBox5" VerticalAlignment="Top" Width="120" />
+                                <Label Content="收费金额" Height="28" HorizontalAlignment="Left" Margin="26,328,0,0" Name="label34" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="87,330,0,0" Name="textBox8" VerticalAlignment="Top" Width="120" />
+                                <Label Content="学员照片" Height="28" HorizontalAlignment="Left" Margin="26,364,0,0" Name="label35" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="87,366,0,0" Name="textBox17" VerticalAlignment="Top" Width="120" />
+                                <Button Content="上传本地图片" Height="23" HorizontalAlignment="Left" Margin="222,369,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
+                                <Button Content="Button" Height="23" HorizontalAlignment="Left" Margin="162,461,0,0" Name="button6" VerticalAlignment="Top" Width="75" />
+                                <Label Content="账号" Height="28" HorizontalAlignment="Left" Margin="26,26,0,0" Name="label14" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,28,0,0" Name="textBox1" VerticalAlignment="Top" Width="120" />
+                                <Label Content="密码" Height="28" HorizontalAlignment="Left" Margin="26,60,0,0" Name="label15" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,62,0,0" Name="textBox6" VerticalAlignment="Top" Width="120" />
+                                <Label Content="确认密码" Height="28" HorizontalAlignment="Left" Margin="26,94,0,0" Name="label16" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,96,0,0" Name="textBox7" VerticalAlignment="Top" Width="120" />
+                                <Button Content="确认" Height="23" HorizontalAlignment="Left" Margin="353,396,0,0" Name="button2" VerticalAlignment="Top" Width="75" />
+                                <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="222,296,0,0" Name="label20" VerticalAlignment="Top" />
+                            </Grid>
+                        </avalon:LayoutAnchorable>
+                    </avalon:LayoutDocumentPane>
+                </avalon:LayoutPanel>
+                <avalon:LayoutRoot.LeftSide>
+                    <avalon:LayoutAnchorSide RenderOptions.ClearTypeHint="Auto">
+                        <avalon:LayoutAnchorGroup>
+                        </avalon:LayoutAnchorGroup>
+                    </avalon:LayoutAnchorSide>
+                </avalon:LayoutRoot.LeftSide>
+            </avalon:LayoutRoot>
+        </avalon:DockingManager>
     </Grid>
 </Window>

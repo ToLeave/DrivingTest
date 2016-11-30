@@ -122,8 +122,10 @@
         <Button Content="上一题" Height="44" HorizontalAlignment="Center" Margin="430,348,518,376" Name="up_button" VerticalAlignment="Center" Width="74" FontSize="14" FontWeight="Bold" Click="up_button_Click" />
         <Button Content="下一题" Height="44" HorizontalAlignment="Center" Margin="523,348,427,376" Name="do_button" VerticalAlignment="Center" Width="74" FontSize="14" FontWeight="Bold" Click="do_button_Click" />
         <Button Content="交卷" Height="44" HorizontalAlignment="Center" Margin="642,348,308,376" Name="jiaojuan_button" VerticalAlignment="Center" Width="74" FontSize="14" FontWeight="Bold" Click="jiaojuan_button_Click" />
-        <Button Content="重新考试" Height="44" HorizontalAlignment="Center" Margin="750,348,198,376" Name="chongkao_button" VerticalAlignment="Center" Width="75" FontSize="14" FontWeight="Bold" Visibility="Hidden" />
-        <TextBlock Height="30" HorizontalAlignment="Center" Margin="852,362,48,376" Name="zongfen_TextBlock" Text=""  VerticalAlignment="Center" Width="123" FontSize="20" FontWeight="Bold" Foreground="Red" TextAlignment="Center" Visibility="Hidden" />
+        <Button Content="重新考试" Height="44" HorizontalAlignment="Center" Margin="750,348,198,376" Name="chongkao_button" VerticalAlignment="Center" Width="75" FontSize="14" FontWeight="Bold" Visibility="Visible" />
+        <TextBlock Height="30" HorizontalAlignment="Center" Margin="830,361,94,377" Name="zongfen_TextBlock" Text="得分:100分"  VerticalAlignment="Center" Width="100" FontSize="20" FontWeight="Bold" Foreground="Red" TextAlignment="Center" Visibility="Visible" />
+        <Button Content="添加错题" Height="23" Width="60" Margin="936,345,28,399" HorizontalAlignment="Center" VerticalAlignment="Center" Name="tianjiacuoti" Click="tianjiacuoti_Click" />
+        <Button Content="删除错题" Height="23" Width="60" Margin="936,370,28,376" HorizontalAlignment="Center" VerticalAlignment="Center" Name="shanchucuoti" Click="shanchucuoti_Click" />
 
         <!--<Image Height="299" HorizontalAlignment="Center" Margin="0,0,0,0" Name="kaoshi_image" Stretch="Fill" VerticalAlignment="Center" Width="667" StretchDirection="DownOnly" Visibility="Hidden" />
         <Image x:Name="image" Margin="901,479,-545,-11" Height="299" Width="667"/>
@@ -131,7 +133,7 @@
             <wf:PictureBox x:Name="gif_image" Height="299" Width="667" SizeMode="StretchImage">
             </wf:PictureBox>
         </wfi:WindowsFormsHost>-->
-        <MediaElement Margin="155,421,262,57" Height="290"  x:Name="gif_image" MediaEnded="gif_image_MediaEnded" HorizontalAlignment="Center" VerticalAlignment="Center" Width="607">    </MediaElement>
+        <MediaElement Margin="155,421,262,57" Height="290"  x:Name="gif_image" MediaEnded="gif_image_MediaEnded" HorizontalAlignment="Center" VerticalAlignment="Center" Width="607" MouseLeftButtonDown="gif_image_MouseLeftButtonDown">    </MediaElement>
         <GroupBox Header="考试图片信息" Height="320" HorizontalAlignment="Center" Margin="130,398,223,50" Name="groupBox7" VerticalAlignment="Center" Width="671" Visibility="Visible" />
         
         <Grid x:Name="shezhi_grid" Visibility="Hidden">

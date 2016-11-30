@@ -110,7 +110,7 @@ namespace DrivingTest
             }
             else
             {
-                textBlock2.Text = "";
+                textBlock2.Text = "";  
                 textBlock3.Text = "";
                 textBlock4.Text = "";
                 textBlock5.Text = "";

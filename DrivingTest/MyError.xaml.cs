@@ -25,6 +25,7 @@ namespace DrivingTest
         }
 
         List<int> myerr_list = new List<int>();
+        List<int> err_list = new List<int>();
         List<int> question_list = new List<int>();
         int err_count = 0;
         private void shunxu_button_Click(object sender, RoutedEventArgs e)
@@ -103,13 +104,13 @@ namespace DrivingTest
             }
             else
             {
-                MessageBox.Show("做错次数为" + err_count + "的错题为0题","提示");
+                MessageBox.Show("做错次数为" + err_count + "的错题为0题", "提示");
             }
- 
 
 
 
-   
+
+
 
 
         }
@@ -185,19 +186,80 @@ namespace DrivingTest
             }
             else
             {
-                MessageBox.Show("做错次数为"+err_count+"的错题为0题","提示");
+                MessageBox.Show("做错次数为" + err_count + "的错题为0题", "提示");
             }
-            
 
 
 
-            
+
+
 
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             cuo_radioButton1.IsChecked = true;
+        }
+
+
+        //删除错题
+        private void shanchu_button_Click(object sender, RoutedEventArgs e)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 question 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
+            jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+
+            int[] err_c = new int[3];
+
+
+            if (shanchu_button.Content.ToString() == "删除错题")
+            {
+                checkBox1.Visibility = System.Windows.Visibility.Visible;
+                checkBox2.Visibility = System.Windows.Visibility.Visible;
+                checkBox3.Visibility = System.Windows.Visibility.Visible;
+                shanchu_button.Content = "确认删除";
+            }
+            else if (shanchu_button.Content.ToString() == "确认删除")
+            {
+
+                if (checkBox1.IsChecked == true)
+                {
+                    err_c[0] = 1;
+                }
+                if (checkBox2.IsChecked == true)
+                {
+                    err_c[1] = 2;
+                }
+                if (checkBox3.IsChecked == true)
+                {
+                    err_c[2] = 3;
+                }
+
+                var errquestion = from c in jiakaoDataSet.errquest where c.amount == err_c[0] || c.amount == err_c[1] || c.amount == err_c[2] select c;
+
+                foreach (var err in errquestion)
+                {
+                    err_list.Add(err.question_id);
+                }
+
+                for (int i = 0; i < err_list.Count(); i++)
+                {
+                    jiakaoDataSet.errquest.FindByerrquest_id(err_list[i]).Delete();//删除错题
+                }
+
+
+                jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
+                jiakaoDataSet.errquest.AcceptChanges();
+
+                checkBox1.Visibility = System.Windows.Visibility.Hidden;
+                checkBox2.Visibility = System.Windows.Visibility.Hidden;
+                checkBox3.Visibility = System.Windows.Visibility.Hidden;
+                shanchu_button.Content = "确认删除";
+            }
+
         }
     }
 }

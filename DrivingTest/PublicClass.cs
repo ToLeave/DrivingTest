@@ -38,6 +38,7 @@ namespace DrivingTest
         public static string shezhi = "";//设置或退出
         public static int err_questionid = 0;//做错了的题号下标
         public static string question_answer = "";//正确答案
+        public static string question_image = "";//图片文件名 
 
         public static string[] key = new string[12];//快捷键数组 索引从0开始依次为 A;B;C;D;对;错;上一题;下一题;第一题;最后题;交卷;确认交卷
         public static string[] gongneng = new string[6];//索引从0开始依次为 章节练习;顺序练习;随机练习;专项练习;模拟考试;错题强化; 0为启用不选中,1为禁用选中

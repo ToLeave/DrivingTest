@@ -353,25 +353,32 @@ where T : DependencyObject
         //登录界面判断本机是否联网
         private bool checknetwork()
         {
-            System.Net.NetworkInformation.Ping ping;
-            System.Net.NetworkInformation.PingReply res;
-            ping = new System.Net.NetworkInformation.Ping();
-            bool is_ping = false;
-            for (int i = 0; i < 2; i++)
+            try
             {
-
-                res = ping.Send("www.baidu.com");
-                if (res.Status == System.Net.NetworkInformation.IPStatus.Success)
+                System.Net.NetworkInformation.Ping ping;
+                System.Net.NetworkInformation.PingReply res;
+                ping = new System.Net.NetworkInformation.Ping();
+                bool is_ping = false;
+                for (int i = 0; i < 2; i++)
                 {
-                    is_ping = true;
-                    i = 2;
-                }
 
+                    res = ping.Send("www.baidu.com");
+                    if (res.Status == System.Net.NetworkInformation.IPStatus.Success)
+                    {
+                        is_ping = true;
+                        i = 2;
+                    }
+
+                }
+                if (is_ping)
+                    return true;
+                else
+                    return false;
             }
-            if (is_ping)
-                return true;
-            else
+            catch
+            {
                 return false;
+            }
         }
 
 
