@@ -13,7 +13,7 @@
         <CollectionViewSource x:Key="questionViewSource" Source="{Binding Path=question, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="answerViewSource" Source="{Binding Path=answer, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="subjectViewSource" Source="{Binding Path=subject, Source={StaticResource jiakaoDataSet}}" />
-        <CollectionViewSource x:Key="errquestViewSource" Source="{Binding Path=errquest, Source={StaticResource jiakaoDataSet}}" />
+        <CollectionViewSource x:Key="errquestViewSource" Source="{Binding Path=errquest, Source={StaticResource jiakaoDataSet}}" /> 
 
         <!-- 快捷键  -->
         <RoutedUICommand x:Key="ButtonA" Text="选项A和对" />
@@ -122,10 +122,10 @@
         <Button Content="上一题" Height="44" HorizontalAlignment="Center" Margin="430,348,518,376" Name="up_button" VerticalAlignment="Center" Width="74" FontSize="14" FontWeight="Bold" Click="up_button_Click" />
         <Button Content="下一题" Height="44" HorizontalAlignment="Center" Margin="523,348,427,376" Name="do_button" VerticalAlignment="Center" Width="74" FontSize="14" FontWeight="Bold" Click="do_button_Click" />
         <Button Content="交卷" Height="44" HorizontalAlignment="Center" Margin="642,348,308,376" Name="jiaojuan_button" VerticalAlignment="Center" Width="74" FontSize="14" FontWeight="Bold" Click="jiaojuan_button_Click" />
-        <Button Content="重新考试" Height="44" HorizontalAlignment="Center" Margin="750,348,198,376" Name="chongkao_button" VerticalAlignment="Center" Width="75" FontSize="14" FontWeight="Bold" Visibility="Visible" />
-        <TextBlock Height="30" HorizontalAlignment="Center" Margin="830,361,94,377" Name="zongfen_TextBlock" Text="得分:100分"  VerticalAlignment="Center" Width="100" FontSize="20" FontWeight="Bold" Foreground="Red" TextAlignment="Center" Visibility="Visible" />
-        <Button Content="添加错题" Height="23" Width="60" Margin="936,345,28,399" HorizontalAlignment="Center" VerticalAlignment="Center" Name="tianjiacuoti" Click="tianjiacuoti_Click" />
-        <Button Content="删除错题" Height="23" Width="60" Margin="936,370,28,376" HorizontalAlignment="Center" VerticalAlignment="Center" Name="shanchucuoti" Click="shanchucuoti_Click" />
+        <Button Content="重新考试" Height="44" HorizontalAlignment="Center" Margin="750,348,198,376" Name="chongkao_button" VerticalAlignment="Center" Width="75" FontSize="14" FontWeight="Bold" Visibility="Hidden" Click="chongkao_button_Click" />
+        <TextBlock Height="30" HorizontalAlignment="Center" Margin="830,361,94,377" Name="zongfen_TextBlock" Text=""  VerticalAlignment="Center" Width="109" FontSize="20" FontWeight="Bold" Foreground="Red" TextAlignment="Center" Visibility="Hidden" />
+        <Button Content="添加错题" Height="23" Width="60" Margin="936,340,28,399" HorizontalAlignment="Center" VerticalAlignment="Center" Name="tianjiacuoti" Click="tianjiacuoti_Click" />
+        <Button Content="删除错题" Height="23" Width="60" Margin="936,365,28,376" HorizontalAlignment="Center" VerticalAlignment="Center" Name="shanchucuoti" Click="shanchucuoti_Click" />
 
         <!--<Image Height="299" HorizontalAlignment="Center" Margin="0,0,0,0" Name="kaoshi_image" Stretch="Fill" VerticalAlignment="Center" Width="667" StretchDirection="DownOnly" Visibility="Hidden" />
         <Image x:Name="image" Margin="901,479,-545,-11" Height="299" Width="667"/>

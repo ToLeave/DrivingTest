@@ -40,6 +40,12 @@ namespace DrivingTest
         public static string question_answer = "";//正确答案
         public static string question_image = "";//图片文件名 
 
+        //重新抽题 create_method 0 顺序,1随机; question_mode 0 练习,1考试,2错题; cartype 车型;subject 科目; questions_id 题库IDlist
+        public static int create_method = 0;
+        public static int question_mode = 0;
+        public static string subject = "";
+        public static List<int> questions_id = new List<int>();
+
         public static string[] key = new string[12];//快捷键数组 索引从0开始依次为 A;B;C;D;对;错;上一题;下一题;第一题;最后题;交卷;确认交卷
         public static string[] gongneng = new string[6];//索引从0开始依次为 章节练习;顺序练习;随机练习;专项练习;模拟考试;错题强化; 0为启用不选中,1为禁用选中
         public static string[] xinxi = new string[5];//索引从0开始依次为 注册流程;付款链接;客服QQ;客服旺旺;备注; 0为启用不选中,1为禁用选中

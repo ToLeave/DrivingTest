@@ -64,6 +64,10 @@ namespace DrivingTest
                 ma.chongkao_button.Visibility = System.Windows.Visibility.Visible;
                 ma.zongfen_TextBlock.Visibility = System.Windows.Visibility.Visible;
                 ma.zongfen_TextBlock.Text = "得分:" + PublicClass.fenshu.ToString() + "分";
+                if (PublicClass.question_mode == 0)//练习下显示重考错题
+                {
+                    ma.chongkao_button.Content = "重考错题";
+                }
                 
                 //me.Content = ma;
 

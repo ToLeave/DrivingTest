@@ -267,7 +267,7 @@ namespace DrivingTest
             jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
 
             var errquestion = (from c in jiakaoDataSet.errquest where c.user_id == PublicClass.user_id && c.user_id > 0 && c.user_id == PublicClass.user_id select c).ToArray();
-
+            PublicClass.question_list = new List<PublicClass.Question>();
             try
             {
                 ServicePointManager.DefaultConnectionLimit = 1000;

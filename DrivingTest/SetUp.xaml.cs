@@ -588,8 +588,6 @@ namespace DrivingTest
             }
             jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
             jiakaoDataSet.setting.AcceptChanges();
-
-
         }
 
         //浏览图片

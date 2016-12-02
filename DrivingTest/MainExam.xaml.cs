@@ -50,7 +50,9 @@ namespace DrivingTest
             InitializeComponent();
             //this.Loaded += new RoutedEventHandler(Window_Loaded);
 
+
         }
+
 
         #region 查找控件
         public static T FindChild<T>(DependencyObject parent, string childName)//查找控件
@@ -95,8 +97,7 @@ where T : DependencyObject
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
-            this.Name = "mainW";
+            //this.Name = "mainW";
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 question 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
@@ -181,7 +182,7 @@ where T : DependencyObject
 
 
         //生成题库
-        public void create_question(int create_method, int question_mode, string cartype, string subject, List<int> questions_id)// cerate_method 0 顺序,1随机; question_mode 0 练习,1考试,2错题; cartype 车型;subject 科目; questions_id 题库ID
+        public void create_question(int create_method, int question_mode, string cartype, string subject, List<int> questions_id)// create_method 0 顺序,1随机; question_mode 0 练习,1考试,2错题; cartype 车型;subject 科目; questions_id 题库ID
         {
             cart_sub(cartype, subject);//显示车型科目
 
@@ -201,6 +202,8 @@ where T : DependencyObject
             {
                 shezhi_grid.Visibility = System.Windows.Visibility.Hidden;
                 xianshi_grid.Visibility = System.Windows.Visibility.Hidden;
+                tianjiacuoti.Visibility = System.Windows.Visibility.Hidden;
+                shanchucuoti.Visibility = System.Windows.Visibility.Hidden;
 
                 timer_type = "考试";
                 var question_pd = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.question_type.Contains("PD") && c.subject_id == local_subject.First().subject_id select c;
@@ -293,6 +296,13 @@ where T : DependencyObject
 
             //开启定时器
             timer.Start();
+
+            //存参以留重新考试
+            PublicClass.create_method = create_method;
+            PublicClass.question_mode = question_mode;
+            PublicClass.cartype = cartype;
+            PublicClass.subject = subject;
+            PublicClass.questions_id = questions_id;
         }
 
 
@@ -1122,7 +1132,7 @@ where T : DependencyObject
                 jiakaoDataSet.errquest.AcceptChanges();
 
             }
-              is_click_flag = false;
+            is_click_flag = false;
         }
 
         //生成题目和答案
@@ -1760,7 +1770,7 @@ where T : DependencyObject
 
                         jiakaoDataSet.errquest.FindByerrquest_id(errid).Delete();//删除错题
 
-                        
+
                         jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
                         jiakaoDataSet.errquest.AcceptChanges();
                     }
@@ -1769,7 +1779,68 @@ where T : DependencyObject
 
         }
 
+        //重新考试
+        private void chongkao_button_Click(object sender, RoutedEventArgs e)
+        {
+            chongkao_button.Visibility = System.Windows.Visibility.Hidden;
+            zongfen_TextBlock.Visibility = System.Windows.Visibility.Hidden;
+            jiaojuan_button.Visibility = System.Windows.Visibility.Visible;
+            dadui.Text = "0";
+            dacuo.Text = "0";
+            shouzheng.Text = "0";
+            dati_precent.Text = "0";
+            chouti_precent.Text = "0";
 
+            if (PublicClass.question_mode == 0)//练习下显示重考错题
+            {
+                DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+                // 将数据加载到表 question 中。可以根据需要修改此代码。
+                DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+                jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+
+                int question_id = 0;
+                List<int> questionsid = new List<int>();
+                foreach (var lab in dati_canvas.Children)
+                {
+                    QuestionNum qu = lab as QuestionNum;
+                    if (qu.label2.Foreground == Brushes.Black && qu.label2.Content != "")
+                    {
+                        question_id = int.Parse(qu.Name.ToString().Substring(1, qu.Name.ToString().Length - 1));
+                        if (question_id >= 0)
+                        {
+                            var question = from c in jiakaoDataSet.question where c.question_id == PublicClass.question_list[question_id].question_id select c;
+                            foreach (var temqu in question)
+                            {
+                                questionsid.Add(temqu.question_id); //获取需删除题目ID
+                            }
+                        }
+                    }
+                }
+                for (int i = 0; i < questionsid.Count(); i++)
+                {
+                    for (int j = 0; j < PublicClass.questions_id.Count; j++)
+                    {
+                        if (questionsid[i] == PublicClass.questions_id[j])
+                        {
+                            PublicClass.questions_id.RemoveAt(j);
+                            j--;
+                        }
+                    }
+                }
+
+                
+
+                PublicClass.question_list = new List<PublicClass.Question>();
+                create_question(PublicClass.create_method, PublicClass.question_mode, PublicClass.cartype, PublicClass.subject, PublicClass.questions_id);//重新执行抽题
+                Window_Loaded(null, null);//重新执行界面
+            }
+            else//考试
+            {
+                PublicClass.question_list = new List<PublicClass.Question>();
+                create_question(PublicClass.create_method, PublicClass.question_mode, PublicClass.cartype, PublicClass.subject, PublicClass.questions_id);//重新执行抽题
+                Window_Loaded(null, null);//重新执行界面
+            }
+        }
 
 
         private void gif_image_MediaEnded(object sender, RoutedEventArgs e)
@@ -1939,13 +2010,13 @@ where T : DependencyObject
                             co.ShowModal();
                             co.Name = "查看原图";
                             co.ToolTip = "查看全图";
-                            co.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - or.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - or.Height / 2, 0, 0);                     
+                            co.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - or.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - or.Height / 2, 0, 0);
                             co.ShowMinimizeButton = false;
                             co.ShowMaximizeButton = false;
                             co.Focus();
                             co.IsActive = true;
-                            
-                            
+
+
 
 
                         }
@@ -2075,6 +2146,8 @@ where T : DependencyObject
 
             return false;
         }
+
+
 
 
     }
