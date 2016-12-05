@@ -57,33 +57,46 @@
                             <Grid>
                                 <Label Content="  姓  名  " Height="28" HorizontalAlignment="Left" Margin="26,132,0,0" Name="label11" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="90,134,0,0" Name="name_textBox" Text="" VerticalAlignment="Top" Width="120" />
-                                <Label Content="性别:" Height="28" HorizontalAlignment="Left" Margin="28,194,0,0" Name="label12" VerticalAlignment="Top" />
-                                <RadioButton Content="男" Height="16" HorizontalAlignment="Left" Margin="92,199,0,0" Name="nan_radioButton" VerticalAlignment="Top" />
-                                <RadioButton Content="女" Height="16" HorizontalAlignment="Left" Margin="142,199,0,0" Name="nv_radioButton" VerticalAlignment="Top" />
+                                
+                                <Label Content="性别:" Height="28" HorizontalAlignment="Left" Margin="26,166,0,0" Name="label12" VerticalAlignment="Top" />
+                                <RadioButton Content="男" Height="16" HorizontalAlignment="Left" Margin="87,171,0,0" Name="nan_radioButton" VerticalAlignment="Top" />
+                                <RadioButton Content="女" Height="16" HorizontalAlignment="Left" Margin="134,171,0,0" Name="nv_radioButton" VerticalAlignment="Top" />
                                 <!--<Label Content="年龄" Height="28" HorizontalAlignment="Left" Margin="257,225,0,0" Name="label29" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="318,230,0,0" Name="textBox90" VerticalAlignment="Top" Width="120"/>-->
-                                <Label Content="身份证号" Height="28" HorizontalAlignment="Left" Margin="26,219,0,0" Name="label30" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="87,221,0,0" Name="textBox2" VerticalAlignment="Top" Width="120" />
-                                <Label Content="手机号" Height="28" HorizontalAlignment="Left" Margin="26,166,0,0" Name="label31" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,168,0,0" Name="textBox3" VerticalAlignment="Top" Width="120" />
-                                <Label Content="文化程度" Height="28" HorizontalAlignment="Left" Margin="26,251,0,0" Name="label32" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="87,253,0,0" Name="textBox4" VerticalAlignment="Top" Width="120" />
-                                <Label Content="注册编号" Height="28" HorizontalAlignment="Left" Margin="26,294,0,0" Name="label33" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="87,296,0,0" Name="textBox5" VerticalAlignment="Top" Width="120" />
-                                <Label Content="收费金额" Height="28" HorizontalAlignment="Left" Margin="26,328,0,0" Name="label34" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="87,330,0,0" Name="textBox8" VerticalAlignment="Top" Width="120" />
+                                <Label Content="身份证号" Height="28" HorizontalAlignment="Left" Margin="220,166,0,0" Name="label30" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="284,171,0,0" Name="textBox2" VerticalAlignment="Top" Width="120" />
+                                
+                                <Label Content="手机号" Height="28" HorizontalAlignment="Left" Margin="232,134,0,0" Name="label31" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="284,137,0,0" Name="textBox3" VerticalAlignment="Top" Width="120" />
+                                
+                                <Label Content="学员程度" Height="28" HorizontalAlignment="Left" Margin="26,200,0,0" Name="label32" VerticalAlignment="Top" />
+                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="90,205,0,0" Name="wenhua_comboBox" VerticalAlignment="Top" Width="120" ItemsSource="{Binding}" />
+                                
+                                <Label Content="注册编号" Height="28" HorizontalAlignment="Left" Margin="23,242,0,0" Name="label33" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,244,0,0" Name="textBox5" VerticalAlignment="Top" Width="120" />
+                                
+                                <Label Content="收费金额" Height="28" HorizontalAlignment="Left" Margin="26,284,0,0" Name="label34" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,286,0,0" Name="textBox8" VerticalAlignment="Top" Width="120" />
+                                
                                 <Label Content="学员照片" Height="28" HorizontalAlignment="Left" Margin="26,364,0,0" Name="label35" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="87,366,0,0" Name="textBox17" VerticalAlignment="Top" Width="120" />
-                                <Button Content="上传本地图片" Height="23" HorizontalAlignment="Left" Margin="222,369,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
-                                <Button Content="Button" Height="23" HorizontalAlignment="Left" Margin="162,461,0,0" Name="button6" VerticalAlignment="Top" Width="75" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="87,366,0,0" Name="zhaopian_textBox" VerticalAlignment="Top" Width="120" />
+                                <Button Content="上传本地图片" Height="23" HorizontalAlignment="Left" Margin="222,366,0,0" Name="shangchuan_button" VerticalAlignment="Top" Width="75" Click="shangchuan_button_Click" />
+                                
                                 <Label Content="账号" Height="28" HorizontalAlignment="Left" Margin="26,26,0,0" Name="label14" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="90,28,0,0" Name="textBox1" VerticalAlignment="Top" Width="120" />
+                                
                                 <Label Content="密码" Height="28" HorizontalAlignment="Left" Margin="26,60,0,0" Name="label15" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="90,62,0,0" Name="textBox6" VerticalAlignment="Top" Width="120" />
+                                
                                 <Label Content="确认密码" Height="28" HorizontalAlignment="Left" Margin="26,94,0,0" Name="label16" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="90,96,0,0" Name="textBox7" VerticalAlignment="Top" Width="120" />
+                                
                                 <Button Content="确认" Height="23" HorizontalAlignment="Left" Margin="353,396,0,0" Name="button2" VerticalAlignment="Top" Width="75" />
-                                <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="222,296,0,0" Name="label20" VerticalAlignment="Top" />
+                                
+                                <CheckBox Content="个人注册" Height="16" HorizontalAlignment="Left" Margin="232,251,0,0" Name="checkBox1" VerticalAlignment="Top" />
+                                <CheckBox Content="驾校注册" Height="16" HorizontalAlignment="Left" Margin="313,251,0,0" Name="checkBox2" VerticalAlignment="Top" />
+                                <!--<Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="26,321,0,0" Name="label1114" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,323,0,0" Name="textBox4" VerticalAlignment="Top" Width="120" />-->
                             </Grid>
                         </avalon:LayoutAnchorable>
                     </avalon:LayoutDocumentPane>

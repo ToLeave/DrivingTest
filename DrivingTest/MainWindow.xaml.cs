@@ -250,6 +250,7 @@ where T : DependencyObject
                         else
                         {
                             xianshi.Text = "无法连接网络,脱机模式下请到注册页面联系客服购买注册码";
+                            PublicClass.wuwangluo = true;//无网络
 
                         }
 

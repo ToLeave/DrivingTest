@@ -15,6 +15,7 @@ using System.Management;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Threading;
+using Microsoft.Win32;
 
 
 namespace DrivingTest
@@ -31,6 +32,7 @@ namespace DrivingTest
 
         string num = "";
         string time = "";
+        List<string> wenhua = new List<string> { "A","B","C","D"};
 
         #region 获取显示机器码
         /// <summary>
@@ -307,11 +309,18 @@ namespace DrivingTest
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            if(PublicClass.wuwangluo == true)//断网不显示联网注册
+            {
+                jiaxiaozhuce.Hide();
+            }
 
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 setting 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            wenhua_comboBox.DataContext = wenhua;
+
 
             var setting = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
             foreach (var se in setting)
@@ -416,6 +425,18 @@ namespace DrivingTest
             zhuce_textbox.Text = zhuce_textbox.Text.ToUpper();
             zhuce_textbox.SelectionStart = zhuce_textbox.Text.Length;
 
+        }
+
+        //上传本地图片
+        private void shangchuan_button_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "图片文件 (*.png*.jpg*.jpeg)|*.png;*.jpg;*.jpeg|PNG files (*.png)|*.png|JPG files (*.jpg*.jpeg)|*.jpg;*.jpeg";
+
+            if (dialog.ShowDialog() == true)
+            {
+                zhaopian_textBox.Text = dialog.FileName;
+            }
         }
 
     }

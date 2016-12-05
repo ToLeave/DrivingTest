@@ -12,7 +12,7 @@
         <CollectionViewSource x:Key="settingViewSource" Source="{Binding Path=setting, Source={StaticResource jiakaoDataSet}}" />
     </UserControl.Resources>
     <Grid DataContext="{StaticResource chapterViewSource}">
-        <TextBlock Height="169" HorizontalAlignment="Left" Margin="59,68,0,0" Name="textBlock1" Text="这是推送测试" VerticalAlignment="Top" Width="659" />
+        <TextBlock Height="184" HorizontalAlignment="Left" Margin="31,68,0,0" Name="textBlock1" Text="广   -    告    -   位" VerticalAlignment="Top" Width="739" FontSize="30" TextAlignment="Center"  />
 
         <Button Content="新手速成" Height="40" HorizontalAlignment="Left" Margin="31,274,0,0" Name="sucheng" VerticalAlignment="Top" Width="80" Click="sucheng_Click" FontSize="14" FontWeight="Bold" />
         <Button Content="速成600" Height="40" HorizontalAlignment="Left" Margin="31,366,0,0" Name="sucheng600" VerticalAlignment="Top" Width="80" Click="sucheng600_Click" FontSize="14" FontWeight="Bold" />
@@ -35,5 +35,6 @@
         <Button Content="章节练习" Height="30" HorizontalAlignment="Left" Margin="626,258,0,0" Name="zhangjielianxi" VerticalAlignment="Top" Width="75" Click="zhangjielianxi_Click" />
         <Button Content="仿真考试" Height="40" HorizontalAlignment="Left" Margin="31,458,0,0" Name="simulation_test" VerticalAlignment="Top" Width="80" Click="simulation_test_Click" FontSize="14" FontWeight="Bold" />
         <TextBlock Height="50" HorizontalAlignment="Left" Margin="0,12,0,0" Name="textBlock2" Text="  驾考速成,专业培训,理论包过 加盟电话:18687768373" VerticalAlignment="Top" Width="800" FontSize="32" FontWeight="Normal" />
+        <Image Height="183" HorizontalAlignment="Left" Margin="31,68,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="733" />
     </Grid>
 </UserControl>

@@ -915,6 +915,10 @@ where T : DependencyObject
                 }
                 error_messages(question_id + 1);
             }
+            if (PublicClass.question_mode == 1)
+            {
+ 
+            }
 
             //xuanxiang_textBlock.Text = "";
         }
@@ -966,6 +970,27 @@ where T : DependencyObject
                 }
                 error_messages(question_id - 1);
             }
+
+            if (PublicClass.question_mode == 1)//考试下做题后不可修改            
+            {
+                int question_index = 0;
+                List<int> questionsid = new List<int>();
+                foreach (var lab in dati_canvas.Children)
+                {
+                    QuestionNum qu = lab as QuestionNum;
+                    if (qu.label2.Content.ToString() != "")
+                    {
+                        question_index = int.Parse(qu.Name.ToString().Substring(1, qu.Name.ToString().Length - 1));
+                        if (question_id >= 0)
+                        {
+                            questionsid.Add(question_index);//储存所有做过题的下标 
+                        }
+                    }
+                }
+            }
+
+
+
 
             //xuanxiang_textBlock.Text = "";
 
@@ -1803,7 +1828,7 @@ where T : DependencyObject
                 foreach (var lab in dati_canvas.Children)
                 {
                     QuestionNum qu = lab as QuestionNum;
-                    if (qu.label2.Foreground == Brushes.Black && qu.label2.Content != "")
+                    if (qu.label2.Foreground == Brushes.Black && qu.label2.Content.ToString() != "")
                     {
                         question_id = int.Parse(qu.Name.ToString().Substring(1, qu.Name.ToString().Length - 1));
                         if (question_id >= 0)

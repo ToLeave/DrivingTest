@@ -221,48 +221,61 @@ namespace DrivingTest
                 checkBox2.Visibility = System.Windows.Visibility.Visible;
                 checkBox3.Visibility = System.Windows.Visibility.Visible;
                 shanchu_button.Content = "确认删除";
+                MessageBox.Show("请勾选您要删除的错题库并点击确认删除按钮!", "提示");
             }
             else if (shanchu_button.Content.ToString() == "确认删除")
             {
 
-                if (checkBox1.IsChecked == true)
+                MessageBoxResult result = MessageBox.Show("确定删除吗？", "询问", MessageBoxButton.OKCancel);
+
+                //确认删除
+                if (result == MessageBoxResult.Yes)
                 {
-                    err_c[0] = 1;
-                }
-                if (checkBox2.IsChecked == true)
-                {
-                    err_c[1] = 2;
-                }
-                if (checkBox3.IsChecked == true)
-                {
-                    err_c[2] = 3;
+                    if (checkBox1.IsChecked == true)
+                    {
+                        err_c[0] = 1;
+                    }
+                    if (checkBox2.IsChecked == true)
+                    {
+                        err_c[1] = 2;
+                    }
+                    if (checkBox3.IsChecked == true)
+                    {
+                        err_c[2] = 3;
+                    }
+
+                    var errquestion = from c in jiakaoDataSet.errquest where c.amount == err_c[0] || c.amount == err_c[1] || c.amount == err_c[2] select c;
+
+                    foreach (var err in errquestion)
+                    {
+                        err_list.Add(err.errquest_id);
+                    }
+
+                    for (int i = 0; i < err_list.Count(); i++)
+                    {
+                        jiakaoDataSet.errquest.FindByerrquest_id(err_list[i]).Delete();//删除错题
+                        m = 1;
+                    }
+
+                    if (m == 1)
+                    {
+                        MessageBox.Show("错题删除成功");
+                    }
+
+                    jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
+                    jiakaoDataSet.errquest.AcceptChanges();
+
+                    checkBox1.Visibility = System.Windows.Visibility.Hidden;
+                    checkBox2.Visibility = System.Windows.Visibility.Hidden;
+                    checkBox3.Visibility = System.Windows.Visibility.Hidden;
+                    shanchu_button.Content = "删除错题";
                 }
 
-                var errquestion = from c in jiakaoDataSet.errquest where c.amount == err_c[0] || c.amount == err_c[1] || c.amount == err_c[2] select c;
+                //取消删除
+                if (result == MessageBoxResult.No)
+                { }
 
-                foreach (var err in errquestion)
-                {
-                    err_list.Add(err.errquest_id);
-                }
 
-                for (int i = 0; i < err_list.Count(); i++)
-                {
-                    jiakaoDataSet.errquest.FindByerrquest_id(err_list[i]).Delete();//删除错题
-                    m = 1;
-                }
-
-                if (m == 1)
-                {
-                    MessageBox.Show("错题删除成功");
-                }
-
-                jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
-                jiakaoDataSet.errquest.AcceptChanges();
-
-                checkBox1.Visibility = System.Windows.Visibility.Hidden;
-                checkBox2.Visibility = System.Windows.Visibility.Hidden;
-                checkBox3.Visibility = System.Windows.Visibility.Hidden;
-                shanchu_button.Content = "删除错题";
             }
 
         }
