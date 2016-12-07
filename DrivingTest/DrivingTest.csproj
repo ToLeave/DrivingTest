@@ -127,6 +127,9 @@
     <Compile Include="PreparePage.xaml.cs">
       <DependentUpon>PreparePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PrintReport.xaml.cs">
+      <DependentUpon>PrintReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ProcessCount.cs" />
     <Compile Include="PublicClass.cs" />
     <Compile Include="QuestionNum.xaml.cs">
@@ -231,6 +234,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PreparePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PrintReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

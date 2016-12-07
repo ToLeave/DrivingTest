@@ -734,6 +734,23 @@ where T : DependencyObject
                 break;
             }
 
+            if (PublicClass.question_mode == 1)//考试下做题后不可修改            
+            {
+                if (PublicClass.question_list[question_index].rept_do != 0)
+                {
+                    a_button.IsEnabled = false;
+                    b_button.IsEnabled = false;
+                    c_button.IsEnabled = false;
+                    d_button.IsEnabled = false;
+                }
+                else
+                {
+                    a_button.IsEnabled = true;
+                    b_button.IsEnabled = true;
+                    c_button.IsEnabled = true;
+                    d_button.IsEnabled = true;
+                }
+            }
 
             process_question_type(question_index);//判断所选题型
             if (current_question_type == "S" || current_question_type == "M")
@@ -887,6 +904,23 @@ where T : DependencyObject
                     break;
                 }
             }
+            if (PublicClass.question_mode == 1)//考试下做题后不可修改            
+            {
+                if (PublicClass.question_list[question_id].rept_do != 0)
+                {
+                    a_button.IsEnabled = false;
+                    b_button.IsEnabled = false;
+                    c_button.IsEnabled = false;
+                    d_button.IsEnabled = false;
+                }
+                else
+                {
+                    a_button.IsEnabled = true;
+                    b_button.IsEnabled = true;
+                    c_button.IsEnabled = true;
+                    d_button.IsEnabled = true;
+                }
+            }
             if (question_id == -1)
             {
                 MessageBoxResult result = MessageBox.Show("已是第一题");
@@ -917,7 +951,7 @@ where T : DependencyObject
             }
             if (PublicClass.question_mode == 1)
             {
- 
+
             }
 
             //xuanxiang_textBlock.Text = "";
@@ -926,6 +960,17 @@ where T : DependencyObject
         //下一题
         private void do_button_Click(object sender, RoutedEventArgs e)
         {
+
+            //if (PublicClass.question_mode == 1)//考试下做题后不可修改            
+            //{
+            //    int question_index = 0;
+            //    List<int> questionsid = new List<int>();
+
+            //    if (question_index >= 0)
+            //    {
+            //        questionsid.Add(question_index);//储存所有做过题的下标
+            //    }
+            //}
 
             int question_id = 0;
             foreach (var lab in dati_canvas.Children)
@@ -939,6 +984,23 @@ where T : DependencyObject
                         select_question(question_id);
                     }
                     break;
+                }
+            }
+            if (PublicClass.question_mode == 1)//考试下做题后不可修改            
+            {
+                if (PublicClass.question_list[question_id].rept_do != 0)
+                {
+                    a_button.IsEnabled = false;
+                    b_button.IsEnabled = false;
+                    c_button.IsEnabled = false;
+                    d_button.IsEnabled = false;
+                }
+                else
+                {
+                    a_button.IsEnabled = true;
+                    b_button.IsEnabled = true;
+                    c_button.IsEnabled = true;
+                    d_button.IsEnabled = true;
                 }
             }
             if (question_id == PublicClass.question_list.Count())
@@ -969,24 +1031,6 @@ where T : DependencyObject
                     showright_answer(question_id);
                 }
                 error_messages(question_id - 1);
-            }
-
-            if (PublicClass.question_mode == 1)//考试下做题后不可修改            
-            {
-                int question_index = 0;
-                List<int> questionsid = new List<int>();
-                foreach (var lab in dati_canvas.Children)
-                {
-                    QuestionNum qu = lab as QuestionNum;
-                    if (qu.label2.Content.ToString() != "")
-                    {
-                        question_index = int.Parse(qu.Name.ToString().Substring(1, qu.Name.ToString().Length - 1));
-                        if (question_id >= 0)
-                        {
-                            questionsid.Add(question_index);//储存所有做过题的下标 
-                        }
-                    }
-                }
             }
 
 
@@ -1853,7 +1897,7 @@ where T : DependencyObject
                     }
                 }
 
-                
+
 
                 PublicClass.question_list = new List<PublicClass.Question>();
                 create_question(PublicClass.create_method, PublicClass.question_mode, PublicClass.cartype, PublicClass.subject, PublicClass.questions_id);//重新执行抽题

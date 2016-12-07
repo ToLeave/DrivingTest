@@ -86,6 +86,7 @@
             <!--<Button Content="试用" Style="{DynamicResource SubjectButton}" Height="46" HorizontalAlignment="Left" Margin="828,255,0,0" Name="shiyon_button" VerticalAlignment="Top" Width="46" Click="shiyon_button_Click" />-->
             <TextBlock Height="22" HorizontalAlignment="Left" Margin="257,267,0,0" Name="xianshi" Text="" VerticalAlignment="Top" Width="376" GotFocus="user_textBox_GotFocus" DataContextChanged="xianshi_DataContextChanged" Canvas.Left="-18" Canvas.Top="0" FontSize="13" />
             <ProgressBar Height="10" x:Name="progress" HorizontalAlignment="Left" Margin="257,292,0,0" VerticalAlignment="Top" Width="376" Background="{x:Null}" Canvas.Left="-18" Canvas.Top="-36" />
+            <Button Content="Button" Height="23" Name="button1" Width="75" Canvas.Left="689" Canvas.Top="172" Click="button1_Click" />
             <!--<Image Height="25" HorizontalAlignment="Left" Margin="464,83,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="76" Source="/DrivingTest;component/Images/气泡5.png" Visibility="Hidden" MouseEnter="image1_MouseEnter" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <RotateTransform Angle="-30"></RotateTransform>

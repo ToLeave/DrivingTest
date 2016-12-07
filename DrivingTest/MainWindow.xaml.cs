@@ -1938,6 +1938,14 @@ where T : DependencyObject
             }
         }
 
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            PrintReport ma = new PrintReport();
+            C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+            c1ma.Content = ma;
+            c1ma.Show();
+        }
+
 
 
 
