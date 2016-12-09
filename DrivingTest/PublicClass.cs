@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Threading;
 
 namespace DrivingTest
 {
@@ -40,6 +41,8 @@ namespace DrivingTest
         public static string question_answer = "";//正确答案
         public static string question_image = "";//图片文件名
         public static bool wuwangluo = false;//无网络状态
+
+        public static DispatcherTimer timer = new DispatcherTimer();
 
         //重新抽题 create_method 0 顺序,1随机; question_mode 0 练习,1考试,2错题; cartype 车型;subject 科目; questions_id 题库IDlist
         public static int create_method = 0;

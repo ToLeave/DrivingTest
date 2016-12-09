@@ -16,6 +16,7 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Threading;
 using Microsoft.Win32;
+using System.IO;
 
 
 namespace DrivingTest
@@ -285,6 +286,7 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
+
             var setting = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
 
             //int license_count = -1;
@@ -437,6 +439,18 @@ namespace DrivingTest
             {
                 zhaopian_textBox.Text = dialog.FileName;
             }
+        }
+
+        //确认注册
+        private void queren_button_Click(object sender, RoutedEventArgs e)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter jiakaoDataSetuserTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter();
+            jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
+
+            
+            //File.Copy(1,1);
         }
 
     }

@@ -17,23 +17,26 @@
         <Button Content="新手速成" Height="40" HorizontalAlignment="Left" Margin="31,274,0,0" Name="sucheng" VerticalAlignment="Top" Width="80" Click="sucheng_Click" FontSize="14" FontWeight="Bold" />
         <Button Content="速成600" Height="40" HorizontalAlignment="Left" Margin="31,366,0,0" Name="sucheng600" VerticalAlignment="Top" Width="80" Click="sucheng600_Click" FontSize="14" FontWeight="Bold" />
         <Button Content="速成500" Height="40" HorizontalAlignment="Left" Margin="31,320,0,0" Name="sucheng500" VerticalAlignment="Top" Width="80" Click="sucheng500_Click" FontSize="14" FontWeight="Bold" />
-        <Button Content="语音课堂" Height="30" HorizontalAlignment="Left" Margin="140,258,0,0" Name="yuyin" VerticalAlignment="Top" Width="75" Click="yuyin_Click" />
-        <Button Content="基础练习" Height="30" HorizontalAlignment="Left" Margin="221,258,0,0" Name="lianxi" VerticalAlignment="Top" Width="75" Click="lianxi_Click" />
-        <Button Content="基础模拟" Height="30" HorizontalAlignment="Left" Margin="302,258,0,0" Name="moni" VerticalAlignment="Top" Width="75" Click="moni_Click" />
-        <Button Content="强化练习" Height="30" HorizontalAlignment="Left" Margin="383,258,0,0" Name="qianghualianxi" VerticalAlignment="Top" Width="75" Click="qianghualianxi_Click" />
-        <Button Content="强化模拟" Height="30" HorizontalAlignment="Left" Margin="464,258,0,0" Name="qianghuamoni" VerticalAlignment="Top" Width="75" Click="qianghuamoni_Click" />
-        <Button Content="我的错题" Height="40" HorizontalAlignment="Left" Margin="31,504,0,0" Name="my_mistakes" VerticalAlignment="Top" Width="80" Click="my_mistakes_Click" FontSize="14" FontWeight="Bold" />
-
-
-        <ListBox Height="224" HorizontalAlignment="Left" Margin="140,303,0,0" Name="listBox" VerticalAlignment="Top" Width="611"  />
-        
-        <Button Content="顺序练习" Height="40" HorizontalAlignment="Left" Margin="579,533,0,0" Name="shunxulianxi" VerticalAlignment="Top" Width="75" Click="shunxulianxi_Click" />
-        <Button Content="随机练习" Height="40" HorizontalAlignment="Left" Margin="676,533,0,0" Name="suijilianxi" VerticalAlignment="Top" Width="75" Click="suijilianxi_Click" />
-
-        <Button Content="专项加强" Height="30" HorizontalAlignment="Left" Margin="545,258,0,0" Name="zhuanxianglianxi" VerticalAlignment="Top" Width="75" Click="zhuanxianglianxi_Click" />
         <Button Content="专项模拟" Height="40" HorizontalAlignment="Left" Margin="31,412,0,0" Name="zhuanxiangmoni" VerticalAlignment="Top" Width="80" Click="zhuanxiangmoni_Click" FontSize="14" FontWeight="Bold" />
-        <Button Content="章节练习" Height="30" HorizontalAlignment="Left" Margin="626,258,0,0" Name="zhangjielianxi" VerticalAlignment="Top" Width="75" Click="zhangjielianxi_Click" />
-        <Button Content="仿真考试" Height="40" HorizontalAlignment="Left" Margin="31,458,0,0" Name="simulation_test" VerticalAlignment="Top" Width="80" Click="simulation_test_Click" FontSize="14" FontWeight="Bold" />
+        <Button Content="仿真考试" Height="40" HorizontalAlignment="Left" Margin="31,458,0,0" Name="simulation_test" VerticalAlignment="Top" Width="80" Click="simulation_test_Click" FontSize="14" FontWeight="Bold"  />
+        <Button Content="我的错题" Height="40" HorizontalAlignment="Left" Margin="31,504,0,0" Name="my_mistakes" VerticalAlignment="Top" Width="80" Click="my_mistakes_Click" FontSize="14" FontWeight="Bold" />
+        
+        <Button Content="语音课堂" Height="30" HorizontalAlignment="Left" Margin="140,258,0,0" Name="yuyin" VerticalAlignment="Top" Width="75" Click="yuyin_Click" Visibility="Hidden" />
+        <Button Content="基础练习" Height="30" HorizontalAlignment="Left" Margin="221,258,0,0" Name="lianxi" VerticalAlignment="Top" Width="75" Click="lianxi_Click" Visibility="Hidden" />
+        <Button Content="基础模拟" Height="30" HorizontalAlignment="Left" Margin="302,258,0,0" Name="moni" VerticalAlignment="Top" Width="75" Click="moni_Click" Visibility="Hidden" />
+        <Button Content="强化练习" Height="30" HorizontalAlignment="Left" Margin="383,258,0,0" Name="qianghualianxi" VerticalAlignment="Top" Width="75" Click="qianghualianxi_Click" Visibility="Hidden" />
+        <Button Content="强化模拟" Height="30" HorizontalAlignment="Left" Margin="464,258,0,0" Name="qianghuamoni" VerticalAlignment="Top" Width="75" Click="qianghuamoni_Click" Visibility="Hidden" />      
+        
+        <Button Content="专项加强" Height="30" HorizontalAlignment="Left" Margin="545,258,0,0" Name="zhuanxianglianxi" VerticalAlignment="Top" Width="75" Click="zhuanxianglianxi_Click" Visibility="Hidden" />
+        <Button Content="章节练习" Height="30" HorizontalAlignment="Left" Margin="626,258,0,0" Name="zhangjielianxi" VerticalAlignment="Top" Width="75" Click="zhangjielianxi_Click" Visibility="Hidden" />
+
+        <ListBox Height="224" HorizontalAlignment="Left" Margin="140,303,0,0" Name="listBox" VerticalAlignment="Top" Width="611" Visibility="Hidden" />
+        
+        <Button Content="顺序练习" Height="40" HorizontalAlignment="Left" Margin="579,533,0,0" Name="shunxulianxi" VerticalAlignment="Top" Width="75" Click="shunxulianxi_Click" Visibility="Hidden" />
+        <Button Content="随机练习" Height="40" HorizontalAlignment="Left" Margin="676,533,0,0" Name="suijilianxi" VerticalAlignment="Top" Width="75" Click="suijilianxi_Click" Visibility="Hidden" />
+
+        
+        
         <TextBlock Height="50" HorizontalAlignment="Left" Margin="0,12,0,0" Name="textBlock2" Text="  驾考速成,专业培训,理论包过 加盟电话:18687768373" VerticalAlignment="Top" Width="800" FontSize="32" FontWeight="Normal" />
         <Image Height="183" HorizontalAlignment="Left" Margin="31,68,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="733" />
     </Grid>

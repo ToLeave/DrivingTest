@@ -38,6 +38,7 @@ namespace DrivingTest
         int quesiton_d = 0;//多选题总题数
         int lab_index = 0;
         bool is_click_flag = false;//选答案判断
+        int kaoshicishu = 1;//考试次数
         string timer_type = "";
         SpeechSynthesizer synth = new SpeechSynthesizer();//语音阅读
         // Configure the audio output. 
@@ -107,6 +108,9 @@ where T : DependencyObject
             DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
             jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
 
+            DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter jiakaoDataSetuserTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter();
+            jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
+
 
             register_key();//注册快捷键
 
@@ -115,6 +119,18 @@ where T : DependencyObject
             create_question_num();//生成题号
 
             questionindex();//初始化第一题
+
+            var user = from c in jiakaoDataSet.user where c.user_id == PublicClass.user_id select c;
+            
+            foreach (var u in user)
+            {
+                string image_name = u.head;
+
+                name_textBlock.Text = u.name;
+                sex_textBlock.Text = u.sex;
+                BitmapImage imagetemp = new BitmapImage(new Uri("\\bin\\Debug\\Image\\" + image_name, UriKind.Relative));
+                touxiang_image.Source = imagetemp;
+            }
             chouti_count.Text = question_c.ToString();
             weida.Text = question_c.ToString();
 
@@ -1758,6 +1774,7 @@ where T : DependencyObject
         {
             Assignment ass = new Assignment();
             C1.WPF.C1Window c1w = new C1.WPF.C1Window();
+            ass.kaoshicishu = kaoshicishu;
             c1w.Content = ass;
             c1w.ShowModal();
             c1w.Name = "交卷";
@@ -1902,12 +1919,14 @@ where T : DependencyObject
                 PublicClass.question_list = new List<PublicClass.Question>();
                 create_question(PublicClass.create_method, PublicClass.question_mode, PublicClass.cartype, PublicClass.subject, PublicClass.questions_id);//重新执行抽题
                 Window_Loaded(null, null);//重新执行界面
+                
             }
             else//考试
             {
                 PublicClass.question_list = new List<PublicClass.Question>();
                 create_question(PublicClass.create_method, PublicClass.question_mode, PublicClass.cartype, PublicClass.subject, PublicClass.questions_id);//重新执行抽题
                 Window_Loaded(null, null);//重新执行界面
+                kaoshicishu = kaoshicishu + 1;
             }
         }
 
@@ -2180,7 +2199,7 @@ where T : DependencyObject
                     c1w.ShowModal();
                     c1w.Name = "交卷";
                     c1w.Header = "提示";
-
+                    ass.kaoshicishu = kaoshicishu;
                     c1w.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ass.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ass.Height / 2, 0, 0);
                     ass.queren_button_Click(null, null);
                     c1w.IsActive = true;

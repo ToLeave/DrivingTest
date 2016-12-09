@@ -24,6 +24,8 @@ namespace DrivingTest
             InitializeComponent();
         }
 
+        public int kaoshicishu = 0;//考试次数为两次时出现成绩单打印按钮
+
         //继续考试
         private void jixu_button_Click(object sender, RoutedEventArgs e)
         {
@@ -77,6 +79,27 @@ namespace DrivingTest
             if (cp != null)
             {
                 cp.Close();
+            }
+        }
+
+        //打印成绩单
+        private void dayin_button_Click(object sender, RoutedEventArgs e)
+        {
+            PrintReport ma = new PrintReport();
+            C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+            c1ma.Content = ma;
+            c1ma.Name = "打印";
+            c1ma.Header = "打印预览";
+            c1ma.ShowModal();
+            c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+        }
+
+        //
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (kaoshicishu == 2)
+            {
+                dayin_button.Visibility = System.Windows.Visibility.Visible;
             }
         }
     }

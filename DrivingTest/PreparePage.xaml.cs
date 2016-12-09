@@ -114,14 +114,25 @@ namespace DrivingTest
 
         private void preparepage_Loaded(object sender, RoutedEventArgs e)
         {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
-            // 不要在设计时加载数据。
-            // if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
-            // {
-            // 	//在此处加载数据并将结果指派给 CollectionViewSource。
-            // 	System.Windows.Data.CollectionViewSource myCollectionViewSource = (System.Windows.Data.CollectionViewSource)this.Resources["Resource Key for CollectionViewSource"];
-            // 	myCollectionViewSource.Source = your data
-            // }
+            DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter jiakaoDataSetuserTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter();
+            jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
+
+            var setting = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+            var user = from c in jiakaoDataSet.user where c.user_id == PublicClass.user_id select c;
+            foreach (var s in setting)
+            {
+                textBlock4.Text = s.testbench_number.ToString();//考台
+            }
+            foreach (var u in user)
+            {
+                textBlock1.Text = u.idcard;//身份证号
+                textBlock2.Text = u.name;//名字
+            }
         }
     }
 }

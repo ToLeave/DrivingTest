@@ -4,7 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Height="600" Width="826">
+             Height="600" Width="826" Loaded="UserControl_Loaded" xmlns:my="clr-namespace:DrivingTest">
+    <UserControl.Resources>
+        <my:jiakaoDataSet x:Key="jiakaoDataSet" />
+        <CollectionViewSource x:Key="settingViewSource" Source="{Binding Path=setting, Source={StaticResource jiakaoDataSet}}" />
+        <CollectionViewSource x:Key="userViewSource" Source="{Binding Path=user, Source={StaticResource jiakaoDataSet}}" />
+    </UserControl.Resources>
     <Grid>
         <Canvas x:Name="printArea">
             <TextBlock Canvas.Left="145" Canvas.Top="68" Height="24" Name="jiaxiao_textBlock" Text="通海机动车驾驶培训站" Width="542" FontSize="20" FontWeight="Bold" TextAlignment="Center" />
@@ -45,8 +50,8 @@
             <TextBlock Canvas.Left="454" Canvas.Top="334" Height="46" Name="jiaxiao_textBlock2" Text="通海机动车驾驶培训站" Width="211" FontSize="16" TextWrapping="Wrap" TextAlignment="Center" />
             
             <TextBlock Canvas.Left="481" Canvas.Top="386" Height="23" Name="textBlock9" Text="检测人:" FontSize="16" Width="68" />
-            <TextBlock Canvas.Left="563" Canvas.Top="386" Height="23" Name="jiance_textBlock" Text="某某" FontSize="16" Width="77" TextAlignment="Center" />
-            <TextBlock Canvas.Left="421" Canvas.Top="418" Height="23" Name="riqi_textBlock" Text="2016年12月1日" Width="266" TextAlignment="Center" FontSize="16" />
+            <TextBox Canvas.Left="563" Canvas.Top="386" Height="23" Name="jiance_textBlock" Text="某某" FontSize="16" Width="77" TextAlignment="Center" />
+            <TextBox Canvas.Left="421" Canvas.Top="418" Height="23" Name="riqi_textBlock" Text="2016年12月1日" Width="266" TextAlignment="Center" FontSize="16" />
 
             <Rectangle Canvas.Left="145" Canvas.Top="282" Height="38" Name="rectangle10" Stroke="Black" Width="277" />
             <TextBlock Canvas.Left="145" Canvas.Top="282" Height="38" Name="textBlock21" Text="测 试 成 绩" Width="277" FontSize="20" FontWeight="Bold" TextAlignment="Center" Padding="5"/>
@@ -70,7 +75,7 @@
             <Rectangle Canvas.Left="352" Canvas.Top="356" Height="38" Name="rectangle18" Stroke="Black" Width="70" />
 
             <TextBlock Canvas.Left="145" Canvas.Top="393" Height="38" Name="textBlock30" Text="审核时间" TextAlignment="Center" Padding="10" Width="70" />
-            <TextBlock Canvas.Left="214" Canvas.Top="393" Height="38" Name="shenheriqi_textBlock" Text="2016年12月1日" TextAlignment="Center" Padding="10" Width="208" />
+            <TextBox Canvas.Left="214" Canvas.Top="393" Height="38" Name="shenheriqi_textBlock" Text="2016年12月1日" TextAlignment="Center" Padding="10" Width="208" />
             <TextBlock Canvas.Left="145" Canvas.Top="430" Height="38" Name="textBlock32" Text="考试时间" TextAlignment="Center" Padding="10" Width="70" />
             <TextBox Canvas.Left="214" Canvas.Top="430" Height="38" Name="kaoshishijian_textBlock" Text="2016年12月1日(08:30)" TextAlignment="Center" Padding="10" Width="208" />
             
@@ -80,7 +85,7 @@
             <Rectangle Canvas.Left="214" Canvas.Top="430" Height="38" Name="rectangle22" Stroke="Black" Width="208" />
 
             <TextBlock Canvas.Left="145" Canvas.Top="467" Height="38" Name="textBlock34" Text="考试地点" TextAlignment="Center" Padding="10" Width="70" />
-            <TextBlock Canvas.Left="214" Canvas.Top="467" Height="20" Name="didian_textBlock" Text="通海车管所(通海交警队大厅3号窗口)" Width="473" TextAlignment="Center" Padding="1"/>
+            <TextBox Canvas.Left="214" Canvas.Top="467" Height="20" Name="didian_textBlock" Text="通海车管所(通海交警队大厅3号窗口)" Width="473" TextAlignment="Center" Padding="1"/>
             <TextBlock Canvas.Left="214" Canvas.Top="485" Height="20" Name="textBlock36" Text="考试时请携带本人身份证,成绩单" Width="473" TextAlignment="Center" />
             
             <Rectangle Canvas.Left="145" Canvas.Top="467" Height="38" Name="rectangle24" Stroke="Black" Width="70" />

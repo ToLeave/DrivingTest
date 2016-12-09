@@ -354,6 +354,9 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\标志.png" />
+    <Resource Include="Images\车标志.png" />
+    <Resource Include="Images\标志f.png" />
     <Content Include="sounds\start.wav" />
     <Resource Include="Images\驾照类型.png" />
     <Resource Include="Images\倒车入库02.jpg" />

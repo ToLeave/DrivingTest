@@ -36,7 +36,7 @@
 
     <Grid x:Name="maingrid" MouseLeftButtonDown="Grid_MouseLeftButtonDown" DataContext="{StaticResource updatecheckViewSource}" >
         <Canvas x:Name="maincanvas"  Height="370" Width="1000"    PreviewMouseDown="maincanvas_PreviewMouseDown" PreviewMouseMove="maincanvas_PreviewMouseMove" MouseUp="maincanvas_MouseUp">
-            <Image Stretch="Fill" Source="/DrivingTest;component/Images/车7.png"  StretchDirection="DownOnly" HorizontalAlignment="Left" VerticalAlignment="Top" Height="370" Width="1000" Canvas.Left="0" Canvas.Top="0"></Image>
+            <Image Stretch="Fill" Source="/DrivingTest;component/Images/标志f.png"  StretchDirection="DownOnly" HorizontalAlignment="Left" VerticalAlignment="Top" Height="370" Width="1000" Canvas.Left="0" Canvas.Top="0"></Image>
             <Image x:Name="qianlun"  Source="/DrivingTest;component/Images/luan.png" Margin="107,237,0,0"  MouseEnter="qianlun_MouseEnter" Width="130" Height="130" RenderTransformOrigin="0.5,0.5" MouseLeave="qianlun_MouseLeave" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="-10" Canvas.Top="-21" />
             <Image x:Name="houlun"  Source="/DrivingTest;component/Images/luan.png"  Margin="680,237,0,0" Width="130" Height="130" RenderTransformOrigin="0.5,0.5" MouseEnter="houlun_MouseEnter" MouseLeave="houlun_MouseLeave" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="-46" Canvas.Top="-21"></Image>
             <Button Focusable="False" x:Name="zuixiao" Margin="898,87,0,0" Content="_" Template="{DynamicResource ButtonControlTemplate1}" Foreground="Black" FontSize="20" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="30" ToolTip="最小化" Click="zuixiao_Click" Canvas.Left="-93" Canvas.Top="8" />
@@ -86,7 +86,6 @@
             <!--<Button Content="试用" Style="{DynamicResource SubjectButton}" Height="46" HorizontalAlignment="Left" Margin="828,255,0,0" Name="shiyon_button" VerticalAlignment="Top" Width="46" Click="shiyon_button_Click" />-->
             <TextBlock Height="22" HorizontalAlignment="Left" Margin="257,267,0,0" Name="xianshi" Text="" VerticalAlignment="Top" Width="376" GotFocus="user_textBox_GotFocus" DataContextChanged="xianshi_DataContextChanged" Canvas.Left="-18" Canvas.Top="0" FontSize="13" />
             <ProgressBar Height="10" x:Name="progress" HorizontalAlignment="Left" Margin="257,292,0,0" VerticalAlignment="Top" Width="376" Background="{x:Null}" Canvas.Left="-18" Canvas.Top="-36" />
-            <Button Content="Button" Height="23" Name="button1" Width="75" Canvas.Left="689" Canvas.Top="172" Click="button1_Click" />
             <!--<Image Height="25" HorizontalAlignment="Left" Margin="464,83,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="76" Source="/DrivingTest;component/Images/气泡5.png" Visibility="Hidden" MouseEnter="image1_MouseEnter" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <RotateTransform Angle="-30"></RotateTransform>

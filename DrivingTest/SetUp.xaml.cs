@@ -241,7 +241,7 @@ namespace DrivingTest
                         tongzhi_checkBox.IsChecked = true;
                     }
 
-
+                    kaotai_textBox.Text = s.testbench_number.ToString();//考台号赋值
 
 
                 }
@@ -1314,17 +1314,18 @@ namespace DrivingTest
             this.Add(new Province { reID = 17, region = "湖南" });
             this.Add(new Province { reID = 18, region = "广东" });
             this.Add(new Province { reID = 19, region = "海南" });
-            this.Add(new Province { reID = 20, region = "四川" });
-            this.Add(new Province { reID = 21, region = "贵州" });
-            this.Add(new Province { reID = 22, region = "陕西" });
-            this.Add(new Province { reID = 23, region = "甘肃" });
-            this.Add(new Province { reID = 24, region = "青海" });
-            this.Add(new Province { reID = 25, region = "台湾" });
-            this.Add(new Province { reID = 26, region = "内蒙古" });
-            this.Add(new Province { reID = 27, region = "广西" });
-            this.Add(new Province { reID = 28, region = "宁夏" });
-            this.Add(new Province { reID = 29, region = "新疆" });
-            this.Add(new Province { reID = 30, region = "西藏" });
+            this.Add(new Province { reID = 20, region = "云南" });
+            this.Add(new Province { reID = 21, region = "四川" });
+            this.Add(new Province { reID = 22, region = "贵州" });
+            this.Add(new Province { reID = 23, region = "陕西" });
+            this.Add(new Province { reID = 24, region = "甘肃" });
+            this.Add(new Province { reID = 25, region = "青海" });
+            this.Add(new Province { reID = 26, region = "台湾" });
+            this.Add(new Province { reID = 27, region = "内蒙古" });
+            this.Add(new Province { reID = 28, region = "广西" });
+            this.Add(new Province { reID = 29, region = "宁夏" });
+            this.Add(new Province { reID = 30, region = "新疆" });
+            this.Add(new Province { reID = 31, region = "西藏" });
         }
     }
 

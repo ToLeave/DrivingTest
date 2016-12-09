@@ -24,6 +24,8 @@ using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
+using System.Windows.Threading;
+using System.Runtime.InteropServices;
 
 namespace DrivingTest
 {
@@ -135,6 +137,10 @@ where T : DependencyObject
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
+            PublicClass.timer.Interval = new TimeSpan(5000) ;// 计时器触发间隔 5秒  
+            PublicClass.timer.Tick += new EventHandler(timer_Tick);
+            PublicClass.timer.Start();
+
             maingrid.Width = SystemParameters.WorkArea.Width;
             maingrid.Height = SystemParameters.WorkArea.Height;
             
@@ -166,7 +172,7 @@ where T : DependencyObject
                 {
                     //int? a = null;
                     //int b = a.Value;
-                    jiakaoDataSet.setting.AddsettingRow(0, 0, 0, "", 0, 0, "", "", "", "", 0, "", "", 0, 0, "", 0, 0, 0, "", "", "", "", "1", "", "", "科目四", "", "", "", "", "", "", "", "", 0, "", "", 0, key,0,2,"0,0,0",0,0);
+                    jiakaoDataSet.setting.AddsettingRow(0, 0, 0, "", 0, 0, "", "", "", "", 0, "", "", 0, 0, "", 0, 0, 0, "", "", "", "", "1", "", "", "", "", "", "", "", "", "", "", "", 0, "", "", 0, key,0,2,"0,0,0",0,0);
                     jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);  
                     jiakaoDataSet.setting.AcceptChanges();
                     foreach (var se in setting)
@@ -303,6 +309,34 @@ where T : DependencyObject
 
         }
 
+        void timer_Tick(object sender, EventArgs e)
+        {
+            // 距离上一次系统输入时间大于5秒  
+            if (GetLastInputTime() >= 3600 * 1000)
+            {
+                Environment.Exit(0);
+            }
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        struct LASTINPUTINFO
+        {
+            [MarshalAs(UnmanagedType.U4)]
+            public int cbSize;
+            [MarshalAs(UnmanagedType.U4)]
+            public uint dwTime;
+        }
+
+        [DllImport("user32.dll")]
+        static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
+          
+        static long GetLastInputTime()
+        {
+            LASTINPUTINFO vLastInputInfo = new LASTINPUTINFO();
+            vLastInputInfo.cbSize = Marshal.SizeOf(vLastInputInfo);
+            if (!GetLastInputInfo(ref vLastInputInfo)) return 0;
+            return Environment.TickCount - (long)vLastInputInfo.dwTime;
+        }
 
         public void updateUI()
         {
@@ -1122,7 +1156,6 @@ where T : DependencyObject
             jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
 
 
-
             string loginstr = null;//数据流
             string passwordstr = null;//数据流
 
@@ -1211,6 +1244,8 @@ where T : DependencyObject
                     login_education = passwordMD5_json[0]["education"].ToString();
                     login_phonenumber = passwordMD5_json[0]["phonenumber"].ToString();
                     login_part = passwordMD5_json[0]["part"].ToString();
+
+                    var user = from c in jiakaoDataSet.user select c;
 
                     return true;
                 }
@@ -1938,13 +1973,6 @@ where T : DependencyObject
             }
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-            PrintReport ma = new PrintReport();
-            C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
-            c1ma.Content = ma;
-            c1ma.Show();
-        }
 
 
 

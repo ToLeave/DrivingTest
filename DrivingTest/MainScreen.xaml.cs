@@ -43,17 +43,47 @@ namespace DrivingTest
         //新手速成
         private void sucheng_Click(object sender, RoutedEventArgs e)
         {
-
+            yuyin.Visibility = System.Windows.Visibility.Visible;
+            lianxi.Visibility = System.Windows.Visibility.Visible;
+            moni.Visibility = System.Windows.Visibility.Visible;
+            qianghualianxi.Visibility = System.Windows.Visibility.Visible;
+            qianghuamoni.Visibility = System.Windows.Visibility.Visible;
+            zhuanxiangmoni.Visibility = System.Windows.Visibility.Visible;
+            zhuanxianglianxi.Visibility = System.Windows.Visibility.Visible;
+            zhangjielianxi.Visibility = System.Windows.Visibility.Visible;
+            shunxulianxi.Visibility = System.Windows.Visibility.Visible;
+            suijilianxi.Visibility = System.Windows.Visibility.Visible;
+            listBox.Visibility = System.Windows.Visibility.Visible;
         }
         //速成600
         private void sucheng600_Click(object sender, RoutedEventArgs e)
         {
-
+            yuyin.Visibility = System.Windows.Visibility.Visible;
+            lianxi.Visibility = System.Windows.Visibility.Visible;
+            moni.Visibility = System.Windows.Visibility.Visible;
+            qianghualianxi.Visibility = System.Windows.Visibility.Visible;
+            qianghuamoni.Visibility = System.Windows.Visibility.Visible;
+            zhuanxiangmoni.Visibility = System.Windows.Visibility.Visible;
+            zhuanxianglianxi.Visibility = System.Windows.Visibility.Visible;
+            zhangjielianxi.Visibility = System.Windows.Visibility.Visible;
+            shunxulianxi.Visibility = System.Windows.Visibility.Visible;
+            suijilianxi.Visibility = System.Windows.Visibility.Visible;
+            listBox.Visibility = System.Windows.Visibility.Visible;
         }
         //速成500
         private void sucheng500_Click(object sender, RoutedEventArgs e)
         {
-
+            yuyin.Visibility = System.Windows.Visibility.Visible;
+            lianxi.Visibility = System.Windows.Visibility.Visible;
+            moni.Visibility = System.Windows.Visibility.Visible;
+            qianghualianxi.Visibility = System.Windows.Visibility.Visible;
+            qianghuamoni.Visibility = System.Windows.Visibility.Visible;
+            zhuanxiangmoni.Visibility = System.Windows.Visibility.Visible;
+            zhuanxianglianxi.Visibility = System.Windows.Visibility.Visible;
+            zhangjielianxi.Visibility = System.Windows.Visibility.Visible;
+            shunxulianxi.Visibility = System.Windows.Visibility.Visible;
+            suijilianxi.Visibility = System.Windows.Visibility.Visible;
+            listBox.Visibility = System.Windows.Visibility.Visible;
         }
         //语音课堂
         private void yuyin_Click(object sender, RoutedEventArgs e)
@@ -199,7 +229,7 @@ namespace DrivingTest
             {
                 if (s.functional_module != "")
                 {
-                    PublicClass.gongneng = s.functional_module.Split(',');
+                    PublicClass.gongneng = s.functional_module.Split(','); 
                 }
                 else
                 {
@@ -209,7 +239,7 @@ namespace DrivingTest
                 {
                     zhangjielianxi.Visibility = System.Windows.Visibility.Hidden;
                 }
-                else
+                else if (PublicClass.gongneng[0] == "0")
                 {
                     zhangjielianxi.Visibility = System.Windows.Visibility.Visible;
                 }
@@ -217,7 +247,7 @@ namespace DrivingTest
                 {
                     shunxulianxi.Visibility = System.Windows.Visibility.Hidden;
                 }
-                else
+                else if (PublicClass.gongneng[1] == "0")
                 {
                     shunxulianxi.Visibility = System.Windows.Visibility.Visible;
                 }
@@ -225,7 +255,7 @@ namespace DrivingTest
                 {
                     suijilianxi.Visibility = System.Windows.Visibility.Hidden;
                 }
-                else
+                else if (PublicClass.gongneng[2] == "0")
                 {
                     suijilianxi.Visibility = System.Windows.Visibility.Visible;
                 }
@@ -234,7 +264,7 @@ namespace DrivingTest
                     zhuanxianglianxi.Visibility = System.Windows.Visibility.Hidden;
                     zhuanxiangmoni.Visibility = System.Windows.Visibility.Hidden;
                 }
-                else
+                else if (PublicClass.gongneng[3] == "0")
                 {
                     zhuanxianglianxi.Visibility = System.Windows.Visibility.Visible;
                     zhuanxiangmoni.Visibility = System.Windows.Visibility.Visible;
@@ -243,7 +273,7 @@ namespace DrivingTest
                 {
                     simulation_test.Visibility = System.Windows.Visibility.Hidden;
                 }
-                else
+                else if (PublicClass.gongneng[4] == "0")
                 {
                     simulation_test.Visibility = System.Windows.Visibility.Visible;
                 }
@@ -251,7 +281,7 @@ namespace DrivingTest
                 {
                     my_mistakes.Visibility = System.Windows.Visibility.Hidden;
                 }
-                else
+                else if (PublicClass.gongneng[5] == "0")
                 {
                     my_mistakes.Visibility = System.Windows.Visibility.Visible;
                 }

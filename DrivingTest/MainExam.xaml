@@ -14,7 +14,7 @@
         <CollectionViewSource x:Key="answerViewSource" Source="{Binding Path=answer, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="subjectViewSource" Source="{Binding Path=subject, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="errquestViewSource" Source="{Binding Path=errquest, Source={StaticResource jiakaoDataSet}}" /> 
-
+        <CollectionViewSource x:Key="userViewSource" Source="{Binding Path=user, Source={StaticResource jiakaoDataSet}}" />
         <!-- 快捷键  -->
         <RoutedUICommand x:Key="ButtonA" Text="选项A和对" />
         <RoutedUICommand x:Key="ButtonB" Text="选项B和错" />
@@ -68,11 +68,11 @@
         <Label Content="考台" Height="28" HorizontalAlignment="Center" Margin="72,23,918,717" Name="label2" VerticalAlignment="Center" />
         <GroupBox Header="考场" Height="49" HorizontalAlignment="Center" Margin="8,8,903,711" Name="groupBox1" VerticalAlignment="Center" Width="113" Visibility="Visible" />
 
-        <Image Height="100" HorizontalAlignment="Center" Margin="20,88,924,580" Name="image1" Stretch="Fill" VerticalAlignment="Center" Width="80" Source="/DrivingTest;component/Images/学员头像.png" StretchDirection="DownOnly" />
+        <Image Height="100" HorizontalAlignment="Center" Margin="20,88,924,580" Name="touxiang_image" Stretch="Fill" VerticalAlignment="Center" Width="80" Source="/DrivingTest;component/Images/学员头像.png" StretchDirection="DownOnly" />
         <Label Content="考生姓名" Height="28" HorizontalAlignment="Center" Margin="12,191,952,549" Name="label3" VerticalAlignment="Center" Width="60" />
-        <TextBlock Height="23" HorizontalAlignment="Center" Margin="71,197,913,549" Name="textBlock2" Text="学员" VerticalAlignment="Center" Width="40" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="71,197,913,549" Name="name_textBlock" Text="学员" VerticalAlignment="Center" Width="40" />
         <Label Content="考生性别" Height="28" HorizontalAlignment="Center" Margin="12,213,952,527" Name="label4" VerticalAlignment="Center" Width="60" />
-        <TextBlock Height="23" HorizontalAlignment="Center" Margin="81,213,931,522" Name="textBlock3" Text="男" VerticalAlignment="Center" />
+        <TextBlock Height="23" HorizontalAlignment="Center" Margin="81,213,931,522" Name="sex_textBlock" Text="男" VerticalAlignment="Center" />
         <Label Content="考试科目" Height="28" HorizontalAlignment="Center" Margin="12,238,952,502" Name="label5" VerticalAlignment="Center" Width="60" />
         <TextBlock Height="23" HorizontalAlignment="Center" Margin="71,243,917,503" Name="sub_textBlock" Text="科目一" VerticalAlignment="Center" />
         <Label Content="考试车型" Height="28" HorizontalAlignment="Center" Margin="12,264,952,476" Name="label6" VerticalAlignment="Center" Width="60" />
@@ -180,7 +180,6 @@
             <GroupBox Header="练习结果" Height="320" HorizontalAlignment="Center" Margin="816,398,34,50" Name="groupBox10" VerticalAlignment="Center" Width="174" Visibility="Visible" />
         
         </Grid>
-      
     </Grid>
             <!--</Canvas>
         </Viewbox>

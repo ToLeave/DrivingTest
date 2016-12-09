@@ -5,16 +5,18 @@
     <UserControl.Resources>
         <my:jiakaoDataSet x:Key="jiakaoDataSet" />
         <CollectionViewSource x:Key="errquestViewSource" Source="{Binding Path=errquest, Source={StaticResource jiakaoDataSet}}" />
+        <CollectionViewSource x:Key="userViewSource" Source="{Binding Path=user, Source={StaticResource jiakaoDataSet}}" />
+        <CollectionViewSource x:Key="settingViewSource" Source="{Binding Path=setting, Source={StaticResource jiakaoDataSet}}" />
     </UserControl.Resources>
     <Grid DataContext="{StaticResource errquestViewSource}">
         <Image Source="/DrivingTest;component/Images/驾考考试1.png" StretchDirection="DownOnly" />
-        <Button Content="开始考试"  Name="kaikao" Width="75" Height="30" Click="kaikao_Click" Margin="490,382,233,199" />
-        <TextBlock Height="23" Width="30"  Margin="510,241,258,347" Name="textBlock4" Text="001" FontWeight="Bold" />
+        <Button Content="确认"  Name="kaikao" Width="75" Height="30" Click="kaikao_Click" Margin="490,382,233,199" />
+        <TextBlock Height="23" Width="30"  Margin="510,241,258,347" Name="textBlock4" Text="1" FontWeight="Bold" />
         <Label Content="考台" Height="28" Width="40" Margin="537,236,221,347" Name="label1"  FontWeight="Bold" />
         <Label Content="身份证号:" Height="28" Width="65"  Margin="406,292,327,291" Name="label2" Foreground="Red" />
-        <TextBlock Height="23"  Width="150" Margin="490,297,158,291" Name="textBlock1" Text="1234567891011"  Foreground="Red" />
+        <TextBlock Height="23"  Width="150" Margin="490,297,158,291" Name="textBlock1" Text="123456789123456789"  Foreground="Red" />
         <Label Content="考生姓名:" Width="65" Height="28" Margin="406,336,327,247" Name="label3" Foreground="Red" />
-        <TextBlock Height="23" Width="150" Margin="490,341,158,247" Name="textBlock2" Text="学员"  Foreground="Red" />
+        <TextBlock Height="23" Width="150" Margin="490,341,158,247" Name="textBlock2"  Foreground="Red" Text="某某" />
         <Label Content="点击'确定'按钮开始考试!" Height="28" Width="150"  Margin="452,418,196,165" Name="textBlock3" Foreground="Red" />
         
     </Grid>
