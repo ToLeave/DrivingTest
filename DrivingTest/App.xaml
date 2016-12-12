@@ -3,12 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        
         <ResourceDictionary>
             <!-- 引用资源字典 -->
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="StyleDictionary/Vista.xaml"/>
                 <ResourceDictionary Source="StyleDictionary/Button.xaml"/>
                 <ResourceDictionary Source="StyleDictionary/SubjectButton.xaml"/>
+                <ResourceDictionary Source="StyleDictionary/FButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <!-- Style1 -->
