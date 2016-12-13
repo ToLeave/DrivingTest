@@ -10,7 +10,12 @@
                 <ResourceDictionary Source="StyleDictionary/Vista.xaml"/>
                 <ResourceDictionary Source="StyleDictionary/Button.xaml"/>
                 <ResourceDictionary Source="StyleDictionary/SubjectButton.xaml"/>
-                <ResourceDictionary Source="StyleDictionary/FButton.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Util.Controls;component/Style/Colors.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Util.Controls;component/Style/Global.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Util.Controls;component/Style/Themes/FIcon.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Util.Controls;component/Control/FButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Util.Controls;component/Style/Style.xaml"/>
+                <!--<ResourceDictionary Source="StyleDictionary/FButton.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
 
             <!-- Style1 -->

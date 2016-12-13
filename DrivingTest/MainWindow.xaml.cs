@@ -26,6 +26,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Windows.Threading;
 using System.Runtime.InteropServices;
+using Util.Controls;
 
 namespace DrivingTest
 {

@@ -52,6 +52,9 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Net" />
     <Reference Include="System.Speech" />
+    <Reference Include="System.Utility">
+      <HintPath>..\..\..\下载\Util.Controls\Util.Controls\Util.Controls.WPFTest\bin\Debug\System.Utility.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web">
       <HintPath>bin\Debug\System.Web.dll</HintPath>
     </Reference>
@@ -63,6 +66,9 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Util.Controls">
+      <HintPath>..\Util.Controls\bin\Debug\Util.Controls.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -155,9 +161,6 @@
     </Compile>
     <Compile Include="SimulationTest.xaml.cs">
       <DependentUpon>SimulationTest.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="StyleDictionary\FButton.xaml.cs">
-      <DependentUpon>FButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubjectThree.xaml.cs">
       <DependentUpon>SubjectThree.xaml</DependentUpon>
@@ -280,14 +283,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StyleDictionary\FButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="StyleDictionary\FIcon.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="StyleDictionary\SubjectButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -329,7 +324,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <Resource Include="iconfont\iconfont.ttf" />
     <None Include="jiakaoDataSet1.xsc">
       <DependentUpon>jiakaoDataSet1.xsd</DependentUpon>
     </None>
@@ -370,6 +364,11 @@
     <Resource Include="Images\车标志.png" />
     <Resource Include="Images\标志f.png" />
     <Resource Include="Images\1.png" />
+    <Resource Include="Images\汽车 %281%29.png" />
+    <Resource Include="Images\货车.png" />
+    <Resource Include="Images\客车.png" />
+    <Resource Include="Images\恢复.png" />
+    <Resource Include="Images\摩托车.png" />
     <Content Include="sounds\start.wav" />
     <Resource Include="Images\驾照类型.png" />
     <Resource Include="Images\倒车入库02.jpg" />
@@ -393,6 +392,9 @@
     <Content Include="jiakao.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="iconfont\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
