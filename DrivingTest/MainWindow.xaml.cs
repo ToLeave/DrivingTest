@@ -144,6 +144,7 @@ where T : DependencyObject
 
             maingrid.Width = SystemParameters.WorkArea.Width;
             maingrid.Height = SystemParameters.WorkArea.Height;
+
             
             
             //PublicClass.http = @"http://192.168.1.98:3000";
@@ -306,7 +307,9 @@ where T : DependencyObject
             //C1.WPF.C1Window cc = new C1.WPF.C1Window();
             //cc.Content = re;
             //cc.Show();
-
+            //zhuce.FontSize = 28;
+            //login.FontSize = 28;
+            //guanbi.Foreground = Brushes.Red;
 
         }
 
@@ -1628,7 +1631,7 @@ where T : DependencyObject
         {
             //subject1.Background = new SolidColorBrush(Colors.Red);
             subject1.Foreground = new SolidColorBrush(Colors.Red);
-            subject4.Foreground = new SolidColorBrush(Colors.Black);
+            //subject4.Foreground = new SolidColorBrush(Colors.Black);
             subjectname = "科目一";
 
 
@@ -1665,7 +1668,7 @@ where T : DependencyObject
         private void subject4_Click(object sender, RoutedEventArgs e)
         {
             subject4.Foreground = new SolidColorBrush(Colors.Red);
-            subject1.Foreground = new SolidColorBrush(Colors.Black);
+            //subject1.Foreground = new SolidColorBrush(Colors.Black);
             subjectname = "科目四";
 
         }
@@ -1720,7 +1723,7 @@ where T : DependencyObject
                     PublicClass.subjection = "科目一";
                     c1ma.Content = ma;
 
-                    c1ma.ToolTip = "小车类:科目一";
+                    //c1ma.ToolTip = "小车类:科目一";
                     c1ma.Name = "科目一";
                     c1ma.Header = "小车类:科目一";
                     c1ma.Show();
@@ -1742,7 +1745,7 @@ where T : DependencyObject
                     PublicClass.subjection = "科目四";
                     c1ma.Content = ma;
                     c1ma.Show();
-                    c1ma.ToolTip = "小车类:科目四";
+                    //c1ma.ToolTip = "小车类:科目四";
                     c1ma.Name = "科目四";
                     c1ma.Header = "小车类:科目四";
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
@@ -1778,7 +1781,7 @@ where T : DependencyObject
                     PublicClass.subjection = "科目一";
                     c1ma.Content = ma;
                     c1ma.Show();
-                    c1ma.ToolTip = "客车类:科目一";
+                    //c1ma.ToolTip = "客车类:科目一";
                     c1ma.Name = "科目一";
                     c1ma.Header = "客车类:科目一";
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
@@ -1792,7 +1795,7 @@ where T : DependencyObject
                     PublicClass.subjection = "科目四";
                     c1ma.Content = ma;
                     c1ma.Show();
-                    c1ma.ToolTip = "客车类:科目四";
+                    //c1ma.ToolTip = "客车类:科目四";
                     c1ma.Name = "科目四";
                     c1ma.Header = "客车类:科目四";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
@@ -1816,7 +1819,7 @@ where T : DependencyObject
                     PublicClass.subjection = "科目一";
                     c1ma.Content = ma;
                     c1ma.Show();
-                    c1ma.ToolTip = "货车类:科目一";
+                    //c1ma.ToolTip = "货车类:科目一";
                     c1ma.Name = "科目一";
                     c1ma.Header = "货车类:科目一";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
@@ -1830,7 +1833,7 @@ where T : DependencyObject
                     PublicClass.subjection = "科目四";
                     c1ma.Content = ma;
                     c1ma.Show();
-                    c1ma.ToolTip = "货车类:科目四";
+                    //c1ma.ToolTip = "货车类:科目四";
                     c1ma.Name = "科目四";
                     c1ma.Header = "货车类:科目四";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
@@ -1854,7 +1857,7 @@ where T : DependencyObject
                     PublicClass.subjection = "科目一";
                     c1ma.Content = ma;
                     c1ma.Show();
-                    c1ma.ToolTip = "摩托车类:科目一";
+                    //c1ma.ToolTip = "摩托车类:科目一";
                     c1ma.Name = "科目一";
                     c1ma.Header = "摩托车类:科目一";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
@@ -1868,7 +1871,7 @@ where T : DependencyObject
                     PublicClass.subjection = "科目四";
                     c1ma.Content = ma;
                     c1ma.Show();
-                    c1ma.ToolTip = "摩托车类:科目四";
+                    //c1ma.ToolTip = "摩托车类:科目四";
                     c1ma.Name = "科目四";
                     c1ma.Header = "摩托车类:科目四";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
@@ -1886,7 +1889,7 @@ where T : DependencyObject
             C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
             PublicClass.cartype = "HF";
             c1ma.Content = ma;
-            c1ma.ToolTip = "恢复驾驶资格类";
+            //c1ma.ToolTip = "恢复驾驶资格类";
             c1ma.Name = "恢复驾驶资格类";
             c1ma.Header = "恢复驾驶资格类";
             c1ma.Show();

@@ -25,43 +25,58 @@
             <Image Stretch="Fill" Source="/DrivingTest;component/Images/标志f.png"  StretchDirection="DownOnly" HorizontalAlignment="Left" VerticalAlignment="Top" Height="370" Width="1000" Canvas.Left="0" Canvas.Top="0"></Image>
             <Image x:Name="qianlun"  Source="/DrivingTest;component/Images/luan.png" Margin="107,237,0,0"  MouseEnter="qianlun_MouseEnter" Width="130" Height="130" RenderTransformOrigin="0.5,0.5" MouseLeave="qianlun_MouseLeave" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="-10" Canvas.Top="-21" />
             <Image x:Name="houlun"  Source="/DrivingTest;component/Images/luan.png"  Margin="680,237,0,0" Width="130" Height="130" RenderTransformOrigin="0.5,0.5" MouseEnter="houlun_MouseEnter" MouseLeave="houlun_MouseLeave" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="-46" Canvas.Top="-21"></Image>
-            <Button Focusable="False" x:Name="zuixiao" Margin="898,87,0,0" Content="_" Template="{DynamicResource ButtonControlTemplate1}" Foreground="Black" FontSize="20" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="30" ToolTip="最小化" Click="zuixiao_Click" Canvas.Left="-93" Canvas.Top="8" />
-            <Button  Focusable="False" x:Name="guanbi" Margin="923,91,0,0" Content="X" Template="{DynamicResource ButtonControlTemplate1}"  Foreground="Red"  FontSize="20" FontFamily="Arial" HorizontalAlignment="Left" Width="34" VerticalAlignment="Top" Height="29" Click="guanbi_Click" ToolTip="关闭" Canvas.Left="-83" Canvas.Top="5" />
+            <Button Focusable="False" x:Name="zuixiao" Margin="898,87,0,0" Content="_" Template="{DynamicResource ButtonControlTemplate1}" Foreground="Black" FontSize="20" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="30" ToolTip="最小化" Click="zuixiao_Click" Canvas.Left="-38" Canvas.Top="6" />
+            <Button  Focusable="False" x:Name="guanbi" Margin="923,91,0,0" Content="X" Template="{DynamicResource ButtonControlTemplate1}"  Foreground="Red"  FontSize="20" FontFamily="Arial" HorizontalAlignment="Left" Width="34" VerticalAlignment="Top" Height="29" Click="guanbi_Click" ToolTip="关闭" Canvas.Left="-28" Canvas.Top="3" />
 
             <Label Content="用户名" Height="28" HorizontalAlignment="Left" Margin="257,304,0,0" Name="user_label" VerticalAlignment="Top" Padding="5" Canvas.Left="-30" Canvas.Top="-17" FontSize="16" />
-            <TextBox Height="23" HorizontalAlignment="Left" Margin="303,304,0,0" Name="user_textBox" VerticalAlignment="Top" Width="120" LostKeyboardFocus="user_textBox_LostKeyboardFocus" GotFocus="user_textBox_GotFocus" Canvas.Left="-16" Canvas.Top="-15" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="303,304,0,0" Name="user_textBox" VerticalAlignment="Top" Width="120" LostKeyboardFocus="user_textBox_LostKeyboardFocus" GotFocus="user_textBox_GotFocus" Canvas.Left="-16" Canvas.Top="-15" BorderBrush="#FF27A6DA" />
             <Label Content="密码" Height="28" HorizontalAlignment="Left" Margin="467,302,0,0" Name="password_label" VerticalAlignment="Top" Canvas.Left="-14" Canvas.Top="-15" FontSize="16" />
-            <PasswordBox Height="23" HorizontalAlignment="Left" Margin="513,304,0,0" Name="password_textBox" VerticalAlignment="Top" Width="120" KeyDown="password_textBox_KeyDown" Canvas.Left="-16" Canvas.Top="-15" />
+            <PasswordBox Height="23" HorizontalAlignment="Left" Margin="513,304,0,0" Name="password_textBox" VerticalAlignment="Top" Width="120" KeyDown="password_textBox_KeyDown" Canvas.Left="-16" Canvas.Top="-15" BorderBrush="#FF27A6DA" />
 
 
-            <Button Height="75" HorizontalAlignment="Left" Margin="243,243,0,0" Name="car_button" VerticalAlignment="Top" Width="85" Visibility="Visible" Click="car_button_Click" Canvas.Left="-22" Canvas.Top="-108" FontSize="16" >
+            <Button Height="75" HorizontalAlignment="Left" Margin="243,243,0,0" Name="car_button" VerticalAlignment="Top" Width="85" Visibility="Visible" Click="car_button_Click" Canvas.Left="-80" Canvas.Top="-108" FontSize="16" >
+                <Button.Background>
+                    <SolidColorBrush />
+                </Button.Background>
                 <StackPanel>
-                    <Image Source="/DrivingTest;component/Images/汽车%20%281%29.png" Width="72" Height="45" />
-                    <TextBlock HorizontalAlignment="Center">C1|C2|C3|C4</TextBlock>
+                    <Image Source="/DrivingTest;component/Images/汽车%20%282%29.png" Width="72" Height="45" />
+                    <TextBlock HorizontalAlignment="Center" FontSize="13">C1|C2|C3|C4</TextBlock>
                 </StackPanel>
             </Button>
-            <Button  Height="75" HorizontalAlignment="Left" Margin="324,243,0,0" Name="bus_button" VerticalAlignment="Top" Width="85" Visibility="Visible" Click="bus_button_Click" Canvas.Left="-14" Canvas.Top="-108" FontSize="16" >
+            <Button  Height="75" HorizontalAlignment="Left" Margin="324,243,0,0" Name="bus_button" VerticalAlignment="Top" Width="85" Visibility="Visible" Click="bus_button_Click" Canvas.Left="-42" Canvas.Top="-108" FontSize="16" >
+                <Button.Background>
+                    <SolidColorBrush />
+                </Button.Background>
                 <StackPanel>
-                    <Image Source="/DrivingTest;component/Images/货车.png" Width="72" Height="45" />
-                    <TextBlock HorizontalAlignment="Center">A1|A3|B1</TextBlock>
+                    <Image Source="/DrivingTest;component/Images/大巴5.png" Width="72" Height="45" />
+                    <TextBlock HorizontalAlignment="Center" FontSize="13">A1|A3|B1</TextBlock>
                 </StackPanel>
             </Button>
             <Button  Height="75" HorizontalAlignment="Left" Margin="405,243,0,0" Name="truck_button" VerticalAlignment="Top" Width="85" Visibility="Visible" Click="truck_button_Click" Canvas.Left="-8" Canvas.Top="-108" FontSize="16">
+                <Button.Background>
+                    <SolidColorBrush />
+                </Button.Background>
                 <StackPanel>
-                    <Image Source="/DrivingTest;component/Images/客车.png" Width="75" Height="45" />
-                    <TextBlock HorizontalAlignment="Center">A2|B2</TextBlock>
+                    <Image Source="/DrivingTest;component/Images/货车%20%282%29.png" Width="81" Height="52"  />
+                    <TextBlock HorizontalAlignment="Center" FontSize="13">A2|B2</TextBlock>
                 </StackPanel>
             </Button>
-            <Button Height="75" HorizontalAlignment="Left" Margin="496,243,0,0" Name="motorcycle_button" VerticalAlignment="Top" Width="85" Visibility="Visible" Click="motorcycle_button_Click" Canvas.Left="-12" Canvas.Top="-108" FontSize="16" >
+            <Button Height="75" HorizontalAlignment="Left" Margin="496,243,0,0" Name="motorcycle_button" VerticalAlignment="Top" Width="85" Visibility="Visible" Click="motorcycle_button_Click" Canvas.Left="20" Canvas.Top="-108" FontSize="16" >
+                <Button.Background>
+                    <SolidColorBrush />
+                </Button.Background>
                 <StackPanel>
-                    <Image Source="/DrivingTest;component/Images/摩托车.png" Width="72" Height="45" />
-                    <TextBlock HorizontalAlignment="Center">D|E|F</TextBlock>
+                    <Image Source="/DrivingTest;component/Images/摩托车%20%281%29_副本.png" Width="72" Height="45" />
+                    <TextBlock HorizontalAlignment="Center" FontSize="13">D|E|F</TextBlock>
                 </StackPanel>
             </Button>
-            <Button  Height="75" HorizontalAlignment="Left" Margin="587,243,0,0" Name="regain_button" VerticalAlignment="Top" Width="85" Visibility="Visible" Click="regain_button_Click" Canvas.Left="-14" Canvas.Top="-108" FontSize="16" >
+            <Button  Height="75" HorizontalAlignment="Left" Margin="587,243,0,0" Name="regain_button" VerticalAlignment="Top" Width="85" Visibility="Visible" Click="regain_button_Click" Canvas.Left="46" Canvas.Top="-108" FontSize="16" >
+                <Button.Background>
+                    <SolidColorBrush />
+                </Button.Background>
                 <StackPanel>
-                    <Image Source="/DrivingTest;component/Images/恢复.png" Width="72" Height="45" />
-                    <TextBlock HorizontalAlignment="Center">恢复驾考</TextBlock>
+                    <Image Source="/DrivingTest;component/Images/自考驾照.png" Width="72" Height="45" />
+                    <TextBlock HorizontalAlignment="Center" FontSize="13">恢复驾考</TextBlock>
                 </StackPanel>
             </Button>
 
@@ -86,15 +101,15 @@
                     <RotateTransform x:Name="rotateTransform4" Angle="-30" />
                 </Button.RenderTransform>-->
             </xly:FButton>
-            <Button Content="设置" Style="{DynamicResource SubjectButton}" Height="42" HorizontalAlignment="Left" Margin="843,195,0,0" Name="set_up" VerticalAlignment="Top" Width="42" Visibility="Hidden" Click="set_up_Click" Canvas.Left="-53" Canvas.Top="-14" FontSize="14" />
-            <Button Content="改密码" Style="{DynamicResource SubjectButton}"  Height="42" HorizontalAlignment="Left" Margin="890,195,0,0" Name="revisions" VerticalAlignment="Top" Width="42" Visibility="Hidden" Click="revisions_Click" Canvas.Left="-54" Canvas.Top="-14" FontSize="14" />
+            <xly:FButton FIcon="&#xe60c;" Style="{DynamicResource FButton_Transparency}" AllowsAnimation="True" Height="42" HorizontalAlignment="Left" Margin="843,195,0,0" Name="set_up" VerticalAlignment="Top" Width="64" Visibility="Hidden" Click="set_up_Click" Canvas.Left="-63" Canvas.Top="-44" FontSize="14" ToolTip="设置" >设置</xly:FButton>
+            <xly:FButton FIcon="&#xe628;" Style="{DynamicResource FButton_Transparency}" AllowsAnimation="True" Height="42" HorizontalAlignment="Left" Margin="890,195,0,0" Name="revisions" VerticalAlignment="Top" Width="92" Visibility="Hidden" Click="revisions_Click" Canvas.Left="-45" Canvas.Top="-43" FontSize="14" ToolTip="修改密码" >修改密码</xly:FButton>
             <!--<TextBlock FontStretch="Normal" FontStyle="Normal" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Margin="151,285,0,0" Name="label3" Text="注册" VerticalAlignment="Top" Width="41" FontSize="20" />-->
             <!--<TextBlock FontWeight="Bold" Height="28" HorizontalAlignment="Left" Margin="727,285,0,0" Name="label4" Text="登录" VerticalAlignment="Top" FontSize="20" />-->
 
             <!--<WrapPanel Name="wrap" Margin="137,29,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="100"></WrapPanel>-->
-            <Button Focusable="False" x:Name="zhuce" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="107,237,0,0" Style="{DynamicResource Button}" Width="130" Content="注册" Foreground="Black" BorderBrush="Transparent" BorderThickness="0" FontSize="28" FontFamily="微软雅黑" FontWeight="Normal" Height="130" MouseEnter="zhuce_MouseEnter" MouseLeave="zhuce_MouseLeave" Visibility="Visible" FontStyle="Italic" Click="zhuce_Click" Canvas.Left="-10" Canvas.Top="-21" />
+            <Button Focusable="False" x:Name="zhuce" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="107,237,0,0" Style="{DynamicResource Button}" Width="130" Content="注册" Foreground="Black" BorderBrush="Transparent" BorderThickness="0" FontFamily="微软雅黑" FontWeight="Normal" Height="130" MouseEnter="zhuce_MouseEnter" MouseLeave="zhuce_MouseLeave" Visibility="Visible" FontStyle="Italic" Click="zhuce_Click" Canvas.Left="-10" Canvas.Top="-21" FontSize="28" />
             <Image Name="qianlunqipao" Source="/DrivingTest;component/Images/气泡5.png" Margin="124,255,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="98" Width="97" Opacity="0" RenderTransformOrigin="0.5,0.5" Visibility="Visible" IsHitTestVisible="False" Canvas.Left="-10" Canvas.Top="-21" />
-            <Button Focusable="False" x:Name="login" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="680,237,0,0" Style="{DynamicResource Button}" Width="130" Content="登录" Foreground="Black" BorderBrush="Transparent" BorderThickness="0" FontSize="28" FontFamily="微软雅黑" FontWeight="Normal" Height="130" MouseEnter="login_MouseEnter" MouseLeave="login_MouseLeave" Visibility="Visible" FontStyle="Italic" Click="login_Click" Canvas.Left="-46" Canvas.Top="-21" />
+            <Button Focusable="False" x:Name="login" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="680,237,0,0" Style="{DynamicResource Button}" Width="130" Content="登录" Foreground="Black" BorderBrush="Transparent" BorderThickness="0" FontFamily="微软雅黑" FontWeight="Normal" Height="130" MouseEnter="login_MouseEnter" MouseLeave="login_MouseLeave" Visibility="Visible" FontStyle="Italic" Click="login_Click" Canvas.Left="-46" Canvas.Top="-21" FontSize="28" />
             <Image Name="houlunqipao" Source="/DrivingTest;component/Images/气泡5.png" Margin="695,255,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="98" Width="97" Opacity="0" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="False" Canvas.Left="-46" Canvas.Top="-21" />
             <!--<Button Content="试用" Style="{DynamicResource SubjectButton}" Height="46" HorizontalAlignment="Left" Margin="828,255,0,0" Name="shiyon_button" VerticalAlignment="Top" Width="46" Click="shiyon_button_Click" />-->
             <TextBlock Height="22" HorizontalAlignment="Left" Margin="257,267,0,0" Name="xianshi" Text="" VerticalAlignment="Top" Width="376" GotFocus="user_textBox_GotFocus" DataContextChanged="xianshi_DataContextChanged" Canvas.Left="-18" Canvas.Top="0" FontSize="13" Foreground ="Black" />
