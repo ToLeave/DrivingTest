@@ -921,29 +921,30 @@ where T : DependencyObject
                     break;
                 }
             }
-            if (PublicClass.question_mode == 1)//考试下做题后不可修改            
-            {
-                if (PublicClass.question_list[question_id].rept_do != 0)
-                {
-                    a_button.IsEnabled = false;
-                    b_button.IsEnabled = false;
-                    c_button.IsEnabled = false;
-                    d_button.IsEnabled = false;
-                }
-                else
-                {
-                    a_button.IsEnabled = true;
-                    b_button.IsEnabled = true;
-                    c_button.IsEnabled = true;
-                    d_button.IsEnabled = true;
-                }
-            }
+           
             if (question_id == -1)
             {
                 MessageBoxResult result = MessageBox.Show("已是第一题");
             }
             else
             {
+                if (PublicClass.question_mode == 1)//考试下做题后不可修改            
+                {
+                    if (PublicClass.question_list[question_id].rept_do != 0)
+                    {
+                        a_button.IsEnabled = false;
+                        b_button.IsEnabled = false;
+                        c_button.IsEnabled = false;
+                        d_button.IsEnabled = false;
+                    }
+                    else
+                    {
+                        a_button.IsEnabled = true;
+                        b_button.IsEnabled = true;
+                        c_button.IsEnabled = true;
+                        d_button.IsEnabled = true;
+                    }
+                }
                 process_question_type(question_id);
             }
             if (current_question_type == "S" || current_question_type == "M")
@@ -1006,29 +1007,30 @@ where T : DependencyObject
                     break;
                 }
             }
-            if (PublicClass.question_mode == 1)//考试下做题后不可修改            
-            {
-                if (PublicClass.question_list[question_id].rept_do != 0)
-                {
-                    a_button.IsEnabled = false;
-                    b_button.IsEnabled = false;
-                    c_button.IsEnabled = false;
-                    d_button.IsEnabled = false;
-                }
-                else
-                {
-                    a_button.IsEnabled = true;
-                    b_button.IsEnabled = true;
-                    c_button.IsEnabled = true;
-                    d_button.IsEnabled = true;
-                }
-            }
+            
             if (question_id == PublicClass.question_list.Count())
             {
                 MessageBoxResult result = MessageBox.Show("已是最后一题");
             }
             else
             {
+                if (PublicClass.question_mode == 1)//考试下做题后不可修改            
+                {
+                    if (PublicClass.question_list[question_id].rept_do != 0)
+                    {
+                        a_button.IsEnabled = false;
+                        b_button.IsEnabled = false;
+                        c_button.IsEnabled = false;
+                        d_button.IsEnabled = false;
+                    }
+                    else
+                    {
+                        a_button.IsEnabled = true;
+                        b_button.IsEnabled = true;
+                        c_button.IsEnabled = true;
+                        d_button.IsEnabled = true;
+                    }
+                }
                 process_question_type(question_id);
             }
             if (current_question_type == "S" || current_question_type == "M")
@@ -1049,7 +1051,7 @@ where T : DependencyObject
                 errquestion(question_id - 1);
                 err_count(question_id - 1);
                 play_voice(timu_textBlock.Text);
-                if (question_id < 100)
+                if (question_id < question_c)
                 {
                     showright_answer(question_id);
                 }
@@ -1184,7 +1186,6 @@ where T : DependencyObject
                 int question_index = int.Parse(mylab.Name.ToString().Substring(1, mylab.Name.ToString().Length - 1));
                 mylab.check_answer(PublicClass.question_list[question_index].check_answer);
             }
-
 
         }
 

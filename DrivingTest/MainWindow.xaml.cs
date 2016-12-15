@@ -1681,7 +1681,6 @@ where T : DependencyObject
 
             var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
             PublicClass.shezhi = "设置";
-
             foreach (var s in set)
             {
 
@@ -1800,9 +1799,6 @@ where T : DependencyObject
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
                 }
-            }
-            else
-            {
             }
         }
         //a2b2
