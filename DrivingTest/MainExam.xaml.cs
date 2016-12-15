@@ -941,7 +941,10 @@ where T : DependencyObject
             {
                 MessageBoxResult result = MessageBox.Show("已是第一题");
             }
-            process_question_type(question_id + 1);
+            else
+            {
+                process_question_type(question_id);
+            }
             if (current_question_type == "S" || current_question_type == "M")
             {
                 tishi_label.Content = "选择题,请在备选答案中选择您认为正确的答案!";
@@ -1023,7 +1026,10 @@ where T : DependencyObject
             {
                 MessageBoxResult result = MessageBox.Show("已是最后一题");
             }
-            process_question_type(question_id - 1);
+            else
+            {
+                process_question_type(question_id);
+            }
             if (current_question_type == "S" || current_question_type == "M")
             {
                 tishi_label.Content = "选择题,请在备选答案中选择您认为正确的答案!";

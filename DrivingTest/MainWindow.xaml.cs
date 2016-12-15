@@ -1629,9 +1629,8 @@ where T : DependencyObject
         //科目一
         private void subject1_Click(object sender, RoutedEventArgs e)
         {
-            //subject1.Background = new SolidColorBrush(Colors.Red);
             subject1.Foreground = new SolidColorBrush(Colors.Red);
-            //subject4.Foreground = new SolidColorBrush(Colors.Black);
+            subject4.Foreground = new SolidColorBrush(Colors.White);
             subjectname = "科目一";
 
 
@@ -1643,7 +1642,7 @@ where T : DependencyObject
             C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
             c1ma.Content = ma;
             c1ma.Show();
-            c1ma.ToolTip = "科目二";
+            //c1ma.ToolTip = "科目二";
             c1ma.Name = "科目二";
             c1ma.Header = "科目二";
             c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
@@ -1658,7 +1657,7 @@ where T : DependencyObject
             C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
             c1ma.Content = ma;
             c1ma.Show();
-            c1ma.ToolTip = "科目三";
+            //c1ma.ToolTip = "科目三";
             c1ma.Name = "科目三";
             c1ma.Header = "科目三";
             c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
@@ -1668,7 +1667,7 @@ where T : DependencyObject
         private void subject4_Click(object sender, RoutedEventArgs e)
         {
             subject4.Foreground = new SolidColorBrush(Colors.Red);
-            //subject1.Foreground = new SolidColorBrush(Colors.Black);
+            subject1.Foreground = new SolidColorBrush(Colors.White);
             subjectname = "科目四";
 
         }

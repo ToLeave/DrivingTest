@@ -10,7 +10,7 @@
 
     <!--ToolTip-->
     <Style TargetType="{x:Type ToolTip}">
-        <Setter Property="Foreground" Value="{StaticResource TextForeground}"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontFamily" Value="{StaticResource FontFamily}"/>
         <Setter Property="FontSize" Value="{StaticResource FontSize}"/>
         <Setter Property="Background" Value="{StaticResource HeaderBackground}"/>

@@ -5,8 +5,7 @@
         Title="MainWindow" Height="400" Width="1050"
         AllowsTransparency="True" WindowStyle="None" Background="Transparent"   OpacityMask="White"  Loaded="Window_Loaded" xmlns:my="clr-namespace:DrivingTest" WindowState="Maximized">
 
-    <Window.Resources>
-        
+    <Window.Resources>      
         <my:jiakaoDataSet x:Key="jiakaoDataSet" />
         <CollectionViewSource x:Key="updatecheckViewSource" Source="{Binding Path=updatecheck, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="questionViewSource" Source="{Binding Path=question, Source={StaticResource jiakaoDataSet}}" />
@@ -15,9 +14,6 @@
         <CollectionViewSource x:Key="subjectViewSource" Source="{Binding Path=subject, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="settingViewSource" Source="{Binding Path=setting, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="userViewSource" Source="{Binding Path=user, Source={StaticResource jiakaoDataSet}}" />
-
-     
-
     </Window.Resources>
 
     <Grid x:Name="maingrid" MouseLeftButtonDown="Grid_MouseLeftButtonDown" DataContext="{StaticResource updatecheckViewSource}" >
