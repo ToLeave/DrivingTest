@@ -53,7 +53,7 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Speech" />
     <Reference Include="System.Utility">
-      <HintPath>..\..\..\下载\Util.Controls\Util.Controls\Util.Controls.WPFTest\bin\Debug\System.Utility.dll</HintPath>
+      <HintPath>bin\Debug\System.Utility.dll</HintPath>
     </Reference>
     <Reference Include="System.Web">
       <HintPath>bin\Debug\System.Web.dll</HintPath>
@@ -68,7 +68,7 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="Util.Controls">
-      <HintPath>..\Util.Controls\bin\Debug\Util.Controls.dll</HintPath>
+      <HintPath>bin\Debug\Util.Controls.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />

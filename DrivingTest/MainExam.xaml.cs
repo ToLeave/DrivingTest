@@ -45,6 +45,7 @@ namespace DrivingTest
         string current_question_type = "S";//S=单选 M=多选 P=判断
 
         string imagename = "";//图片文件名
+        bool playvoice = false;
 
         public MainExam()
         {
@@ -136,7 +137,7 @@ where T : DependencyObject
 
             // Configure the audio output. 
             synth.SetOutputToDefaultAudioDevice();
-            //synth.SelectVoiceByHints(VoiceGender.Male);
+            synth.SelectVoiceByHints(VoiceGender.Male);
             // Speak a string.
             synth.Volume = 100;
             synth.Rate = 0;
@@ -828,7 +829,7 @@ where T : DependencyObject
                 answer_UI();
                 shouzheng_cal(last_index);
                 errquestion(last_index);
-                play_voice(timu_textBlock.Text);
+                //play_voice(timu_textBlock.Text);
 
                 showright_answer(question_index);
                 error_messages(question_index);
@@ -1449,6 +1450,7 @@ where T : DependencyObject
             {
                 if (s.phonetic_reading != 2)//启用
                 {
+                    playvoice = true;
                     if (s.phonetic_reading == 0)//女声
                     {
                         synth.SpeakAsyncCancelAll();
@@ -1483,7 +1485,6 @@ where T : DependencyObject
             // 将数据加载到表 setting 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
-
 
 
             var question_index = 0;
@@ -1530,25 +1531,29 @@ where T : DependencyObject
                         if (select_lab == "A" && step == 0)
                         {
                             isright = true;
+                            //play_voice("正确答案 A");
                         }
                         else if (select_lab == "B" && step == 1)
                         {
                             isright = true;
+                            //play_voice("正确答案 B");
                         }
                         else if (select_lab == "C" && step == 2)
                         {
                             isright = true;
+                            //play_voice("正确答案 C");
                         }
                         else if (select_lab == "D" && step == 3)
                         {
                             isright = true;
+                            //play_voice("正确答案 D");
                         }
                     }
                     step++;
                 }
 
                 PublicClass.question_list[question_index].check_answer = isright;
-
+                
 
             }
 
@@ -1664,7 +1669,34 @@ where T : DependencyObject
 
                 PublicClass.question_list[question_index].check_answer = is_right;
 
+
+
+
+
+
             }
+
+
+
+
+                if (playvoice)//启用
+                {
+                    if (zhengque_textBlock.Text == "√")
+                    {
+                        play_voice("正确答案 选对");
+                    }
+                    else if (zhengque_textBlock.Text == "×")
+                    {
+                        play_voice("正确答案 选错");
+                    }
+                    else
+                    {
+                        play_voice("正确答案 选" + zhengque_textBlock.Text);
+                    }
+                }
+
+
+
 
             xuanxiang_textBlock.Text = PublicClass.question_list[question_index].select_answer;
             is_click_flag = true;
@@ -1676,6 +1708,8 @@ where T : DependencyObject
                 var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
                 foreach (var s in set)
                 {
+
+
 
                     if (s.next_question == 1)//选择答案后自动下一题
                     {
