@@ -166,8 +166,6 @@ where T : DependencyObject
 
 
 
-
-
                 string key = "NumPad1,NumPad2,NumPad3,NumPad5,NumPad4,NumPad6,Subtract,Add,None,None,Divide,None";//初始默认快捷键为方案一
                 var setting = from c in jiakaoDataSet.setting select c;
                 if (setting.Count() == 0)//初始化设置表
@@ -224,10 +222,6 @@ where T : DependencyObject
                 }
 
 
-
-
-
-
                 Thread newthread = new Thread(new ThreadStart(() =>
                 {
                     Dispatcher.Invoke(new Action(() =>
@@ -262,10 +256,6 @@ where T : DependencyObject
 
                         }
 
-
-
-
-
                     }));
 
 
@@ -275,13 +265,6 @@ where T : DependencyObject
                 newthread.IsBackground = true;
                 newthread.Priority = ThreadPriority.Lowest;
                 newthread.Start();
-
-
-
-
-
-
-
 
 
                 qianlunqipao.MouseEnter += new MouseEventHandler(qianlun_MouseEnter);
@@ -302,14 +285,6 @@ where T : DependencyObject
                 MessageBox.Show(ex.Message);
             }
 
-
-            //test re = new test();
-            //C1.WPF.C1Window cc = new C1.WPF.C1Window();
-            //cc.Content = re;
-            //cc.Show();
-            //zhuce.FontSize = 28;
-            //login.FontSize = 28;
-            //guanbi.Foreground = Brushes.Red;
 
         }
 
@@ -553,7 +528,6 @@ where T : DependencyObject
                     }
 
                 }
-
 
                 jiakaoDataSet.updatecheck.AddupdatecheckRow(myupdate);
 

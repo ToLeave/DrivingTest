@@ -408,6 +408,7 @@ namespace DrivingTest
         private void zhuce_textbox_KeyUp(object sender, KeyEventArgs e)
         {
 
+
             if (zhuce_textbox.Text.Length >= 4)
             {
                 string s = zhuce_textbox.Text;
@@ -448,7 +449,6 @@ namespace DrivingTest
             // 将数据加载到表 setting 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter jiakaoDataSetuserTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter();
             jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
-
             
             //File.Copy(1,1);
         }
