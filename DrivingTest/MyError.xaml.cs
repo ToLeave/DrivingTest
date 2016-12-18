@@ -28,6 +28,8 @@ namespace DrivingTest
         List<int> err_list = new List<int>();
         List<int> question_list = new List<int>();
         int err_count = 0;
+
+
         private void shunxu_button_Click(object sender, RoutedEventArgs e)
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
@@ -66,17 +68,27 @@ namespace DrivingTest
 
             var subject = from c in jiakaoDataSet.subject where c.subject.Contains("一") select c;
 
-            var errquestion = from c in jiakaoDataSet.errquest where c.amount == err_count select c;
-
             var user = from c in jiakaoDataSet.errquest where c.user_id == PublicClass.user_id select c;
 
-            foreach (var err in errquestion)
+            if (err_count != 0 && err_count <= 2)//错一次和错两次
             {
-                myerr_list.Add(err.question_id);
+                var errquestion = from c in jiakaoDataSet.errquest where c.amount == err_count select c;
+                foreach (var err in errquestion)
+                {
+                    myerr_list.Add(err.question_id);
+                }
+            }
+            else if (err_count == 3)//错三次及以上
+            {
+                var errquestion = from c in jiakaoDataSet.errquest where c.amount >= 3 select c;
+                foreach (var err in errquestion)
+                {
+                    myerr_list.Add(err.question_id);
+                }
             }
 
             var question = from c in jiakaoDataSet.question where myerr_list.Contains(c.question_id) && c.subject_id == subject.First().subject_id && c.driverlicense_type.Contains(PublicClass.cartype) && user.First().user_id == PublicClass.user_id select c;
-            int aa = question.Count();
+
             foreach (var qu in question)
             {
                 question_list.Add(qu.question_id);
@@ -101,10 +113,18 @@ namespace DrivingTest
                 cwin.ShowModal();
                 cwin.IsActive = true;
                 cwin.WindowState = C1.WPF.C1WindowState.Maximized;
+                cwin.Closing += new System.ComponentModel.CancelEventHandler(cwin_Closing);
             }
             else
             {
-                MessageBox.Show("做错次数为" + err_count + "的错题为0题", "提示");
+                if (err_count != 3)
+                {
+                    MessageBox.Show("做错次数为" + err_count + "的错题为0题", "提示");
+                }
+                else
+                {
+                    MessageBox.Show("做错次数为" + err_count + "及其以上的错题为0题", "提示");
+                }
             }
 
 
@@ -113,6 +133,12 @@ namespace DrivingTest
 
 
 
+        }
+
+        
+        void cwin_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            PublicClass.question_list = new List<PublicClass.Question>();
         }
 
         private void suiji_button_Click(object sender, RoutedEventArgs e)
@@ -150,13 +176,24 @@ namespace DrivingTest
 
             var subject = from c in jiakaoDataSet.subject where c.subject.Contains(PublicClass.subjection) select c;
 
-            var errquestion = from c in jiakaoDataSet.errquest where c.amount == err_count select c;
-
             var user = from c in jiakaoDataSet.errquest where c.user_id == PublicClass.user_id select c;
 
-            foreach (var err in errquestion)
+            if (err_count != 0 && err_count <= 2)//错一次和错两次
             {
-                myerr_list.Add(err.question_id);
+                var errquestion = from c in jiakaoDataSet.errquest where c.amount == err_count && c.amount >= err_count select c;
+
+                foreach (var err in errquestion)
+                {
+                    myerr_list.Add(err.question_id);
+                }
+            }
+            else if (err_count == 3)//错三次及以上
+            {
+                var errquestion = from c in jiakaoDataSet.errquest where c.amount >= 3 select c;
+                foreach (var err in errquestion)
+                {
+                    myerr_list.Add(err.question_id);
+                }
             }
 
             var question = from c in jiakaoDataSet.question where myerr_list.Contains(c.question_id) && c.subject_id == subject.First().subject_id && c.driverlicense_type.Contains(PublicClass.cartype) && user.First().user_id == PublicClass.user_id select c;
@@ -183,10 +220,18 @@ namespace DrivingTest
                 cwin.ShowModal();
                 cwin.IsActive = true;
                 cwin.WindowState = C1.WPF.C1WindowState.Maximized;
+                cwin.Closing += new System.ComponentModel.CancelEventHandler(cwin_Closing);
             }
             else
             {
-                MessageBox.Show("做错次数为" + err_count + "的错题为0题", "提示");
+                if (err_count != 3)
+                {
+                    MessageBox.Show("做错次数为" + err_count + "的错题为0题", "提示");
+                }
+                else
+                {
+                    MessageBox.Show("做错次数为" + err_count + "及其以上的错题为0题", "提示");
+                }
             }
 
 
@@ -229,7 +274,7 @@ namespace DrivingTest
                 MessageBoxResult result = MessageBox.Show("确定删除吗？", "询问", MessageBoxButton.OKCancel);
 
                 //确认删除
-                if (result == MessageBoxResult.Yes)
+                if (result == MessageBoxResult.OK)
                 {
                     if (checkBox1.IsChecked == true)
                     {
@@ -244,7 +289,8 @@ namespace DrivingTest
                         err_c[2] = 3;
                     }
 
-                    var errquestion = from c in jiakaoDataSet.errquest where c.amount == err_c[0] || c.amount == err_c[1] || c.amount == err_c[2] select c;
+
+                    var errquestion = from c in jiakaoDataSet.errquest where c.amount == err_c[0] || c.amount == err_c[1] || c.amount >= err_c[2] select c;
 
                     foreach (var err in errquestion)
                     {
@@ -272,7 +318,7 @@ namespace DrivingTest
                 }
 
                 //取消删除
-                if (result == MessageBoxResult.No)
+                if (result == MessageBoxResult.Cancel)
                 { }
 
 

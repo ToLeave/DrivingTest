@@ -64,6 +64,7 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
+
             var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
             PublicClass.shezhi = "退出";
             foreach (var s in set)
@@ -86,11 +87,11 @@ namespace DrivingTest
                     MessageBoxResult result = MessageBox.Show("确定退出吗？", "询问", MessageBoxButton.OKCancel);
 
                     //关闭窗口
-                    if (result == MessageBoxResult.Yes)
+                    if (result == MessageBoxResult.OK)
                         e.Cancel = false;
 
                     //不关闭窗口
-                    if (result == MessageBoxResult.No)
+                    if (result == MessageBoxResult.Cancel)
                         e.Cancel = true;
                 }
 

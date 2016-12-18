@@ -120,6 +120,7 @@ namespace DrivingTest
             cmy.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - my.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - my.Height / 2, 0, 0); 
             cmy.Content = my;
             cmy.Show();
+
             
             
 
