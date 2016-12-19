@@ -6,13 +6,13 @@
              mc:Ignorable="d" 
              Height="440" Width="460" Loaded="UserControl_Loaded">
     <Grid>
-        <Grid x:Name="diyiye_grid">
+        <Grid x:Name="diyiye_grid" Visibility="Visible">
             <Image Height="Auto" HorizontalAlignment="Left" Margin="0,1,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="Auto" Source="/DrivingTest;component/Images/考试确认窗口.png" StretchDirection="UpOnly" />
             <Button Content="确认交卷" Height="50" HorizontalAlignment="Left" Margin="104,342,0,0" Name="queren_button" VerticalAlignment="Top" Width="122" FontSize="20" Click="queren_button_Click" />
             <Button Content="继续考试" Height="50" HorizontalAlignment="Left" Margin="232,342,0,0" Name="jixu_button" VerticalAlignment="Top" Width="122" FontSize="20" Click="jixu_button_Click" />
         </Grid>
          <Grid x:Name="dierye_grid" Visibility="Hidden">
-            <Image Height="Auto" HorizontalAlignment="Left" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="Auto" StretchDirection="UpOnly" Source="/DrivingTest;component/Images/信息提示.png" Visibility="Hidden" />
+            <Image Height="Auto" HorizontalAlignment="Left" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="Auto" StretchDirection="UpOnly" Source="/DrivingTest;component/Images/信息提示.png" />
             <TextBlock Height="33" HorizontalAlignment="Left" Margin="8,65,0,0" Name="xueyuan_textBlock" Text="" VerticalAlignment="Top" Width="250" FontSize="20" />
             <TextBlock Height="79" HorizontalAlignment="Left" Margin="8,111,0,0" Name="wenzi_textBlock" Text="" VerticalAlignment="Top" Width="433" FontSize="28" TextWrapping="Wrap" TextAlignment="Left" TextTrimming="None" />
             <Button Content="关闭" Height="48" HorizontalAlignment="Left" Margin="177,353,0,0" Name="guanbi_button" VerticalAlignment="Top" Width="97" FontSize="20" ButtonBase.Click="guanbi_button_Click" />

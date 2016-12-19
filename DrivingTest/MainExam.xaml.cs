@@ -221,6 +221,8 @@ where T : DependencyObject
                 xianshi_grid.Visibility = System.Windows.Visibility.Hidden;
                 tianjiacuoti.Visibility = System.Windows.Visibility.Hidden;
                 shanchucuoti.Visibility = System.Windows.Visibility.Hidden;
+                guanggao_textBlock.Visibility = System.Windows.Visibility.Hidden;
+                guanggao_image.Visibility = System.Windows.Visibility.Hidden;
 
                 timer_type = "考试";
                 var question_pd = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.question_type.Contains("PD") && c.subject_id == local_subject.First().subject_id select c;
@@ -928,8 +930,8 @@ where T : DependencyObject
             }
             else
             {
-                if (PublicClass.question_mode == 1)//考试下做题后不可修改            
-                {
+                //if (PublicClass.question_mode == 1)//考试下做题后不可修改            
+                //{
                     if (PublicClass.question_list[question_id].rept_do != 0)
                     {
                         a_button.IsEnabled = false;
@@ -944,7 +946,7 @@ where T : DependencyObject
                         c_button.IsEnabled = true;
                         d_button.IsEnabled = true;
                     }
-                }
+                //}
                 process_question_type(question_id);
             }
             if (current_question_type == "S" || current_question_type == "M")
@@ -966,7 +968,7 @@ where T : DependencyObject
                 play_voice(timu_textBlock.Text);
                 if (question_id > -1)
                 {
-                    showright_answer(question_id);
+                    showright_answer(question_id + 1);
                 }
                 error_messages(question_id + 1);
             }
@@ -1014,8 +1016,8 @@ where T : DependencyObject
             }
             else
             {
-                if (PublicClass.question_mode == 1)//考试下做题后不可修改            
-                {
+                //if (PublicClass.question_mode == 1)//考试下做题后不可修改            
+                //{
                     if (PublicClass.question_list[question_id].rept_do != 0)
                     {
                         a_button.IsEnabled = false;
@@ -1030,7 +1032,7 @@ where T : DependencyObject
                         c_button.IsEnabled = true;
                         d_button.IsEnabled = true;
                     }
-                }
+                //}
                 process_question_type(question_id);
             }
             if (current_question_type == "S" || current_question_type == "M")
@@ -1053,7 +1055,7 @@ where T : DependencyObject
                 play_voice(timu_textBlock.Text);
                 if (question_id < question_c)
                 {
-                    showright_answer(question_id);
+                    showright_answer(question_id - 1);
                 }
                 error_messages(question_id - 1);
             }
@@ -1857,6 +1859,7 @@ where T : DependencyObject
                         jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
                         jiakaoDataSet.errquest.AcceptChanges();
                     }
+                    MessageBox.Show("添加到错题成功!", "提示");
                 }
             }
         }
@@ -1901,6 +1904,7 @@ where T : DependencyObject
                         jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
                         jiakaoDataSet.errquest.AcceptChanges();
                     }
+                    MessageBox.Show("从错题中删除成功!", "提示");
                 }
             }
 
