@@ -17,6 +17,8 @@ using System.Security.Cryptography;
 using System.Threading;
 using Microsoft.Win32;
 using System.IO;
+using System.Net;
+using Newtonsoft.Json.Linq;
 
 
 namespace DrivingTest
@@ -29,11 +31,28 @@ namespace DrivingTest
         public register()
         {
             InitializeComponent();
+            this.Closing += F;
         }
 
         string num = "";
         string time = "";
-        List<string> wenhua = new List<string> { "A","B","C","D"};
+        List<string> wenhua = new List<string> { "A", "B", "C", "D" };
+        public delegate void ChangeTextHandler();//定义委托
+        public event ChangeTextHandler ChangeTextEvent;
+
+        private void F(object o, System.ComponentModel.CancelEventArgs e)
+        {
+            StrikeEvent();
+        }
+
+        //触发事件改变MainWindow的值
+        private void StrikeEvent()
+        {
+            if (ChangeTextEvent != null)
+            {
+                ChangeTextEvent();
+            }
+        }
 
         #region 获取显示机器码
         /// <summary>
@@ -167,7 +186,7 @@ namespace DrivingTest
                                 //return license_num + "," + license_time;
                                 license_count = 1000;
                                 license_num = 10000;
-                                license_time = license_time.AddYears(10);     
+                                license_time = license_time.AddYears(10);
                             }
 
                         }
@@ -210,9 +229,9 @@ namespace DrivingTest
 
                     if (license == local_license)
                     {
-                        ret = "次数:" + license_num.ToString() + " 截止日期:" + license_time.ToShortDateString();
+                        ret = license_num.ToString() + "," + license_time.ToShortDateString();//返回参数为次数 + , + 时间
                         num = license_num.ToString();
-                        time = license_time.ToShortDateString(); 
+                        time = license_time.ToShortDateString();
                         //return license_num + "," + license_time;
                         //license_count = 1000;
                         license_num = 10000;
@@ -230,14 +249,6 @@ namespace DrivingTest
 
 
             return ret;
-
-
-
-
-
-
-
-
 
         }
 
@@ -283,27 +294,49 @@ namespace DrivingTest
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 setting 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
-            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+            DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter jiakaoDataSetuserTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter();
+            jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
 
 
-            var setting = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+            var user = from c in jiakaoDataSet.user select c;
 
             //int license_count = -1;
             //string license_time = "1900/1/1";
             try
             {
-                string license = zhuce_textbox.Text.Trim().ToUpper();
-                license = license.Replace("-", "");
-                string str = cal_license(license);
-                foreach (var se in setting)
+                if (zhuce_textbox.Text != "")
                 {
+                    string license = zhuce_textbox.Text.Trim().ToUpper();
+                    license = license.Replace("-", "");
+                    string str = cal_license(license);//调用验证方法
+                    string[] s = str.Split(',');
+                    string n = s[0];//脱机码次数
+                    string t = s[1];//脱机码时间
+
+                    if (str != "")
+                    {
+                        if (user.Count() == 0)
+                        {
+                            jiakaoDataSet.user.AdduserRow(-1, "", "", "", "", "", "", "", "", "", "", "", "", n, t, "1", "", "", "");
+                            jiakaoDataSetuserTableAdapter.Update(jiakaoDataSet.user);
+                            jiakaoDataSet.user.AcceptChanges();
+                            MessageBox.Show("次数:" + n + " 截止日期:" + t + " 激活成功!");
+                            PublicClass.tuojizhuce = true;
+                        }
+                    }
+                    else//返回参数为空则为验证不成功
+                    {
+                        MessageBox.Show("激活失败!激活码错误或无效!");
+                    }
 
                 }
-                MessageBox.Show(str + " 激活成功!");
+                else//验证码为空
+                {
+                    MessageBox.Show("注册码为空!");
+                }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -311,7 +344,7 @@ namespace DrivingTest
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if(PublicClass.wuwangluo == true)//断网不显示联网注册
+            if (PublicClass.wuwangluo == true)//断网不显示联网注册
             {
                 jiaxiaozhuce.Hide();
             }
@@ -333,7 +366,7 @@ namespace DrivingTest
                 }
                 else
                 {
-                    PublicClass.xinxi = new string[5] { "", "", "", "", ""};
+                    PublicClass.xinxi = new string[5] { "", "", "", "", "" };
                 }
                 if (PublicClass.xinxi[0] == "1")
                 {
@@ -442,6 +475,13 @@ namespace DrivingTest
             }
         }
 
+        private void jiaxiaozhuce_IsActiveChanged(object sender, EventArgs e)
+        {
+            nan_radioButton.IsChecked = true;
+            geren_checkBox.IsChecked = true;
+            bianhao_textBox.IsEnabled = false;
+        }
+
         //确认注册
         private void queren_button_Click(object sender, RoutedEventArgs e)
         {
@@ -449,9 +489,84 @@ namespace DrivingTest
             // 将数据加载到表 setting 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter jiakaoDataSetuserTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter();
             jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
-            
-            //File.Copy(1,1);
+
+            string loginstr = null;
+            HttpWebResponse response = null;
+            StreamReader reader = null;
+
+
+            string login = zhanghao_textBox.Text;//账号
+            string password = passwoed_textBox.Password;//密码
+            string name = name_textBox.Text;//名字
+            string phone = phone_textBox.Text;//手机号
+            string sex = "";//性别
+            if (nan_radioButton.IsChecked == true)
+            {
+                sex = "男";
+            }
+            else
+            {
+                sex = "女";
+            }
+            string idcard = idcard_textBox.Text;//身份证号
+            string chengdu = wenhua_comboBox.SelectionBoxItem.ToString();//学员程度
+            string bianhao = bianhao_textBox.Text;//学员编号
+            string jine = shoufei_textBox.Text;//收费金额
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/reguser?login=" + login + "&password=" + password + "&name=" + name + "&phone=" + phone + "&sex=" + sex + "&idcard=" + idcard + "&education=" + chengdu + "&studentid=" + bianhao + "&money=" + jine);//注册 url
+            request.Method = "GET";
+            request.Timeout = 10000;
+            response = (HttpWebResponse)request.GetResponse();
+            reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
+            loginstr = reader.ReadToEnd();
+
+            response.Close();
+
+            //JArray loginUUID_json = JArray.Parse(loginstr);//UUID json
+
+            //string surplus = loginUUID_json[0]["value"].ToString();//剩余时间或次数
+            //string state = loginUUID_json[0]["status"].ToString();//账号状态
+
         }
+
+        private void geren_checkBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (geren_checkBox.IsChecked == true)
+            {
+                bianhao_textBox.IsEnabled = false;
+                jiaxiao_checkBox.IsChecked = false;
+            }
+
+        }
+        private void geren_checkBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (geren_checkBox.IsChecked == false)
+            {
+                jiaxiao_checkBox.IsChecked = true;
+                bianhao_textBox.IsEnabled = true;
+                geren_checkBox.IsChecked = false;
+            }
+        }
+
+        private void jiaxiao_checkBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (jiaxiao_checkBox.IsChecked == true)
+            {
+                bianhao_textBox.IsEnabled = true;
+                geren_checkBox.IsChecked = false;
+            }
+        }
+        private void jiaxiao_checkBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (jiaxiao_checkBox.IsChecked == false)
+            {
+                geren_checkBox.IsChecked = true;
+                bianhao_textBox.IsEnabled = false;
+                jiaxiao_checkBox.IsChecked = false;
+            }
+        }
+
+
 
     }
 

@@ -44,58 +44,60 @@
                                 </TextBlock>
 
                                 <Label Content="客服:" Height="28" HorizontalAlignment="Left" Margin="38,288,0,0" Name="label5" VerticalAlignment="Top" />
-                                <Label Content="QQ:" Height="28" HorizontalAlignment="Left" Margin="144,283,0,0" Name="label6" VerticalAlignment="Top" />
+                                <Label Content="QQ:" Height="28" HorizontalAlignment="Left" Margin="144,284,0,0" Name="label6" VerticalAlignment="Top" />
                                 <Label Content="旺旺:" Height="28" HorizontalAlignment="Left" Margin="144,312,0,0" Name="label7" VerticalAlignment="Top" />
-                                <TextBlock Height="23" HorizontalAlignment="Left" Margin="191,288,0,0" Name="qq_textblock" Text="{Binding Path=customer_service_QQ}" VerticalAlignment="Top" Width="100" />
+                                <TextBlock Height="23" HorizontalAlignment="Left" Margin="191,289,0,0" Name="qq_textblock" Text="{Binding Path=customer_service_QQ}" VerticalAlignment="Top" Width="100" />
                                 <TextBlock Height="23" HorizontalAlignment="Left" Margin="191,317,0,0" Name="ww_textblock" Text="{Binding Path=customer_service_WW}" VerticalAlignment="Top" Width="100" />
 
-                                <TextBlock Height="100" HorizontalAlignment="Left" Margin="25,349,0,0" Name="beizhu_textblock" VerticalAlignment="Top" Width="423" Text="{Binding Path=comments}" />
-                                <GroupBox Header="注册说明" Height="217" HorizontalAlignment="Left" Margin="18,238,0,0" Name="groupBox2" VerticalAlignment="Top" Width="439" Visibility="Visible" />
+                                <TextBlock Height="80" HorizontalAlignment="Left" Margin="25,344,0,0" Name="beizhu_textblock" VerticalAlignment="Top" Width="423" Text="{Binding Path=comments}" />
+                                <GroupBox Header="注册说明" Height="190" HorizontalAlignment="Left" Margin="18,238,0,0" Name="groupBox2" VerticalAlignment="Top" Width="439" Visibility="Visible" />
                                 <ProgressBar Height="10" HorizontalAlignment="Left" Margin="135,72,0,0" Name="zhuce_progressBar" VerticalAlignment="Top" Width="171" />
                             </Grid>
                         </avalon:LayoutAnchorable>
-                        <avalon:LayoutAnchorable Title=" 驾校注册 " x:Name="jiaxiaozhuce" CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True">
+                        <avalon:LayoutAnchorable Title=" 驾校注册 " x:Name="jiaxiaozhuce" CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True" IsActiveChanged="jiaxiaozhuce_IsActiveChanged">
                             <Grid>
+                                <Label Content="账号" Height="28" HorizontalAlignment="Left" Margin="26,26,0,0" Name="label14" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,28,0,0" Name="zhanghao_textBox" VerticalAlignment="Top" Width="120" />
+
+                                <Label Content="密码" Height="28" HorizontalAlignment="Left" Margin="26,60,0,0" Name="label15" VerticalAlignment="Top" />
+                                <PasswordBox Height="23" HorizontalAlignment="Left" Margin="90,62,0,0" Name="pass_textBox" VerticalAlignment="Top" Width="120" />
+
+                                <Label Content="确认密码" Height="28" HorizontalAlignment="Left" Margin="26,94,0,0" Name="label16" VerticalAlignment="Top" />
+                                <PasswordBox Height="23" HorizontalAlignment="Left" Margin="90,96,0,0" Name="passwoed_textBox" VerticalAlignment="Top" Width="120" />
+
                                 <Label Content="  姓  名  " Height="28" HorizontalAlignment="Left" Margin="26,132,0,0" Name="label11" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="90,134,0,0" Name="name_textBox" Text="" VerticalAlignment="Top" Width="120" />
                                 
                                 <Label Content="  性  别 :" Height="28" HorizontalAlignment="Left" Margin="26,166,0,0" Name="label12" VerticalAlignment="Top" />
                                 <RadioButton Content="男" Height="16" HorizontalAlignment="Left" Margin="87,171,0,0" Name="nan_radioButton" VerticalAlignment="Top" />
                                 <RadioButton Content="女" Height="16" HorizontalAlignment="Left" Margin="134,171,0,0" Name="nv_radioButton" VerticalAlignment="Top" />
+
+                                <Label Content="手机号" Height="28" HorizontalAlignment="Left" Margin="232,134,0,0" Name="label31" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="284,137,0,0" Name="phone_textBox" VerticalAlignment="Top" Width="120" />
+
                                 <!--<Label Content="年龄" Height="28" HorizontalAlignment="Left" Margin="257,225,0,0" Name="label29" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="318,230,0,0" Name="textBox90" VerticalAlignment="Top" Width="120"/>-->
                                 <Label Content="身份证号" Height="28" HorizontalAlignment="Left" Margin="220,166,0,0" Name="label30" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="284,171,0,0" Name="textBox2" VerticalAlignment="Top" Width="120" />
-                                
-                                <Label Content="手机号" Height="28" HorizontalAlignment="Left" Margin="232,134,0,0" Name="label31" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="284,137,0,0" Name="textBox3" VerticalAlignment="Top" Width="120" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="284,171,0,0" Name="idcard_textBox" VerticalAlignment="Top" Width="120" />
                                 
                                 <Label Content="学员程度" Height="28" HorizontalAlignment="Left" Margin="26,200,0,0" Name="label32" VerticalAlignment="Top" />
                                 <ComboBox Height="23" HorizontalAlignment="Left" Margin="90,205,0,0" Name="wenhua_comboBox" VerticalAlignment="Top" Width="120" ItemsSource="{Binding}" />
                                 
                                 <Label Content="注册编号" Height="28" HorizontalAlignment="Left" Margin="26,242,0,0" Name="label33" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,244,0,0" Name="textBox5" VerticalAlignment="Top" Width="120" />
-                                
-                                <Label Content="收费金额" Height="28" HorizontalAlignment="Left" Margin="26,284,0,0" Name="label34" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,286,0,0" Name="textBox8" VerticalAlignment="Top" Width="120" />
-                                
-                                <Label Content="学员照片" Height="28" HorizontalAlignment="Left" Margin="26,364,0,0" Name="label35" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,366,0,0" Name="zhaopian_textBox" VerticalAlignment="Top" Width="120" />
-                                <Button Content="上传本地图片" Height="23" HorizontalAlignment="Left" Margin="222,366,0,0" Name="shangchuan_button" VerticalAlignment="Top" Width="80" Click="shangchuan_button_Click" />
-                                
-                                <Label Content="账号" Height="28" HorizontalAlignment="Left" Margin="26,26,0,0" Name="label14" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,28,0,0" Name="textBox1" VerticalAlignment="Top" Width="120" />
-                                
-                                <Label Content="密码" Height="28" HorizontalAlignment="Left" Margin="26,60,0,0" Name="label15" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,62,0,0" Name="textBox6" VerticalAlignment="Top" Width="120" />
-                                
-                                <Label Content="确认密码" Height="28" HorizontalAlignment="Left" Margin="26,94,0,0" Name="label16" VerticalAlignment="Top" />
-                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,96,0,0" Name="textBox7" VerticalAlignment="Top" Width="120" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,244,0,0" Name="bianhao_textBox" VerticalAlignment="Top" Width="120" />
 
-                                <CheckBox Content="个人注册" Height="16" HorizontalAlignment="Left" Margin="232,251,0,0" Name="checkBox1" VerticalAlignment="Top" />
-                                <CheckBox Content="驾校注册" Height="16" HorizontalAlignment="Left" Margin="313,251,0,0" Name="checkBox2" VerticalAlignment="Top" />
+                                <CheckBox Content="个人注册" Height="16" HorizontalAlignment="Left" Margin="232,251,0,0" Name="geren_checkBox" VerticalAlignment="Top" Checked="geren_checkBox_Checked" Unchecked="geren_checkBox_Unchecked" />
+                                <CheckBox Content="驾校注册" Height="16" HorizontalAlignment="Left" Margin="313,251,0,0" Name="jiaxiao_checkBox" VerticalAlignment="Top" Checked="jiaxiao_checkBox_Checked" Unchecked="jiaxiao_checkBox_Unchecked" />
+
+                                <Label Content="收费金额" Height="28" HorizontalAlignment="Left" Margin="26,284,0,0" Name="label34" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,286,0,0" Name="shoufei_textBox" VerticalAlignment="Top" Width="120" />
+
                                 <Label Content="  地  区  " Height="28" HorizontalAlignment="Left" Margin="26,323,0,0" Name="label111" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="90,325,0,0" Name="textBox4" VerticalAlignment="Top" Width="120" />
+
+                                <Label Content="学员照片" Height="28" HorizontalAlignment="Left" Margin="26,364,0,0" Name="label35" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="90,366,0,0" Name="zhaopian_textBox" VerticalAlignment="Top" Width="120" />
+                                <Button Content="上传本地图片" Height="23" HorizontalAlignment="Left" Margin="222,366,0,0" Name="shangchuan_button" VerticalAlignment="Top" Width="80" Click="shangchuan_button_Click" /> 
 
                                 <Button Content="确认" Height="23" HorizontalAlignment="Left" Margin="353,396,0,0" Name="queren_button" VerticalAlignment="Top" Width="75" Click="queren_button_Click" />
                                 

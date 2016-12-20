@@ -41,6 +41,7 @@ namespace DrivingTest
         public static string question_answer = "";//正确答案
         public static string question_image = "";//图片文件名
         public static bool wuwangluo = false;//无网络状态
+        public static bool tuojizhuce = false;//脱机码注册状态
 
         public static DispatcherTimer timer = new DispatcherTimer();
 

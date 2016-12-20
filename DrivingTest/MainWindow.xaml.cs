@@ -40,7 +40,7 @@ namespace DrivingTest
         //public string SelectedValue { get; private set; }
 
         //public event RoutedEventHandler CheckChanged;
-        int attch_down_count = 0;//待下载附件数
+       int attch_down_count = 0;//待下载附件数
         int cur_cown_count = 1;//正在下载附件数
         List<string> img_down_list = new List<string>();
         List<string> voice_down_list = new List<string>();
@@ -146,11 +146,11 @@ where T : DependencyObject
             maingrid.Width = SystemParameters.WorkArea.Width;
             maingrid.Height = SystemParameters.WorkArea.Height;
 
-            
-            
-            //PublicClass.http = @"http://192.168.1.98:3000";
 
-            PublicClass.http = @"http://jiakao.cloudtimesoft.com";
+
+            PublicClass.http = @"http://192.168.1.98:3000";
+
+            //PublicClass.http = @"http://jiakao.cloudtimesoft.com";
             //maincanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
 
 
@@ -330,6 +330,7 @@ where T : DependencyObject
         delegate void MyDelegate(string param);
         void DelegateMethod(string param)
         {
+            //设置
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 setting 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
@@ -362,6 +363,35 @@ where T : DependencyObject
                     subject2.Visibility = System.Windows.Visibility.Visible;
                     subject3.Visibility = System.Windows.Visibility.Visible;
                 }
+            }
+
+            //注册
+            if (PublicClass.tuojizhuce == true)
+            {
+        
+                //登陆后显示
+                subject1.Visibility = System.Windows.Visibility.Visible;
+                subject2.Visibility = System.Windows.Visibility.Visible;
+                subject3.Visibility = System.Windows.Visibility.Visible;
+                subject4.Visibility = System.Windows.Visibility.Visible;
+                car_button.Visibility = System.Windows.Visibility.Visible;
+                bus_button.Visibility = System.Windows.Visibility.Visible;
+                truck_button.Visibility = System.Windows.Visibility.Visible;
+                motorcycle_button.Visibility = System.Windows.Visibility.Visible;
+                regain_button.Visibility = System.Windows.Visibility.Visible;
+                set_up.Visibility = System.Windows.Visibility.Visible;
+                revisions.Visibility = System.Windows.Visibility.Visible;
+                //登录后隐藏
+                xianshi.Visibility = System.Windows.Visibility.Hidden;
+                user_label.Visibility = System.Windows.Visibility.Hidden;
+                user_textBox.Visibility = System.Windows.Visibility.Hidden;
+                password_label.Visibility = System.Windows.Visibility.Hidden;
+                password_textBox.Visibility = System.Windows.Visibility.Hidden;
+                zhuce.Visibility = System.Windows.Visibility.Hidden;
+                login.Visibility = System.Windows.Visibility.Hidden;
+                qianlunqipao.Visibility = System.Windows.Visibility.Hidden;
+                houlunqipao.Visibility = System.Windows.Visibility.Hidden;
+        
             }
         }
 
@@ -1450,6 +1480,7 @@ where T : DependencyObject
         private void zhuce_Click(object sender, RoutedEventArgs e)
         {
             register re = new register();
+            re.ChangeTextEvent += new DrivingTest.register.ChangeTextHandler(updateUI);
             re.Show();
         }
 
@@ -1517,6 +1548,7 @@ where T : DependencyObject
             player.Play();
             if (testlogin() == false)//验证
             {
+
             }
             else
             {

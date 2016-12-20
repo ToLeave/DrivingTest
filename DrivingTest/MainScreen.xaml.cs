@@ -328,7 +328,7 @@ namespace DrivingTest
 
                 for (int cou = 0; cou < arr_count; cou++)
                 {
-                    string url = PublicClass.http + @"/returnjsons/t_errquests?" + PublicClass.user_id + "&";
+                    string url = PublicClass.http + @"/returnjsons/t_errquests?user_id=" + PublicClass.user_id + "&";
                     for (int i = cou * 60; i < (cou + 1) * 60; i++)
                     {
                         if (i < errquestion.Count())

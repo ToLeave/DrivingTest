@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net;
+using System.IO;
 
 namespace DrivingTest
 {
@@ -135,7 +137,7 @@ namespace DrivingTest
 
         }
 
-        
+
         void cwin_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             PublicClass.question_list = new List<PublicClass.Question>();
@@ -301,6 +303,39 @@ namespace DrivingTest
                     {
                         jiakaoDataSet.errquest.FindByerrquest_id(err_list[i]).Delete();//删除错题
                         m = 1;
+                    }
+
+                    string loginstr = null;
+                    HttpWebResponse response = null;
+                    StreamReader reader = null;
+
+                    int arr_count = err_list.Count() / 60;
+                    arr_count++;
+
+                    for (int cou = 0; cou < arr_count; cou++)
+                    {
+                        string url = PublicClass.http + @"/returnjsons/del_errquests?user_id=" + PublicClass.user_id + "&";
+                        for (int i = cou * 60; i < (cou + 1) * 60; i++)
+                        {
+                            if (i < err_list.Count())
+                            {
+                                url += err_list[i];
+                            }
+                        }
+                        url = url.Substring(0, url.Length - 1);
+
+
+                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//注册 url
+                        request.Method = "GET";
+                        request.Timeout = 10000;
+                        response = (HttpWebResponse)request.GetResponse();
+                        reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
+                        loginstr = reader.ReadToEnd();
+
+                        request.Timeout = 10000;
+                        response = (HttpWebResponse)request.GetResponse();
+                        response.Close();
+
                     }
 
                     if (m == 1)
