@@ -536,7 +536,6 @@ namespace DrivingTest
                 bianhao_textBox.IsEnabled = false;
                 jiaxiao_checkBox.IsChecked = false;
             }
-
         }
         private void geren_checkBox_Unchecked(object sender, RoutedEventArgs e)
         {
@@ -547,7 +546,6 @@ namespace DrivingTest
                 geren_checkBox.IsChecked = false;
             }
         }
-
         private void jiaxiao_checkBox_Checked(object sender, RoutedEventArgs e)
         {
             if (jiaxiao_checkBox.IsChecked == true)
@@ -563,6 +561,19 @@ namespace DrivingTest
                 geren_checkBox.IsChecked = true;
                 bianhao_textBox.IsEnabled = false;
                 jiaxiao_checkBox.IsChecked = false;
+            }
+        }
+
+        //确认密码焦点离开
+        private void passwoed_textBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (pass_textBox.Password != passwoed_textBox.Password)//密码不一致
+            {
+                tishi_textBlock.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                tishi_textBlock.Visibility = System.Windows.Visibility.Hidden;
             }
         }
 

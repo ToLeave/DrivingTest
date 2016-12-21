@@ -366,30 +366,37 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
             jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
 
-            var sub = from c in jiakaoDataSet.subject where c.subject.Contains(subjection) select c;
-            subject_id = sub.First().subject_id;
-            subject_name = sub.First().subject;
-            var question = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.subject_id == sub.First().subject_id select c;
-
-            List<int> chapter_list_id = new List<int>();
-            foreach (var myquestion in question)
+            try
             {
-                if (chapter_list_id.Exists(c=>c==myquestion.chapter_id)==false)
+                var sub = from c in jiakaoDataSet.subject where c.subject.Contains(subjection) select c;
+                subject_id = sub.First().subject_id;
+                subject_name = sub.First().subject;
+                var question = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.subject_id == sub.First().subject_id select c;
+
+                List<int> chapter_list_id = new List<int>();
+                foreach (var myquestion in question)
                 {
-                    chapter_list_id.Add(myquestion.chapter_id);
+                    if (chapter_list_id.Exists(c => c == myquestion.chapter_id) == false)
+                    {
+                        chapter_list_id.Add(myquestion.chapter_id);
+                    }
                 }
-            }
-            
-            
-            listBox.Items.Clear();
-            foreach (var mysub in chapter_list_id)
-            {
-                var temsub = from c in jiakaoDataSet.chapter where c.chapter_id == mysub select c;
-                listBox.Items.Add(temsub.First().chapter);
-                chapter_index.Add(temsub.First().chapter_id);
-            }
 
-            listBox.SelectedIndex = 0;
+
+                listBox.Items.Clear();
+                foreach (var mysub in chapter_list_id)
+                {
+                    var temsub = from c in jiakaoDataSet.chapter where c.chapter_id == mysub select c;
+                    listBox.Items.Add(temsub.First().chapter);
+                    chapter_index.Add(temsub.First().chapter_id);
+                }
+
+                listBox.SelectedIndex = 0;
+            }
+            catch
+            {
+                MessageBox.Show("题库为空!");
+            }
 
 
         }

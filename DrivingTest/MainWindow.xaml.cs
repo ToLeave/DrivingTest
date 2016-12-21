@@ -1733,7 +1733,7 @@ where T : DependencyObject
                     c1ma.Header = "小车类:科目一";
                     c1ma.Show();
 
-
+                    c1ma.Background = Brushes.SkyBlue;
 
                     c1ma.IsResizable = false;
 

@@ -63,7 +63,8 @@
                                 <PasswordBox Height="23" HorizontalAlignment="Left" Margin="90,62,0,0" Name="pass_textBox" VerticalAlignment="Top" Width="120" />
 
                                 <Label Content="确认密码" Height="28" HorizontalAlignment="Left" Margin="26,94,0,0" Name="label16" VerticalAlignment="Top" />
-                                <PasswordBox Height="23" HorizontalAlignment="Left" Margin="90,96,0,0" Name="passwoed_textBox" VerticalAlignment="Top" Width="120" />
+                                <PasswordBox Height="23" HorizontalAlignment="Left" Margin="90,96,0,0" Name="passwoed_textBox" VerticalAlignment="Top" Width="120" LostFocus="passwoed_textBox_LostFocus" />
+                                <TextBlock Height="23" HorizontalAlignment="Left" Margin="223,96,0,0" Name="tishi_textBlock" Text="两次密码不一致!" VerticalAlignment="Top" Foreground="Red" Visibility="Hidden" />
 
                                 <Label Content="  姓  名  " Height="28" HorizontalAlignment="Left" Margin="26,132,0,0" Name="label11" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="90,134,0,0" Name="name_textBox" Text="" VerticalAlignment="Top" Width="120" />
