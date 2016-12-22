@@ -259,7 +259,8 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
             jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
 
-            int[] err_c = new int[3];
+            int[] err_c = new int[3]{10000,10000,10000};//本地用 需删错题次数
+            int[] err_a = new int[3];//后台用 需删错题次数
             int m = 0;
 
             if (shanchu_button.Content.ToString() == "删除错题")
@@ -267,6 +268,11 @@ namespace DrivingTest
                 checkBox1.Visibility = System.Windows.Visibility.Visible;
                 checkBox2.Visibility = System.Windows.Visibility.Visible;
                 checkBox3.Visibility = System.Windows.Visibility.Visible;
+
+                rectangle1.Visibility = System.Windows.Visibility.Visible;
+                shunxu_button.Visibility = System.Windows.Visibility.Hidden;
+                suiji_button.Visibility = System.Windows.Visibility.Hidden;
+                quchu_checkBox.Visibility = System.Windows.Visibility.Hidden;
                 shanchu_button.Content = "确认删除";
                 MessageBox.Show("请勾选您要删除的错题库并点击确认删除按钮!", "提示");
             }
@@ -280,20 +286,20 @@ namespace DrivingTest
                 {
                     if (checkBox1.IsChecked == true)
                     {
-                        err_c[0] = 1;
+                        err_a[0] = err_c[0] = 1;                       
                     }
                     if (checkBox2.IsChecked == true)
                     {
-                        err_c[1] = 2;
+                        err_a[1] = err_c[1] = 2;
                     }
                     if (checkBox3.IsChecked == true)
                     {
-                        err_c[2] = 3;
+                        err_a[2] = err_c[2] = 3;
                     }
 
 
                     var errquestion = from c in jiakaoDataSet.errquest where c.amount == err_c[0] || c.amount == err_c[1] || c.amount >= err_c[2] select c;
-
+                    int o = errquestion.Count();
                     foreach (var err in errquestion)
                     {
                         err_list.Add(err.errquest_id);
@@ -305,25 +311,15 @@ namespace DrivingTest
                         m = 1;
                     }
 
-                    string loginstr = null;
-                    HttpWebResponse response = null;
-                    StreamReader reader = null;
-
-                    int arr_count = err_list.Count() / 60;
-                    arr_count++;
-
-                    for (int cou = 0; cou < arr_count; cou++)
+                    try
                     {
-                        string url = PublicClass.http + @"/returnjsons/del_errquests?user_id=" + PublicClass.user_id + "&";
-                        for (int i = cou * 60; i < (cou + 1) * 60; i++)
-                        {
-                            if (i < err_list.Count())
-                            {
-                                url += err_list[i];
-                            }
-                        }
-                        url = url.Substring(0, url.Length - 1);
+                        string loginstr = null;
+                        HttpWebResponse response = null;
+                        StreamReader reader = null;
 
+                        string amount = string.Join(",", err_a);
+
+                        string url = PublicClass.http + @"/returnjsons/del_errquests?user_id=" + PublicClass.user_id + "&amount=" + amount;
 
                         HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//注册 url
                         request.Method = "GET";
@@ -332,10 +328,12 @@ namespace DrivingTest
                         reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                         loginstr = reader.ReadToEnd();
 
-                        request.Timeout = 10000;
-                        response = (HttpWebResponse)request.GetResponse();
                         response.Close();
 
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
                     }
 
 
@@ -350,12 +348,19 @@ namespace DrivingTest
                     checkBox1.Visibility = System.Windows.Visibility.Hidden;
                     checkBox2.Visibility = System.Windows.Visibility.Hidden;
                     checkBox3.Visibility = System.Windows.Visibility.Hidden;
+
+                    rectangle1.Visibility = System.Windows.Visibility.Hidden;
+                    shunxu_button.Visibility = System.Windows.Visibility.Visible;
+                    suiji_button.Visibility = System.Windows.Visibility.Visible;
+                    quchu_checkBox.Visibility = System.Windows.Visibility.Visible;
                     shanchu_button.Content = "删除错题";
                 }
 
                 //取消删除
                 if (result == MessageBoxResult.Cancel)
-                { }
+                {
+
+                }
 
 
             }

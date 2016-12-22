@@ -148,9 +148,9 @@ where T : DependencyObject
 
 
 
-            PublicClass.http = @"http://192.168.1.98:3000";
+            //PublicClass.http = @"http://192.168.1.98:3000";
 
-            //PublicClass.http = @"http://jiakao.cloudtimesoft.com";
+            PublicClass.http = @"http://jiakao.cloudtimesoft.com";
             //maincanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
 
 
@@ -1207,9 +1207,18 @@ where T : DependencyObject
 
                 JArray loginUUID_json = JArray.Parse(loginstr);//UUID json
 
+
                 string uuid = loginUUID_json[0]["validate"].ToString();//随机码
                 string surplus = loginUUID_json[0]["value"].ToString();//剩余时间或次数
                 string state = loginUUID_json[0]["status"].ToString();//账号状态
+
+                if (state != "1")
+                {
+                    goto L1;
+                }
+
+           
+ 
 
                 string loginMD5 = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(userlogin + userpassword + uuid + "CLOUDTIMESOFT", "MD5");//账号+密码+随机码+指定字符生成MD5
 
@@ -1279,6 +1288,9 @@ where T : DependencyObject
                     response.Close();
                 }
             }
+
+            L1: //goto跳转至这里
+            return false;
 
 
         }
@@ -1507,11 +1519,16 @@ where T : DependencyObject
 
                     JArray loginUUID_json = JArray.Parse(loginstr);//UUID json
 
-                    string surplus = loginUUID_json[0]["value"].ToString();//剩余时间或次数
+                    
                     string state = loginUUID_json[0]["status"].ToString();//账号状态
+                    string number = loginUUID_json[0]["number"].ToString();
+                    string time = loginUUID_json[0]["time"].ToString();
+
+                    //string surplus = number + time//剩余时间和次数
+                        
                     if (state == "1")
                     {
-                        xianshi.Text = "账号截止日期或剩余次数为:" + surplus;
+                        xianshi.Text = "账号截止日期为: " + time + " 剩余次数为: " + number;
                     }
                     else
                     {
@@ -1548,7 +1565,7 @@ where T : DependencyObject
             player.Play();
             if (testlogin() == false)//验证
             {
-
+                MessageBox.Show("登录失败!");
             }
             else
             {

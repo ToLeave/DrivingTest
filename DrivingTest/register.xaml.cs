@@ -490,42 +490,107 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter jiakaoDataSetuserTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter();
             jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
 
-            string loginstr = null;
-            HttpWebResponse response = null;
-            StreamReader reader = null;
-
-
-            string login = zhanghao_textBox.Text;//账号
-            string password = passwoed_textBox.Password;//密码
-            string name = name_textBox.Text;//名字
-            string phone = phone_textBox.Text;//手机号
-            string sex = "";//性别
-            if (nan_radioButton.IsChecked == true)
+            if (zhanghao_textBox.Text != "" && pass_textBox.Password != "" && passwoed_textBox.Password != "" && name_textBox.Text != "" && phone_textBox.Text != "" && idcard_textBox.Text != "")//账号密码姓名手机号身份证号不能为空
             {
-                sex = "男";
+                if (pass_textBox.Password == passwoed_textBox.Password)//密码要相同
+                {
+                    string loginstr = null;
+                    HttpWebResponse response = null;
+                    StreamReader reader = null;
+
+
+                    string login = zhanghao_textBox.Text;//账号
+                    string password = passwoed_textBox.Password;//密码
+                    string name = name_textBox.Text;//名字
+                    string phone = phone_textBox.Text;//手机号
+                    string sex = "";//性别
+                    if (nan_radioButton.IsChecked == true)
+                    {
+                        sex = "男";
+                    }
+                    else
+                    {
+                        sex = "女";
+                    }
+                    string idcard = idcard_textBox.Text;//身份证号
+                    string chengdu = wenhua_comboBox.SelectionBoxItem.ToString();//学员程度
+                    string bianhao = bianhao_textBox.Text;//学员编号
+                    string jine = shoufei_textBox.Text;//收费金额
+
+                    try
+                    {
+                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/reguser?login=" + login + "&password=" + password + "&name=" + name + "&phone=" + phone + "&sex=" + sex + "&idcard=" + idcard + "&education=" + chengdu + "&studentid=" + bianhao + "&money=" + jine);//注册 url
+                        request.Method = "GET";
+                        request.Timeout = 10000;
+                        response = (HttpWebResponse)request.GetResponse();
+                        reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
+                        loginstr = reader.ReadToEnd();
+
+                        JArray loginUUID_json = JArray.Parse(loginstr);//json
+
+                        string state = loginUUID_json[0]["status"].ToString();//获取返回值
+
+                        if (state == "0")
+                        {
+                            MessageBox.Show("此账号已被注册!请重试!");
+                        }
+                        else if (state == "1")
+                        {
+                            MessageBox.Show("此手机号已被注册!请重试!");
+                        }
+                        else if (state == "2")
+                        {
+                            MessageBox.Show("注册成功!请等待管理员审核!");
+                            this.Close();
+                        }
+
+                        response.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("两次密码不一致!");
+                }
             }
             else
             {
-                sex = "女";
+                string zh = "";
+                string pa = "";
+                string pass = "";
+                string na = "";
+                string ph = "";
+                string id = "";
+                if (zhanghao_textBox.Text == "")
+                {
+                    zh = "账号";
+                }
+                if (pass_textBox.Password == "")
+                {
+                    pa = "密码";
+                }
+                if (passwoed_textBox.Password == "")
+                {
+                    pass = "确认密码";
+                }
+                if (name_textBox.Text == "")
+                {
+                    na = "姓名";
+                }
+                if (phone_textBox.Text == "")
+                {
+                    ph = "手机号";
+                }
+                if (idcard_textBox.Text == "")
+                {
+                    id = "身份证号";
+                }
+                MessageBox.Show(zh + pa + pass + na + ph + id + "不能为空!");
             }
-            string idcard = idcard_textBox.Text;//身份证号
-            string chengdu = wenhua_comboBox.SelectionBoxItem.ToString();//学员程度
-            string bianhao = bianhao_textBox.Text;//学员编号
-            string jine = shoufei_textBox.Text;//收费金额
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/reguser?login=" + login + "&password=" + password + "&name=" + name + "&phone=" + phone + "&sex=" + sex + "&idcard=" + idcard + "&education=" + chengdu + "&studentid=" + bianhao + "&money=" + jine);//注册 url
-            request.Method = "GET";
-            request.Timeout = 10000;
-            response = (HttpWebResponse)request.GetResponse();
-            reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
-            loginstr = reader.ReadToEnd();
-
-            response.Close();
-
-            //JArray loginUUID_json = JArray.Parse(loginstr);//UUID json
-
-            //string surplus = loginUUID_json[0]["value"].ToString();//剩余时间或次数
-            //string state = loginUUID_json[0]["status"].ToString();//账号状态
 
         }
 

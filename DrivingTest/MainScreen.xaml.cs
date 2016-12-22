@@ -345,6 +345,7 @@ namespace DrivingTest
                     response = (HttpWebResponse)request.GetResponse();
                     response.Close();
                 }
+
             }
             catch (Exception ex)
             {
