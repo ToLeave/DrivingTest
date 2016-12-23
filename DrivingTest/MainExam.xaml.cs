@@ -125,12 +125,28 @@ where T : DependencyObject
             
             foreach (var u in user)
             {
-                string image_name = u.head;
+                string image_name = u.login;
 
-                name_textBlock.Text = u.name;
-                sex_textBlock.Text = u.sex;
-                BitmapImage imagetemp = new BitmapImage(new Uri("\\bin\\Debug\\Image\\" + image_name, UriKind.Relative));
-                touxiang_image.Source = imagetemp;
+                if (u.name != "")
+                {
+                    name_textBlock.Text = u.name;
+                }
+                if (u.sex != "")
+                {
+                    sex_textBlock.Text = u.sex;
+                }
+                BitmapImage imagetemp = new BitmapImage(new Uri("\\bin\\Debug\\Image\\User\\" + image_name + ".jpg", UriKind.Relative));//用户头像
+                //BitmapImage imagemoren = new BitmapImage(new Uri("\\DrivingTest;component\\Images\\学员头像.png"));
+
+                if (Directory.Exists(imagetemp.ToString()))//如果路径存在
+                {
+                    touxiang_image.Source = imagetemp;
+                }
+                //else
+                //{
+                //    touxiang_image.Source = imagemoren;
+                //}
+
             }
             chouti_count.Text = question_c.ToString();
             weida.Text = question_c.ToString();
@@ -474,7 +490,7 @@ where T : DependencyObject
             {
                 int x = i / 10;
                 int y = i % 10;
-                x *= 36;
+                x *= 30;
                 y *= 24;
                 QuestionNum qu = new QuestionNum();
 
@@ -485,7 +501,7 @@ where T : DependencyObject
                 qu.setnum(i + 1, true, "");
                 dati_canvas.Children.Add(qu);
             }
-            dati_canvas.Height = cou / 10 * 36;
+            dati_canvas.Height = cou / 10 * 30;
         }
 
         //初始化第一题

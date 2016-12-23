@@ -16,7 +16,7 @@
         <Label Content="身份证号:" Height="28" Width="65"  Margin="406,292,327,291" Name="label2" Foreground="Red" />
         <TextBlock Height="23"  Width="150" Margin="490,297,158,291" Name="textBlock1" Text="123456789123456789"  Foreground="Red" />
         <Label Content="考生姓名:" Width="65" Height="28" Margin="406,336,327,247" Name="label3" Foreground="Red" />
-        <TextBlock Height="23" Width="150" Margin="490,341,158,247" Name="textBlock2"  Foreground="Red" Text="某某" />
+        <TextBlock Height="23" Width="150" Margin="490,341,158,247" Name="textBlock2"  Foreground="Red" Text="学员" />
         <Label Content="点击'确定'按钮开始考试!" Height="28" Width="150"  Margin="452,418,196,165" Name="textBlock3" Foreground="Red" />
         
     </Grid>

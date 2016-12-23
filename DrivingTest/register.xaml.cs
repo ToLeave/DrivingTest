@@ -194,9 +194,6 @@ namespace DrivingTest
                         System.Windows.Forms.Application.DoEvents();
 
 
-
-
-
                     }
 
 
@@ -519,7 +516,8 @@ namespace DrivingTest
 
                     try
                     {
-                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/reguser?login=" + login + "&password=" + password + "&name=" + name + "&phone=" + phone + "&sex=" + sex + "&idcard=" + idcard + "&education=" + chengdu + "&studentid=" + bianhao + "&money=" + jine);//注册 url
+                        string url = PublicClass.http + @"/returnjsons/reguser?login=" + login + "&password=" + password + "&name=" + name + "&phone=" + phone + "&sex=" + sex + "&idcard=" + idcard + "&education=" + chengdu + "&studentid=" + bianhao + "&money=" + jine;
+                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//注册 url
                         request.Method = "GET";
                         request.Timeout = 10000;
                         response = (HttpWebResponse)request.GetResponse();
@@ -541,6 +539,15 @@ namespace DrivingTest
                         else if (state == "2")
                         {
                             MessageBox.Show("注册成功!请等待管理员审核!");
+
+                            string imagepath = System.Windows.Forms.Application.StartupPath + "\\Image\\User\\";
+                            if (!Directory.Exists(imagepath))//如果路径不存在
+                            {
+                                Directory.CreateDirectory(imagepath);//创建一个路径的文件夹
+                            }
+                            string path = imagepath + login + ".jpg";
+
+                            File.Copy(zhaopian_textBox.Text, path,true);//源文件目录,目标目录
                             this.Close();
                         }
 

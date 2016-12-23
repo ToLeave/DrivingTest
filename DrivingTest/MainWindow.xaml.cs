@@ -49,6 +49,8 @@ namespace DrivingTest
         JArray chapter_json;//章节json
         JArray subject_json;//科目json
 
+        string ip = ""; //ip
+
         public MainWindow()
         {
             InitializeComponent();
@@ -149,8 +151,9 @@ where T : DependencyObject
 
 
             //PublicClass.http = @"http://192.168.1.98:3000";
+            PublicClass.http = @"http://47.89.28.92";
 
-            PublicClass.http = @"http://jiakao.cloudtimesoft.com";
+            //PublicClass.http = @"http://jiakao.cloudtimesoft.com";
             //maincanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
 
 
@@ -1209,7 +1212,8 @@ where T : DependencyObject
 
 
                 string uuid = loginUUID_json[0]["validate"].ToString();//随机码
-                string surplus = loginUUID_json[0]["value"].ToString();//剩余时间或次数
+                string number = loginUUID_json[0]["number"].ToString();
+                string time = loginUUID_json[0]["time"].ToString();//剩余时间或次数
                 string state = loginUUID_json[0]["status"].ToString();//账号状态
 
                 if (state != "1")
@@ -1263,7 +1267,14 @@ where T : DependencyObject
                     login_phonenumber = passwordMD5_json[0]["phonenumber"].ToString();
                     login_part = passwordMD5_json[0]["part"].ToString();
 
-                    var user = from c in jiakaoDataSet.user select c;
+                    var user = from c in jiakaoDataSet.user where c.user_id == PublicClass.user_id select c;
+
+                    if (user.Count() == 0)
+                    {
+                        jiakaoDataSet.user.AdduserRow(PublicClass.user_id, PublicClass.login, userpassword, login_head, login_studentid, login_sex, login_age, login_idcard, login_name, login_money, login_model, login_Subject, login_type, login_number, login_time, state, login_education, login_phonenumber, login_part);
+                        jiakaoDataSetuserTableAdapter.Update(jiakaoDataSet.user);
+                        jiakaoDataSet.user.AcceptChanges();
+                    }
 
                     return true;
                 }
@@ -1296,7 +1307,6 @@ where T : DependencyObject
         }
 
         //获取本机公网IP
-        string ip = "";
         private string GetIP()
         {
             string tempip = "";

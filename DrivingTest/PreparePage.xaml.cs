@@ -130,8 +130,14 @@ namespace DrivingTest
             }
             foreach (var u in user)
             {
-                textBlock1.Text = u.idcard;//身份证号
-                textBlock2.Text = u.name;//名字
+                if (u.idcard != "")
+                {
+                    textBlock1.Text = u.idcard;//身份证号
+                }
+                if (u.name != "")
+                {
+                    textBlock2.Text = u.name;//名字
+                }
             }
         }
     }
