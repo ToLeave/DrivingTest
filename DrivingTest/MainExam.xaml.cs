@@ -135,12 +135,16 @@ where T : DependencyObject
                 {
                     sex_textBlock.Text = u.sex;
                 }
-                BitmapImage imagetemp = new BitmapImage(new Uri("\\bin\\Debug\\Image\\User\\" + image_name + ".jpg", UriKind.Relative));//用户头像
+                BitmapImage imagetemp = new BitmapImage(new Uri(System.Windows.Forms.Application.StartupPath + "\\bin\\Debug\\Image\\User\\" + image_name + ".jpg", UriKind.Relative));//用户头像
                 //BitmapImage imagemoren = new BitmapImage(new Uri("\\DrivingTest;component\\Images\\学员头像.png"));
-
-                if (Directory.Exists(imagetemp.ToString()))//如果路径存在
+                string ima = "@" + "\"" + imagetemp.ToString() + "\"";
+                if (File.Exists(ima))//如果路径存在
                 {
                     touxiang_image.Source = imagetemp;
+                }
+                else
+                {
+                    
                 }
                 //else
                 //{
@@ -984,9 +988,9 @@ where T : DependencyObject
                 play_voice(timu_textBlock.Text);
                 if (question_id > -1)
                 {
-                    showright_answer(question_id + 1);
+                    showright_answer(question_id);
                 }
-                error_messages(question_id + 1);
+                error_messages(question_id);
             }
             if (PublicClass.question_mode == 1)
             {
@@ -1071,7 +1075,7 @@ where T : DependencyObject
                 play_voice(timu_textBlock.Text);
                 if (question_id < question_c)
                 {
-                    showright_answer(question_id - 1);
+                    showright_answer(question_id);
                 }
                 error_messages(question_id - 1);
             }

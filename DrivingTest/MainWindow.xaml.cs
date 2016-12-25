@@ -27,6 +27,7 @@ using System.Data.OleDb;
 using System.Windows.Threading;
 using System.Runtime.InteropServices;
 using Util.Controls;
+using System.Management;
 
 namespace DrivingTest
 {
@@ -40,7 +41,7 @@ namespace DrivingTest
         //public string SelectedValue { get; private set; }
 
         //public event RoutedEventHandler CheckChanged;
-       int attch_down_count = 0;//待下载附件数
+        int attch_down_count = 0;//待下载附件数
         int cur_cown_count = 1;//正在下载附件数
         List<string> img_down_list = new List<string>();
         List<string> voice_down_list = new List<string>();
@@ -150,13 +151,11 @@ where T : DependencyObject
 
 
 
-            //PublicClass.http = @"http://192.168.1.98:3000";
-            PublicClass.http = @"http://47.89.28.92";
-
+            PublicClass.http = @"http://192.168.1.98:3000";
+            //PublicClass.http = @"http://47.89.28.92";
             //PublicClass.http = @"http://jiakao.cloudtimesoft.com";
+
             //maincanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
-
-
 
             try
             {
@@ -167,6 +166,8 @@ where T : DependencyObject
                 // 将数据加载到表 setting 中。可以根据需要修改此代码。
                 DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
                 jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+                DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter jiakaoDataSetuserTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter();
+                jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
 
 
 
@@ -256,8 +257,46 @@ where T : DependencyObject
                         else
                         {
                             xianshi.Text = "无法连接网络,脱机模式下请到注册页面联系客服购买注册码";
-                            PublicClass.wuwangluo = true;//无网络
+                            string cpuid = "";//历史机器码
+                            int num = 0;//机器码登陆次数
+                            int time = 0;//机器码截止日期
+                            DateTime newtime = DateTime.Now;//获取本机时间
+                            var user = from c in jiakaoDataSet.user where c.user_id == -1 select c;//检索是否有脱机注册记录
+                            foreach (var u in user)
+                            {
+                                cpuid = u.login;
+                                num = int.Parse(u.login_number);
+                                time = int.Parse(u.login_time);
 
+                                if (user.Count() == 1 && cpuid == Get_Cpu_Id())//对比机器码识别是否更换机器
+                                {
+                                    int stime = int.Parse(newtime.ToString("yyyyMMdd"));
+                                    if (time >= stime)//对比有效期
+                                    {
+                                        if (num != 0)
+                                        {
+                                            num--;
+                                            u.login_number = num.ToString();
+                                            login_control_ShowHide();//登录后控件的显示或隐藏
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("激活码可使用次数为0!请重新购买激活码!");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("激活码已过期!请重新购买激活码!");
+                                    }
+                                }
+                                else if (user.Count() == 1 && cpuid != Get_Cpu_Id())
+                                {
+                                    MessageBox.Show("激活码仅供一台机器使用!更换机器请重新购买激活码!");
+                                }
+                            }
+                            jiakaoDataSetuserTableAdapter.Update(jiakaoDataSet.user);
+                            jiakaoDataSet.user.AcceptChanges();
+                            PublicClass.wuwangluo = true;//无网络
                         }
 
                     }));
@@ -290,6 +329,24 @@ where T : DependencyObject
             }
 
 
+        }
+
+        //读取CPU机器码
+        private static string Get_Cpu_Id()
+        {
+            string cpuInfo = " ";
+
+            using (ManagementClass cimobject = new ManagementClass("Win32_Processor"))
+            {
+                ManagementObjectCollection moc = cimobject.GetInstances();
+
+                foreach (ManagementObject mo in moc)
+                {
+                    cpuInfo = mo.Properties["ProcessorId"].Value.ToString();
+                    mo.Dispose();
+                }
+            }
+            return cpuInfo.ToString();
         }
 
         void timer_Tick(object sender, EventArgs e)
@@ -371,30 +428,7 @@ where T : DependencyObject
             //注册
             if (PublicClass.tuojizhuce == true)
             {
-        
-                //登陆后显示
-                subject1.Visibility = System.Windows.Visibility.Visible;
-                subject2.Visibility = System.Windows.Visibility.Visible;
-                subject3.Visibility = System.Windows.Visibility.Visible;
-                subject4.Visibility = System.Windows.Visibility.Visible;
-                car_button.Visibility = System.Windows.Visibility.Visible;
-                bus_button.Visibility = System.Windows.Visibility.Visible;
-                truck_button.Visibility = System.Windows.Visibility.Visible;
-                motorcycle_button.Visibility = System.Windows.Visibility.Visible;
-                regain_button.Visibility = System.Windows.Visibility.Visible;
-                set_up.Visibility = System.Windows.Visibility.Visible;
-                revisions.Visibility = System.Windows.Visibility.Visible;
-                //登录后隐藏
-                xianshi.Visibility = System.Windows.Visibility.Hidden;
-                user_label.Visibility = System.Windows.Visibility.Hidden;
-                user_textBox.Visibility = System.Windows.Visibility.Hidden;
-                password_label.Visibility = System.Windows.Visibility.Hidden;
-                password_textBox.Visibility = System.Windows.Visibility.Hidden;
-                zhuce.Visibility = System.Windows.Visibility.Hidden;
-                login.Visibility = System.Windows.Visibility.Hidden;
-                qianlunqipao.Visibility = System.Windows.Visibility.Hidden;
-                houlunqipao.Visibility = System.Windows.Visibility.Hidden;
-        
+                login_control_ShowHide();//登录后控件的显示或隐藏
             }
         }
 
@@ -1229,7 +1263,7 @@ where T : DependencyObject
                 GetIP();
                 request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/getuser?login=" + userlogin + "&validate=" + loginMD5 + "&ip=" + ip);//验证 url
                 request.Method = "GET";
-                request.Timeout = 20000;
+                request.Timeout = 25000;
                 response = (HttpWebResponse)request.GetResponse();
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 passwordstr = reader.ReadToEnd();
@@ -1579,31 +1613,7 @@ where T : DependencyObject
             }
             else
             {
-
-                #region 登陆后控件的显示隐藏
-                //登陆后显示
-                subject1.Visibility = System.Windows.Visibility.Visible;
-                subject2.Visibility = System.Windows.Visibility.Visible;
-                subject3.Visibility = System.Windows.Visibility.Visible;
-                subject4.Visibility = System.Windows.Visibility.Visible;
-                car_button.Visibility = System.Windows.Visibility.Visible;
-                bus_button.Visibility = System.Windows.Visibility.Visible;
-                truck_button.Visibility = System.Windows.Visibility.Visible;
-                motorcycle_button.Visibility = System.Windows.Visibility.Visible;
-                regain_button.Visibility = System.Windows.Visibility.Visible;
-                set_up.Visibility = System.Windows.Visibility.Visible;
-                revisions.Visibility = System.Windows.Visibility.Visible;
-                //登录后隐藏
-                xianshi.Visibility = System.Windows.Visibility.Hidden;
-                user_label.Visibility = System.Windows.Visibility.Hidden;
-                user_textBox.Visibility = System.Windows.Visibility.Hidden;
-                password_label.Visibility = System.Windows.Visibility.Hidden;
-                password_textBox.Visibility = System.Windows.Visibility.Hidden;
-                zhuce.Visibility = System.Windows.Visibility.Hidden;
-                login.Visibility = System.Windows.Visibility.Hidden;
-                qianlunqipao.Visibility = System.Windows.Visibility.Hidden;
-                houlunqipao.Visibility = System.Windows.Visibility.Hidden;
-                #endregion
+                login_control_ShowHide();//登录后控件的显示或隐藏
 
                 DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
                 // 将数据加载到表 question 中。可以根据需要修改此代码。
@@ -1658,6 +1668,33 @@ where T : DependencyObject
             }
         }
 
+
+        //登录后控件的显示或隐藏
+        private void login_control_ShowHide()
+        {
+            //登陆后显示
+            subject1.Visibility = System.Windows.Visibility.Visible;
+            subject2.Visibility = System.Windows.Visibility.Visible;
+            subject3.Visibility = System.Windows.Visibility.Visible;
+            subject4.Visibility = System.Windows.Visibility.Visible;
+            car_button.Visibility = System.Windows.Visibility.Visible;
+            bus_button.Visibility = System.Windows.Visibility.Visible;
+            truck_button.Visibility = System.Windows.Visibility.Visible;
+            motorcycle_button.Visibility = System.Windows.Visibility.Visible;
+            regain_button.Visibility = System.Windows.Visibility.Visible;
+            set_up.Visibility = System.Windows.Visibility.Visible;
+            revisions.Visibility = System.Windows.Visibility.Visible;
+            //登录后隐藏
+            xianshi.Visibility = System.Windows.Visibility.Hidden;
+            user_label.Visibility = System.Windows.Visibility.Hidden;
+            user_textBox.Visibility = System.Windows.Visibility.Hidden;
+            password_label.Visibility = System.Windows.Visibility.Hidden;
+            password_textBox.Visibility = System.Windows.Visibility.Hidden;
+            zhuce.Visibility = System.Windows.Visibility.Hidden;
+            login.Visibility = System.Windows.Visibility.Hidden;
+            qianlunqipao.Visibility = System.Windows.Visibility.Hidden;
+            houlunqipao.Visibility = System.Windows.Visibility.Hidden;
+        }
 
         public string subjectname;
         //科目一

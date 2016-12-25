@@ -138,75 +138,75 @@ namespace DrivingTest
 
         #region 序列号验证
         //根据序列号获取剩余次数
-        private int cal_license_count(string license)
-        {
-            int return_num = -1;
-            for (int step = 0; step < 1000; step++)
-            {
-                for (int num = 0; num < 10000; num++)
-                {
-                    string local_license = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(ID + ":" + num + ":" + step + ":CLOUDTIMESOFT", "MD5");
-                    local_license = local_license.Substring(8, 16);
-                    string local_license_A = local_license.Substring(0, 3);
-                    string local_license_B = local_license.Substring(4);
-                    local_license = local_license_A + "0" + local_license_B;
-                    if (license == local_license)
-                    {
-                        step = 1000;
-                        return_num = num;
-                        num = 10000;
-                    }
-                }
-            }
-            return return_num;
-        }
+        //private int cal_license_count(string license)
+        //{
+        //    int return_num = -1;
+        //    for (int step = 0; step < 1000; step++)
+        //    {
+        //        for (int num = 0; num < 10000; num++)
+        //        {
+        //            string local_license = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(ID + ":" + num + ":" + step + ":CLOUDTIMESOFT", "MD5");
+        //            local_license = local_license.Substring(8, 16);
+        //            string local_license_A = local_license.Substring(0, 3);
+        //            string local_license_B = local_license.Substring(4);
+        //            local_license = local_license_A + "0" + local_license_B;
+        //            if (license == local_license)
+        //            {
+        //                step = 1000;
+        //                return_num = num;
+        //                num = 10000;
+        //            }
+        //        }
+        //    }
+        //    return return_num;
+        //}
 
 
 
-        private void thread_license(int license_count, string license)
-        {
-            Thread newthread = new Thread(new ThreadStart(() =>
-            {
-                Dispatcher.Invoke(new Action(() =>
-                {
+        //private void thread_license(int license_count, string license)
+        //{
+        //    Thread newthread = new Thread(new ThreadStart(() =>
+        //    {
+        //        Dispatcher.Invoke(new Action(() =>
+        //        {
 
-                    for (int license_num = 0; license_num < 1010; license_num++)
-                    {
-                        DateTime endtime = DateTime.Now;
-                        for (DateTime license_time = DateTime.Now; license_time < endtime.AddYears(4); license_time = license_time.AddDays(1))
-                        {
-                            string num_format = license_time.ToString("yyyyMMdd");
-                            string local_license = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(ID + ":" + license_num + ":" + num_format + ":" + license_count + ":CLOUDTIMESOFT", "MD5");
-                            string tt = ID + ":" + license_num + ":" + num_format + ":" + license_count + ":CLOUDTIMESOFT";
-                            local_license = local_license.Substring(8, 16);
+        //            for (int license_num = 0; license_num < 1010; license_num++)
+        //            {
+        //                DateTime endtime = DateTime.Now;
+        //                for (DateTime license_time = DateTime.Now; license_time < endtime.AddYears(4); license_time = license_time.AddDays(1))
+        //                {
+        //                    string num_format = license_time.ToString("yyyyMMdd");
+        //                    string local_license = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(ID + ":" + license_num + ":" + num_format + ":" + license_count + ":CLOUDTIMESOFT", "MD5");
+        //                    string tt = ID + ":" + license_num + ":" + num_format + ":" + license_count + ":CLOUDTIMESOFT";
+        //                    local_license = local_license.Substring(8, 16);
 
-                            if (license == local_license)
-                            {
+        //                    if (license == local_license)
+        //                    {
 
-                                //return license_num + "," + license_time;
-                                license_count = 1000;
-                                license_num = 10000;
-                                license_time = license_time.AddYears(10);
-                            }
+        //                        //return license_num + "," + license_time;
+        //                        license_count = 1000;
+        //                        license_num = 10000;
+        //                        license_time = license_time.AddYears(10);
+        //                    }
 
-                        }
-                        liucheng_textBox.Text = "license_count;" + license_count + "license_num;" + license_num;
-                        System.Windows.Forms.Application.DoEvents();
-
-
-                    }
+        //                }
+        //                liucheng_textBox.Text = "license_count;" + license_count + "license_num;" + license_num;
+        //                System.Windows.Forms.Application.DoEvents();
 
 
-                }));
+        //            }
+
+
+        //        }));
 
 
 
-            }));
-            newthread.SetApartmentState(ApartmentState.MTA);
-            newthread.IsBackground = false;
-            //newthread.Priority = ThreadPriority.AboveNormal;
-            newthread.Start();
-        }
+        //    }));
+        //    newthread.SetApartmentState(ApartmentState.MTA);
+        //    newthread.IsBackground = false;
+        //    //newthread.Priority = ThreadPriority.AboveNormal;
+        //    newthread.Start();
+        //}
 
 
 
@@ -250,31 +250,31 @@ namespace DrivingTest
         }
 
 
-        //根据序列号获取剩余时间
-        private string cal_license_time(string license)
-        {
-            DateTime return_num = DateTime.Parse("1900/1/1");
-            for (int step = 0; step < 1000; step++)
-            {
-                for (DateTime num = DateTime.Now; num < DateTime.Now.AddYears(3); num = num.AddDays(1))
-                {
-                    string num_format = num.ToString("yyyyMMdd");
-                    string local_license = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(ID + ":" + num_format + ":" + step + ":CLOUDTIMESOFT", "MD5");
-                    local_license = local_license.Substring(8, 16);
-                    string local_license_A = local_license.Substring(0, 3);
-                    string local_license_B = local_license.Substring(4);
-                    local_license = local_license_A + "1" + local_license_B;
-                    if (license == local_license)
-                    {
-                        step = 1000;
-                        return_num = num;
-                        num.AddYears(4);
-                    }
-                }
-            }
-            return return_num.ToString("yyyy-MM-dd");
+        ////根据序列号获取剩余时间
+        //private string cal_license_time(string license)
+        //{
+        //    DateTime return_num = DateTime.Parse("1900/1/1");
+        //    for (int step = 0; step < 1000; step++)
+        //    {
+        //        for (DateTime num = DateTime.Now; num < DateTime.Now.AddYears(3); num = num.AddDays(1))
+        //        {
+        //            string num_format = num.ToString("yyyyMMdd");
+        //            string local_license = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(ID + ":" + num_format + ":" + step + ":CLOUDTIMESOFT", "MD5");
+        //            local_license = local_license.Substring(8, 16);
+        //            string local_license_A = local_license.Substring(0, 3);
+        //            string local_license_B = local_license.Substring(4);
+        //            local_license = local_license_A + "1" + local_license_B;
+        //            if (license == local_license)
+        //            {
+        //                step = 1000;
+        //                return_num = num;
+        //                num.AddYears(4);
+        //            }
+        //        }
+        //    }
+        //    return return_num.ToString("yyyy-MM-dd");
 
-        }
+        //}
 
         #endregion
 
@@ -314,11 +314,29 @@ namespace DrivingTest
                     {
                         if (user.Count() == 0)
                         {
-                            jiakaoDataSet.user.AdduserRow(-1, "", "", "", "", "", "", "", "", "", "", "", "", n, t, "1", "", "", "");
+                            jiakaoDataSet.user.AdduserRow(-1, machine_code.Text,zhuce_textbox.Text, "", "", "", "", "", "", "", "", "", "", n, t.Replace("-", ""), "1", "", "", "");
                             jiakaoDataSetuserTableAdapter.Update(jiakaoDataSet.user);
                             jiakaoDataSet.user.AcceptChanges();
                             MessageBox.Show("次数:" + n + " 截止日期:" + t + " 激活成功!");
                             PublicClass.tuojizhuce = true;
+                        }
+                        else
+                        {
+                            foreach(var u in user)
+                            {
+                                if (zhuce_textbox.Text == u.password)//防止相同激活码重复激活
+                                {
+                                    MessageBox.Show("此激活码已使用!请勿重复激活!");
+                                }
+                                else
+                                {
+                                    jiakaoDataSet.user.AdduserRow(-1, machine_code.Text, zhuce_textbox.Text, "", "", "", "", "", "", "", "", "", "", n, t.Replace("-", ""), "1", "", "", "");
+                                    jiakaoDataSetuserTableAdapter.Update(jiakaoDataSet.user);
+                                    jiakaoDataSet.user.AcceptChanges();
+                                    MessageBox.Show("次数:" + n + " 截止日期:" + t + " 激活成功!");
+                                    PublicClass.tuojizhuce = true;
+                                }
+                            }
                         }
                     }
                     else//返回参数为空则为验证不成功
