@@ -84,19 +84,13 @@
                 </Button.RenderTransform>-->
             </xly:FButton>
             <xly:FButton FIcon="&#xe68b;" Content="科目二"  Height="38" HorizontalAlignment="Left" Margin="541,101,0,0" Name="subject2" VerticalAlignment="Top" Width="110" Visibility="Visible" Click="subject2_Click" Canvas.Left="-108" Canvas.Top="-14" FontSize="16">
-                <!--<Button.RenderTransform>
-                    <RotateTransform x:Name="rotateTransform2" Angle="-30" />
-                </Button.RenderTransform>-->
+
             </xly:FButton>
             <xly:FButton FIcon="&#xe67b;" Content="科目三"  Height="38" HorizontalAlignment="Left" Margin="611,106,0,0" Name="subject3" VerticalAlignment="Top" Width="110" Visibility="Visible" Click="subject3_Click" Canvas.Left="-62" Canvas.Top="-19" FontSize="16">
-                <!--<Button.RenderTransform>
-                    <RotateTransform x:Name="rotateTransform3" Angle="-30" />
-                </Button.RenderTransform>-->
+
             </xly:FButton>
             <xly:FButton FIcon="&#xe618;" Content="科目四" Height="38" HorizontalAlignment="Left" Margin="685,109,0,0" Name="subject4" VerticalAlignment="Top" Width="110" Visibility="Visible" Click="subject4_Click" Canvas.Left="-20" Canvas.Top="-22" FontSize="16">
-                <!--<Button.RenderTransform>
-                    <RotateTransform x:Name="rotateTransform4" Angle="-30" />
-                </Button.RenderTransform>-->
+
             </xly:FButton>
             <xly:FButton FIcon="&#xe60c;" Style="{DynamicResource FButton_Transparency}" AllowsAnimation="True" Height="42" HorizontalAlignment="Left" Margin="843,195,0,0" Name="set_up" VerticalAlignment="Top" Width="64" Visibility="Hidden" Click="set_up_Click" Canvas.Left="-63" Canvas.Top="-44" FontSize="14" ToolTip="设置" >设置</xly:FButton>
             <xly:FButton FIcon="&#xe628;" Style="{DynamicResource FButton_Transparency}" AllowsAnimation="True" Height="42" HorizontalAlignment="Left" Margin="890,195,0,0" Name="revisions" VerticalAlignment="Top" Width="92" Visibility="Hidden" Click="revisions_Click" Canvas.Left="-45" Canvas.Top="-43" FontSize="14" ToolTip="修改密码" >修改密码</xly:FButton>

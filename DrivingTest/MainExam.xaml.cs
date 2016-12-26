@@ -135,12 +135,13 @@ where T : DependencyObject
                 {
                     sex_textBlock.Text = u.sex;
                 }
-                BitmapImage imagetemp = new BitmapImage(new Uri(System.Windows.Forms.Application.StartupPath + "\\bin\\Debug\\Image\\User\\" + image_name + ".jpg", UriKind.Relative));//用户头像
+                BitmapImage imagetemp = new BitmapImage(new Uri(System.Windows.Forms.Application.StartupPath + "\\Image\\User\\" + image_name + ".jpg", UriKind.Relative));//用户头像 相对路径
                 //BitmapImage imagemoren = new BitmapImage(new Uri("\\DrivingTest;component\\Images\\学员头像.png"));
-                string ima = "@" + "\"" + imagetemp.ToString() + "\"";
-                if (File.Exists(ima))//如果路径存在
+                string ima = "\"" + imagetemp.ToString() + "\"";
+                if (File.Exists(imagetemp.ToString()))//如果路径存在 相对路径
                 {
-                    touxiang_image.Source = imagetemp;
+                    imagetemp = new BitmapImage(new Uri("\\Image\\User\\" + image_name + ".jpg", UriKind.Relative));//绝对路径
+                    touxiang_image.Source = imagetemp; //绝对路径
                 }
                 else
                 {
@@ -735,10 +736,6 @@ where T : DependencyObject
 
             }
 
-
-
-
-
             QuestionNum qu = sender as QuestionNum;
             qu.setbackcolor();
 
@@ -1173,7 +1170,6 @@ where T : DependencyObject
             }
             else if (PublicClass.question_list[question_id].question_type.Contains("XZ"))
             {
-
                 var an = from c in PublicClass.question_list[question_id].answer where c.isright == 1 select c;
                 if (an.Count() > 1)
                 {

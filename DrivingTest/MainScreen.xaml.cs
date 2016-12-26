@@ -122,8 +122,6 @@ namespace DrivingTest
             cmy.Show();
 
             
-            
-
         }
         //顺序练习
         private void shunxulianxi_Click(object sender, RoutedEventArgs e)
@@ -399,22 +397,20 @@ namespace DrivingTest
                 MessageBox.Show("题库为空!");
             }
 
-
         }
-
-        
+      
     }
 
-    public class Processes : List<string>
-    {
-        public Processes()
-        {
-            //在构造函数中取得系统中进程的名称并将其添加到类中
-            System.Diagnostics.Process[] pList = System.Diagnostics.Process.GetProcesses();
-            foreach (System.Diagnostics.Process p in pList)
-            {
-                this.Add(p.ProcessName);
-            }
-        }
-    }
+    //public class Processes : List<string>
+    //{
+    //    public Processes()
+    //    {
+    //        //在构造函数中取得系统中进程的名称并将其添加到类中
+    //        System.Diagnostics.Process[] pList = System.Diagnostics.Process.GetProcesses();
+    //        foreach (System.Diagnostics.Process p in pList)
+    //        {
+    //            this.Add(p.ProcessName);
+    //        }
+    //    }
+    //}
 }

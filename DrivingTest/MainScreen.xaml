@@ -4,7 +4,7 @@
         xmlns:src="clr-namespace:DrivingTest"
         Height="600" Width="800"  Loaded="Window_Loaded">
     <UserControl.Resources>
-        <src:Processes x:Key="p"/>
+        <!--<src:Processes x:Key="p"/>-->
         <src:jiakaoDataSet x:Key="jiakaoDataSet" />
         <CollectionViewSource x:Key="chapterViewSource" Source="{Binding Path=chapter, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="subjectViewSource" Source="{Binding Path=subject, Source={StaticResource jiakaoDataSet}}" />
