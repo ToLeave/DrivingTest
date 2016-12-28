@@ -121,8 +121,8 @@
                                 <CheckBox Content="顺序练习" Height="16" HorizontalAlignment="Left" Margin="197,173,0,0" Name="shunxu_checkBox" VerticalAlignment="Top" Checked="gongneng_checkBox_Checked" Unchecked="gongneng_checkBox_Unchecked"/>
                                 <CheckBox Content="随机练习" Height="16" HorizontalAlignment="Left" Margin="336,173,0,0" Name="suiji_checkBox" VerticalAlignment="Top" Checked="gongneng_checkBox_Checked" Unchecked="gongneng_checkBox_Unchecked"/>
                                 <CheckBox Content="专项练习" Height="16" HorizontalAlignment="Left" Margin="45,194,0,0" Name="zhuanxiang_checkBox" VerticalAlignment="Top" Checked="gongneng_checkBox_Checked" Unchecked="gongneng_checkBox_Unchecked"/>
-                                <CheckBox Content="模拟考试" Height="16" HorizontalAlignment="Left" Margin="197,194,0,0" Name="moni_checkBox" VerticalAlignment="Top" Checked="gongneng_checkBox_Checked" Unchecked="gongneng_checkBox_Unchecked"/>
-                                <CheckBox Content="错题强化" Height="16" HorizontalAlignment="Left" Margin="336,194,0,0" Name="cuoti_checkBox" VerticalAlignment="Top" Checked="gongneng_checkBox_Checked" Unchecked="gongneng_checkBox_Unchecked"/>
+                                <CheckBox Content="仿真考试" Height="16" HorizontalAlignment="Left" Margin="197,194,0,0" Name="moni_checkBox" VerticalAlignment="Top" Checked="gongneng_checkBox_Checked" Unchecked="gongneng_checkBox_Unchecked"/>
+                                <CheckBox Content="我的错题" Height="16" HorizontalAlignment="Left" Margin="336,194,0,0" Name="cuoti_checkBox" VerticalAlignment="Top" Checked="gongneng_checkBox_Checked" Unchecked="gongneng_checkBox_Unchecked"/>
                                 <GroupBox Header="功能模块(仅驾校模式下有效)" Height="60" HorizontalAlignment="Left" Margin="16,154,0,0" Name="groupBox5" VerticalAlignment="Top" Width="430"/>
                                 
                                 <CheckBox Content="科目二" Height="16" HorizontalAlignment="Left" Margin="45,230,0,0" Name="kemu2_checkBox" VerticalAlignment="Top" />

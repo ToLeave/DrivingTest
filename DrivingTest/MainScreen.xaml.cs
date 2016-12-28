@@ -31,6 +31,8 @@ namespace DrivingTest
         string subject_name;
         List<int> questions_id = new List<int>();
 
+        int control_state = 0;//控件显示状态 1为触发,0为不触发
+
         private void F(object o, System.ComponentModel.CancelEventArgs e)
         {
             Window main = Application.Current.MainWindow;
@@ -40,50 +42,267 @@ namespace DrivingTest
 
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 chapter 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
+            jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
+
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+
+
+            foreach (var s in set)
+            {
+                if (s.functional_module != "")
+                {
+                    PublicClass.gongneng = s.functional_module.Split(',');
+                }
+                else
+                {
+                    PublicClass.gongneng = new string[6] { "", "", "", "", "", "" };
+                }
+                if (PublicClass.gongneng[4] == "1")
+                {
+                    simulation_test.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else if (PublicClass.gongneng[4] == "0")
+                {
+                    simulation_test.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.gongneng[5] == "1")
+                {
+                    my_mistakes.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else if (PublicClass.gongneng[5] == "0")
+                {
+                    my_mistakes.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.gongneng[3] == "1")
+                {
+                    zhuanxiangmoni.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else if (PublicClass.gongneng[3] == "0")
+                {
+                    zhuanxiangmoni.Visibility = System.Windows.Visibility.Visible;
+                }
+            }
+        }
+
         //新手速成
         private void sucheng_Click(object sender, RoutedEventArgs e)
         {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 chapter 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
+            jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
+
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+
+            foreach (var s in set)
+            {
+                if (s.functional_module != "")
+                {
+                    PublicClass.gongneng = s.functional_module.Split(',');
+                }
+                else
+                {
+                    PublicClass.gongneng = new string[6] { "", "", "", "", "", "" };
+                }
+                if (PublicClass.gongneng[0] == "1")
+                {
+                    zhangjielianxi.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else if (PublicClass.gongneng[0] == "0")
+                {
+                    zhangjielianxi.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.gongneng[1] == "1")
+                {
+                    shunxulianxi.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else if (PublicClass.gongneng[1] == "0")
+                {
+                    shunxulianxi.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.gongneng[2] == "1")
+                {
+                    suijilianxi.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else if (PublicClass.gongneng[2] == "0")
+                {
+                    suijilianxi.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.gongneng[3] == "1")
+                {
+                    zhuanxianglianxi.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else if (PublicClass.gongneng[3] == "0")
+                {
+                    zhuanxianglianxi.Visibility = System.Windows.Visibility.Visible;
+                }
+            }
             yuyin.Visibility = System.Windows.Visibility.Visible;
             lianxi.Visibility = System.Windows.Visibility.Visible;
             moni.Visibility = System.Windows.Visibility.Visible;
             qianghualianxi.Visibility = System.Windows.Visibility.Visible;
             qianghuamoni.Visibility = System.Windows.Visibility.Visible;
-            zhuanxiangmoni.Visibility = System.Windows.Visibility.Visible;
-            zhuanxianglianxi.Visibility = System.Windows.Visibility.Visible;
-            zhangjielianxi.Visibility = System.Windows.Visibility.Visible;
+
             shunxulianxi.Visibility = System.Windows.Visibility.Visible;
             suijilianxi.Visibility = System.Windows.Visibility.Visible;
+
             listBox.Visibility = System.Windows.Visibility.Visible;
+
+            list_bangding(PublicClass.cartype, PublicClass.subjection);
+            
         }
         //速成600
         private void sucheng600_Click(object sender, RoutedEventArgs e)
         {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 chapter 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
+            jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
+
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+
+            foreach (var s in set)
+            {
+                if (s.functional_module != "")
+                {
+                    PublicClass.gongneng = s.functional_module.Split(',');
+                }
+                else
+                {
+                    PublicClass.gongneng = new string[6] { "", "", "", "", "", "" };
+                }
+                if (PublicClass.gongneng[0] == "1")
+                {
+                    zhangjielianxi.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else if (PublicClass.gongneng[0] == "0")
+                {
+                    zhangjielianxi.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.gongneng[1] == "1")
+                {
+                    shunxulianxi.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else if (PublicClass.gongneng[1] == "0")
+                {
+                    shunxulianxi.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.gongneng[2] == "1")
+                {
+                    suijilianxi.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else if (PublicClass.gongneng[2] == "0")
+                {
+                    suijilianxi.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.gongneng[3] == "1")
+                {
+                    zhuanxianglianxi.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else if (PublicClass.gongneng[3] == "0")
+                {
+                    zhuanxianglianxi.Visibility = System.Windows.Visibility.Visible;
+                }
+            }
             yuyin.Visibility = System.Windows.Visibility.Visible;
             lianxi.Visibility = System.Windows.Visibility.Visible;
             moni.Visibility = System.Windows.Visibility.Visible;
             qianghualianxi.Visibility = System.Windows.Visibility.Visible;
             qianghuamoni.Visibility = System.Windows.Visibility.Visible;
-            zhuanxiangmoni.Visibility = System.Windows.Visibility.Visible;
-            zhuanxianglianxi.Visibility = System.Windows.Visibility.Visible;
-            zhangjielianxi.Visibility = System.Windows.Visibility.Visible;
+
             shunxulianxi.Visibility = System.Windows.Visibility.Visible;
             suijilianxi.Visibility = System.Windows.Visibility.Visible;
+
             listBox.Visibility = System.Windows.Visibility.Visible;
+
+            list_bangding(PublicClass.cartype, PublicClass.subjection);
         }
         //速成500
         private void sucheng500_Click(object sender, RoutedEventArgs e)
         {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 chapter 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
+            jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
+
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+
+            foreach (var s in set)
+            {
+                if (s.functional_module != "")
+                {
+                    PublicClass.gongneng = s.functional_module.Split(',');
+                }
+                else
+                {
+                    PublicClass.gongneng = new string[6] { "", "", "", "", "", "" };
+                }
+                if (PublicClass.gongneng[0] == "1")
+                {
+                    zhangjielianxi.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else if (PublicClass.gongneng[0] == "0")
+                {
+                    zhangjielianxi.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.gongneng[1] == "1")
+                {
+                    shunxulianxi.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else if (PublicClass.gongneng[1] == "0")
+                {
+                    shunxulianxi.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.gongneng[2] == "1")
+                {
+                    suijilianxi.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else if (PublicClass.gongneng[2] == "0")
+                {
+                    suijilianxi.Visibility = System.Windows.Visibility.Visible;
+                }
+                if (PublicClass.gongneng[3] == "1")
+                {
+                    zhuanxianglianxi.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else if (PublicClass.gongneng[3] == "0")
+                {
+                    zhuanxianglianxi.Visibility = System.Windows.Visibility.Visible;
+                }
+            }
             yuyin.Visibility = System.Windows.Visibility.Visible;
             lianxi.Visibility = System.Windows.Visibility.Visible;
             moni.Visibility = System.Windows.Visibility.Visible;
             qianghualianxi.Visibility = System.Windows.Visibility.Visible;
             qianghuamoni.Visibility = System.Windows.Visibility.Visible;
-            zhuanxiangmoni.Visibility = System.Windows.Visibility.Visible;
-            zhuanxianglianxi.Visibility = System.Windows.Visibility.Visible;
-            zhangjielianxi.Visibility = System.Windows.Visibility.Visible;
+
             shunxulianxi.Visibility = System.Windows.Visibility.Visible;
             suijilianxi.Visibility = System.Windows.Visibility.Visible;
+
             listBox.Visibility = System.Windows.Visibility.Visible;
+
+            list_bangding(PublicClass.cartype, PublicClass.subjection);
         }
         //语音课堂
         private void yuyin_Click(object sender, RoutedEventArgs e)
@@ -210,83 +429,6 @@ namespace DrivingTest
             //}
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 chapter 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
-            jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
-
-            // 将数据加载到表 setting 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
-            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
-
-            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
-
-            foreach (var s in set)
-            {
-                if (s.functional_module != "")
-                {
-                    PublicClass.gongneng = s.functional_module.Split(','); 
-                }
-                else
-                {
-                    PublicClass.gongneng = new string[6] { "", "", "", "", "", "" };
-                }
-                if (PublicClass.gongneng[0] == "1")
-                {
-                    zhangjielianxi.Visibility = System.Windows.Visibility.Hidden;
-                }
-                else if (PublicClass.gongneng[0] == "0")
-                {
-                    zhangjielianxi.Visibility = System.Windows.Visibility.Visible;
-                }
-                if (PublicClass.gongneng[1] == "1")
-                {
-                    shunxulianxi.Visibility = System.Windows.Visibility.Hidden;
-                }
-                else if (PublicClass.gongneng[1] == "0")
-                {
-                    shunxulianxi.Visibility = System.Windows.Visibility.Visible;
-                }
-                if (PublicClass.gongneng[2] == "1")
-                {
-                    suijilianxi.Visibility = System.Windows.Visibility.Hidden;
-                }
-                else if (PublicClass.gongneng[2] == "0")
-                {
-                    suijilianxi.Visibility = System.Windows.Visibility.Visible;
-                }
-                if (PublicClass.gongneng[3] == "1")
-                {
-                    zhuanxianglianxi.Visibility = System.Windows.Visibility.Hidden;
-                    zhuanxiangmoni.Visibility = System.Windows.Visibility.Hidden;
-                }
-                else if (PublicClass.gongneng[3] == "0")
-                {
-                    zhuanxianglianxi.Visibility = System.Windows.Visibility.Visible;
-                    zhuanxiangmoni.Visibility = System.Windows.Visibility.Visible;
-                }
-                if (PublicClass.gongneng[4] == "1")
-                {
-                    simulation_test.Visibility = System.Windows.Visibility.Hidden;
-                }
-                else if (PublicClass.gongneng[4] == "0")
-                {
-                    simulation_test.Visibility = System.Windows.Visibility.Visible;
-                }
-                if (PublicClass.gongneng[5] == "1")
-                {
-                    my_mistakes.Visibility = System.Windows.Visibility.Hidden;
-                }
-                else if (PublicClass.gongneng[5] == "0")
-                {
-                    my_mistakes.Visibility = System.Windows.Visibility.Visible;
-                }
-            }
-            list_bangding(PublicClass.cartype, PublicClass.subjection);
-        }
 
         //关闭时上传错题
         void cwin_Closing(object sender, System.ComponentModel.CancelEventArgs e)
