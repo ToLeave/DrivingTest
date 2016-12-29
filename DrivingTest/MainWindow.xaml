@@ -19,7 +19,7 @@
 
     <Grid x:Name="maingrid" MouseLeftButtonDown="Grid_MouseLeftButtonDown" DataContext="{StaticResource updatecheckViewSource}" >
         <Canvas x:Name="maincanvas"  Height="370" Width="1000"    PreviewMouseDown="maincanvas_PreviewMouseDown" PreviewMouseMove="maincanvas_PreviewMouseMove" MouseUp="maincanvas_MouseUp">
-            <Image Stretch="Fill" Source="/DrivingTest;component/Images/标志f.png"  StretchDirection="DownOnly" HorizontalAlignment="Left" VerticalAlignment="Top" Height="370" Width="1000" Canvas.Left="0" Canvas.Top="0"></Image>
+            <Image Stretch="Fill" Source="/DrivingTest;component/Images/车标志.png"  StretchDirection="DownOnly" HorizontalAlignment="Left" VerticalAlignment="Top" Height="370" Width="1000" Canvas.Left="0" Canvas.Top="0"></Image>
             <Image x:Name="qianlun"  Source="/DrivingTest;component/Images/luan.png" Margin="107,237,0,0"  MouseEnter="qianlun_MouseEnter" Width="130" Height="130" RenderTransformOrigin="0.5,0.5" MouseLeave="qianlun_MouseLeave" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="-10" Canvas.Top="-21" />
             <Image x:Name="houlun"  Source="/DrivingTest;component/Images/luan.png"  Margin="680,237,0,0" Width="130" Height="130" RenderTransformOrigin="0.5,0.5" MouseEnter="houlun_MouseEnter" MouseLeave="houlun_MouseLeave" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="-46" Canvas.Top="-21"></Image>
             <Button Focusable="False" x:Name="zuixiao" Margin="898,87,0,0" Content="_" Template="{DynamicResource ButtonControlTemplate1}" Foreground="Black" FontSize="20" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="30" ToolTip="最小化" Click="zuixiao_Click" Canvas.Left="-38" Canvas.Top="6" />
@@ -31,12 +31,12 @@
             <PasswordBox Height="23" HorizontalAlignment="Left" Margin="513,304,0,0" Name="password_textBox" VerticalAlignment="Top" Width="120" KeyDown="password_textBox_KeyDown" Canvas.Left="-16" Canvas.Top="-15" BorderBrush="#FF27A6DA" />
 
 
-            <Button Height="75" HorizontalAlignment="Left" Margin="243,243,0,0" Name="car_button" VerticalAlignment="Top" Width="85" Visibility="Visible" Click="car_button_Click" Canvas.Left="-80" Canvas.Top="-108" FontSize="16" >
+                <Button Height="75" HorizontalAlignment="Left" Margin="243,243,0,0" Name="car_button" VerticalAlignment="Top" Width="85" Visibility="Visible" Click="car_button_Click" Canvas.Left="-80" Canvas.Top="-108" FontSize="16" >
                 <Button.Background>
                     <SolidColorBrush />
                 </Button.Background>
                 <StackPanel>
-                    <Image Source="/DrivingTest;component/Images/汽车%20%282%29.png" Width="72" Height="45" />
+                    <Image Source="/DrivingTest;component/Images/汽车%20%284%29.png" Width="72" Height="45" />
                     <TextBlock HorizontalAlignment="Center" FontSize="13">C1|C2|C3|C4</TextBlock>
                 </StackPanel>
             </Button>
@@ -45,7 +45,7 @@
                     <SolidColorBrush />
                 </Button.Background>
                 <StackPanel>
-                    <Image Source="/DrivingTest;component/Images/大巴5.png" Width="72" Height="45" />
+                    <Image Source="/DrivingTest;component/Images/大巴5%20%281%29.png" Width="72" Height="45" />
                     <TextBlock HorizontalAlignment="Center" FontSize="13">A1|A3|B1</TextBlock>
                 </StackPanel>
             </Button>
@@ -54,7 +54,7 @@
                     <SolidColorBrush />
                 </Button.Background>
                 <StackPanel>
-                    <Image Source="/DrivingTest;component/Images/货车%20%282%29.png" Width="81" Height="52"  />
+                    <Image Source="/DrivingTest;component/Images/货车%20%283%29.png" Width="81" Height="52"  />
                     <TextBlock HorizontalAlignment="Center" FontSize="13">A2|B2</TextBlock>
                 </StackPanel>
             </Button>
@@ -63,7 +63,7 @@
                     <SolidColorBrush />
                 </Button.Background>
                 <StackPanel>
-                    <Image Source="/DrivingTest;component/Images/摩托车%20%281%29_副本.png" Width="72" Height="45" />
+                    <Image Source="/DrivingTest;component/Images/摩托车%20%283%29.png" Width="72" Height="45" />
                     <TextBlock HorizontalAlignment="Center" FontSize="13">D|E|F</TextBlock>
                 </StackPanel>
             </Button>
@@ -72,7 +72,7 @@
                     <SolidColorBrush />
                 </Button.Background>
                 <StackPanel>
-                    <Image Source="/DrivingTest;component/Images/自考驾照.png" Width="72" Height="45" />
+                    <Image Source="/DrivingTest;component/Images/自考驾照%20%281%29.png" Width="72" Height="45" />
                     <TextBlock HorizontalAlignment="Center" FontSize="13">恢复驾考</TextBlock>
                 </StackPanel>
             </Button>
@@ -104,8 +104,21 @@
             <Image Name="houlunqipao" Source="/DrivingTest;component/Images/气泡5.png" Margin="695,255,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="98" Width="97" Opacity="0" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="False" Canvas.Left="-46" Canvas.Top="-21" />
             <!--<Button Content="试用" Style="{DynamicResource SubjectButton}" Height="46" HorizontalAlignment="Left" Margin="828,255,0,0" Name="shiyon_button" VerticalAlignment="Top" Width="46" Click="shiyon_button_Click" />-->
             <TextBlock Height="22" HorizontalAlignment="Left" Margin="257,267,0,0" Name="xianshi" Text="" VerticalAlignment="Top" Width="376" GotFocus="user_textBox_GotFocus" DataContextChanged="xianshi_DataContextChanged" Canvas.Left="-18" Canvas.Top="0" FontSize="13" Foreground ="Black" />
-            <ProgressBar Height="10" x:Name="progress" HorizontalAlignment="Left" Margin="257,292,0,0" VerticalAlignment="Top" Width="376" Background="{x:Null}" Canvas.Left="-18" Canvas.Top="-36" />
-            
+            <ProgressBar Height="10" x:Name="progress" HorizontalAlignment="Left" Margin="257,292,0,0" VerticalAlignment="Top" Width="376" Background="{x:Null}" Canvas.Left="-18" Canvas.Top="-36" >
+                <ProgressBar.Triggers>
+                    <EventTrigger RoutedEvent="Window.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                <DoubleAnimation 
+                Storyboard.TargetName="progress"
+                Storyboard.TargetProperty="Opacity"
+                From="0.9" To="1" Duration="0:0:1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </ProgressBar.Triggers>
+            </ProgressBar>
+
 
 
             <!--<xly:FButton FIcon="&#xe67b;" Margin="3" Width="140" Height="40" Background="#771C79" MouseOverBackground="#F20BA0" Canvas.Left="170" Canvas.Top="110">科目一</xly:FButton>-->

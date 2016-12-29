@@ -55,5 +55,34 @@ namespace DrivingTest
         public static string[] gongneng = new string[6];//索引从0开始依次为 章节练习;顺序练习;随机练习;专项练习;模拟考试;错题强化; 0为启用不选中,1为禁用选中
         public static string[] xinxi = new string[5];//索引从0开始依次为 注册流程;付款链接;客服QQ;客服旺旺;备注; 0为启用不选中,1为禁用选中
         public static string[] yuyin = new string[3];//索引从0 开始依次为 提示语音讲解;语音提示对错;答错语音提示 0为不启用,1为启用
+
+
+
+        public class questions
+        {
+            public int question_id;
+            public int chapter_id;
+            public int subject_id;
+            public string question_name;
+            public string question_image;
+            public string voice;
+            public string driverlicense_type;
+            public string question_type;
+            public string update_at;
+            public int is_judge;
+        }
+        public static List<questions> question_data = new List<questions>();
+
+        public class answers
+        {
+            public int answer_id;
+            public int question_id;
+            public string answer;
+            public string is_right;
+            public string update_at;
+        }
+        public static List<answers> answer_data = new List<answers>();
+
+
     }
 }

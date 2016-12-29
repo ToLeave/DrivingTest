@@ -370,6 +370,12 @@
     <Resource Include="Images\摩托车 %281%29_副本.png" />
     <Resource Include="Images\货车 %282%29.png" />
     <Resource Include="Images\汽车 %282%29.png" />
+    <Resource Include="Images\汽车 %284%29.png" />
+    <Resource Include="Images\大巴5 %281%29.png" />
+    <Resource Include="Images\货车 %283%29.png" />
+    <Resource Include="Images\摩托车 %283%29.png" />
+    <Resource Include="Images\自考驾照 %281%29.png" />
+    <Resource Include="Images\ICBCLoading.gif" />
     <Content Include="sounds\start.wav" />
     <Resource Include="Images\驾照类型.png" />
     <Resource Include="Images\倒车入库02.jpg" />
