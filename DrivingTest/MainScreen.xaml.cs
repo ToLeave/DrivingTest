@@ -161,10 +161,20 @@ namespace DrivingTest
             qianghualianxi.Visibility = System.Windows.Visibility.Visible;//强化练习
             qianghuamoni.Visibility = System.Windows.Visibility.Visible;//强化模拟
             listBox.Visibility = System.Windows.Visibility.Visible;
+<<<<<<< HEAD
 
             shunxulianxi.IsEnabled = false;
             suijilianxi.IsEnabled = false;
 
+=======
+
+            shunxulianxi.IsEnabled = false;
+            suijilianxi.IsEnabled = false;
+
+            
+
+           
+>>>>>>> origin/master
             
         }
         //速成600

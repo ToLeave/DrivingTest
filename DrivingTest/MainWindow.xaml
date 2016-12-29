@@ -31,7 +31,7 @@
             <PasswordBox Height="23" HorizontalAlignment="Left" Margin="513,304,0,0" Name="password_textBox" VerticalAlignment="Top" Width="120" KeyDown="password_textBox_KeyDown" Canvas.Left="-16" Canvas.Top="-15" BorderBrush="#FF27A6DA" />
 
 
-            <Button Height="75" HorizontalAlignment="Left" Margin="243,243,0,0" Name="car_button" VerticalAlignment="Top" Width="85" Visibility="Visible" Click="car_button_Click" Canvas.Left="-80" Canvas.Top="-108" FontSize="16" >
+                <Button Height="75" HorizontalAlignment="Left" Margin="243,243,0,0" Name="car_button" VerticalAlignment="Top" Width="85" Visibility="Visible" Click="car_button_Click" Canvas.Left="-80" Canvas.Top="-108" FontSize="16" >
                 <Button.Background>
                     <SolidColorBrush />
                 </Button.Background>
@@ -104,8 +104,21 @@
             <Image Name="houlunqipao" Source="/DrivingTest;component/Images/气泡5.png" Margin="695,255,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="98" Width="97" Opacity="0" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="False" Canvas.Left="-46" Canvas.Top="-21" />
             <!--<Button Content="试用" Style="{DynamicResource SubjectButton}" Height="46" HorizontalAlignment="Left" Margin="828,255,0,0" Name="shiyon_button" VerticalAlignment="Top" Width="46" Click="shiyon_button_Click" />-->
             <TextBlock Height="22" HorizontalAlignment="Left" Margin="257,267,0,0" Name="xianshi" Text="" VerticalAlignment="Top" Width="376" GotFocus="user_textBox_GotFocus" DataContextChanged="xianshi_DataContextChanged" Canvas.Left="-18" Canvas.Top="0" FontSize="13" Foreground ="Black" />
-            <ProgressBar Height="10" x:Name="progress" HorizontalAlignment="Left" Margin="257,292,0,0" VerticalAlignment="Top" Width="376" Background="{x:Null}" Canvas.Left="-18" Canvas.Top="-36" />
-            
+            <ProgressBar Height="10" x:Name="progress" HorizontalAlignment="Left" Margin="257,292,0,0" VerticalAlignment="Top" Width="376" Background="{x:Null}" Canvas.Left="-18" Canvas.Top="-36" >
+                <ProgressBar.Triggers>
+                    <EventTrigger RoutedEvent="Window.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                <DoubleAnimation 
+                Storyboard.TargetName="progress"
+                Storyboard.TargetProperty="Opacity"
+                From="0.9" To="1" Duration="0:0:1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </ProgressBar.Triggers>
+            </ProgressBar>
+
 
 
             <!--<xly:FButton FIcon="&#xe67b;" Margin="3" Width="140" Height="40" Background="#771C79" MouseOverBackground="#F20BA0" Canvas.Left="170" Canvas.Top="110">科目一</xly:FButton>-->

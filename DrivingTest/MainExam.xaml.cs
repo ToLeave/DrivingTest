@@ -16,6 +16,7 @@ using System.Data.OleDb;
 using System.Windows.Controls.Primitives;
 using System.IO;
 using System.Speech.Synthesis;
+using System.Threading;
 
 
 
@@ -46,6 +47,10 @@ namespace DrivingTest
 
         string imagename = "";//图片文件名
         bool playvoice = false;
+
+
+
+
 
         public MainExam()
         {
@@ -222,6 +227,7 @@ where T : DependencyObject
         //生成题库
         public void create_question(int create_method, int question_mode, string cartype, string subject, List<int> questions_id)// create_method 0 顺序,1随机; question_mode 0 练习,1考试,2错题; cartype 车型;subject 科目; questions_id 题库ID
         {
+            System.Windows.Forms.Application.DoEvents();
             cart_sub(cartype, subject);//显示车型科目
 
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
@@ -310,7 +316,10 @@ where T : DependencyObject
                         local_question.sz = true;
                         local_question.rept_do = 0;
                         local_question.answer = random_answer(question.First().question_id);
+                        //ThreadPool.QueueUserWorkItem(local_question.answer= question.First().question_id);
                         PublicClass.question_list.Add(local_question);
+                        //ThreadPool.SetMaxThreads(16, 2);
+                        //ThreadPool.QueueUserWorkItem(Thread_Question,questions_id[i]);
                     }
                 }
                 else
@@ -346,16 +355,31 @@ where T : DependencyObject
         }
 
 
+        private void Thread_Question(object quesid)
+        {
+            var question = from c in PublicClass.question_data where c.question_id.ToString() == quesid.ToString() select c;
+            PublicClass.Question local_question = new PublicClass.Question();
+            local_question.question_id = question.First().question_id;
+            local_question.check_answer = true;
+            local_question.select_answer = "";
+            local_question.question_type = question.First().question_type;
+            local_question.sz = true;
+            local_question.rept_do = 0;
+            local_question.answer = random_answer(question.First().question_id);
+            //ThreadPool.QueueUserWorkItem(local_question.answer= question.First().question_id);
+            PublicClass.question_list.Add(local_question);
+        }
+
+
         //随机抽答案
         private List<PublicClass.Answer> random_answer(int question_id)
         {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
-            jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+
 
             List<PublicClass.Answer> newanswer = new List<PublicClass.Answer>();
-            var answer = from c in jiakaoDataSet.answer where c.question_id == question_id select c;
+            var answer = from c in PublicClass.answer_data where c.question_id == question_id select c;
             Random random = new Random(Guid.NewGuid().GetHashCode());
+
 
             foreach (var an in answer)
             {
@@ -381,7 +405,7 @@ where T : DependencyObject
                     i--;
                 }
                 temcount++;
-                if (temcount > 10)
+                if (temcount > 4)
                 {
                     i = 10;
                 }
