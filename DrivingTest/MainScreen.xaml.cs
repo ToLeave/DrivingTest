@@ -165,10 +165,6 @@ namespace DrivingTest
             shunxulianxi.IsEnabled = false;
             suijilianxi.IsEnabled = false;
 
-            
-
-           
-            
         }
         //速成600
         private void sucheng600_Click(object sender, RoutedEventArgs e)
@@ -188,59 +184,54 @@ namespace DrivingTest
             {
                 if (s.functional_module != "")
                 {
-                    PublicClass.gongneng = s.functional_module.Split(',');
+                    PublicClass.gongneng = s.functional_module.Split(',');//逗号截取字符串
                 }
                 else
                 {
-                    PublicClass.gongneng = new string[6] { "", "", "", "", "", "" };
+                    PublicClass.gongneng = new string[6] { "", "", "", "", "", "" };//初始化空数组
                 }
-                if (PublicClass.gongneng[0] == "1")
+                if (PublicClass.gongneng[0] == "1")//章节练习
                 {
                     zhangjielianxi.Visibility = System.Windows.Visibility.Hidden;
                 }
-                else if (PublicClass.gongneng[0] == "0")
+                else
                 {
                     zhangjielianxi.Visibility = System.Windows.Visibility.Visible;
                 }
-                if (PublicClass.gongneng[1] == "1")
+                if (PublicClass.gongneng[1] == "1")//顺序练习
                 {
                     shunxulianxi.Visibility = System.Windows.Visibility.Hidden;
                 }
-                else if (PublicClass.gongneng[1] == "0")
+                else
                 {
                     shunxulianxi.Visibility = System.Windows.Visibility.Visible;
                 }
-                if (PublicClass.gongneng[2] == "1")
+                if (PublicClass.gongneng[2] == "1")//随机练习
                 {
                     suijilianxi.Visibility = System.Windows.Visibility.Hidden;
                 }
-                else if (PublicClass.gongneng[2] == "0")
+                else
                 {
                     suijilianxi.Visibility = System.Windows.Visibility.Visible;
                 }
-                if (PublicClass.gongneng[3] == "1")
+                if (PublicClass.gongneng[3] == "1")//专项练习
                 {
                     zhuanxianglianxi.Visibility = System.Windows.Visibility.Hidden;
                 }
-                else if (PublicClass.gongneng[3] == "0")
+                else
                 {
                     zhuanxianglianxi.Visibility = System.Windows.Visibility.Visible;
                 }
             }
-            yuyin.Visibility = System.Windows.Visibility.Visible;
-            lianxi.Visibility = System.Windows.Visibility.Visible;
-            moni.Visibility = System.Windows.Visibility.Visible;
-            qianghualianxi.Visibility = System.Windows.Visibility.Visible;
-            qianghuamoni.Visibility = System.Windows.Visibility.Visible;
-
-            shunxulianxi.Visibility = System.Windows.Visibility.Visible;
-            suijilianxi.Visibility = System.Windows.Visibility.Visible;
-            shunxulianxi.IsEnabled = false;
-            suijilianxi.IsEnabled = false;
-
+            yuyin.Visibility = System.Windows.Visibility.Visible;//语音课堂
+            lianxi.Visibility = System.Windows.Visibility.Visible;//基础练习
+            moni.Visibility = System.Windows.Visibility.Visible;//基础模拟
+            qianghualianxi.Visibility = System.Windows.Visibility.Visible;//强化练习
+            qianghuamoni.Visibility = System.Windows.Visibility.Visible;//强化模拟
             listBox.Visibility = System.Windows.Visibility.Visible;
 
-            
+            shunxulianxi.IsEnabled = false;
+            suijilianxi.IsEnabled = false;
         }
         //速成500
         private void sucheng500_Click(object sender, RoutedEventArgs e)
@@ -260,59 +251,54 @@ namespace DrivingTest
             {
                 if (s.functional_module != "")
                 {
-                    PublicClass.gongneng = s.functional_module.Split(',');
+                    PublicClass.gongneng = s.functional_module.Split(',');//逗号截取字符串
                 }
                 else
                 {
-                    PublicClass.gongneng = new string[6] { "", "", "", "", "", "" };
+                    PublicClass.gongneng = new string[6] { "", "", "", "", "", "" };//初始化空数组
                 }
-                if (PublicClass.gongneng[0] == "1")
+                if (PublicClass.gongneng[0] == "1")//章节练习
                 {
                     zhangjielianxi.Visibility = System.Windows.Visibility.Hidden;
                 }
-                else if (PublicClass.gongneng[0] == "0")
+                else
                 {
                     zhangjielianxi.Visibility = System.Windows.Visibility.Visible;
                 }
-                if (PublicClass.gongneng[1] == "1")
+                if (PublicClass.gongneng[1] == "1")//顺序练习
                 {
                     shunxulianxi.Visibility = System.Windows.Visibility.Hidden;
                 }
-                else if (PublicClass.gongneng[1] == "0")
+                else
                 {
                     shunxulianxi.Visibility = System.Windows.Visibility.Visible;
                 }
-                if (PublicClass.gongneng[2] == "1")
+                if (PublicClass.gongneng[2] == "1")//随机练习
                 {
                     suijilianxi.Visibility = System.Windows.Visibility.Hidden;
                 }
-                else if (PublicClass.gongneng[2] == "0")
+                else
                 {
                     suijilianxi.Visibility = System.Windows.Visibility.Visible;
                 }
-                if (PublicClass.gongneng[3] == "1")
+                if (PublicClass.gongneng[3] == "1")//专项练习
                 {
                     zhuanxianglianxi.Visibility = System.Windows.Visibility.Hidden;
                 }
-                else if (PublicClass.gongneng[3] == "0")
+                else
                 {
                     zhuanxianglianxi.Visibility = System.Windows.Visibility.Visible;
                 }
             }
-            yuyin.Visibility = System.Windows.Visibility.Visible;
-            lianxi.Visibility = System.Windows.Visibility.Visible;
-            moni.Visibility = System.Windows.Visibility.Visible;
-            qianghualianxi.Visibility = System.Windows.Visibility.Visible;
-            qianghuamoni.Visibility = System.Windows.Visibility.Visible;
-
-            shunxulianxi.Visibility = System.Windows.Visibility.Visible;
-            suijilianxi.Visibility = System.Windows.Visibility.Visible;
-            shunxulianxi.IsEnabled = false;
-            suijilianxi.IsEnabled = false;
-
+            yuyin.Visibility = System.Windows.Visibility.Visible;//语音课堂
+            lianxi.Visibility = System.Windows.Visibility.Visible;//基础练习
+            moni.Visibility = System.Windows.Visibility.Visible;//基础模拟
+            qianghualianxi.Visibility = System.Windows.Visibility.Visible;//强化练习
+            qianghuamoni.Visibility = System.Windows.Visibility.Visible;//强化模拟
             listBox.Visibility = System.Windows.Visibility.Visible;
 
-
+            shunxulianxi.IsEnabled = false;
+            suijilianxi.IsEnabled = false;
         }
 
         //专项模拟
@@ -466,11 +452,7 @@ namespace DrivingTest
             //c1si.ToolTip = "全真模拟";
             c1si.Name = "全真模拟";
           
-            //C1.WPF.C1Window ma = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "科目一");
-            //if (ma != null)
-            //{
-            //    ma.Close();
-            //}
+
         }
 
 
