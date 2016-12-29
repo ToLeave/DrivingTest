@@ -28,6 +28,8 @@ using System.Windows.Threading;
 using System.Runtime.InteropServices;
 using Util.Controls;
 using System.Management;
+using System.Diagnostics;
+using System.Windows.Interop;
 
 namespace DrivingTest
 {
@@ -140,10 +142,20 @@ where T : DependencyObject
             return foundChild;
         }
 
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Process[] pro = Process.GetProcesses();
+            int n = pro.Where(p => p.ProcessName.Equals("DrivingTest")).Count();
+            if (n > 1)
+            {
+                Environment.Exit(0);
+                //int windows = int.Parse(new WindowInteropHelper(this).Handle.ToString());
+                return;
+            }
 
-            PublicClass.timer.Interval = new TimeSpan(5000) ;// 计时器触发间隔 5秒  
+
+            PublicClass.timer.Interval = new TimeSpan(5000);// 计时器触发间隔 5秒  
             PublicClass.timer.Tick += new EventHandler(timer_Tick);
             PublicClass.timer.Start();
 
@@ -178,8 +190,8 @@ where T : DependencyObject
                 {
                     //int? a = null;
                     //int b = a.Value;
-                    jiakaoDataSet.setting.AddsettingRow(0, 0, 0, "", 0, 0, "", "", "", "", 0, "", "", 0, 0, "", 0, 0, 0, "", "", "", "", "1", "", "", "", "", "", "", "", "", "", "", "", 0, "", "", 0, key,0,2,"0,0,0",0,0);
-                    jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);  
+                    jiakaoDataSet.setting.AddsettingRow(0, 0, 0, "", 0, 0, "", "", "", "", 0, "", "", 0, 0, "", 0, 0, 0, "", "", "", "", "1", "", "", "", "", "", "", "", "", "", "", "", 0, "", "", 0, key, 0, 2, "0,0,0", 0, 0);
+                    jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
                     jiakaoDataSet.setting.AcceptChanges();
                     foreach (var se in setting)
                     {
@@ -372,7 +384,7 @@ where T : DependencyObject
 
         [DllImport("user32.dll")]
         static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
-          
+
         static long GetLastInputTime()
         {
             LASTINPUTINFO vLastInputInfo = new LASTINPUTINFO();
@@ -690,7 +702,7 @@ where T : DependencyObject
 
 
                 #region 题目表和答案表写入和更新
-                
+
                 //写入和更新题目表
                 foreach (var remotequestion in question_json)
                 {
@@ -808,11 +820,9 @@ where T : DependencyObject
                     }
                     now_synccount++;
                     cur_question_step++;
-<<<<<<< HEAD
-                    xianshi.Text = "[1/3]同步数据..." + cur_question_step;
-=======
+
                     xianshi.Text = "[1/3]同步题..." + cur_question_step;
->>>>>>> origin/master
+
                     progress.Value = now_synccount / synccount * 100;
                     System.Windows.Forms.Application.DoEvents();
                 }
@@ -887,11 +897,9 @@ where T : DependencyObject
                     now_synccount++;
                     //xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
                     cur_question_step++;
-<<<<<<< HEAD
-                    xianshi.Text = "[1/3]同步数据..." + cur_question_step;
-=======
+
                     xianshi.Text = "[1/3]同步答案..." + cur_question_step;
->>>>>>> origin/master
+
                     progress.Value = now_synccount / synccount * 100;
                     System.Windows.Forms.Application.DoEvents();
                 }
@@ -947,16 +955,14 @@ where T : DependencyObject
                     now_synccount++;
                     //xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
                     cur_question_step++;
-<<<<<<< HEAD
-                    xianshi.Text = "[1/3]同步数据..." + cur_question_step;
-=======
+
                     xianshi.Text = "[1/3]同步章节..." + cur_question_step;
->>>>>>> origin/master
+
                     progress.Value = now_synccount / synccount * 100;
                     System.Windows.Forms.Application.DoEvents();
                 }
-                xianshi.Text="写入章节...";
-                    System.Windows.Forms.Application.DoEvents();
+                xianshi.Text = "写入章节...";
+                System.Windows.Forms.Application.DoEvents();
                 jiakaoDataSetchapterTableAdapter.Update(jiakaoDataSet.chapter);
                 jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
                 jiakaoDataSet.chapter.AcceptChanges();
@@ -1007,12 +1013,9 @@ where T : DependencyObject
                     now_synccount++;
                     //xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
                     cur_question_step++;
-<<<<<<< HEAD
-                    xianshi.Text = "[1/3]同步数据..." + cur_question_step;
 
-=======
                     xianshi.Text = "[1/3]同步科目..." + cur_question_step;
->>>>>>> origin/master
+
                     progress.Value = now_synccount / synccount * 100;
                     System.Windows.Forms.Application.DoEvents();
                 }
@@ -1336,8 +1339,8 @@ where T : DependencyObject
                     goto L1;
                 }
 
-           
- 
+
+
 
                 string loginMD5 = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(userlogin + userpassword + uuid + "CLOUDTIMESOFT", "MD5");//账号+密码+随机码+指定字符生成MD5
 
@@ -1415,7 +1418,7 @@ where T : DependencyObject
                 }
             }
 
-            L1: //goto跳转至这里
+        L1: //goto跳转至这里
             return false;
 
 
@@ -1644,13 +1647,13 @@ where T : DependencyObject
 
                     JArray loginUUID_json = JArray.Parse(loginstr);//UUID json
 
-                    
+
                     string state = loginUUID_json[0]["status"].ToString();//账号状态
                     string number = loginUUID_json[0]["number"].ToString();
                     string time = loginUUID_json[0]["time"].ToString();
 
                     //string surplus = number + time//剩余时间和次数
-                        
+
                     if (state == "1")
                     {
                         xianshi.Text = "账号截止日期为: " + time + " 剩余次数为: " + number;
