@@ -49,6 +49,7 @@ namespace DrivingTest
         JArray answer_json;//答案json
         JArray chapter_json;//章节json
         JArray subject_json;//科目json
+        int cur_question_step = 0;
 
         string ip = ""; //ip
 
@@ -151,9 +152,9 @@ where T : DependencyObject
 
 
 
-            PublicClass.http = @"http://192.168.1.98:3000";
+            //PublicClass.http = @"http://192.168.1.98:3000";
             //PublicClass.http = @"http://47.89.28.92";
-            //PublicClass.http = @"http://jiakao.cloudtimesoft.com";
+            PublicClass.http = @"http://jiakao.cloudtimesoft.com";
 
             //maincanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
 
@@ -225,6 +226,7 @@ where T : DependencyObject
                         }
                     }
                 }
+
 
 
                 Thread newthread = new Thread(new ThreadStart(() =>
@@ -539,7 +541,7 @@ where T : DependencyObject
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/updatecheck");
                 request.Method = "GET";
-                request.Timeout = 10000;
+                request.Timeout = 30000;
                 response = (HttpWebResponse)request.GetResponse();
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 str = reader.ReadToEnd();
@@ -649,7 +651,7 @@ where T : DependencyObject
 
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/getquestion");//题目 url
                 request.Method = "GET";
-                request.Timeout = 10000;
+                request.Timeout = 30000;
                 response = (HttpWebResponse)request.GetResponse();
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 questionstr = reader.ReadToEnd();
@@ -657,21 +659,21 @@ where T : DependencyObject
 
                 request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/getanswer");//答案 url
                 request.Method = "GET";
-                request.Timeout = 10000;
+                request.Timeout = 30000;
                 response = (HttpWebResponse)request.GetResponse();
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 answerstr = reader.ReadToEnd();
 
                 request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/chapter");//章节 url
                 request.Method = "GET";
-                request.Timeout = 10000;
+                request.Timeout = 30000;
                 response = (HttpWebResponse)request.GetResponse();
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 chapterstr = reader.ReadToEnd();
 
                 request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/subject");//科目 url
                 request.Method = "GET";
-                request.Timeout = 10000;
+                request.Timeout = 30000;
                 response = (HttpWebResponse)request.GetResponse();
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 subjectstr = reader.ReadToEnd();
@@ -803,7 +805,8 @@ where T : DependencyObject
                         }
                     }
                     now_synccount++;
-                    xianshi.Text = "[1/3]同步数据...";
+                    cur_question_step++;
+                    xianshi.Text = "[1/3]同步数据..." + cur_question_step;
                     progress.Value = now_synccount / synccount * 100;
                     System.Windows.Forms.Application.DoEvents();
                 }
@@ -873,7 +876,8 @@ where T : DependencyObject
                     }
                     now_synccount++;
                     //xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
-                    xianshi.Text = "[1/3]同步数据...";
+                    cur_question_step++;
+                    xianshi.Text = "[1/3]同步数据..." + cur_question_step;
                     progress.Value = now_synccount / synccount * 100;
                     System.Windows.Forms.Application.DoEvents();
                 }
@@ -925,7 +929,8 @@ where T : DependencyObject
                     }
                     now_synccount++;
                     //xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
-                    xianshi.Text = "[1/3]同步数据...";
+                    cur_question_step++;
+                    xianshi.Text = "[1/3]同步数据..." + cur_question_step;
                     progress.Value = now_synccount / synccount * 100;
                     System.Windows.Forms.Application.DoEvents();
                 }
@@ -972,11 +977,15 @@ where T : DependencyObject
                                 ls.subject = sub;
                                 ls.updated_at = upd;
                             }
+
                         }
                     }
+
                     now_synccount++;
                     //xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
-                    xianshi.Text = "[1/3]同步数据...";
+                    cur_question_step++;
+                    xianshi.Text = "[1/3]同步数据..." + cur_question_step;
+
                     progress.Value = now_synccount / synccount * 100;
                     System.Windows.Forms.Application.DoEvents();
                 }
@@ -1082,6 +1091,7 @@ where T : DependencyObject
             //    e.BytesReceived / 1024 / 1024,
             //    e.TotalBytesToReceive / 1024 / 1024,
             //    e.ProgressPercentage.ToString("N2"));
+
 
             if (e.ProgressPercentage > progress.Value)
             {
@@ -1237,7 +1247,7 @@ where T : DependencyObject
 
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/getvalidate?login=" + userlogin);//随机UUID url
                 request.Method = "GET";
-                request.Timeout = 10000;
+                request.Timeout = 20000;
                 response = (HttpWebResponse)request.GetResponse();
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 loginstr = reader.ReadToEnd();
@@ -1263,7 +1273,7 @@ where T : DependencyObject
                 GetIP();
                 request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/getuser?login=" + userlogin + "&validate=" + loginMD5 + "&ip=" + ip);//验证 url
                 request.Method = "GET";
-                request.Timeout = 25000;
+                request.Timeout = 30000;
                 response = (HttpWebResponse)request.GetResponse();
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 passwordstr = reader.ReadToEnd();

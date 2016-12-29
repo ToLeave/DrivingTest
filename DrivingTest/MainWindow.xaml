@@ -19,7 +19,7 @@
 
     <Grid x:Name="maingrid" MouseLeftButtonDown="Grid_MouseLeftButtonDown" DataContext="{StaticResource updatecheckViewSource}" >
         <Canvas x:Name="maincanvas"  Height="370" Width="1000"    PreviewMouseDown="maincanvas_PreviewMouseDown" PreviewMouseMove="maincanvas_PreviewMouseMove" MouseUp="maincanvas_MouseUp">
-            <Image Stretch="Fill" Source="/DrivingTest;component/Images/标志f.png"  StretchDirection="DownOnly" HorizontalAlignment="Left" VerticalAlignment="Top" Height="370" Width="1000" Canvas.Left="0" Canvas.Top="0"></Image>
+            <Image Stretch="Fill" Source="/DrivingTest;component/Images/车标志.png"  StretchDirection="DownOnly" HorizontalAlignment="Left" VerticalAlignment="Top" Height="370" Width="1000" Canvas.Left="0" Canvas.Top="0"></Image>
             <Image x:Name="qianlun"  Source="/DrivingTest;component/Images/luan.png" Margin="107,237,0,0"  MouseEnter="qianlun_MouseEnter" Width="130" Height="130" RenderTransformOrigin="0.5,0.5" MouseLeave="qianlun_MouseLeave" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="-10" Canvas.Top="-21" />
             <Image x:Name="houlun"  Source="/DrivingTest;component/Images/luan.png"  Margin="680,237,0,0" Width="130" Height="130" RenderTransformOrigin="0.5,0.5" MouseEnter="houlun_MouseEnter" MouseLeave="houlun_MouseLeave" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="-46" Canvas.Top="-21"></Image>
             <Button Focusable="False" x:Name="zuixiao" Margin="898,87,0,0" Content="_" Template="{DynamicResource ButtonControlTemplate1}" Foreground="Black" FontSize="20" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="30" ToolTip="最小化" Click="zuixiao_Click" Canvas.Left="-38" Canvas.Top="6" />
@@ -36,7 +36,7 @@
                     <SolidColorBrush />
                 </Button.Background>
                 <StackPanel>
-                    <Image Source="/DrivingTest;component/Images/汽车%20%282%29.png" Width="72" Height="45" />
+                    <Image Source="/DrivingTest;component/Images/汽车%20%284%29.png" Width="72" Height="45" />
                     <TextBlock HorizontalAlignment="Center" FontSize="13">C1|C2|C3|C4</TextBlock>
                 </StackPanel>
             </Button>
@@ -45,7 +45,7 @@
                     <SolidColorBrush />
                 </Button.Background>
                 <StackPanel>
-                    <Image Source="/DrivingTest;component/Images/大巴5.png" Width="72" Height="45" />
+                    <Image Source="/DrivingTest;component/Images/大巴5%20%281%29.png" Width="72" Height="45" />
                     <TextBlock HorizontalAlignment="Center" FontSize="13">A1|A3|B1</TextBlock>
                 </StackPanel>
             </Button>
@@ -54,7 +54,7 @@
                     <SolidColorBrush />
                 </Button.Background>
                 <StackPanel>
-                    <Image Source="/DrivingTest;component/Images/货车%20%282%29.png" Width="81" Height="52"  />
+                    <Image Source="/DrivingTest;component/Images/货车%20%283%29.png" Width="81" Height="52"  />
                     <TextBlock HorizontalAlignment="Center" FontSize="13">A2|B2</TextBlock>
                 </StackPanel>
             </Button>
@@ -63,7 +63,7 @@
                     <SolidColorBrush />
                 </Button.Background>
                 <StackPanel>
-                    <Image Source="/DrivingTest;component/Images/摩托车%20%281%29_副本.png" Width="72" Height="45" />
+                    <Image Source="/DrivingTest;component/Images/摩托车%20%283%29.png" Width="72" Height="45" />
                     <TextBlock HorizontalAlignment="Center" FontSize="13">D|E|F</TextBlock>
                 </StackPanel>
             </Button>
@@ -72,7 +72,7 @@
                     <SolidColorBrush />
                 </Button.Background>
                 <StackPanel>
-                    <Image Source="/DrivingTest;component/Images/自考驾照.png" Width="72" Height="45" />
+                    <Image Source="/DrivingTest;component/Images/自考驾照%20%281%29.png" Width="72" Height="45" />
                     <TextBlock HorizontalAlignment="Center" FontSize="13">恢复驾考</TextBlock>
                 </StackPanel>
             </Button>
