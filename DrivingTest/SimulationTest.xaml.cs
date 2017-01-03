@@ -30,26 +30,25 @@ namespace DrivingTest
             c1pr.WindowState = C1.WPF.C1WindowState.Maximized;
             c1pr.Header = "驾驶理论考试系统";
             c1pr.Content = pr;
-            c1pr.Show();
-            c1pr.ToolTip = "驾驶理论考试系统";
+            c1pr.ShowModal();
+            //c1pr.ToolTip = "驾驶理论考试系统";
             c1pr.Name = "驾驶理论考试系统";
-       
-            //c1pr.IsActive = true;
+            c1pr.Focus();
+           
             C1.WPF.C1Window ma = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "全真模拟");
             if (ma != null)
             {
                 ma.Close();
             }
-            C1.WPF.C1Window ma1 = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "科目一");
-            if (ma != null)
-            {
-                //ma1.Visibility = System.Windows.Visibility.Collapsed;
-                ma1.Close();
-                ma1.Width = 0;
-                ma1.Height = 0;
-               
-            }
-            c1pr.IsActive = true;
+            //C1.WPF.C1Window ma1 = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "科目一");
+            //if (ma != null)
+            //{
+            //    //ma1.Visibility = System.Windows.Visibility.Collapsed;
+            //    ma1.Close();
+            //    ma1.Width = 0;
+            //    ma1.Height = 0;
+
+            //}
         }
     }
 }

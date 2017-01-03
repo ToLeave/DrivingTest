@@ -36,7 +36,7 @@ namespace DrivingTest
             }
 
             C1.WPF.C1Window cwin = new C1.WPF.C1Window();
-            ma.create_question(1, 1, "C1", "科目一", null);
+            ma.create_question(1, 1, PublicClass.cartype, PublicClass.subjection, null);
             cwin.Content = ma;
             cwin.Name = "驾考";
             cwin.Header = "驾驶理论考试系统";

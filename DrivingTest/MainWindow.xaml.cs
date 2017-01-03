@@ -204,16 +204,13 @@ where T : DependencyObject
             PublicClass.timer.Tick += new EventHandler(timer_Tick);
             PublicClass.timer.Start();
 
-            maingrid.Width = SystemParameters.WorkArea.Width;
-            maingrid.Height = SystemParameters.WorkArea.Height;
-
-
-
             //PublicClass.http = @"http://192.168.1.98:3000";
             //PublicClass.http = @"http://47.89.28.92";
             PublicClass.http = @"http://jiakao.cloudtimesoft.com";
-            ThreadPool.QueueUserWorkItem(get_local_questions, "");
-            ThreadPool.QueueUserWorkItem(get_local_answers, "");
+            //ThreadPool.QueueUserWorkItem(get_local_questions, "");
+            //ThreadPool.QueueUserWorkItem(get_local_answers, "");
+            get_local_questions("");
+            get_local_answers("");
 
             //maincanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
 
@@ -937,7 +934,8 @@ where T : DependencyObject
                 //jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
                 //jiakaoDataSet.question.AcceptChanges();
 
-                ThreadPool.QueueUserWorkItem(set_question, "");
+                //ThreadPool.QueueUserWorkItem(set_question, "");
+                set_question("");
 
 
                 //写入和更新答案表
@@ -1028,7 +1026,8 @@ where T : DependencyObject
                 //jiakaoDataSetanswerTableAdapter.Update(jiakaoDataSet.answer);
                 //jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
                 //jiakaoDataSet.answer.AcceptChanges();
-                ThreadPool.QueueUserWorkItem(set_answer, "");
+                //ThreadPool.QueueUserWorkItem(set_answer, "");
+                set_answer("");
 
                 #endregion
                 #region 写入和更新章节科目表
@@ -1360,7 +1359,8 @@ where T : DependencyObject
             }
         }
 
-        private void data_complete_validate()//同步完成后，本地数据完整性验证
+        //同步完成后，本地数据完整性验证
+        private void data_complete_validate()
         {
             try
             {
@@ -2032,15 +2032,13 @@ where T : DependencyObject
                     //c1ma.ToolTip = "小车类:科目一";
                     c1ma.Name = "科目一";
                     c1ma.Header = "小车类:科目一";
+                    this.WindowState = System.Windows.WindowState.Maximized;
+                    maincanvas.Visibility = Visibility.Hidden;
                     c1ma.Show();
-
-                    c1ma.Background = Brushes.SkyBlue;
-
+                    //c1ma.Background = Brushes.SkyBlue;
                     c1ma.IsResizable = false;
 
-                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
-
-                    maincanvas.Visibility = Visibility.Hidden;
+                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);                  
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
                 else if (subjectname == "科目四")
@@ -2055,6 +2053,11 @@ where T : DependencyObject
                     c1ma.Name = "科目四";
                     c1ma.Header = "小车类:科目四";
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+                    this.WindowState = System.Windows.WindowState.Maximized;
+                    maingrid.Width = SystemParameters.WorkArea.Width;
+                    maingrid.Height = SystemParameters.WorkArea.Height;
+                    maincanvas.Visibility = Visibility.Hidden;
+                    c1ma.Closed += new EventHandler(c1ma_Closed);
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                 }
             }
@@ -2069,6 +2072,9 @@ where T : DependencyObject
             //Canvas main = MainWindow.FindChild<Canvas>(Application.Current.MainWindow, "maincanvas");
             //if (main.Visibility == Visibility.Hidden)
             //{
+            this.WindowState = System.Windows.WindowState.Normal;
+            maingrid.Width = 1050;
+            maingrid.Height = 400;
             maincanvas.Visibility = Visibility.Visible;
             //maincanvas.Width = 0;
             //maincanvas.Height = 0;
@@ -2091,6 +2097,11 @@ where T : DependencyObject
                     c1ma.Name = "科目一";
                     c1ma.Header = "客车类:科目一";
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+                    this.WindowState = System.Windows.WindowState.Maximized;
+                    maingrid.Width = SystemParameters.WorkArea.Width;
+                    maingrid.Height = SystemParameters.WorkArea.Height;
+                    maincanvas.Visibility = Visibility.Hidden;
+                    c1ma.Closed += new EventHandler(c1ma_Closed);
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                 }
                 else if (subjectname == "科目四")
@@ -2106,6 +2117,11 @@ where T : DependencyObject
                     c1ma.Header = "客车类:科目四";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+                    this.WindowState = System.Windows.WindowState.Maximized;
+                    maingrid.Width = SystemParameters.WorkArea.Width;
+                    maingrid.Height = SystemParameters.WorkArea.Height;
+                    maincanvas.Visibility = Visibility.Hidden;
+                    c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
             }
         }
@@ -2127,6 +2143,11 @@ where T : DependencyObject
                     c1ma.Header = "货车类:科目一";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+                    this.WindowState = System.Windows.WindowState.Maximized;
+                    maingrid.Width = SystemParameters.WorkArea.Width;
+                    maingrid.Height = SystemParameters.WorkArea.Height;
+                    maincanvas.Visibility = Visibility.Hidden;
+                    c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
                 else if (subjectname == "科目四")
                 {
@@ -2141,6 +2162,11 @@ where T : DependencyObject
                     c1ma.Header = "货车类:科目四";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+                    this.WindowState = System.Windows.WindowState.Maximized;
+                    maingrid.Width = SystemParameters.WorkArea.Width;
+                    maingrid.Height = SystemParameters.WorkArea.Height;
+                    maincanvas.Visibility = Visibility.Hidden;
+                    c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
             }
             else
@@ -2165,6 +2191,11 @@ where T : DependencyObject
                     c1ma.Header = "摩托车类:科目一";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+                    this.WindowState = System.Windows.WindowState.Maximized;
+                    maingrid.Width = SystemParameters.WorkArea.Width;
+                    maingrid.Height = SystemParameters.WorkArea.Height;
+                    maincanvas.Visibility = Visibility.Hidden;
+                    c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
                 else if (subjectname == "科目四")
                 {
@@ -2179,6 +2210,11 @@ where T : DependencyObject
                     c1ma.Header = "摩托车类:科目四";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+                    this.WindowState = System.Windows.WindowState.Maximized;
+                    maingrid.Width = SystemParameters.WorkArea.Width;
+                    maingrid.Height = SystemParameters.WorkArea.Height;
+                    maincanvas.Visibility = Visibility.Hidden;
+                    c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
             }
             else
@@ -2197,6 +2233,11 @@ where T : DependencyObject
             c1ma.Header = "恢复驾驶资格类";
             c1ma.Show();
             c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+            this.WindowState = System.Windows.WindowState.Maximized;
+            maingrid.Width = SystemParameters.WorkArea.Width;
+            maingrid.Height = SystemParameters.WorkArea.Height;
+            maincanvas.Visibility = Visibility.Hidden;
+            c1ma.Closed += new EventHandler(c1ma_Closed);
         }
 
         //修改密码
@@ -2279,6 +2320,8 @@ where T : DependencyObject
                 login_Click(null, null);
             }
         }
+
+   
 
 
 
