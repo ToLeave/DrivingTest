@@ -346,6 +346,7 @@ where T : DependencyObject
             //开启定时器
             timer.Start();
 
+
             //存参以留重新考试
             PublicClass.create_method = create_method;
             PublicClass.question_mode = question_mode;

@@ -289,6 +289,12 @@ where T : DependencyObject
                 {
                     Dispatcher.Invoke(new Action(() =>
                     {
+                        //当前进程
+                        Process current = Process.GetCurrentProcess();
+                        //进程下线程
+                        ProcessThreadCollection allThreads = current.Threads;
+                        //当前线程
+                        Console.WriteLine("ID:{0}", Thread.CurrentThread.ManagedThreadId);
                         xianshi.Text = "正在检查更新";
                         System.Windows.Forms.Application.DoEvents();
                         if (checknetwork())
@@ -1838,12 +1844,21 @@ where T : DependencyObject
         //登录
         private void login_Click(object sender, RoutedEventArgs e)
         {
+            //Thread newthread = new Thread(new ThreadStart(() =>
+            //{
+            //    Dispatcher.Invoke(new Action(() =>
+            //    {
             MediaPlayer player = new MediaPlayer();
 
             string debug = System.AppDomain.CurrentDomain.BaseDirectory;
             string proj = System.IO.Path.Combine(debug, @"..\..\");
             player.Open(new Uri(proj + "/sounds/start.wav", UriKind.Relative));
             player.Play();
+            //int sta = await Task.Run(() =>
+            //{
+            //    return my_connect.login(_user_name, _password);
+            //});
+           
             if (testlogin() == false)//验证
             {
                 MessageBox.Show("登录失败!");
@@ -1874,6 +1889,7 @@ where T : DependencyObject
                     reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                     err = reader.ReadToEnd();
 
+
                     JArray errquestion_json = JArray.Parse(err);//错题 json
                     string json = errquestion_json.ToString();
 
@@ -1902,7 +1918,13 @@ where T : DependencyObject
                 {
                     MessageBox.Show(ex.Message);
                 }
+
             }
+                //    }));
+
+
+
+                //}));
         }
 
 
@@ -2032,13 +2054,13 @@ where T : DependencyObject
                     //c1ma.ToolTip = "小车类:科目一";
                     c1ma.Name = "科目一";
                     c1ma.Header = "小车类:科目一";
-                    this.WindowState = System.Windows.WindowState.Maximized;
-                    maincanvas.Visibility = Visibility.Hidden;
                     c1ma.Show();
                     //c1ma.Background = Brushes.SkyBlue;
                     c1ma.IsResizable = false;
 
-                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);                  
+                    c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+                    this.WindowState = System.Windows.WindowState.Maximized;
+                    maincanvas.Visibility = Visibility.Hidden;
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
                 else if (subjectname == "科目四")
@@ -2054,8 +2076,8 @@ where T : DependencyObject
                     c1ma.Header = "小车类:科目四";
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
                     this.WindowState = System.Windows.WindowState.Maximized;
-                    maingrid.Width = SystemParameters.WorkArea.Width;
-                    maingrid.Height = SystemParameters.WorkArea.Height;
+                    //maingrid.Width = SystemParameters.WorkArea.Width;
+                    //maingrid.Height = SystemParameters.WorkArea.Height;
                     maincanvas.Visibility = Visibility.Hidden;
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                     //this.Visibility = System.Windows.Visibility.Collapsed;
@@ -2073,8 +2095,6 @@ where T : DependencyObject
             //if (main.Visibility == Visibility.Hidden)
             //{
             this.WindowState = System.Windows.WindowState.Normal;
-            maingrid.Width = 1050;
-            maingrid.Height = 400;
             maincanvas.Visibility = Visibility.Visible;
             //maincanvas.Width = 0;
             //maincanvas.Height = 0;
@@ -2098,8 +2118,8 @@ where T : DependencyObject
                     c1ma.Header = "客车类:科目一";
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
                     this.WindowState = System.Windows.WindowState.Maximized;
-                    maingrid.Width = SystemParameters.WorkArea.Width;
-                    maingrid.Height = SystemParameters.WorkArea.Height;
+                    //maingrid.Width = SystemParameters.WorkArea.Width;
+                    //maingrid.Height = SystemParameters.WorkArea.Height;
                     maincanvas.Visibility = Visibility.Hidden;
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                     //this.Visibility = System.Windows.Visibility.Collapsed;
@@ -2118,8 +2138,8 @@ where T : DependencyObject
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
                     this.WindowState = System.Windows.WindowState.Maximized;
-                    maingrid.Width = SystemParameters.WorkArea.Width;
-                    maingrid.Height = SystemParameters.WorkArea.Height;
+                    //maingrid.Width = SystemParameters.WorkArea.Width;
+                    //maingrid.Height = SystemParameters.WorkArea.Height;
                     maincanvas.Visibility = Visibility.Hidden;
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
@@ -2144,8 +2164,8 @@ where T : DependencyObject
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
                     this.WindowState = System.Windows.WindowState.Maximized;
-                    maingrid.Width = SystemParameters.WorkArea.Width;
-                    maingrid.Height = SystemParameters.WorkArea.Height;
+                    //maingrid.Width = SystemParameters.WorkArea.Width;
+                    //maingrid.Height = SystemParameters.WorkArea.Height;
                     maincanvas.Visibility = Visibility.Hidden;
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
@@ -2163,8 +2183,8 @@ where T : DependencyObject
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
                     this.WindowState = System.Windows.WindowState.Maximized;
-                    maingrid.Width = SystemParameters.WorkArea.Width;
-                    maingrid.Height = SystemParameters.WorkArea.Height;
+                    //maingrid.Width = SystemParameters.WorkArea.Width;
+                    //maingrid.Height = SystemParameters.WorkArea.Height;
                     maincanvas.Visibility = Visibility.Hidden;
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
@@ -2192,8 +2212,8 @@ where T : DependencyObject
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
                     this.WindowState = System.Windows.WindowState.Maximized;
-                    maingrid.Width = SystemParameters.WorkArea.Width;
-                    maingrid.Height = SystemParameters.WorkArea.Height;
+                    //maingrid.Width = SystemParameters.WorkArea.Width;
+                    //maingrid.Height = SystemParameters.WorkArea.Height;
                     maincanvas.Visibility = Visibility.Hidden;
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
@@ -2211,8 +2231,8 @@ where T : DependencyObject
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
                     this.WindowState = System.Windows.WindowState.Maximized;
-                    maingrid.Width = SystemParameters.WorkArea.Width;
-                    maingrid.Height = SystemParameters.WorkArea.Height;
+                    //maingrid.Width = SystemParameters.WorkArea.Width;
+                    //maingrid.Height = SystemParameters.WorkArea.Height;
                     maincanvas.Visibility = Visibility.Hidden;
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
@@ -2234,8 +2254,8 @@ where T : DependencyObject
             c1ma.Show();
             c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
             this.WindowState = System.Windows.WindowState.Maximized;
-            maingrid.Width = SystemParameters.WorkArea.Width;
-            maingrid.Height = SystemParameters.WorkArea.Height;
+            //maingrid.Width = SystemParameters.WorkArea.Width;
+            //maingrid.Height = SystemParameters.WorkArea.Height;
             maincanvas.Visibility = Visibility.Hidden;
             c1ma.Closed += new EventHandler(c1ma_Closed);
         }
