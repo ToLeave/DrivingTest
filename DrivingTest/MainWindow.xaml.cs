@@ -53,8 +53,8 @@ namespace DrivingTest
         JArray subject_json;//科目json
         int cur_question_step = 0;
 
-        List<PublicClass.questions> local_question_data = new List<PublicClass.questions>();
-        List<PublicClass.answers> local_answer_data = new List<PublicClass.answers>();
+        //List<PublicClass.questions> local_question_data = new List<PublicClass.questions>();
+        //List<PublicClass.answers> local_answer_data = new List<PublicClass.answers>();
 
         string ip = ""; //ip
 
@@ -146,46 +146,46 @@ where T : DependencyObject
         }
 
 
-        private void get_local_questions(object data)
-        {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 question 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
-            foreach (var myques in jiakaoDataSet.question)
-            {
-                PublicClass.questions question = new PublicClass.questions();
-                question.question_id = myques.question_id;
-                question.chapter_id = myques.chapter_id;
-                question.subject_id = myques.subject_id;
-                question.question_name = myques.question_name;
-                question.question_image = myques.question_image;
-                question.voice = myques.voice;
-                question.driverlicense_type = myques.driverlicense_type;
-                question.question_type = myques.question_type;
-                question.update_at = myques.update_at;
-                question.is_judge = myques.is_judge;
-                local_question_data.Add(question);
+        //private void get_local_questions(object data)
+        //{
+        //    DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+        //    // 将数据加载到表 question 中。可以根据需要修改此代码。
+        //    DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+        //    jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+        //    foreach (var myques in jiakaoDataSet.question)
+        //    {
+        //        PublicClass.questions question = new PublicClass.questions();
+        //        question.question_id = myques.question_id;
+        //        question.chapter_id = myques.chapter_id;
+        //        question.subject_id = myques.subject_id;
+        //        question.question_name = myques.question_name;
+        //        question.question_image = myques.question_image;
+        //        question.voice = myques.voice;
+        //        question.driverlicense_type = myques.driverlicense_type;
+        //        question.question_type = myques.question_type;
+        //        question.update_at = myques.update_at;
+        //        question.is_judge = myques.is_judge;
+        //        local_question_data.Add(question);
 
-            }
-        }
+        //    }
+        //}
 
-        private void get_local_answers(object data)
-        {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
-            jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
-            foreach (var myanswer in jiakaoDataSet.answer)
-            {
-                PublicClass.answers answer = new PublicClass.answers();
-                answer.answer_id = myanswer.answer_id;
-                answer.question_id = myanswer.question_id;
-                answer.answer = myanswer.answer;
-                answer.is_right = myanswer.is_right;
-                answer.update_at = myanswer.update_at;
-                local_answer_data.Add(answer);
-            }
-        }
+        //private void get_local_answers(object data)
+        //{
+        //    DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+        //    DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
+        //    jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+        //    foreach (var myanswer in jiakaoDataSet.answer)
+        //    {
+        //        PublicClass.answers answer = new PublicClass.answers();
+        //        answer.answer_id = myanswer.answer_id;
+        //        answer.question_id = myanswer.question_id;
+        //        answer.answer = myanswer.answer;
+        //        answer.is_right = myanswer.is_right;
+        //        answer.update_at = myanswer.update_at;
+        //        local_answer_data.Add(answer);
+        //    }
+        //}
 
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -209,8 +209,8 @@ where T : DependencyObject
             PublicClass.http = @"http://jiakao.cloudtimesoft.com";
             //ThreadPool.QueueUserWorkItem(get_local_questions, "");
             //ThreadPool.QueueUserWorkItem(get_local_answers, "");
-            get_local_questions("");
-            get_local_answers("");
+            //get_local_questions("");
+            //get_local_answers("");
 
             //maincanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
 
@@ -318,35 +318,35 @@ where T : DependencyObject
                                 version(getchkupdstr);
                                 //xianshi.Text = "下载完毕,更新已完成";
                             }
-                            PublicClass.answer_data.Clear();
-                            PublicClass.question_data.Clear();
-                            //PublicClass.question_data = local_question_data.Copy();
-                            foreach (var myquestion in local_question_data)
-                            {
-                                PublicClass.questions question = new PublicClass.questions();
-                                question.question_id = myquestion.question_id;
-                                question.chapter_id = myquestion.chapter_id;
-                                question.subject_id = myquestion.subject_id;
-                                question.question_name = myquestion.question_name;
-                                question.question_image = myquestion.question_image;
-                                question.voice = myquestion.voice;
-                                question.driverlicense_type = myquestion.driverlicense_type;
-                                question.question_type = myquestion.question_type;
-                                question.update_at = myquestion.update_at;
-                                question.is_judge = myquestion.is_judge;
-                                PublicClass.question_data.Add(question);
-                            }
-                            //PublicClass.answer_data = local_answer_data.Copy();
-                            foreach (var myanswer in local_answer_data)
-                            {
-                                PublicClass.answers answer = new PublicClass.answers();
-                                answer.answer_id = myanswer.answer_id;
-                                answer.question_id = myanswer.question_id;
-                                answer.answer = myanswer.answer;
-                                answer.is_right = myanswer.is_right;
-                                answer.update_at = myanswer.update_at;
-                                PublicClass.answer_data.Add(answer);
-                            }
+                            //PublicClass.answer_data.Clear();
+                            //PublicClass.question_data.Clear();
+                            ////PublicClass.question_data = local_question_data.Copy();
+                            //foreach (var myquestion in local_question_data)
+                            //{
+                            //    PublicClass.questions question = new PublicClass.questions();
+                            //    question.question_id = myquestion.question_id;
+                            //    question.chapter_id = myquestion.chapter_id;
+                            //    question.subject_id = myquestion.subject_id;
+                            //    question.question_name = myquestion.question_name;
+                            //    question.question_image = myquestion.question_image;
+                            //    question.voice = myquestion.voice;
+                            //    question.driverlicense_type = myquestion.driverlicense_type;
+                            //    question.question_type = myquestion.question_type;
+                            //    question.update_at = myquestion.update_at;
+                            //    question.is_judge = myquestion.is_judge;
+                            //    PublicClass.question_data.Add(question);
+                            //}
+                            ////PublicClass.answer_data = local_answer_data.Copy();
+                            //foreach (var myanswer in local_answer_data)
+                            //{
+                            //    PublicClass.answers answer = new PublicClass.answers();
+                            //    answer.answer_id = myanswer.answer_id;
+                            //    answer.question_id = myanswer.question_id;
+                            //    answer.answer = myanswer.answer;
+                            //    answer.is_right = myanswer.is_right;
+                            //    answer.update_at = myanswer.update_at;
+                            //    PublicClass.answer_data.Add(answer);
+                            //}
                         }
                         else
                         {
@@ -785,7 +785,8 @@ where T : DependencyObject
                 //写入和更新题目表
                 foreach (var remotequestion in question_json)
                 {
-                    var localquestion = from c in local_question_data where int.Parse(remotequestion["id"].ToString()) == c.question_id select c;
+                    //var localquestion = from c in local_question_data where int.Parse(remotequestion["id"].ToString()) == c.question_id select c;
+                    var localquestion = from c in jiakaoDataSet.question where int.Parse(remotequestion["id"].ToString()) == c.question_id select c;
                     //var t = jiakaoDataSet.question.GetEnumerator();
                     if (localquestion.Count() == 0)
                     {
@@ -834,23 +835,25 @@ where T : DependencyObject
                             voice_down_list.Add(voi);
 
                         }
+                        jiakaoDataSet.question.AddquestionRow(id1, id2, id3, name, img, voi, dri, que, upd, isj);
                         //jiakaoDataSet.question.AddquestionRow(id1, id2, id3, name, img, voi, dri, que, upd, isj);
-                        PublicClass.questions question = new PublicClass.questions();
-                        question.question_id = id1;
-                        question.chapter_id = id2;
-                        question.subject_id = id3;
-                        question.question_name = name;
-                        question.question_image = img;
-                        question.voice = voi;
-                        question.driverlicense_type = dri;
-                        question.question_type = que;
-                        question.update_at = upd;
-                        question.is_judge = isj;
-                        local_question_data.Add(question);
+                        //PublicClass.questions question = new PublicClass.questions();
+                        //question.question_id = id1;
+                        //question.chapter_id = id2;
+                        //question.subject_id = id3;
+                        //question.question_name = name;
+                        //question.question_image = img;
+                        //question.voice = voi;
+                        //question.driverlicense_type = dri;
+                        //question.question_type = que;
+                        //question.update_at = upd;
+                        //question.is_judge = isj;
+                        //local_question_data.Add(question);
                     }
                     else
                     {
-                        foreach (var lq in local_question_data)
+                        foreach (var lq in localquestion)
+                        //foreach (var lq in local_question_data)
                         {
                             if (remotequestion["updated_at"].ToString() != lq.update_at)
                             {
@@ -922,6 +925,11 @@ where T : DependencyObject
                                 lq.update_at = upd;
                                 lq.is_judge = isj;
 
+                                attch_down_count++;
+                                //updatedownload(img, voi);
+                                img_down_list.Add(img);
+                                voice_down_list.Add(voi);
+
 
                             }
                         }
@@ -936,12 +944,15 @@ where T : DependencyObject
                 }
                 xianshi.Text = "写入题...";
                 System.Windows.Forms.Application.DoEvents();
+                jiakaoDataSetquestionTableAdapter.Update(jiakaoDataSet.question);
+                jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+                jiakaoDataSet.question.AcceptChanges();
                 //jiakaoDataSetquestionTableAdapter.Update(jiakaoDataSet.question);
                 //jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
                 //jiakaoDataSet.question.AcceptChanges();
 
                 //ThreadPool.QueueUserWorkItem(set_question, "");
-                set_question("");
+                //set_question("");
 
 
                 //写入和更新答案表
@@ -969,18 +980,20 @@ where T : DependencyObject
                         try { upd = remoteanswer["updated_at"].ToString(); }
                         catch { upd = ""; }
 
+                        jiakaoDataSet.answer.AddanswerRow(id1, id2, ans, isr, upd);
                         //jiakaoDataSet.answer.AddanswerRow(id1, id2, ans, isr, upd);
-                        PublicClass.answers answer = new PublicClass.answers();
-                        answer.answer_id = id1;
-                        answer.question_id = id2;
-                        answer.answer = ans;
-                        answer.is_right = isr;
-                        answer.update_at = upd;
-                        local_answer_data.Add(answer);
+                        //PublicClass.answers answer = new PublicClass.answers();
+                        //answer.answer_id = id1;
+                        //answer.question_id = id2;
+                        //answer.answer = ans;
+                        //answer.is_right = isr;
+                        //answer.update_at = upd;
+                        //local_answer_data.Add(answer);
                     }
                     else
                     {
-                        foreach (var la in local_answer_data)
+                        foreach (var la in localanswer)
+                        //foreach (var la in local_answer_data)
                         {
                             if (remoteanswer["updated_at"].ToString() != la.update_at)
                             {
@@ -1029,11 +1042,15 @@ where T : DependencyObject
                 }
                 xianshi.Text = "写入答案...";
                 System.Windows.Forms.Application.DoEvents();
+                jiakaoDataSetanswerTableAdapter.Update(jiakaoDataSet.answer);
+                jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+                jiakaoDataSet.answer.AcceptChanges();
+                ThreadPool.QueueUserWorkItem(get_avswer, "");
                 //jiakaoDataSetanswerTableAdapter.Update(jiakaoDataSet.answer);
                 //jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
                 //jiakaoDataSet.answer.AcceptChanges();
                 //ThreadPool.QueueUserWorkItem(set_answer, "");
-                set_answer("");
+                //set_answer("");
 
                 #endregion
                 #region 写入和更新章节科目表
@@ -1197,38 +1214,38 @@ where T : DependencyObject
             }
         }
 
-        private void set_question(object data)
-        {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 question 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
-            jiakaoDataSet.question.Clear();
+        //private void set_question(object data)
+        //{
+        //    DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+        //    // 将数据加载到表 question 中。可以根据需要修改此代码。
+        //    DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+        //    jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+        //    jiakaoDataSet.question.Clear();
 
-            foreach (var myquestion in local_question_data)
-            {
-                jiakaoDataSet.question.AddquestionRow(myquestion.question_id,myquestion.chapter_id,myquestion.subject_id,myquestion.question_name,myquestion.question_image,myquestion.voice,myquestion.driverlicense_type,myquestion.question_type,myquestion.update_at,myquestion.is_judge);
-            }
-            jiakaoDataSetquestionTableAdapter.Update(jiakaoDataSet.question);
-            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
-            jiakaoDataSet.question.AcceptChanges();
-        }
+        //    foreach (var myquestion in local_question_data)
+        //    {
+        //        jiakaoDataSet.question.AddquestionRow(myquestion.question_id,myquestion.chapter_id,myquestion.subject_id,myquestion.question_name,myquestion.question_image,myquestion.voice,myquestion.driverlicense_type,myquestion.question_type,myquestion.update_at,myquestion.is_judge);
+        //    }
+        //    jiakaoDataSetquestionTableAdapter.Update(jiakaoDataSet.question);
+        //    jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+        //    jiakaoDataSet.question.AcceptChanges();
+        //}
 
-        private void set_answer(object data)
-        {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 answer 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
-            jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
-            jiakaoDataSet.answer.Clear();
-            foreach (var myanswer in local_answer_data)
-            {
-                jiakaoDataSet.answer.AddanswerRow(myanswer.answer_id, myanswer.question_id, myanswer.answer, myanswer.is_right, myanswer.update_at);
-            }
-            jiakaoDataSetanswerTableAdapter.Update(jiakaoDataSet.answer);
-            jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
-            jiakaoDataSet.answer.AcceptChanges();
-        }
+        //private void set_answer(object data)
+        //{
+        //    DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+        //    // 将数据加载到表 answer 中。可以根据需要修改此代码。
+        //    DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
+        //    jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+        //    jiakaoDataSet.answer.Clear();
+        //    foreach (var myanswer in local_answer_data)
+        //    {
+        //        jiakaoDataSet.answer.AddanswerRow(myanswer.answer_id, myanswer.question_id, myanswer.answer, myanswer.is_right, myanswer.update_at);
+        //    }
+        //    jiakaoDataSetanswerTableAdapter.Update(jiakaoDataSet.answer);
+        //    jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+        //    jiakaoDataSet.answer.AcceptChanges();
+        //}
 
         private void get_question(object data)
         {
