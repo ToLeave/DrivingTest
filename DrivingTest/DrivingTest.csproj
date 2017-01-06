@@ -376,6 +376,7 @@
     <Resource Include="Images\摩托车 %283%29.png" />
     <Resource Include="Images\自考驾照 %281%29.png" />
     <Resource Include="Images\ICBCLoading.gif" />
+    <Resource Include="Images\汽车.png" />
     <Content Include="sounds\start.wav" />
     <Resource Include="Images\驾照类型.png" />
     <Resource Include="Images\倒车入库02.jpg" />

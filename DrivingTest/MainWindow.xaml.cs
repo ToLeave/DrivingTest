@@ -285,16 +285,18 @@ where T : DependencyObject
 
 
 
+
                 Thread newthread = new Thread(new ThreadStart(() =>
                 {
                     Dispatcher.Invoke(new Action(() =>
                     {
-                        //当前进程
-                        Process current = Process.GetCurrentProcess();
-                        //进程下线程
-                        ProcessThreadCollection allThreads = current.Threads;
-                        //当前线程
-                        Console.WriteLine("ID:{0}", Thread.CurrentThread.ManagedThreadId);
+                        ////当前进程
+                        //Process current = Process.GetCurrentProcess();
+                        ////进程下线程
+                        //ProcessThreadCollection allThreads = current.Threads;
+                        ////当前线程
+                        //Console.WriteLine("ID:{0}", Thread.CurrentThread.ManagedThreadId);
+
                         xianshi.Text = "正在检查更新";
                         System.Windows.Forms.Application.DoEvents();
                         if (checknetwork())
