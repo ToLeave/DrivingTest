@@ -48,7 +48,7 @@
                             </Grid>
                         </avalon:LayoutAnchorable>-->
                         <avalon:LayoutAnchorable Title=" 基本设置 " x:Name="jibenshezhi" CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True" IsActiveChanged="jibenshezhi_IsActiveChanged" >
-                            <Grid>
+                            <Grid Loaded="Grid_Loaded" Name="grid">
                                 <Label Content="选择考试所在省份" Width="110" Height="25" Margin="18,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
                                 <ComboBox Height="25" HorizontalAlignment="Left" Margin="134,15,0,0" Name="shengfen_comboBox" VerticalAlignment="Top" Width="120" ItemsSource="{StaticResource ProCols}"  DisplayMemberPath="region"   SelectedValuePath="reID"/>
                                 <CheckBox Content="题库包含地方题" Height="23" HorizontalAlignment="Left" Margin="299,20,0,0" Name="difan_checkBox" VerticalAlignment="Top" Checked="difan_checkBox_Checked" Unchecked="difan_checkBox_Unchecked" />
@@ -102,7 +102,7 @@
                             </Grid>
                         </avalon:LayoutAnchorable>
                         <avalon:LayoutAnchorable x:Name="gongnegnbiaoti" Title="功能-标题" CanClose="False" CanFloat="False" CanHide="False" IsActiveChanged="gongnegnbiaoti_IsActiveChanged">
-                            <Grid>
+                            <Grid Loaded="Grid_Loaded" Name="grid1">
                                 <Label Content="软件标题" Height="28" HorizontalAlignment="Left" Margin="16,6,0,0" Name="label8" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="91,11,0,0" Name="biaoti_textBox" VerticalAlignment="Top" Width="350" />
                                 
@@ -176,7 +176,7 @@
                             </Grid>
                         </avalon:LayoutAnchorable>
                         <avalon:LayoutAnchorable x:Name="jianpanshezhi" Title=" 键 盘 " CanClose="False" CanFloat="False" CanHide="False" IsActiveChanged="jianpanshezhi_IsActiveChanged">
-                            <Grid>
+                            <Grid Loaded="Grid_Loaded" Name="grid3">
                                 <Image Height="300" HorizontalAlignment="Left" Margin="96,22,0,0" Name="fangan_image" Stretch="Fill" VerticalAlignment="Top" Width="260"  />
                                 <RadioButton Content="方案一" Height="16" HorizontalAlignment="Left" Margin="49,343,0,0" Name="radioButton20" VerticalAlignment="Top" Checked="radioButton20_Checked" />
                                 <RadioButton Content="方案二" Height="16" HorizontalAlignment="Left" Margin="107,343,0,0" Name="radioButton21" VerticalAlignment="Top" Checked="radioButton21_Checked" />
@@ -212,7 +212,7 @@
                             </Grid>
                         </avalon:LayoutAnchorable>
                         <avalon:LayoutAnchorable Title=" 信息设置 " x:Name="xinxishezhi" CanClose="False" CanFloat="False" CanHide="False" IsActiveChanged="xingixshezhi_IsActiveChanged">
-                            <Grid>
+                            <Grid Loaded="Grid_Loaded" Name="grid4">
                                 <CheckBox Content="注册流程" Height="16" HorizontalAlignment="Left" Margin="50,21,0,0" Name="liucheng_checkBox" VerticalAlignment="Top" />
                                 <Line X1="400" Width="400" Height="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38,43,0,0" StrokeDashArray="1" StrokeThickness="5" Stroke="Black"/>
                                 <TextBox Height="100" HorizontalAlignment="Left" Margin="50,51,0,0" Name="liucheng_textBox" VerticalAlignment="Top" Width="380" TextWrapping="Wrap" Text="" />

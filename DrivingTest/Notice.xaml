@@ -1,7 +1,7 @@
 ﻿<Window x:Class="DrivingTest.Notice"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="学车须知" Height="520" Width="380" WindowStartupLocation="CenterScreen" xmlns:my="clr-namespace:DrivingTest">
+        Title="学车须知" Height="520" Width="380" WindowStartupLocation="CenterScreen" xmlns:my="clr-namespace:DrivingTest" Loaded="Window_Loaded">
     <Window.Resources>
         <my:jiakaoDataSet x:Key="jiakaoDataSet" />
         <CollectionViewSource x:Key="settingViewSource" Source="{Binding Path=setting, Source={StaticResource jiakaoDataSet}}" />

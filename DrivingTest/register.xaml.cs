@@ -123,8 +123,21 @@ namespace DrivingTest
         //提出机器码显示
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
+            ImageBrush b = new ImageBrush();
+            b.ImageSource = new BitmapImage(new Uri("pack://application:,,,/DrivingTest;component/Images/窗体背景.png"));
+            b.Stretch = Stretch.Fill;
+            grid.Background = b;
+
             Get_Cpu_Id();//cpu码
             machine_code.Text = ID;
+        }
+
+        private void Grid_Loaded_1(object sender, RoutedEventArgs e)
+        {
+            ImageBrush b = new ImageBrush();
+            b.ImageSource = new BitmapImage(new Uri("pack://application:,,,/DrivingTest;component/Images/窗体背景.png"));
+            b.Stretch = Stretch.Fill;
+            grid1.Background = b;
         }
 
         #endregion
@@ -359,6 +372,11 @@ namespace DrivingTest
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            ImageBrush b = new ImageBrush();
+            b.ImageSource = new BitmapImage(new Uri("pack://application:,,,/DrivingTest;component/Images/窗体背景.png"));
+            b.Stretch = Stretch.Fill;
+            this.Background = b;
+
             if (PublicClass.wuwangluo == true)//断网不显示联网注册
             {
                 jiaxiaozhuce.Hide();
@@ -398,7 +416,7 @@ namespace DrivingTest
                 }
                 else
                 {
-                    label4.Visibility = System.Windows.Visibility.Hidden;
+                    label4.Visibility = System.Windows.Visibility.Visible;
                     lianjie_textBlock.Visibility = System.Windows.Visibility.Visible;
                 }
                 if (PublicClass.xinxi[2] == "1")
@@ -408,7 +426,7 @@ namespace DrivingTest
                 }
                 else
                 {
-                    label6.Visibility = System.Windows.Visibility.Hidden;
+                    label6.Visibility = System.Windows.Visibility.Visible;
                     qq_textblock.Visibility = System.Windows.Visibility.Visible;
                 }
                 if (PublicClass.xinxi[3] == "1")
@@ -666,6 +684,8 @@ namespace DrivingTest
                 tishi_textBlock.Visibility = System.Windows.Visibility.Hidden;
             }
         }
+
+
 
 
 

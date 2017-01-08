@@ -24,7 +24,7 @@
                 <avalon:LayoutPanel Orientation="Horizontal">
                     <avalon:LayoutDocumentPane >
                         <avalon:LayoutAnchorable Title=" 脱机注册 " x:Name="tuojizhuce" CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True">
-                            <Grid Loaded="Grid_Loaded" DataContext="{StaticResource settingViewSource}">
+                            <Grid Loaded="Grid_Loaded" Name="grid"  DataContext="{StaticResource settingViewSource}">
                                 <Label Content="机器码:" Height="28" HorizontalAlignment="Left" Margin="79,12,0,0" Name="label1" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="135,14,0,0" x:Name="machine_code"   VerticalAlignment="Top" Width="171" IsReadOnly="True" />
                                 <Label Content="注册码:" Height="28" HorizontalAlignment="Left" Margin="79,46,0,0" Name="label2" VerticalAlignment="Top" />
@@ -55,7 +55,7 @@
                             </Grid>
                         </avalon:LayoutAnchorable>
                         <avalon:LayoutAnchorable Title=" 驾校注册 " x:Name="jiaxiaozhuce" CanClose="False" CanFloat="False" CanHide="False" CanAutoHide="True" IsActiveChanged="jiaxiaozhuce_IsActiveChanged">
-                            <Grid>
+                            <Grid Loaded="Grid_Loaded_1" Name="grid1">
                                 <Label Content="账号" Height="28" HorizontalAlignment="Left" Margin="26,26,0,0" Name="label14" VerticalAlignment="Top" />
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="90,28,0,0" Name="zhanghao_textBox" VerticalAlignment="Top" Width="120" />
 

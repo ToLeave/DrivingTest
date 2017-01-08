@@ -243,10 +243,6 @@ namespace DrivingTest
 
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            cuo_radioButton1.IsChecked = true;
-        }
 
 
         //删除错题
@@ -365,6 +361,16 @@ namespace DrivingTest
 
             }
 
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            cuo_radioButton1.IsChecked = true;
+
+            ImageBrush b = new ImageBrush();
+            b.ImageSource = new BitmapImage(new Uri("pack://application:,,,/DrivingTest;component/Images/窗体背景.png"));
+            b.Stretch = Stretch.Fill;
+            this.Background = b;
         }
     }
 }

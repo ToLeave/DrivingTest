@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Height="600" Width="800">
+             Height="600" Width="800" Loaded="UserControl_Loaded">
     <Grid>
         <Image Height="295" HorizontalAlignment="Left" Margin="10,10,0,0" Name="image1" Source="/DrivingTest;component/Images/cftc.gif" Stretch="Fill" VerticalAlignment="Top" Width="423" />
         <TextBlock Height="292" HorizontalAlignment="Left" Margin="458,13,0,0" Name="textBlock1" Text="考试项目： 侧方停车 驾校一点通 

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Height="600" Width="800">
+             Height="600" Width="800" Loaded="UserControl_Loaded">
     <Grid>
         <Label Content="一般规定" FontSize="18" FontWeight="Bold" Foreground="Blue" Height="34" HorizontalAlignment="Left" Margin="54,10,0,0" Name="label1" VerticalAlignment="Top" />
         <TextBlock Height="32" HorizontalAlignment="Left" Margin="54,50,0,0" Name="textBlock1" Text="考试满分为100分，考试大型客车、牵引车、城市公交车、中型客车、大型货车准驾车型的，成绩达到90分的为合格，其他准驾车型的成绩达到80分的为合格。" TextWrapping="Wrap" VerticalAlignment="Top" Width="659" />

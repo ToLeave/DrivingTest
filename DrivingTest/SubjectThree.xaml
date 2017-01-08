@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Height="600" Width="800">
+             Height="600" Width="800" Loaded="UserControl_Loaded">
     <Grid>
         <Label Content="简介" FontSize="18" FontWeight="Bold" Foreground="Blue" Height="35" HorizontalAlignment="Left" Margin="31,10,0,0" Name="label1" VerticalAlignment="Top" />
         <TextBlock Height="83" HorizontalAlignment="Left" Margin="55,51,0,0" Name="textBlock1" Text="•	科目三考试项目包括：上车准备、起步、直线行驶、加减挡位操作、变更车道、靠边停车、直行通过路口、路口左转弯、路口右转弯、通过人行横道线、通过学校区域、通过公共汽车站、会车、超车、掉头、夜间行驶。 

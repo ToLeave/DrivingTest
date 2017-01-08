@@ -1261,32 +1261,39 @@ where T : DependencyObject
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 question 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
-            jiakaoDataSet.question.Clear();
-
-            foreach (var myquestion in local_question_data)
+            lock (jiakaoDataSet.question)
             {
-                jiakaoDataSet.question.AddquestionRow(myquestion.question_id, myquestion.chapter_id, myquestion.subject_id, myquestion.question_name, myquestion.question_image, myquestion.voice, myquestion.driverlicense_type, myquestion.question_type, myquestion.update_at, myquestion.is_judge);
+                jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+                jiakaoDataSet.question.Clear();
+
+                foreach (var myquestion in local_question_data)
+                {
+                    jiakaoDataSet.question.AddquestionRow(myquestion.question_id, myquestion.chapter_id, myquestion.subject_id, myquestion.question_name, myquestion.question_image, myquestion.voice, myquestion.driverlicense_type, myquestion.question_type, myquestion.update_at, myquestion.is_judge);
+                }
+                jiakaoDataSetquestionTableAdapter.Update(jiakaoDataSet.question);
+                jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+                jiakaoDataSet.question.AcceptChanges();
             }
-            jiakaoDataSetquestionTableAdapter.Update(jiakaoDataSet.question);
-            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
-            jiakaoDataSet.question.AcceptChanges();
         }
+
 
         private void set_answer(object data)
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 answer 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
-            jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
-            jiakaoDataSet.answer.Clear();
-            foreach (var myanswer in local_answer_data)
+            lock (jiakaoDataSet.answer)
             {
-                jiakaoDataSet.answer.AddanswerRow(myanswer.answer_id, myanswer.question_id, myanswer.answer, myanswer.is_right, myanswer.update_at);
+                jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+                jiakaoDataSet.answer.Clear();
+                foreach (var myanswer in local_answer_data)
+                {
+                    jiakaoDataSet.answer.AddanswerRow(myanswer.answer_id, myanswer.question_id, myanswer.answer, myanswer.is_right, myanswer.update_at);
+                }
+                jiakaoDataSetanswerTableAdapter.Update(jiakaoDataSet.answer);
+                jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+                jiakaoDataSet.answer.AcceptChanges();
             }
-            jiakaoDataSetanswerTableAdapter.Update(jiakaoDataSet.answer);
-            jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
-            jiakaoDataSet.answer.AcceptChanges();
         }
 
         private void get_question(object data)
@@ -1507,6 +1514,8 @@ where T : DependencyObject
                     version(getchkupdstr);
                     ThreadPool.QueueUserWorkItem(set_question, "");
                     ThreadPool.QueueUserWorkItem(set_answer, "");
+                    //set_question("");
+                    //set_answer("");
                     ThreadPool.QueueUserWorkItem(push_to_public, "");
 
 
@@ -2062,6 +2071,9 @@ where T : DependencyObject
             c1ma.Name = "科目二";
             c1ma.Header = "科目二";
             c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+            this.WindowState = System.Windows.WindowState.Maximized;
+            maincanvas.Visibility = Visibility.Hidden;
+            c1ma.Closed += new EventHandler(c1ma_Closed);
 
             //this.Visibility = System.Windows.Visibility.Collapsed;
             //this.WindowState = System.Windows.WindowState.Minimized;
@@ -2077,6 +2089,9 @@ where T : DependencyObject
             c1ma.Name = "科目三";
             c1ma.Header = "科目三";
             c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+            this.WindowState = System.Windows.WindowState.Maximized;
+            maincanvas.Visibility = Visibility.Hidden;
+            c1ma.Closed += new EventHandler(c1ma_Closed);
             //this.Visibility = System.Windows.Visibility.Collapsed;
         }
         //科目四

@@ -50,13 +50,18 @@ namespace DrivingTest
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 setting 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
-            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+            ImageBrush b = new ImageBrush();
+            b.ImageSource = new BitmapImage(new Uri("pack://application:,,,/DrivingTest;component/Images/窗体背景.png"));
+            b.Stretch = Stretch.Fill;
+            this.Background = b;
 
-            DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter jiakaoDataSetuserTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter();
-            jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
+            //DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            //// 将数据加载到表 setting 中。可以根据需要修改此代码。
+            //DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            //jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            //DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter jiakaoDataSetuserTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter();
+            //jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
 
 
 
@@ -179,9 +184,22 @@ namespace DrivingTest
             }
         }
 
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            ImageBrush b = new ImageBrush();
+            b.ImageSource = new BitmapImage(new Uri("pack://application:,,,/DrivingTest;component/Images/窗体背景.png"));
+            b.Stretch = Stretch.Fill;
+            Grid g = (Grid)sender;
+            g.Background = b;
+            //grid1.Background = b;
+            //grid3.Background = b;
+            //grid4.Background = b;
+        }
+
         //基本设置选项卡
         private void jibenshezhi_IsActiveChanged(object sender, EventArgs e)
         {
+            
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 setting 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
@@ -1258,6 +1276,8 @@ namespace DrivingTest
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
             jiakaoDataSet.setting.AcceptChanges();
         }
+
+ 
 
 
 

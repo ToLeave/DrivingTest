@@ -44,10 +44,10 @@ namespace DrivingTest
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //ImageBrush b = new ImageBrush();
-            //b.ImageSource = new BitmapImage(new Uri("pack://application:,,,/DrivingTest;component/Images/驾考考试1.png"));
-            //b.Stretch = Stretch.Fill;
-            //this.Background = b;
+            ImageBrush b = new ImageBrush();
+            b.ImageSource = new BitmapImage(new Uri("pack://application:,,,/DrivingTest;component/Images/窗体背景.png"));
+            b.Stretch = Stretch.Fill;
+            this.Background = b;
 
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 chapter 中。可以根据需要修改此代码。

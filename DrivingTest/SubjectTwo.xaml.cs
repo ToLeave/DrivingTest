@@ -94,6 +94,14 @@ namespace DrivingTest
             panding_textBlock.TextDecorations = null;
         }
 
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            ImageBrush b = new ImageBrush();
+            b.ImageSource = new BitmapImage(new Uri("pack://application:,,,/DrivingTest;component/Images/窗体背景.png"));
+            b.Stretch = Stretch.Fill;
+            this.Background = b;
+        }
+
 
 
 
