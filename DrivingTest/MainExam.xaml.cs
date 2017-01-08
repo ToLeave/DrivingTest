@@ -122,9 +122,9 @@ where T : DependencyObject
 
             //random_question();//随机抽题
 
-            create_question_num();//生成题号
+            //create_question_num();//生成题号
 
-            questionindex();//初始化第一题
+            //questionindex();//初始化第一题
 
             var user = from c in jiakaoDataSet.user where c.user_id == PublicClass.user_id select c;
             
@@ -302,7 +302,9 @@ where T : DependencyObject
                     PublicClass.question_list.Add(question_xz_list[i]);
                     PublicClass.question_list.Last().answer = random_answer(PublicClass.question_list.Last().question_id);
                 }
-
+                question_c = PublicClass.question_list.Count();
+                create_question_num();
+                questionindex();
             }
             else //练习
             {
@@ -348,7 +350,7 @@ where T : DependencyObject
                 }
 
             }
-            question_c = PublicClass.question_list.Count();
+            //question_c = PublicClass.question_list.Count();
 
             //开启定时器
             timer.Start();
@@ -380,7 +382,9 @@ where T : DependencyObject
             PublicClass.question_list.Add(local_question);
             if (PublicClass.question_list.Count == PublicClass.questions_id.Count())
             {
+                question_c = PublicClass.question_list.Count();
                 create_question_num();
+                questionindex();
             }
         }
 
@@ -548,6 +552,8 @@ where T : DependencyObject
         //生成题号
         private void create_question_num()
         {
+                                Dispatcher.Invoke(new Action(() =>
+                    {
             int cou = question_c;
             for (int i = 0; i < cou; i++)
             {
@@ -565,11 +571,14 @@ where T : DependencyObject
                 dati_canvas.Children.Add(qu);
             }
             dati_canvas.Height = cou / 10 * 30;
+                    }));
         }
 
         //初始化第一题
         private void questionindex()
         {
+                                            Dispatcher.Invoke(new Action(() =>
+                    {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 question 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
@@ -665,7 +674,7 @@ where T : DependencyObject
             }
 
             showright_answer(question_index);
-
+                    }));
         }
 
         //显示正确答案

@@ -1261,7 +1261,7 @@ where T : DependencyObject
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 question 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-            lock (jiakaoDataSet.question)
+            lock (jiakaoDataSet)
             {
                 jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
                 jiakaoDataSet.question.Clear();
@@ -1282,7 +1282,7 @@ where T : DependencyObject
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 answer 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
-            lock (jiakaoDataSet.answer)
+            lock (jiakaoDataSet)
             {
                 jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
                 jiakaoDataSet.answer.Clear();
