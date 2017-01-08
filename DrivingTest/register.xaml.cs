@@ -226,39 +226,46 @@ namespace DrivingTest
         private string cal_license(string license)
         {
             string ret = "";
-
-            for (int license_num = 0; license_num <= 1000; license_num++)
+            if (license.Length == 16)
             {
-                DateTime endtime = DateTime.Now;
-                for (DateTime license_time = DateTime.Now; license_time <= endtime.AddYears(3); license_time = license_time.AddDays(1))
-                {
-                    string num_format = license_time.ToString("yyyyMMdd");
-                    string local_license = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(ID + ":" + license_num + ":" + num_format + ":CLOUDTIMESOFT", "MD5");
-                    //string tt = ID + ":" + license_num + ":" + num_format + ":" + license_count + ":CLOUDTIMESOFT";
-                    local_license = local_license.Substring(8, 16);
 
-                    if (license == local_license)
+                for (int license_num = 0; license_num <= 1000; license_num++)
+                {
+                    DateTime endtime = DateTime.Now;
+                    for (DateTime license_time = DateTime.Now; license_time <= endtime.AddYears(3); license_time = license_time.AddDays(1))
                     {
-                        ret = license_num.ToString() + "," + license_time.ToShortDateString();//返回参数为次数 + , + 时间
-                        num = license_num.ToString();
-                        time = license_time.ToShortDateString();
-                        //return license_num + "," + license_time;
-                        //license_count = 1000;
-                        license_num = 10000;
-                        license_time = license_time.AddYears(10);
+                        string num_format = license_time.ToString("yyyyMMdd");
+                        string local_license = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(ID + ":" + license_num + ":" + num_format + ":CLOUDTIMESOFT", "MD5");
+                        //string tt = ID + ":" + license_num + ":" + num_format + ":" + license_count + ":CLOUDTIMESOFT";
+                        local_license = local_license.Substring(8, 16);
+
+                        if (license == local_license)
+                        {
+                            ret = license_num.ToString() + "," + license_time.ToShortDateString();//返回参数为次数 + , + 时间
+                            num = license_num.ToString();
+                            time = license_time.ToShortDateString();
+                            //return license_num + "," + license_time;
+                            //license_count = 1000;
+                            license_num = 10000;
+                            license_time = license_time.AddYears(10);
+
+                        }
+
 
                     }
-
-
+                    //liucheng_textBox.Text = "license_num;" + license_num;
+                    //System.Windows.Forms.Application.DoEvents();
+                    zhuce_progressBar.Value = license_num / 10;
+                    System.Windows.Forms.Application.DoEvents();
                 }
-                //liucheng_textBox.Text = "license_num;" + license_num;
-                //System.Windows.Forms.Application.DoEvents();
-                zhuce_progressBar.Value = license_num / 10;
-                System.Windows.Forms.Application.DoEvents();
+
+
+                return ret;
             }
-
-
-            return ret;
+            else
+            {
+                return ret;
+            }
 
         }
 
@@ -319,12 +326,13 @@ namespace DrivingTest
                     string license = zhuce_textbox.Text.Trim().ToUpper();
                     license = license.Replace("-", "");
                     string str = cal_license(license);//调用验证方法
-                    string[] s = str.Split(',');
-                    string n = s[0];//脱机码次数
-                    string t = s[1];//脱机码时间
 
                     if (str != "")
                     {
+                        string[] s = str.Split(',');
+                        string n = s[0];//脱机码次数
+                        string t = s[1];//脱机码时间
+
                         if (user.Count() == 0)
                         {
                             jiakaoDataSet.user.AdduserRow(-1, machine_code.Text,zhuce_textbox.Text, "", "", "", "", "", "", "", "", "", "", n, t.Replace("-", ""), "1", "", "", "");
@@ -337,7 +345,7 @@ namespace DrivingTest
                         {
                             foreach(var u in user)
                             {
-                                if (zhuce_textbox.Text == u.password)//防止相同激活码重复激活
+                                if (zhuce_textbox.Text == u.password)//防止相同激..活码重复激活
                                 {
                                     MessageBox.Show("此激活码已使用!请勿重复激活!");
                                 }
