@@ -329,7 +329,7 @@ where T : DependencyObject
                             {
                                 updatequestion();
                                 //updatedownload();
-                                version(getchkupdstr);
+                                //version(getchkupdstr);
                                 //xianshi.Text = "下载完毕,更新已完成";
                             }
 
@@ -1503,8 +1503,8 @@ where T : DependencyObject
                             }
                         }
                     }
-
-
+                    var getchkupdstr = getupdatecheck();
+                    version(getchkupdstr);
                     ThreadPool.QueueUserWorkItem(set_question, "");
                     ThreadPool.QueueUserWorkItem(set_answer, "");
                     ThreadPool.QueueUserWorkItem(push_to_public, "");

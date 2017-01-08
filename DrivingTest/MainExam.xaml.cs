@@ -227,6 +227,12 @@ where T : DependencyObject
         //生成题库
         public void create_question(int create_method, int question_mode, string cartype, string subject, List<int> questions_id)// create_method 0 顺序,1随机; question_mode 0 练习,1考试,2错题; cartype 车型;subject 科目; questions_id 题库ID
         {
+            //存参以留重新考试
+            PublicClass.create_method = create_method;
+            PublicClass.question_mode = question_mode;
+            PublicClass.cartype = cartype;
+            PublicClass.subject = subject;
+            PublicClass.questions_id = questions_id;
             System.Windows.Forms.Application.DoEvents();
             cart_sub(cartype, subject);//显示车型科目
 
@@ -307,26 +313,26 @@ where T : DependencyObject
                 {
                     for (int i = 0; i < questions_id.Count(); i++)
                     {
-                        var question = from c in jiakaoDataSet.question where c.question_id == questions_id[i] select c;
-                        PublicClass.Question local_question = new PublicClass.Question();
-                        local_question.question_id = question.First().question_id;
-                        local_question.check_answer = true;
-                        local_question.select_answer = "";
-                        local_question.question_type = question.First().question_type;
-                        local_question.sz = true;
-                        local_question.rept_do = 0;
-                        local_question.answer = random_answer(question.First().question_id);
+                        //var question = from c in PublicClass.question_data where c.question_id == questions_id[i] select c;
+                        //PublicClass.Question local_question = new PublicClass.Question();
+                        //local_question.question_id = question.First().question_id;
+                        //local_question.check_answer = true;
+                        //local_question.select_answer = "";
+                        //local_question.question_type = question.First().question_type;
+                        //local_question.sz = true;
+                        //local_question.rept_do = 0;
+                        //local_question.answer = order_answer(question.First().question_id);
                         //ThreadPool.QueueUserWorkItem(local_question.answer= question.First().question_id);
-                        PublicClass.question_list.Add(local_question);
+                        //PublicClass.question_list.Add(local_question);
                         //ThreadPool.SetMaxThreads(16, 2);
-                        //ThreadPool.QueueUserWorkItem(Thread_Question,questions_id[i]);
+                        ThreadPool.QueueUserWorkItem(Thread_Question,questions_id[i]);
                     }
                 }
                 else
                 {
                     for (int i = 0; i < questions_id.Count(); i++)
                     {
-                        var question = from c in jiakaoDataSet.question where c.question_id == questions_id[i] select c;
+                        var question = from c in PublicClass.question_data where c.question_id == questions_id[i] select c;
                         PublicClass.Question local_question = new PublicClass.Question();
                         local_question.question_id = question.First().question_id;
                         local_question.check_answer = true;
@@ -334,8 +340,9 @@ where T : DependencyObject
                         local_question.question_type = question.First().question_type;
                         local_question.sz = true;
                         local_question.rept_do = 0;
-                        local_question.answer = random_answer(question.First().question_id);
-                        PublicClass.question_list.Add(local_question);
+                        local_question.answer = order_answer(question.First().question_id);
+                        //PublicClass.question_list.Add(local_question);
+                        ThreadPool.QueueUserWorkItem(Thread_Question, questions_id[i]);
                     }
                     PublicClass.question_list = random_question(PublicClass.question_list, questions_id.Count());
                 }
@@ -347,12 +354,7 @@ where T : DependencyObject
             timer.Start();
 
 
-            //存参以留重新考试
-            PublicClass.create_method = create_method;
-            PublicClass.question_mode = question_mode;
-            PublicClass.cartype = cartype;
-            PublicClass.subject = subject;
-            PublicClass.questions_id = questions_id;
+
         }
 
 
@@ -366,9 +368,20 @@ where T : DependencyObject
             local_question.question_type = question.First().question_type;
             local_question.sz = true;
             local_question.rept_do = 0;
-            local_question.answer = random_answer(question.First().question_id);
+            if (PublicClass.create_method == 1)
+            {
+                local_question.answer = random_answer(question.First().question_id);
+            }
+            else
+            {
+                local_question.answer = order_answer(question.First().question_id);
+            }
             //ThreadPool.QueueUserWorkItem(local_question.answer= question.First().question_id);
             PublicClass.question_list.Add(local_question);
+            if (PublicClass.question_list.Count == PublicClass.questions_id.Count())
+            {
+                create_question_num();
+            }
         }
 
 
@@ -410,6 +423,26 @@ where T : DependencyObject
                 {
                     i = 10;
                 }
+            }
+            return newanswer;
+        }
+
+        //顺序抽答案
+        private List<PublicClass.Answer> order_answer(int question_id)
+        {
+
+
+            List<PublicClass.Answer> newanswer = new List<PublicClass.Answer>();
+            var answer = from c in PublicClass.answer_data where c.question_id == question_id select c;
+            Random random = new Random(Guid.NewGuid().GetHashCode());
+
+
+            foreach (var an in answer)
+            {
+                PublicClass.Answer temanswer = new PublicClass.Answer();
+                temanswer.answer_id = an.answer_id;
+                temanswer.isright = int.Parse(an.is_right);
+                newanswer.Add(temanswer);
             }
             return newanswer;
         }
