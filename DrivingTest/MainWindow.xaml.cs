@@ -1512,6 +1512,7 @@ where T : DependencyObject
                     }
                     var getchkupdstr = getupdatecheck();
                     version(getchkupdstr);
+
                     ThreadPool.QueueUserWorkItem(set_question, "");
                     ThreadPool.QueueUserWorkItem(set_answer, "");
                     //set_question("");

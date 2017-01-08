@@ -27,23 +27,24 @@ namespace DrivingTest
 
         private void kaikao_Click(object sender, RoutedEventArgs e)
         {
-            MainExam ma = new MainExam();
-            
-            C1.WPF.C1Window cp = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "驾驶理论考试系统");
-            if (cp != null)
-            {
-                cp.Close();
-            }
-
+            MainExam ma = new MainExam();         
             C1.WPF.C1Window cwin = new C1.WPF.C1Window();
             ma.create_question(1, 1, PublicClass.cartype, PublicClass.subjection, null);
             cwin.Content = ma;
             cwin.Name = "驾考";
             cwin.Header = "驾驶理论考试系统";
+            cwin.WindowState = C1.WPF.C1WindowState.Maximized;
+            C1.WPF.C1Window cp = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "驾驶理论考试系统");
+            if (cp != null)
+            {
+                cp.Close();
+            }
             cwin.Show();
+            cwin.Focus();
+        
             cwin.Closing += new System.ComponentModel.CancelEventHandler(cwin_Closing);
 
-            cwin.WindowState = C1.WPF.C1WindowState.Maximized;
+            
         }
 
         //关闭时上传错题

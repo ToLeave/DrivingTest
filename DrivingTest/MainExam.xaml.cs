@@ -589,6 +589,7 @@ where T : DependencyObject
                 break;
             }
 
+
             int step = 0;
             if (!PublicClass.question_list[question_index].question_type.Contains("PD"))
             {
