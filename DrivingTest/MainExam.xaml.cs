@@ -48,7 +48,7 @@ namespace DrivingTest
         string imagename = "";//图片文件名
         bool playvoice = false;
         int last_question_lab_index = -1;//上一次选中题标签的索引
-        int cur_question_lab_index = 1;//当前选中题标签的索引
+        int cur_question_lab_index = 0;//当前选中题标签的索引
 
 
 
@@ -1327,14 +1327,14 @@ where T : DependencyObject
         //生成题目和答案
         private void select_question(int question_id)//
         {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 question 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+            //DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            //// 将数据加载到表 question 中。可以根据需要修改此代码。
+            //DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            //jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
 
-            // 将数据加载到表 answer 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
-            jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+            //// 将数据加载到表 answer 中。可以根据需要修改此代码。
+            //DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
+            //jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
 
             //foreach (var i in dati_canvas.Children)
             //{
@@ -1408,7 +1408,7 @@ where T : DependencyObject
                     foreach (var an in PublicClass.question_list[question_id].answer)
                     {
                         PublicClass.Answer myan = an as PublicClass.Answer;
-                        var teman = from c in jiakaoDataSet.answer where c.answer_id == myan.answer_id select c;
+                        var teman = from c in PublicClass.answer_data where c.answer_id == myan.answer_id select c;
                         foreach (var temann in teman)
                         {
                             switch (step)
@@ -1452,7 +1452,7 @@ where T : DependencyObject
                         foreach (var an in PublicClass.question_list[question_id].answer)
                         {
                             PublicClass.Answer myan = an as PublicClass.Answer;
-                            var teman = from c in jiakaoDataSet.answer where c.answer_id == myan.answer_id select c;
+                            var teman = from c in PublicClass.answer_data where c.answer_id == myan.answer_id select c;
                             foreach (var temann in teman)
                             {
                                 switch (step)
