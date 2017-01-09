@@ -181,9 +181,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\iconfont.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\iconfont.ttf" />
     <Resource Include="Resources\logo.png" />
   </ItemGroup>
   <ItemGroup>
