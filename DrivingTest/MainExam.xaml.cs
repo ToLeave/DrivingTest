@@ -1005,22 +1005,29 @@ where T : DependencyObject
         //上一题
         private void up_button_Click(object sender, RoutedEventArgs e)
         {
-            int question_id = 0;
-            foreach (var lab in dati_canvas.Children)
+            //int question_id = 0;
+            //foreach (var lab in dati_canvas.Children)
+            //{
+            //    QuestionNum qu = lab as QuestionNum;
+            //    if (qu.canvas1.Background == Brushes.SkyBlue)
+            //    {
+            //        question_id = int.Parse(qu.Name.ToString().Substring(1, qu.Name.ToString().Length - 1)) - 1;
+            //        if (question_id >= 0)
+            //        {
+            //            select_question(question_id);
+            //        }
+            //        break;
+            //    }
+            //}
+
+            last_question_lab_index = cur_question_lab_index;
+            if (cur_question_lab_index > 0)
             {
-                QuestionNum qu = lab as QuestionNum;
-                if (qu.canvas1.Background == Brushes.SkyBlue)
-                {
-                    question_id = int.Parse(qu.Name.ToString().Substring(1, qu.Name.ToString().Length - 1)) - 1;
-                    if (question_id >= 0)
-                    {
-                        select_question(question_id);
-                    }
-                    break;
-                }
+                cur_question_lab_index--;
             }
-           
-            if (question_id == -1)
+            ThreadPool.QueueUserWorkItem(select_question, cur_question_lab_index);
+
+            if (cur_question_lab_index == -1)
             {
                 MessageBoxResult result = MessageBox.Show("已是第一题");
             }
@@ -1028,7 +1035,7 @@ where T : DependencyObject
             {
                 //if (PublicClass.question_mode == 1)//考试下做题后不可修改            
                 //{
-                    if (PublicClass.question_list[question_id].rept_do != 0)
+                if (PublicClass.question_list[cur_question_lab_index].rept_do != 0)
                     {
                         a_button.IsEnabled = false;
                         b_button.IsEnabled = false;
@@ -1043,7 +1050,7 @@ where T : DependencyObject
                         d_button.IsEnabled = true;
                     }
                 //}
-                process_question_type(question_id);
+                process_question_type(cur_question_lab_index);
             }
             if (current_question_type == "S" || current_question_type == "M")
             {
@@ -1054,21 +1061,23 @@ where T : DependencyObject
                 tishi_label.Content = "判断题,请在备选答案中选择您认为正确的答案!";
             }
 
-            if (PublicClass.user_id != -1 || question_id < 10)
+            if (PublicClass.user_id != -1 || cur_question_lab_index < 10)
             {
                 ThreadPool.QueueUserWorkItem(judge_answer, "");
                 ThreadPool.QueueUserWorkItem(answer_UI, "");
                 //judge_answer();
                 //answer_UI();
-                shouzheng_cal(question_id + 1);
-                errquestion(question_id + 1);
-                err_count(question_id + 1);
+                ThreadPool.QueueUserWorkItem(shouzheng_cal, cur_question_lab_index + 1);
+                //shouzheng_cal(cur_question_lab_index - 1);
+                ThreadPool.QueueUserWorkItem(errquestion, cur_question_lab_index + 1);
+                //errquestion(cur_question_lab_index - 1);
+                ThreadPool.QueueUserWorkItem(err_count, cur_question_lab_index + 1);
                 play_voice(timu_textBlock.Text);
-                if (question_id > -1)
+                if (cur_question_lab_index > -1)
                 {
-                    showright_answer(question_id);
+                    showright_answer(cur_question_lab_index);
                 }
-                error_messages(question_id);
+                error_messages(cur_question_lab_index);
             }
             if (PublicClass.question_mode == 1)
             {
@@ -1108,8 +1117,12 @@ where T : DependencyObject
             //    }
             //}
             last_question_lab_index = cur_question_lab_index;
-            cur_question_lab_index++;
+            if (cur_question_lab_index < PublicClass.question_list.Count() - 1)
+            {
+                cur_question_lab_index++;
+            }
             ThreadPool.QueueUserWorkItem(select_question, cur_question_lab_index);
+
             //select_question(cur_question_lab_index);
 
 
