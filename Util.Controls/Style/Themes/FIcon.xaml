@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!--FIcon-->
+    <!--FIcon--> 
     <Style x:Key="FIcon" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="pack://application:,,,/Util.Controls;component/Resources/#iconfont"></Setter>
         <Setter Property="Foreground" Value="{StaticResource TextForeground}"/>

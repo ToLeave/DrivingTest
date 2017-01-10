@@ -47,7 +47,7 @@ namespace DrivingTest
 
         string imagename = "";//图片文件名
         bool playvoice = false;
-        int last_question_lab_index = -1;//上一次选中题标签的索引
+        int last_question_lab_index = 0;//上一次选中题标签的索引
         int cur_question_lab_index = 0;//当前选中题标签的索引
 
 
@@ -566,11 +566,11 @@ where T : DependencyObject
 
                 qu.Margin = new Thickness(y, x, 0, 0);
                 qu.label1.Content = i + 1;
-                qu.Name = "q" + i.ToString();
+                //qu.Name = "q" + i.ToString();
                 qu.MouseDown += new MouseButtonEventHandler(OK);
                 qu.setnum(i + 1, true, "");
                 dati_canvas.Children.Add(qu);
-                dati_canvas.RegisterName("q" + i + 1, qu);
+                dati_canvas.RegisterName("q" + i, qu);
             }
             dati_canvas.Height = cou / 10 * 30;
                     }));
@@ -581,17 +581,17 @@ where T : DependencyObject
         {
                                             Dispatcher.Invoke(new Action(() =>
                     {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 question 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+            //DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            //// 将数据加载到表 question 中。可以根据需要修改此代码。
+            //DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            //jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
 
-            // 将数据加载到表 answer 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
-            jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+            //// 将数据加载到表 answer 中。可以根据需要修改此代码。
+            //DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
+            //jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
 
             int question_index = 0;
-            var question = from c in jiakaoDataSet.question where c.question_id == PublicClass.question_list[question_index].question_id select c;
+            var question = from c in PublicClass.question_data where c.question_id == PublicClass.question_list[question_index].question_id select c;
             foreach (var temqu in question)
             {
                 timu_textBlock.Text = question_index + 1 + "." + temqu.question_name;//显示题目
@@ -607,7 +607,7 @@ where T : DependencyObject
                 foreach (var an in PublicClass.question_list[question_index].answer)
                 {
                     PublicClass.Answer myan = an as PublicClass.Answer;
-                    var teman = from c in jiakaoDataSet.answer where c.answer_id == myan.answer_id select c;
+                    var teman = from c in PublicClass.answer_data where c.answer_id == myan.answer_id select c;
                     foreach (var temann in teman)
                     {
                         switch (step)
@@ -640,13 +640,19 @@ where T : DependencyObject
                 duicuo();
             }
 
-            foreach (var q in dati_canvas.Children)
+            //foreach (var q in dati_canvas.Children)
+            //{
+            //    QuestionNum temnum = q as QuestionNum;
+            //    if (temnum != null && temnum.Name == "q0")
+            //    {
+            //        temnum.setbackcolor();
+            //    }
+            //}
+
+            QuestionNum temnum = dati_canvas.FindName("q0") as QuestionNum;
+            if (temnum != null)
             {
-                QuestionNum temnum = q as QuestionNum;
-                if (temnum != null && temnum.Name == "q0")
-                {
-                    temnum.setbackcolor();
-                }
+                temnum.setbackcolor();
             }
 
 
@@ -913,9 +919,10 @@ where T : DependencyObject
                 }
 
 
-
-                judge_answer();
-                answer_UI();
+                ThreadPool.QueueUserWorkItem(judge_answer, "");
+                ThreadPool.QueueUserWorkItem(answer_UI, "");
+                //judge_answer();
+                //answer_UI();
                 shouzheng_cal(last_index);
                 errquestion(last_index);
                 //play_voice(timu_textBlock.Text);
@@ -967,8 +974,10 @@ where T : DependencyObject
                         duicuo();
                     }
 
-                    judge_answer();
-                    answer_UI();
+                    ThreadPool.QueueUserWorkItem(judge_answer, "");
+                    ThreadPool.QueueUserWorkItem(answer_UI, "");
+                    //judge_answer();
+                    //answer_UI();
                     shouzheng_cal(last_index);
                     errquestion(last_index);
                     play_voice(timu_textBlock.Text);
@@ -1047,8 +1056,10 @@ where T : DependencyObject
 
             if (PublicClass.user_id != -1 || question_id < 10)
             {
-                judge_answer();
-                answer_UI();
+                ThreadPool.QueueUserWorkItem(judge_answer, "");
+                ThreadPool.QueueUserWorkItem(answer_UI, "");
+                //judge_answer();
+                //answer_UI();
                 shouzheng_cal(question_id + 1);
                 errquestion(question_id + 1);
                 err_count(question_id + 1);
@@ -1096,9 +1107,10 @@ where T : DependencyObject
             //        break;
             //    }
             //}
-
+            last_question_lab_index = cur_question_lab_index;
             cur_question_lab_index++;
-            select_question(cur_question_lab_index);
+            ThreadPool.QueueUserWorkItem(select_question, cur_question_lab_index);
+            //select_question(cur_question_lab_index);
 
 
 
@@ -1141,11 +1153,16 @@ where T : DependencyObject
 
             if (PublicClass.user_id != -1 || cur_question_lab_index < 10)
             {
-                judge_answer();
-                answer_UI();
-                shouzheng_cal(cur_question_lab_index - 1);
-                errquestion(cur_question_lab_index - 1);
-                err_count(cur_question_lab_index - 1);
+                ThreadPool.QueueUserWorkItem(judge_answer,"");
+                //judge_answer();
+                ThreadPool.QueueUserWorkItem(answer_UI, "");
+                //answer_UI();
+                ThreadPool.QueueUserWorkItem(shouzheng_cal, cur_question_lab_index - 1);
+                //shouzheng_cal(cur_question_lab_index - 1);
+                ThreadPool.QueueUserWorkItem(errquestion, cur_question_lab_index - 1);
+                //errquestion(cur_question_lab_index - 1);
+                ThreadPool.QueueUserWorkItem(err_count, cur_question_lab_index - 1);
+                //err_count(cur_question_lab_index - 1);
                 play_voice(timu_textBlock.Text);
                 if (cur_question_lab_index < question_c)
                 {
@@ -1154,7 +1171,7 @@ where T : DependencyObject
                 error_messages(cur_question_lab_index - 1);
             }
 
-            last_question_lab_index = cur_question_lab_index;
+            //last_question_lab_index = cur_question_lab_index;
 
             //DateTime t2 = DateTime.Now;
             //MessageBox.Show((t2 - t1).ToString());
@@ -1164,20 +1181,28 @@ where T : DependencyObject
         }
 
 
-        private void err_count(int question_id)//做错次数显示
+        private void err_count(object data)//做错次数显示
         {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
-            jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
-            var myerr = from c in jiakaoDataSet.errquest where question_id == c.amount select c;
-            if (myerr.Count() > 0)
-            {
-                errcount.Text = myerr.First().amount.ToString();
-            }
-            else
-            {
-                errcount.Text = "0";
-            }
+                Dispatcher.Invoke(new Action(() =>
+                    {
+                        
+                            int question_id = int.Parse(data.ToString());
+                            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+                            DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
+                            lock (jiakaoDataSet)
+                            {
+                                jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
+                                var myerr = from c in jiakaoDataSet.errquest where question_id == c.amount select c;
+                                if (myerr.Count() > 0)
+                                {
+                                    errcount.Text = myerr.First().amount.ToString();
+                                }
+                                else
+                                {
+                                    errcount.Text = "0";
+                                }
+                            }
+                    }));
 
         }
 
@@ -1203,8 +1228,11 @@ where T : DependencyObject
             }
         }
 
-        private void shouzheng_cal(int question_id)//计算首正
+        private void shouzheng_cal(object data)//计算首正
         {
+                                Dispatcher.Invoke(new Action(() =>
+                    {
+            int question_id = int.Parse(data.ToString());
             if (PublicClass.question_list[question_id].select_answer != "")
             {
                 if (PublicClass.question_list[question_id].rept_do == 0 && PublicClass.question_list[question_id].check_answer == false)
@@ -1230,18 +1258,19 @@ where T : DependencyObject
                 int weida_count = (from c in PublicClass.question_list where c.rept_do == 0 select c).Count();
                 weida.Text = weida_count.ToString();
             }
+                    }));
         }
 
         private void process_question_type(int question_id)//判断所选题型
         {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 question 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+            //DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            //// 将数据加载到表 question 中。可以根据需要修改此代码。
+            //DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            //jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
 
-            // 将数据加载到表 answer 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
-            jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+            //// 将数据加载到表 answer 中。可以根据需要修改此代码。
+            //DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
+            //jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
             if (PublicClass.question_list[question_id].question_type.Contains("PD"))
             {
                 current_question_type = "P";
@@ -1261,72 +1290,87 @@ where T : DependencyObject
         }
 
         //判断对错
-        private void judge_answer()
+        private void judge_answer(object data)
         {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 question 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+                      Dispatcher.Invoke(new Action(() =>
+                    {
+            //DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            //// 将数据加载到表 question 中。可以根据需要修改此代码。
+            //DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            //jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
 
-            // 将数据加载到表 answer 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
-            jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+            //// 将数据加载到表 answer 中。可以根据需要修改此代码。
+            //DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
+            //jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
 
             //DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
             //jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
 
             //    var answer = from c in jiakaoDataSet.answer where c.question_id == question_list[question_id].question_id select c;
-            foreach (var lab in dati_canvas.Children)
+            //foreach (var lab in dati_canvas.Children)
+            //{
+            //    QuestionNum mylab = lab as QuestionNum;
+            //    int question_index = int.Parse(mylab.Name.ToString().Substring(1, mylab.Name.ToString().Length - 1));
+            //    mylab.check_answer(PublicClass.question_list[question_index].check_answer);
+            //}
+
+            QuestionNum mylab = dati_canvas.FindName("q" + last_question_lab_index) as QuestionNum;
+            if (mylab != null)
             {
-                QuestionNum mylab = lab as QuestionNum;
-                int question_index = int.Parse(mylab.Name.ToString().Substring(1, mylab.Name.ToString().Length - 1));
-                mylab.check_answer(PublicClass.question_list[question_index].check_answer);
+                mylab.check_answer(PublicClass.question_list[last_question_lab_index].check_answer);
             }
+                    }));
+
 
         }
 
         //储存错题
-        private void errquestion(int id)
+        private void errquestion(object data)
         {
+            int id = int.Parse(data.ToString());
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 question 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
-
-            DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
-            jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
-
-            if (PublicClass.question_list[id].check_answer == false && is_click_flag)
+            lock (jiakaoDataSet)
             {
-                var err = from c in jiakaoDataSet.errquest where c.question_id == PublicClass.question_list[id].question_id && c.user_id == PublicClass.user_id select c;
-                if (err.Count() > 0)
-                {
-                    err.First().amount += 1;
-                }
-                else
-                {
-                    jiakaoDataSeterrquestTableAdapter.Insert(PublicClass.user_id, PublicClass.question_list[id].question_id, 1);
-                }
-                jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
-                jiakaoDataSet.errquest.AcceptChanges();
-            }
-            else if (PublicClass.question_list[id].check_answer == true && PublicClass.delerr)
-            {
-                var delquestion = from c in jiakaoDataSet.errquest where c.question_id == PublicClass.question_list[id].question_id && c.user_id == PublicClass.user_id select c;
-                if (delquestion.Count() != 0)
-                {
-                    delquestion.First().Delete();
-                }
-                jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
-                jiakaoDataSet.errquest.AcceptChanges();
+                DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+                jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
 
+                DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
+                jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
+
+                if (PublicClass.question_list[id].check_answer == false && is_click_flag)
+                {
+                    var err = from c in jiakaoDataSet.errquest where c.question_id == PublicClass.question_list[id].question_id && c.user_id == PublicClass.user_id select c;
+                    if (err.Count() > 0)
+                    {
+                        err.First().amount += 1;
+                    }
+                    else
+                    {
+                        jiakaoDataSeterrquestTableAdapter.Insert(PublicClass.user_id, PublicClass.question_list[id].question_id, 1);
+                    }
+                    jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
+                    jiakaoDataSet.errquest.AcceptChanges();
+                }
+                else if (PublicClass.question_list[id].check_answer == true && PublicClass.delerr)
+                {
+                    var delquestion = from c in jiakaoDataSet.errquest where c.question_id == PublicClass.question_list[id].question_id && c.user_id == PublicClass.user_id select c;
+                    if (delquestion.Count() != 0)
+                    {
+                        delquestion.First().Delete();
+                    }
+                    jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
+                    jiakaoDataSet.errquest.AcceptChanges();
+
+                }
             }
             is_click_flag = false;
         }
 
         //生成题目和答案
-        private void select_question(int question_id)//
+        private void select_question(object data)//
         {
+            int question_id = int.Parse(data.ToString());
             //DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             //// 将数据加载到表 question 中。可以根据需要修改此代码。
             //DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
@@ -1350,8 +1394,10 @@ where T : DependencyObject
 
 
             //}
-            if (last_question_lab_index != cur_question_lab_index)
-            {
+            //if (last_question_lab_index != cur_question_lab_index)
+            //{
+             Dispatcher.Invoke(new Action(() =>
+                    {
                 QuestionNum lastqu = dati_canvas.FindName("q" + last_question_lab_index) as QuestionNum;
                 if (lastqu != null)
                 {
@@ -1362,7 +1408,8 @@ where T : DependencyObject
                 {
                     curqu.setbackcolor();
                 }
-            }
+                    
+            //}
 
             //QuestionNum qu = sender as QuestionNum;
             //qu.setbackcolor();
@@ -1496,56 +1543,95 @@ where T : DependencyObject
                     xuanxiang_textBlock4.Text = "";
                 }
             }
-
+                    }));
         }
 
 
-        private void answer_UI()//处理所选答案在UI的显示
+        private void answer_UI(object data)//处理所选答案在UI的显示
         {
+            Dispatcher.Invoke(new Action(() =>
+                    {
             a_button.IsChecked = false;
             b_button.IsChecked = false;
             c_button.IsChecked = false;
             d_button.IsChecked = false;
             xuanxiang_textBlock.Text = "";
-            foreach (var lab in dati_canvas.Children)
+            //foreach (var lab in dati_canvas.Children)
+            //{
+
+            //    QuestionNum mylab = lab as QuestionNum;
+            //    if (mylab.canvas1.Background == Brushes.SkyBlue)
+            //    {
+            //        if (mylab.label2.Content.ToString().Contains("A"))
+            //        {
+            //            a_button.IsChecked = true;
+            //            xuanxiang_textBlock.Text += "A";
+            //        }
+            //        if (mylab.label2.Content.ToString().Contains("B"))
+            //        {
+            //            b_button.IsChecked = true;
+            //            xuanxiang_textBlock.Text += "B";
+            //        }
+            //        if (mylab.label2.Content.ToString().Contains("C"))
+            //        {
+            //            c_button.IsChecked = true;
+            //            xuanxiang_textBlock.Text += "C";
+            //        }
+            //        if (mylab.label2.Content.ToString().Contains("D"))
+            //        {
+            //            d_button.IsChecked = true;
+            //            xuanxiang_textBlock.Text += "D";
+            //        }
+            //        if (mylab.label2.Content.ToString().Contains("√"))
+            //        {
+            //            a_button.IsChecked = true;
+            //            xuanxiang_textBlock.Text += "√";
+            //        }
+            //        if (mylab.label2.Content.ToString().Contains("×"))
+            //        {
+            //            b_button.IsChecked = true;
+            //            xuanxiang_textBlock.Text += "×";
+            //        }
+            //    }
+
+            //}
+            QuestionNum mylab = dati_canvas.FindName("q" + cur_question_lab_index) as QuestionNum;
+            if (mylab != null)
             {
-
-                QuestionNum mylab = lab as QuestionNum;
-                if (mylab.canvas1.Background == Brushes.SkyBlue)
+                if (mylab.label2.Content.ToString().Contains("A"))
                 {
-                    if (mylab.label2.Content.ToString().Contains("A"))
-                    {
-                        a_button.IsChecked = true;
-                        xuanxiang_textBlock.Text += "A";
-                    }
-                    if (mylab.label2.Content.ToString().Contains("B"))
-                    {
-                        b_button.IsChecked = true;
-                        xuanxiang_textBlock.Text += "B";
-                    }
-                    if (mylab.label2.Content.ToString().Contains("C"))
-                    {
-                        c_button.IsChecked = true;
-                        xuanxiang_textBlock.Text += "C";
-                    }
-                    if (mylab.label2.Content.ToString().Contains("D"))
-                    {
-                        d_button.IsChecked = true;
-                        xuanxiang_textBlock.Text += "D";
-                    }
-                    if (mylab.label2.Content.ToString().Contains("√"))
-                    {
-                        a_button.IsChecked = true;
-                        xuanxiang_textBlock.Text += "√";
-                    }
-                    if (mylab.label2.Content.ToString().Contains("×"))
-                    {
-                        b_button.IsChecked = true;
-                        xuanxiang_textBlock.Text += "×";
-                    }
+                    a_button.IsChecked = true;
+                    xuanxiang_textBlock.Text += "A";
                 }
-
+                if (mylab.label2.Content.ToString().Contains("B"))
+                {
+                    b_button.IsChecked = true;
+                    xuanxiang_textBlock.Text += "B";
+                }
+                if (mylab.label2.Content.ToString().Contains("C"))
+                {
+                    c_button.IsChecked = true;
+                    xuanxiang_textBlock.Text += "C";
+                }
+                if (mylab.label2.Content.ToString().Contains("D"))
+                {
+                    d_button.IsChecked = true;
+                    xuanxiang_textBlock.Text += "D";
+                }
+                if (mylab.label2.Content.ToString().Contains("√"))
+                {
+                    a_button.IsChecked = true;
+                    xuanxiang_textBlock.Text += "√";
+                }
+                if (mylab.label2.Content.ToString().Contains("×"))
+                {
+                    b_button.IsChecked = true;
+                    xuanxiang_textBlock.Text += "×";
+                }
             }
+                    }));
+
+
         }
 
         //语音朗读
@@ -1554,29 +1640,32 @@ where T : DependencyObject
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 setting 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
-            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
-
-            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
-            foreach (var s in set)
+            lock (jiakaoDataSet)
             {
-                if (s.phonetic_reading != 2)//启用
+                jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+                var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+                foreach (var s in set)
                 {
-                    playvoice = true;
-                    if (s.phonetic_reading == 0)//女声
+                    if (s.phonetic_reading != 2)//启用
                     {
-                        synth.SpeakAsyncCancelAll();
-                        synth.SelectVoiceByHints(VoiceGender.Female, VoiceAge.Adult);
-                        synth.SpeakAsync(playtxt);
+                        playvoice = true;
+                        if (s.phonetic_reading == 0)//女声
+                        {
+                            synth.SpeakAsyncCancelAll();
+                            synth.SelectVoiceByHints(VoiceGender.Female, VoiceAge.Adult);
+                            synth.SpeakAsync(playtxt);
+                        }
+                        else//男声
+                        {
+                            synth.SpeakAsyncCancelAll();
+                            synth.SelectVoiceByHints(VoiceGender.Male, VoiceAge.Adult);
+                            synth.SpeakAsync(playtxt);
+                        }
                     }
-                    else//男声
-                    {
-                        synth.SpeakAsyncCancelAll();
-                        synth.SelectVoiceByHints(VoiceGender.Male, VoiceAge.Adult);
-                        synth.SpeakAsync(playtxt);
-                    }
+                    else//不启用
+                    { }
                 }
-                else//不启用
-                { }
             }
         }
 
@@ -1585,13 +1674,13 @@ where T : DependencyObject
         private void xuanxiang_button_Click(object sender, RoutedEventArgs e)
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 question 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+            //// 将数据加载到表 question 中。可以根据需要修改此代码。
+            //DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            //jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
 
-            // 将数据加载到表 answer 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
-            jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+            //// 将数据加载到表 answer 中。可以根据需要修改此代码。
+            //DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
+            //jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
 
             // 将数据加载到表 setting 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
@@ -1600,20 +1689,23 @@ where T : DependencyObject
 
             var question_index = 0;
             string select_lab = "";
-            QuestionNum selectquestionnum = new QuestionNum();
-            foreach (var q_index in dati_canvas.Children)
-            {
-                QuestionNum mylab = q_index as QuestionNum;
-                if (mylab != null)
-                {
-                    if (mylab.canvas1.Background == Brushes.SkyBlue)
-                    {
-                        question_index = int.Parse(mylab.Name.ToString().Substring(1, mylab.Name.ToString().Length - 1));
-                        selectquestionnum = q_index as QuestionNum;
-                    }
-                }
-                ////
-            }
+            //QuestionNum selectquestionnum = new QuestionNum();
+            //foreach (var q_index in dati_canvas.Children)
+            //{
+            //    QuestionNum mylab = q_index as QuestionNum;
+            //    if (mylab != null)
+            //    {
+            //        if (mylab.canvas1.Background == Brushes.SkyBlue)
+            //        {
+            //            question_index = int.Parse(mylab.Name.ToString().Substring(1, mylab.Name.ToString().Length - 1));
+            //            selectquestionnum = q_index as QuestionNum;
+            //        }
+            //    }
+            //    ////
+            //}
+
+            question_index = cur_question_lab_index;
+            QuestionNum selectquestionnum = dati_canvas.FindName("q" + cur_question_lab_index) as QuestionNum;
             //int question_id = 0;
 
 
@@ -1686,7 +1778,7 @@ where T : DependencyObject
 
 
                 bool q;
-                var ques = from c in jiakaoDataSet.question where c.question_id == PublicClass.question_list[question_index].question_id select c;
+                var ques = from c in PublicClass.question_data where c.question_id == PublicClass.question_list[question_index].question_id select c;
                 if (ques.Last().is_judge == 1 && select_lab == "√")
                 {
                     q = true;
