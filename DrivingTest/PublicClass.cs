@@ -87,6 +87,22 @@ namespace DrivingTest
         }
         public static List<answers> answer_data = new List<answers>();
 
+        public class chapters
+        {
+            public int chapter_id;
+            public string chapter;
+            public string updated_at;
+        }
+        public static List<chapters> chapter_data = new List<chapters>();
+
+        public class subjects
+        {
+            public int subject_id;
+            public string subject;
+            public string updated_at;
+        }
+        public static List<subjects> subject_data = new List<subjects>();
+
 
     }
 }

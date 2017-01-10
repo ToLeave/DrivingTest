@@ -49,7 +49,7 @@ namespace DrivingTest
         bool playvoice = false;
         int last_question_lab_index = 0;//上一次选中题标签的索引
         int cur_question_lab_index = 0;//当前选中题标签的索引
-
+        bool first_run = true;//首次运行
 
 
 
@@ -105,92 +105,96 @@ where T : DependencyObject
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //this.Name = "mainW";
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 question 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
-
-            // 将数据加载到表 answer 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
-            jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
-
-            DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter jiakaoDataSetuserTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter();
-            jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
-
-
-            register_key();//注册快捷键
-
-            //random_question();//随机抽题
-
-            //create_question_num();//生成题号
-
-            //questionindex();//初始化第一题
-
-            var user = from c in jiakaoDataSet.user where c.user_id == PublicClass.user_id select c;
-            
-            foreach (var u in user)
+            if (first_run)
             {
-                string image_name = u.login;
+                //this.Name = "mainW";
+                DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+                // 将数据加载到表 question 中。可以根据需要修改此代码。
+                DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+                jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
 
-                if (u.name != "")
-                {
-                    name_textBlock.Text = u.name;
-                }
-                if (u.sex != "")
-                {
-                    sex_textBlock.Text = u.sex;
-                }
-                BitmapImage imagetemp = new BitmapImage(new Uri(System.Windows.Forms.Application.StartupPath + "\\Image\\User\\" + image_name + ".jpg", UriKind.Relative));//用户头像 相对路径
-                //BitmapImage imagemoren = new BitmapImage(new Uri("\\DrivingTest;component\\Images\\学员头像.png"));
-                string ima = "\"" + imagetemp.ToString() + "\"";
-                if (File.Exists(imagetemp.ToString()))//如果路径存在 相对路径
-                {
-                    imagetemp = new BitmapImage(new Uri("\\Image\\User\\" + image_name + ".jpg", UriKind.Relative));//绝对路径
-                    touxiang_image.Source = imagetemp; //绝对路径
-                }
-                else
-                {
-                    
-                }
-                //else
-                //{
-                //    touxiang_image.Source = imagemoren;
-                //}
+                // 将数据加载到表 answer 中。可以根据需要修改此代码。
+                DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
+                jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
 
+                DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter jiakaoDataSetuserTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter();
+                jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
+
+
+                register_key();//注册快捷键
+
+                //random_question();//随机抽题
+
+                //create_question_num();//生成题号
+
+                //questionindex();//初始化第一题
+
+                var user = from c in jiakaoDataSet.user where c.user_id == PublicClass.user_id select c;
+
+                foreach (var u in user)
+                {
+                    string image_name = u.login;
+
+                    if (u.name != "")
+                    {
+                        name_textBlock.Text = u.name;
+                    }
+                    if (u.sex != "")
+                    {
+                        sex_textBlock.Text = u.sex;
+                    }
+                    BitmapImage imagetemp = new BitmapImage(new Uri(System.Windows.Forms.Application.StartupPath + "\\Image\\User\\" + image_name + ".jpg", UriKind.Relative));//用户头像 相对路径
+                    //BitmapImage imagemoren = new BitmapImage(new Uri("\\DrivingTest;component\\Images\\学员头像.png"));
+                    string ima = "\"" + imagetemp.ToString() + "\"";
+                    if (File.Exists(imagetemp.ToString()))//如果路径存在 相对路径
+                    {
+                        imagetemp = new BitmapImage(new Uri("\\Image\\User\\" + image_name + ".jpg", UriKind.Relative));//绝对路径
+                        touxiang_image.Source = imagetemp; //绝对路径
+                    }
+                    else
+                    {
+
+                    }
+                    //else
+                    //{
+                    //    touxiang_image.Source = imagemoren;
+                    //}
+
+                }
+                chouti_count.Text = question_c.ToString();
+                weida.Text = question_c.ToString();
+
+                // Configure the audio output. 
+                synth.SetOutputToDefaultAudioDevice();
+                synth.SelectVoiceByHints(VoiceGender.Male);
+                // Speak a string.
+                synth.Volume = 100;
+                synth.Rate = 0;
+
+
+                #region 启动定时器
+
+                //设置定时器
+
+                timer.Interval = new TimeSpan(10000000);   //时间间隔为一秒
+                timer.Tick += new EventHandler(timer_Tick);
+                timer.Start();
+
+
+                //转换成秒数
+                //Int32 hour = Convert.ToInt32(HourArea.Text);
+                //Int32 minute = Convert.ToInt32(MinuteArea.Text);
+                //Int32 second = Convert.ToInt32(SecondArea.Text);
+
+                //处理倒计时的类
+                //processCount = new ProcessCount(hour * 3600 + minute * 60 + second);
+                //CountDown += new CountDownHandler(processCount.ProcessCountDown);
+
+
+
+                #endregion
+                first_run = false;
             }
-            chouti_count.Text = question_c.ToString();
-            weida.Text = question_c.ToString();
-
-            // Configure the audio output. 
-            synth.SetOutputToDefaultAudioDevice();
-            synth.SelectVoiceByHints(VoiceGender.Male);
-            // Speak a string.
-            synth.Volume = 100;
-            synth.Rate = 0;
-
-
-            #region 启动定时器
-
-            //设置定时器
-
-            timer.Interval = new TimeSpan(10000000);   //时间间隔为一秒
-            timer.Tick += new EventHandler(timer_Tick);
-
-
-
-            //转换成秒数
-            //Int32 hour = Convert.ToInt32(HourArea.Text);
-            //Int32 minute = Convert.ToInt32(MinuteArea.Text);
-            //Int32 second = Convert.ToInt32(SecondArea.Text);
-
-            //处理倒计时的类
-            //processCount = new ProcessCount(hour * 3600 + minute * 60 + second);
-            //CountDown += new CountDownHandler(processCount.ProcessCountDown);
-
-
-
-            #endregion
 
         }
 
@@ -354,7 +358,7 @@ where T : DependencyObject
             //question_c = PublicClass.question_list.Count();
 
             //开启定时器
-            timer.Start();
+            //timer.Start();
 
 
 

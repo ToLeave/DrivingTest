@@ -58,9 +58,13 @@ namespace DrivingTest
 
         List<PublicClass.questions> local_question_data = new List<PublicClass.questions>();
         List<PublicClass.answers> local_answer_data = new List<PublicClass.answers>();
+        List<PublicClass.chapters> local_chapter_data = new List<PublicClass.chapters>();
+        List<PublicClass.subjects> local_subject_data = new List<PublicClass.subjects>();
 
         bool question_update_compaleted = false;
         bool answer_update_compaleted = false;
+        bool chapter_update_compaleted = false;
+        bool subject_update_compaleted = false;
 
         string ip = ""; //ip
 
@@ -152,6 +156,42 @@ where T : DependencyObject
         }
 
 
+        private void get_local_chapters(object data)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+
+            // 将数据加载到表 chapter 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
+            jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
+
+            foreach (var mychapter in jiakaoDataSet.chapter)
+            {
+                PublicClass.chapters chapter = new PublicClass.chapters();
+                chapter.chapter_id = mychapter.chapter_id;
+                chapter.chapter = mychapter.chapter;
+                chapter.updated_at = mychapter.updated_at;
+                local_chapter_data.Add(chapter);
+            }
+        }
+
+        private void get_local_subject(object data)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+
+            // 将数据加载到表 subject 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
+            jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
+
+            foreach (var mysubject in jiakaoDataSet.subject)
+            {
+                PublicClass.subjects subject = new PublicClass.subjects();
+                subject.subject_id = mysubject.subject_id;
+                subject.subject = mysubject.subject;
+                subject.updated_at = mysubject.updated_at;
+                local_subject_data.Add(subject);
+            }
+        }
+
         private void get_local_questions(object data)
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
@@ -222,6 +262,8 @@ where T : DependencyObject
             //ThreadPool.QueueUserWorkItem(get_local_answers, "");
             get_local_questions("");
             get_local_answers("");
+            //get_local_chapters("");
+            //get_local_subject("");
 
             //maincanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
 
@@ -327,6 +369,8 @@ where T : DependencyObject
                             }
                             else
                             {
+                                user_textBox.IsEnabled = false;
+                                password_textBox.IsEnabled = false;
                                 updatequestion();
                                 //updatedownload();
                                 //version(getchkupdstr);
@@ -728,6 +772,61 @@ where T : DependencyObject
         }
         #endregion
 
+        private void update_local_chapter(object data)
+        {
+            foreach (var remotechapter in chapter_json)
+            {
+                PublicClass.chapters chapter = new PublicClass.chapters();
+                try
+                {
+                    chapter.chapter_id = int.Parse(remotechapter["id"].ToString());
+                }
+                catch { }
+
+                try
+                {
+                    chapter.chapter = remotechapter["chapter"].ToString();
+                }
+                catch { }
+
+                try
+                {
+                    chapter.updated_at = remotechapter["updated_at"].ToString();
+                }
+                catch { }
+                local_chapter_data.Add(chapter);
+            }
+            //chapter_update_compaleted = true;
+            //data_complete_validate();
+            set_chapter("");
+        }
+
+        private void update_subject_data(object data)
+        {
+            foreach (var remotesubject in subject_json)
+            {
+                PublicClass.subjects subject = new PublicClass.subjects();
+                try
+                {
+                    subject.subject_id = int.Parse(remotesubject["id"].ToString());
+                }
+                catch { }
+                try
+                {
+                    subject.subject = remotesubject["subject"].ToString();
+                }
+                catch { }
+                try
+                {
+                    subject.updated_at = remotesubject["updated_at"].ToString();
+                }
+                catch { }
+                local_subject_data.Add(subject);
+            }
+            //subject_update_compaleted = true;
+            //data_complete_validate();
+            set_subject("");
+        }
 
         private void update_local_question(object data)//更新内存题库
         {
@@ -1097,117 +1196,118 @@ where T : DependencyObject
                 #endregion
                 #region 写入和更新章节科目表
                 //写入和更新章节表
-                foreach (var remotechapter in chapter_json)
-                {
-                    var localchapter = from c in jiakaoDataSet.chapter where remotechapter["id"].ToString() == c.chapter_id.ToString() select c;
+                //foreach (var remotechapter in chapter_json)
+                //{
+                //    var localchapter = from c in jiakaoDataSet.chapter where remotechapter["id"].ToString() == c.chapter_id.ToString() select c;
 
-                    if (localchapter.Count() == 0)
-                    {
-                        int id = int.Parse(remotechapter["id"].ToString());
+                //    if (localchapter.Count() == 0)
+                //    {
+                //        int id = int.Parse(remotechapter["id"].ToString());
 
-                        string cha;
-                        try { cha = remotechapter["chapter"].ToString(); }
-                        catch { cha = ""; }
+                //        string cha;
+                //        try { cha = remotechapter["chapter"].ToString(); }
+                //        catch { cha = ""; }
 
-                        string upd;
-                        try { upd = remotechapter["updated_at"].ToString(); }
-                        catch { upd = ""; }
-                        jiakaoDataSet.chapter.AddchapterRow(id, cha, upd);
-                    }
-                    else
-                    {
-                        foreach (var lc in localchapter)
-                        {
-                            if (remotechapter["updated_at"].ToString() != lc.updated_at)
-                            {
-                                int id = int.Parse(remotechapter["id"].ToString());
+                //        string upd;
+                //        try { upd = remotechapter["updated_at"].ToString(); }
+                //        catch { upd = ""; }
+                //        jiakaoDataSet.chapter.AddchapterRow(id, cha, upd);
+                //    }
+                //    else
+                //    {
+                //        foreach (var lc in localchapter)
+                //        {
+                //            if (remotechapter["updated_at"].ToString() != lc.updated_at)
+                //            {
+                //                int id = int.Parse(remotechapter["id"].ToString());
 
-                                string cha;
-                                try { cha = remotechapter["chapter"].ToString(); }
-                                catch { cha = ""; }
+                //                string cha;
+                //                try { cha = remotechapter["chapter"].ToString(); }
+                //                catch { cha = ""; }
 
-                                string upd;
-                                try { upd = remotechapter["updated_at"].ToString(); }
-                                catch { upd = ""; }
+                //                string upd;
+                //                try { upd = remotechapter["updated_at"].ToString(); }
+                //                catch { upd = ""; }
 
-                                lc.chapter_id = id;
-                                lc.chapter = cha;
-                                lc.updated_at = upd;
-                            }
-                        }
-                    }
-                    now_synccount++;
-                    //xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
-                    cur_question_step++;
+                //                lc.chapter_id = id;
+                //                lc.chapter = cha;
+                //                lc.updated_at = upd;
+                //            }
+                //        }
+                //    }
+                //    now_synccount++;
+                //    //xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
+                //    cur_question_step++;
 
-                    xianshi.Text = "同步章节..." + cur_question_step;
+                //    xianshi.Text = "同步章节..." + cur_question_step;
 
-                    progress.Value = now_synccount / synccount * 100;
-                    System.Windows.Forms.Application.DoEvents();
-                }
-                xianshi.Text = "写入章节...";
-                System.Windows.Forms.Application.DoEvents();
-                jiakaoDataSetchapterTableAdapter.Update(jiakaoDataSet.chapter);
-                jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
-                jiakaoDataSet.chapter.AcceptChanges();
+                //    progress.Value = now_synccount / synccount * 100;
+                //    System.Windows.Forms.Application.DoEvents();
+                //}
+                ThreadPool.QueueUserWorkItem(update_local_chapter, chapter_json);
+                //xianshi.Text = "写入章节...";
+                //System.Windows.Forms.Application.DoEvents();
+                //jiakaoDataSetchapterTableAdapter.Update(jiakaoDataSet.chapter);
+                //jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
+                //jiakaoDataSet.chapter.AcceptChanges();
 
                 //写入和更新科目表
-                foreach (var remotesubject in subject_json)
-                {
-                    var localsubject = from c in jiakaoDataSet.subject where remotesubject["id"].ToString() == c.subject_id.ToString() select c;
+                //foreach (var remotesubject in subject_json)
+                //{
+                //    var localsubject = from c in jiakaoDataSet.subject where remotesubject["id"].ToString() == c.subject_id.ToString() select c;
 
-                    if (localsubject.Count() == 0)
-                    {
-                        int id = int.Parse(remotesubject["id"].ToString());
+                //    if (localsubject.Count() == 0)
+                //    {
+                //        int id = int.Parse(remotesubject["id"].ToString());
 
-                        string sub;
-                        try { sub = remotesubject["subject"].ToString(); }
-                        catch { sub = ""; }
+                //        string sub;
+                //        try { sub = remotesubject["subject"].ToString(); }
+                //        catch { sub = ""; }
 
-                        string upd;
-                        try { upd = remotesubject["updated_at"].ToString(); }
-                        catch { upd = ""; }
+                //        string upd;
+                //        try { upd = remotesubject["updated_at"].ToString(); }
+                //        catch { upd = ""; }
 
-                        jiakaoDataSet.subject.AddsubjectRow(id, sub, upd);
-                    }
-                    else
-                    {
-                        foreach (var ls in localsubject)
-                        {
-                            if (remotesubject["updated_at"].ToString() != ls.updated_at)
-                            {
-                                int id = int.Parse(remotesubject["id"].ToString());
+                //        jiakaoDataSet.subject.AddsubjectRow(id, sub, upd);
+                //    }
+                //    else
+                //    {
+                //        foreach (var ls in localsubject)
+                //        {
+                //            if (remotesubject["updated_at"].ToString() != ls.updated_at)
+                //            {
+                //                int id = int.Parse(remotesubject["id"].ToString());
 
-                                string sub;
-                                try { sub = remotesubject["subject"].ToString(); }
-                                catch { sub = ""; }
+                //                string sub;
+                //                try { sub = remotesubject["subject"].ToString(); }
+                //                catch { sub = ""; }
 
-                                string upd;
-                                try { upd = remotesubject["updated_at"].ToString(); }
-                                catch { upd = ""; }
+                //                string upd;
+                //                try { upd = remotesubject["updated_at"].ToString(); }
+                //                catch { upd = ""; }
 
-                                ls.subject_id = id;
-                                ls.subject = sub;
-                                ls.updated_at = upd;
-                            }
+                //                ls.subject_id = id;
+                //                ls.subject = sub;
+                //                ls.updated_at = upd;
+                //            }
 
-                        }
-                    }
+                //        }
+                //    }
+                ThreadPool.QueueUserWorkItem(update_subject_data, subject_json);
+                //    now_synccount++;
+                //    //xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
+                //    cur_question_step++;
 
-                    now_synccount++;
-                    //xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
-                    cur_question_step++;
+                //    xianshi.Text = "同步科目..." + cur_question_step;
 
-                    xianshi.Text = "同步科目..." + cur_question_step;
-
-                    progress.Value = now_synccount / synccount * 100;
-                    System.Windows.Forms.Application.DoEvents();
-                }
-                xianshi.Text = "写入科目...";
-                System.Windows.Forms.Application.DoEvents();
-                jiakaoDataSetsubjectTableAdapter.Update(jiakaoDataSet.subject);
-                jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
-                jiakaoDataSet.subject.AcceptChanges();
+                //    progress.Value = now_synccount / synccount * 100;
+                //    System.Windows.Forms.Application.DoEvents();
+                //}
+                //xianshi.Text = "写入科目...";
+                //System.Windows.Forms.Application.DoEvents();
+                //jiakaoDataSetsubjectTableAdapter.Update(jiakaoDataSet.subject);
+                //jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
+                //jiakaoDataSet.subject.AcceptChanges();
                 #endregion
                 if (reader != null)
                 {
@@ -1253,6 +1353,46 @@ where T : DependencyObject
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void set_chapter(object data)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+
+            // 将数据加载到表 chapter 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
+            lock (jiakaoDataSet)
+            {
+                jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
+                jiakaoDataSet.chapter.Clear();
+                foreach (var mychapter in local_chapter_data)
+                {
+                    jiakaoDataSet.chapter.AddchapterRow(mychapter.chapter_id, mychapter.chapter, mychapter.updated_at);
+                }
+                jiakaoDataSetchapterTableAdapter.Update(jiakaoDataSet.chapter);
+                jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
+                jiakaoDataSet.chapter.AcceptChanges();
+            }
+        }
+
+        private void set_subject(object data)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+
+            // 将数据加载到表 subject 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
+            lock (jiakaoDataSet)
+            {
+                jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
+                jiakaoDataSet.subject.Clear();
+                foreach (var mysubject in local_subject_data)
+                {
+                    jiakaoDataSet.subject.AddsubjectRow(mysubject.subject_id, mysubject.subject, mysubject.updated_at);
+                }
+                jiakaoDataSetsubjectTableAdapter.Update(jiakaoDataSet.subject);
+                jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
+                jiakaoDataSet.subject.AcceptChanges();
             }
         }
 
@@ -1515,12 +1655,16 @@ where T : DependencyObject
 
                     ThreadPool.QueueUserWorkItem(set_question, "");
                     ThreadPool.QueueUserWorkItem(set_answer, "");
+                    //ThreadPool.QueueUserWorkItem(set_chapter, "");
+                    //ThreadPool.QueueUserWorkItem(set_subject, "");
                     //set_question("");
                     //set_answer("");
                     ThreadPool.QueueUserWorkItem(push_to_public, "");
 
 
                     xianshi.Text = "更新完成";
+                    user_textBox.IsEnabled = true;
+                    password_textBox.IsEnabled = true;
                 }
                 catch (Exception ex)
                 {
@@ -2161,8 +2305,10 @@ where T : DependencyObject
                     c1ma.IsResizable = false;
 
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
-                    this.WindowState = System.Windows.WindowState.Maximized;
                     maincanvas.Visibility = Visibility.Hidden;
+                    System.Windows.Forms.Application.DoEvents();
+                    this.WindowState = System.Windows.WindowState.Maximized;
+                    
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
                 else if (subjectname == "科目四")
@@ -2177,10 +2323,12 @@ where T : DependencyObject
                     c1ma.Name = "科目四";
                     c1ma.Header = "小车类:科目四";
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+                    maincanvas.Visibility = Visibility.Hidden;
+                    System.Windows.Forms.Application.DoEvents();
                     this.WindowState = System.Windows.WindowState.Maximized;
                     //maingrid.Width = SystemParameters.WorkArea.Width;
                     //maingrid.Height = SystemParameters.WorkArea.Height;
-                    maincanvas.Visibility = Visibility.Hidden;
+                    
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                 }
@@ -2219,10 +2367,12 @@ where T : DependencyObject
                     c1ma.Name = "科目一";
                     c1ma.Header = "客车类:科目一";
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+                    maincanvas.Visibility = Visibility.Hidden;
+                    System.Windows.Forms.Application.DoEvents();
                     this.WindowState = System.Windows.WindowState.Maximized;
                     //maingrid.Width = SystemParameters.WorkArea.Width;
                     //maingrid.Height = SystemParameters.WorkArea.Height;
-                    maincanvas.Visibility = Visibility.Hidden;
+                    
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                 }
@@ -2239,10 +2389,12 @@ where T : DependencyObject
                     c1ma.Header = "客车类:科目四";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+                    maincanvas.Visibility = Visibility.Hidden;
+                    System.Windows.Forms.Application.DoEvents();
                     this.WindowState = System.Windows.WindowState.Maximized;
                     //maingrid.Width = SystemParameters.WorkArea.Width;
                     //maingrid.Height = SystemParameters.WorkArea.Height;
-                    maincanvas.Visibility = Visibility.Hidden;
+                    
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
             }
@@ -2265,10 +2417,12 @@ where T : DependencyObject
                     c1ma.Header = "货车类:科目一";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+                    maincanvas.Visibility = Visibility.Hidden;
+                    System.Windows.Forms.Application.DoEvents();
                     this.WindowState = System.Windows.WindowState.Maximized;
                     //maingrid.Width = SystemParameters.WorkArea.Width;
                     //maingrid.Height = SystemParameters.WorkArea.Height;
-                    maincanvas.Visibility = Visibility.Hidden;
+                    
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
                 else if (subjectname == "科目四")
@@ -2284,10 +2438,12 @@ where T : DependencyObject
                     c1ma.Header = "货车类:科目四";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+                    maincanvas.Visibility = Visibility.Hidden;
+                    System.Windows.Forms.Application.DoEvents();
                     this.WindowState = System.Windows.WindowState.Maximized;
                     //maingrid.Width = SystemParameters.WorkArea.Width;
                     //maingrid.Height = SystemParameters.WorkArea.Height;
-                    maincanvas.Visibility = Visibility.Hidden;
+                    
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
             }
@@ -2313,10 +2469,12 @@ where T : DependencyObject
                     c1ma.Header = "摩托车类:科目一";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+                    maincanvas.Visibility = Visibility.Hidden;
+                    System.Windows.Forms.Application.DoEvents();
                     this.WindowState = System.Windows.WindowState.Maximized;
                     //maingrid.Width = SystemParameters.WorkArea.Width;
                     //maingrid.Height = SystemParameters.WorkArea.Height;
-                    maincanvas.Visibility = Visibility.Hidden;
+                    
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
                 else if (subjectname == "科目四")
@@ -2332,10 +2490,12 @@ where T : DependencyObject
                     c1ma.Header = "摩托车类:科目四";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+                    maincanvas.Visibility = Visibility.Hidden;
+                    System.Windows.Forms.Application.DoEvents();
                     this.WindowState = System.Windows.WindowState.Maximized;
                     //maingrid.Width = SystemParameters.WorkArea.Width;
                     //maingrid.Height = SystemParameters.WorkArea.Height;
-                    maincanvas.Visibility = Visibility.Hidden;
+                    
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
             }
@@ -2355,10 +2515,12 @@ where T : DependencyObject
             c1ma.Header = "恢复驾驶资格类";
             c1ma.Show();
             c1ma.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ma.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ma.Height / 2, 0, 0);
+            maincanvas.Visibility = Visibility.Hidden;
+            System.Windows.Forms.Application.DoEvents();
             this.WindowState = System.Windows.WindowState.Maximized;
             //maingrid.Width = SystemParameters.WorkArea.Width;
             //maingrid.Height = SystemParameters.WorkArea.Height;
-            maincanvas.Visibility = Visibility.Hidden;
+            
             c1ma.Closed += new EventHandler(c1ma_Closed);
         }
 
