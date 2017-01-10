@@ -118,14 +118,12 @@ namespace DrivingTest
             //textBlock6.Text = "正确答案为:" + PublicClass.question_answer;
             textBlock6.Text = "正确答案为:" + PublicClass.question_answer;
 
-            timer.Interval = new TimeSpan(10000);   //时间间隔为一秒
+            timer.Interval = new TimeSpan(10000000);   //时间间隔为一秒
             //int time = 10;
             //textBlock7.Text = time.ToString() ;
             timer.Tick += new EventHandler(timer_Tick);
             timer.Start();//启动计时器
         }
-
-        
 
 
         //提取图片并显示
