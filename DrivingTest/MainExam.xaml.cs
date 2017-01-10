@@ -569,6 +569,7 @@ where T : DependencyObject
                 //qu.Name = "q" + i.ToString();
                 qu.MouseDown += new MouseButtonEventHandler(OK);
                 qu.setnum(i + 1, true, "");
+                
                 dati_canvas.Children.Add(qu);
                 dati_canvas.RegisterName("q" + i, qu);
             }
@@ -787,37 +788,44 @@ where T : DependencyObject
         //题号单击事件
         void OK(object sender, MouseButtonEventArgs e)
         {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 question 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+            //DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            //// 将数据加载到表 question 中。可以根据需要修改此代码。
+            //DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            //jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
 
-            // 将数据加载到表 answer 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
-            jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+            //// 将数据加载到表 answer 中。可以根据需要修改此代码。
+            //DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
+            //jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
 
-            int last_index = 0;
-            foreach (var i in dati_canvas.Children)
+            //int last_index = 0;
+            //foreach (var i in dati_canvas.Children)
+            //{
+            //    QuestionNum myqu = i as QuestionNum;
+            //    if (myqu != null)
+            //    {
+            //        if (myqu.canvas1.Background == Brushes.SkyBlue)
+            //        {
+            //            last_index = int.Parse(myqu.Name.Substring(1, myqu.Name.Length - 1));
+            //        }
+            //        myqu.canvas1.Background = Brushes.White;
+            //    }
+
+
+            //}
+            last_question_lab_index = cur_question_lab_index;
+            QuestionNum oldqu = dati_canvas.FindName("q" + last_question_lab_index) as QuestionNum;
+            if (oldqu != null)
             {
-                QuestionNum myqu = i as QuestionNum;
-                if (myqu != null)
-                {
-                    if (myqu.canvas1.Background == Brushes.SkyBlue)
-                    {
-                        last_index = int.Parse(myqu.Name.Substring(1, myqu.Name.Length - 1));
-                    }
-                    myqu.canvas1.Background = Brushes.White;
-                }
-
-
+                oldqu.canvas1.Background = Brushes.White;
             }
-
             QuestionNum qu = sender as QuestionNum;
             qu.setbackcolor();
+            cur_question_lab_index = int.Parse(qu.label1.Content.ToString()) - 1;
 
-            int question_index = int.Parse(qu.Name.ToString().Substring(1, qu.Name.ToString().Length - 1));
+
+            int question_index = cur_question_lab_index;
             lab_index = question_index;
-            var question = from c in jiakaoDataSet.question where c.question_id == PublicClass.question_list[question_index].question_id select c;
+            var question = from c in PublicClass.question_data where c.question_id == PublicClass.question_list[question_index].question_id select c;
             foreach (var temqu in question)
             {
                 if (PublicClass.user_id != -1)//用户已登录
@@ -884,7 +892,7 @@ where T : DependencyObject
                     foreach (var an in PublicClass.question_list[question_index].answer)
                     {
                         PublicClass.Answer myan = an as PublicClass.Answer;
-                        var teman = from c in jiakaoDataSet.answer where c.answer_id == myan.answer_id select c;
+                        var teman = from c in PublicClass.answer_data where c.answer_id == myan.answer_id select c;
                         foreach (var temann in teman)
                         {
                             switch (step)
@@ -923,12 +931,12 @@ where T : DependencyObject
                 ThreadPool.QueueUserWorkItem(answer_UI, "");
                 //judge_answer();
                 //answer_UI();
-                shouzheng_cal(last_index);
-                errquestion(last_index);
+                shouzheng_cal(last_question_lab_index);
+                errquestion(last_question_lab_index);
                 //play_voice(timu_textBlock.Text);
 
-                showright_answer(question_index);
-                error_messages(question_index);
+                showright_answer(cur_question_lab_index);
+                error_messages(cur_question_lab_index);
             }
             else //没有用户登录为试用10题
             {
@@ -940,7 +948,7 @@ where T : DependencyObject
                         foreach (var an in PublicClass.question_list[question_index].answer)
                         {
                             PublicClass.Answer myan = an as PublicClass.Answer;
-                            var teman = from c in jiakaoDataSet.answer where c.answer_id == myan.answer_id select c;
+                            var teman = from c in PublicClass.answer_data where c.answer_id == myan.answer_id select c;
                             foreach (var temann in teman)
                             {
                                 switch (step)
@@ -978,12 +986,14 @@ where T : DependencyObject
                     ThreadPool.QueueUserWorkItem(answer_UI, "");
                     //judge_answer();
                     //answer_UI();
-                    shouzheng_cal(last_index);
-                    errquestion(last_index);
+                    ThreadPool.QueueUserWorkItem(shouzheng_cal, last_question_lab_index);
+                    //shouzheng_cal(last_question_lab_index);
+                    ThreadPool.QueueUserWorkItem(errquestion, last_question_lab_index);
+                    //errquestion(last_question_lab_index);
                     play_voice(timu_textBlock.Text);
 
-                    showright_answer(question_index);
-                    error_messages(question_index);
+                    showright_answer(cur_question_lab_index);
+                    error_messages(cur_question_lab_index);
 
                 }
                 else//超出10题不予显示
