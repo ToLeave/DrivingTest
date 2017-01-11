@@ -1462,12 +1462,13 @@ where T : DependencyObject
                 {
                     jiakaoDataSet.question.AddquestionRow(myquestion.question_id, myquestion.chapter_id, myquestion.subject_id, myquestion.question_name, myquestion.question_image, myquestion.voice, myquestion.driverlicense_type, myquestion.question_type, myquestion.update_at, myquestion.is_judge);
                     local_step++;
-                    progress.Value = (int)(local_step / local_count * 100f);
-                    System.Windows.Forms.Application.DoEvents();
+
                 }
                 jiakaoDataSetquestionTableAdapter.Update(jiakaoDataSet.question);
                 jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
                 jiakaoDataSet.question.AcceptChanges();
+                progress.Value = (int)(local_step / local_count * 100f);
+                System.Windows.Forms.Application.DoEvents();
             }
 
             DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
@@ -1479,12 +1480,13 @@ where T : DependencyObject
                 {
                     jiakaoDataSet.answer.AddanswerRow(myanswer.answer_id, myanswer.question_id, myanswer.answer, myanswer.is_right, myanswer.update_at);
                     local_step++;
-                    progress.Value = (int)(local_step / local_count * 100f);
-                    System.Windows.Forms.Application.DoEvents();
+
                 }
                 jiakaoDataSetanswerTableAdapter.Update(jiakaoDataSet.answer);
                 jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
                 jiakaoDataSet.answer.AcceptChanges();
+                progress.Value = (int)(local_step / local_count * 100f);
+                System.Windows.Forms.Application.DoEvents();
             }
 
             DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
@@ -1496,12 +1498,13 @@ where T : DependencyObject
                 {
                     jiakaoDataSet.chapter.AddchapterRow(mychapter.chapter_id, mychapter.chapter, mychapter.updated_at);
                     local_step++;
-                    progress.Value = (int)(local_step / local_count * 100f);
-                    System.Windows.Forms.Application.DoEvents();
+
                 }
                 jiakaoDataSetchapterTableAdapter.Update(jiakaoDataSet.chapter);
                 jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
                 jiakaoDataSet.chapter.AcceptChanges();
+                progress.Value = (int)(local_step / local_count * 100f);
+                System.Windows.Forms.Application.DoEvents();
             }
 
             DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
@@ -1513,12 +1516,13 @@ where T : DependencyObject
                 {
                     jiakaoDataSet.subject.AddsubjectRow(mysubject.subject_id, mysubject.subject, mysubject.updated_at);
                     local_step++;
-                    progress.Value = (int)(local_step / local_count * 100f);
-                    System.Windows.Forms.Application.DoEvents();
+
                 }
                 jiakaoDataSetsubjectTableAdapter.Update(jiakaoDataSet.subject);
                 jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
                 jiakaoDataSet.subject.AcceptChanges();
+                progress.Value = (int)(local_step / local_count * 100f);
+                System.Windows.Forms.Application.DoEvents();
             }
 
             xianshi.Text = "更新完成";
