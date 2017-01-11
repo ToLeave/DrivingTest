@@ -798,7 +798,7 @@ where T : DependencyObject
             }
             //chapter_update_compaleted = true;
             //data_complete_validate();
-            set_chapter("");
+            //set_chapter("");
         }
 
         private void update_subject_data(object data)
@@ -825,7 +825,7 @@ where T : DependencyObject
             }
             //subject_update_compaleted = true;
             //data_complete_validate();
-            set_subject("");
+            //set_subject("");
         }
 
         private void update_local_question(object data)//更新内存题库
@@ -1396,6 +1396,139 @@ where T : DependencyObject
             }
         }
 
+        private void set_all_data(object data)
+        {
+            float local_count = local_question_data.Count + local_answer_data.Count + local_chapter_data.Count + local_subject_data.Count;
+            float local_step = 0;
+                        Dispatcher.Invoke(new Action(() =>
+                    {
+
+                        List<int> local_temp_question = new List<int>();
+                        List<int> remote_temp_question = new List<int>();
+                        List<int> del_question = new List<int>();
+                        local_temp_question = (from c in local_question_data select c.question_id).ToList();
+                        remote_temp_question = (from c in question_json select int.Parse(c["id"].ToString())).ToList();
+                        del_question = local_temp_question.Except(remote_temp_question).ToList();
+                        if (del_question.Count() > 0)
+                        {
+                            foreach (var del in del_question)
+                            {
+                                var mydel = from c in local_question_data where c.question_id == del select c;
+                                if (mydel.Count() > 0)
+                                {
+                                    try
+                                    {
+                                        string image_attch = System.Windows.Forms.Application.StartupPath + "\\Image\\" + mydel.First().question_image;
+                                        if (File.Exists(image_attch))
+                                        {
+                                            File.Delete(image_attch);
+                                        }
+                                    }
+                                    catch { }
+
+
+                                    try
+                                    {
+                                        string voice_attch = System.Windows.Forms.Application.StartupPath + "\\Voice\\" + mydel.First().voice;
+                                        if (File.Exists(voice_attch))
+                                        {
+                                            File.Delete(voice_attch);
+                                        }
+                                    }
+                                    catch { }
+                                    local_question_data.Remove(mydel.First());
+
+
+                                    var del_answer = from c in local_answer_data where c.question_id == mydel.First().question_id select c;
+                                    for (int i = 0; i < del_answer.Count(); i++)
+                                    {
+                                        local_answer_data.Remove(del_answer.First());
+                                        i--;
+                                    }
+
+                                }
+                            }
+                        }
+
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 question 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            lock (jiakaoDataSet)
+            {
+                jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+                jiakaoDataSet.question.Clear();
+
+                foreach (var myquestion in local_question_data)
+                {
+                    jiakaoDataSet.question.AddquestionRow(myquestion.question_id, myquestion.chapter_id, myquestion.subject_id, myquestion.question_name, myquestion.question_image, myquestion.voice, myquestion.driverlicense_type, myquestion.question_type, myquestion.update_at, myquestion.is_judge);
+                    local_step++;
+                    progress.Value = (int)(local_step / local_count * 100f);
+                    System.Windows.Forms.Application.DoEvents();
+                }
+                jiakaoDataSetquestionTableAdapter.Update(jiakaoDataSet.question);
+                jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+                jiakaoDataSet.question.AcceptChanges();
+            }
+
+            DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
+            lock (jiakaoDataSet)
+            {
+                jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+                jiakaoDataSet.answer.Clear();
+                foreach (var myanswer in local_answer_data)
+                {
+                    jiakaoDataSet.answer.AddanswerRow(myanswer.answer_id, myanswer.question_id, myanswer.answer, myanswer.is_right, myanswer.update_at);
+                    local_step++;
+                    progress.Value = (int)(local_step / local_count * 100f);
+                    System.Windows.Forms.Application.DoEvents();
+                }
+                jiakaoDataSetanswerTableAdapter.Update(jiakaoDataSet.answer);
+                jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+                jiakaoDataSet.answer.AcceptChanges();
+            }
+
+            DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
+            lock (jiakaoDataSet)
+            {
+                jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
+                jiakaoDataSet.chapter.Clear();
+                foreach (var mychapter in local_chapter_data)
+                {
+                    jiakaoDataSet.chapter.AddchapterRow(mychapter.chapter_id, mychapter.chapter, mychapter.updated_at);
+                    local_step++;
+                    progress.Value = (int)(local_step / local_count * 100f);
+                    System.Windows.Forms.Application.DoEvents();
+                }
+                jiakaoDataSetchapterTableAdapter.Update(jiakaoDataSet.chapter);
+                jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
+                jiakaoDataSet.chapter.AcceptChanges();
+            }
+
+            DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
+            lock (jiakaoDataSet)
+            {
+                jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
+                jiakaoDataSet.subject.Clear();
+                foreach (var mysubject in local_subject_data)
+                {
+                    jiakaoDataSet.subject.AddsubjectRow(mysubject.subject_id, mysubject.subject, mysubject.updated_at);
+                    local_step++;
+                    progress.Value = (int)(local_step / local_count * 100f);
+                    System.Windows.Forms.Application.DoEvents();
+                }
+                jiakaoDataSetsubjectTableAdapter.Update(jiakaoDataSet.subject);
+                jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
+                jiakaoDataSet.subject.AcceptChanges();
+            }
+
+            xianshi.Text = "更新完成";
+            user_textBox.IsEnabled = true;
+            password_textBox.IsEnabled = true;
+            progress.Visibility = System.Windows.Visibility.Collapsed;
+                    }));
+
+        }
+
         private void set_question(object data)
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
@@ -1414,6 +1547,8 @@ where T : DependencyObject
                 jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
                 jiakaoDataSet.question.AcceptChanges();
             }
+
+
         }
 
 
@@ -1603,68 +1738,24 @@ where T : DependencyObject
 
                     xianshi.Text = "验证数据...";
                     System.Windows.Forms.Application.DoEvents();
-                    progress.Visibility = System.Windows.Visibility.Collapsed;
-                    List<int> local_temp_question = new List<int>();
-                    List<int> remote_temp_question = new List<int>();
-                    List<int> del_question = new List<int>();
-                    local_temp_question = (from c in local_question_data select c.question_id).ToList();
-                    remote_temp_question = (from c in question_json select int.Parse(c["id"].ToString())).ToList();
-                    del_question = local_temp_question.Except(remote_temp_question).ToList();
-                    if (del_question.Count() > 0)
-                    {
-                        foreach (var del in del_question)
-                        {
-                            var mydel = from c in local_question_data where c.question_id == del select c;
-                            if (mydel.Count() > 0)
-                            {
-                                try
-                                {
-                                    string image_attch = System.Windows.Forms.Application.StartupPath + "\\Image\\" + mydel.First().question_image;
-                                    if (File.Exists(image_attch))
-                                    {
-                                        File.Delete(image_attch);
-                                    }
-                                }
-                                catch { }
+                    //progress.Visibility = System.Windows.Visibility.Collapsed;
 
-
-                                try
-                                {
-                                    string voice_attch = System.Windows.Forms.Application.StartupPath + "\\Voice\\" + mydel.First().voice;
-                                    if (File.Exists(voice_attch))
-                                    {
-                                        File.Delete(voice_attch);
-                                    }
-                                }
-                                catch { }
-                                local_question_data.Remove(mydel.First());
-
-
-                                var del_answer = from c in local_answer_data where c.question_id == mydel.First().question_id select c;
-                                for (int i = 0; i < del_answer.Count(); i++)
-                                {
-                                    local_answer_data.Remove(del_answer.First());
-                                    i--;
-                                }
-
-                            }
-                        }
-                    }
                     var getchkupdstr = getupdatecheck();
                     version(getchkupdstr);
 
-                    ThreadPool.QueueUserWorkItem(set_question, "");
-                    ThreadPool.QueueUserWorkItem(set_answer, "");
+                    //ThreadPool.QueueUserWorkItem(set_question, "");
+                    //ThreadPool.QueueUserWorkItem(set_answer, "");
                     //ThreadPool.QueueUserWorkItem(set_chapter, "");
                     //ThreadPool.QueueUserWorkItem(set_subject, "");
                     //set_question("");
                     //set_answer("");
+                    ThreadPool.QueueUserWorkItem(set_all_data, "");
                     ThreadPool.QueueUserWorkItem(push_to_public, "");
 
 
-                    xianshi.Text = "更新完成";
-                    user_textBox.IsEnabled = true;
-                    password_textBox.IsEnabled = true;
+                    //xianshi.Text = "更新完成";
+                    //user_textBox.IsEnabled = true;
+                    //password_textBox.IsEnabled = true;
                 }
                 catch (Exception ex)
                 {
