@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using System.Net;
 using System.Collections.ObjectModel;
 using System.Collections;
+using System.ComponentModel;
 
 namespace DrivingTest
 {
@@ -28,12 +29,16 @@ namespace DrivingTest
         }
 
 
-        List<int> chapter_index = new List<int>();
+        List<int> chapter_index = new List<int>();//章节index
+        List<string> zhuanxiang_index = new List<string>();//专项字段关键字
+        string classflag = "";//试题一级分类
+        string classtype = "";//试题二级分类
+
         int subject_id;
         string subject_name;
         List<int> questions_id = new List<int>();
 
-        int control_state = 0;//控件显示状态 1为触发,0为不触发
+        //int control_state = 0;//控件显示状态 1为触发,0为不触发
 
         private void F(object o, System.ComponentModel.CancelEventArgs e)
         {
@@ -134,8 +139,8 @@ namespace DrivingTest
             }
         }
 
-        //新手速成
-        private void sucheng_Click(object sender, RoutedEventArgs e)
+        //生成分类UI
+        private void generation_classification()
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 chapter 中。可以根据需要修改此代码。
@@ -224,211 +229,50 @@ namespace DrivingTest
             qianghualianxi.Visibility = System.Windows.Visibility.Visible;//强化练习
             qianghuamoni.Visibility = System.Windows.Visibility.Visible;//强化模拟
             //zhuanxiangmoni.Visibility = System.Windows.Visibility.Visible;//专项模拟
+
+            listBox.Items.Clear();
             listBox.Visibility = System.Windows.Visibility.Visible;
 
             shunxulianxi.IsEnabled = false;
             suijilianxi.IsEnabled = false;
+        }
 
+        //新手速成
+        private void sucheng_Click(object sender, RoutedEventArgs e)
+        {
+            generation_classification();//生成分类UI
+            classflag = "";//试题一级分类
         }
 
         //速成500
         private void sucheng500_Click(object sender, RoutedEventArgs e)
         {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 chapter 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
-            jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
-
-            // 将数据加载到表 setting 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
-            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
-
-            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
-
-            foreach (var s in set)
-            {
-                if (s.functional_module != "")
-                {
-                    PublicClass.gongneng = s.functional_module.Split(',');//逗号截取字符串
-                }
-                else
-                {
-                    PublicClass.gongneng = new string[6] { "", "", "", "", "", "" };//初始化空数组
-                }
-                if (PublicClass.gongneng[0] == "1")//章节练习
-                {
-                    zhangjielianxi.Visibility = System.Windows.Visibility.Hidden;
-                    simulation_test.Margin = new Thickness(31, 412, 0, 0); //仿真考试向上补位
-                    my_mistakes.Margin = new Thickness(31, 458, 0, 0); //我的错题向上补位
-                }
-                else
-                {
-                    zhangjielianxi.Visibility = System.Windows.Visibility.Visible;
-                }
-                if (PublicClass.gongneng[1] == "1")//顺序练习
-                {
-                    shunxulianxi.Visibility = System.Windows.Visibility.Hidden;
-                }
-                else
-                {
-                    shunxulianxi.Visibility = System.Windows.Visibility.Visible;
-                }
-                if (PublicClass.gongneng[2] == "1")//随机练习
-                {
-                    suijilianxi.Visibility = System.Windows.Visibility.Hidden;
-                }
-                else
-                {
-                    suijilianxi.Visibility = System.Windows.Visibility.Visible;
-                }
-                if (PublicClass.gongneng[3] == "1")//专项练习与专项模拟
-                {
-                    zhuanxianglianxi.Visibility = System.Windows.Visibility.Hidden;
-                    zhuanxiangmoni.Visibility = System.Windows.Visibility.Hidden;
-                }
-                else
-                {
-                    zhuanxianglianxi.Visibility = System.Windows.Visibility.Visible;
-                    zhuanxiangmoni.Visibility = System.Windows.Visibility.Visible;
-                }
-                if (PublicClass.gongneng[4] == "1")//仿真考试
-                {
-                    simulation_test.Visibility = System.Windows.Visibility.Hidden;
-                    my_mistakes.Margin = new Thickness(31, 458, 0, 0); //我的错题向上补位
-                }
-                else
-                {
-                    simulation_test.Visibility = System.Windows.Visibility.Visible;
-                }
-                if (PublicClass.gongneng[5] == "1")//我的错题
-                {
-                    my_mistakes.Visibility = System.Windows.Visibility.Hidden;
-                }
-                else
-                {
-                    my_mistakes.Visibility = System.Windows.Visibility.Visible;
-                }
-                if (PublicClass.gongneng[0] == "1" && PublicClass.gongneng[4] == "1")//章节练习与我的错题
-                {
-                    zhangjielianxi.Visibility = System.Windows.Visibility.Hidden;
-                    simulation_test.Visibility = System.Windows.Visibility.Hidden;
-                    my_mistakes.Margin = new Thickness(31, 412, 0, 0); //我的错题向上补位
-                }
-            }
-            yuyin.Visibility = System.Windows.Visibility.Visible;//语音课堂
-            lianxi.Visibility = System.Windows.Visibility.Visible;//基础练习
-            moni.Visibility = System.Windows.Visibility.Visible;//基础模拟
-            qianghualianxi.Visibility = System.Windows.Visibility.Visible;//强化练习
-            qianghuamoni.Visibility = System.Windows.Visibility.Visible;//强化模拟
-            //zhuanxiangmoni.Visibility = System.Windows.Visibility.Visible;//专项模拟
-            listBox.Visibility = System.Windows.Visibility.Visible;
-
-            shunxulianxi.IsEnabled = false;
-            suijilianxi.IsEnabled = false;
+            generation_classification();//生成分类UI
+            classflag = "";//试题一级分类
         }
 
         //速成600
         private void sucheng600_Click(object sender, RoutedEventArgs e)
         {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 chapter 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
-            jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
-
-            // 将数据加载到表 setting 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
-            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
-
-            var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
-
-            foreach (var s in set)
-            {
-                if (s.functional_module != "")
-                {
-                    PublicClass.gongneng = s.functional_module.Split(',');//逗号截取字符串
-                }
-                else
-                {
-                    PublicClass.gongneng = new string[6] { "", "", "", "", "", "" };//初始化空数组
-                }
-                if (PublicClass.gongneng[0] == "1")//章节练习
-                {
-                    zhangjielianxi.Visibility = System.Windows.Visibility.Hidden;
-                    simulation_test.Margin = new Thickness(31, 412, 0, 0); //仿真考试向上补位
-                    my_mistakes.Margin = new Thickness(31, 458, 0, 0); //我的错题向上补位
-                }
-                else
-                {
-                    zhangjielianxi.Visibility = System.Windows.Visibility.Visible;
-                }
-                if (PublicClass.gongneng[1] == "1")//顺序练习
-                {
-                    shunxulianxi.Visibility = System.Windows.Visibility.Hidden;
-                }
-                else
-                {
-                    shunxulianxi.Visibility = System.Windows.Visibility.Visible;
-                }
-                if (PublicClass.gongneng[2] == "1")//随机练习
-                {
-                    suijilianxi.Visibility = System.Windows.Visibility.Hidden;
-                }
-                else
-                {
-                    suijilianxi.Visibility = System.Windows.Visibility.Visible;
-                }
-                if (PublicClass.gongneng[3] == "1")//专项练习与专项模拟
-                {
-                    zhuanxianglianxi.Visibility = System.Windows.Visibility.Hidden;
-                    zhuanxiangmoni.Visibility = System.Windows.Visibility.Hidden;
-                }
-                else
-                {
-                    zhuanxianglianxi.Visibility = System.Windows.Visibility.Visible;
-                    zhuanxiangmoni.Visibility = System.Windows.Visibility.Visible;
-                }
-                if (PublicClass.gongneng[4] == "1")//仿真考试
-                {
-                    simulation_test.Visibility = System.Windows.Visibility.Hidden;
-                    my_mistakes.Margin = new Thickness(31, 458, 0, 0); //我的错题向上补位
-                }
-                else
-                {
-                    simulation_test.Visibility = System.Windows.Visibility.Visible;
-                }
-                if (PublicClass.gongneng[5] == "1")//我的错题
-                {
-                    my_mistakes.Visibility = System.Windows.Visibility.Hidden;
-                }
-                else
-                {
-                    my_mistakes.Visibility = System.Windows.Visibility.Visible;
-                }
-                if (PublicClass.gongneng[0] == "1" && PublicClass.gongneng[4] == "1")//章节练习与我的错题
-                {
-                    zhangjielianxi.Visibility = System.Windows.Visibility.Hidden;
-                    simulation_test.Visibility = System.Windows.Visibility.Hidden;
-                    my_mistakes.Margin = new Thickness(31, 412, 0, 0); //我的错题向上补位
-                }
-            }
-            yuyin.Visibility = System.Windows.Visibility.Visible;//语音课堂
-            lianxi.Visibility = System.Windows.Visibility.Visible;//基础练习
-            moni.Visibility = System.Windows.Visibility.Visible;//基础模拟
-            qianghualianxi.Visibility = System.Windows.Visibility.Visible;//强化练习
-            qianghuamoni.Visibility = System.Windows.Visibility.Visible;//强化模拟
-            //zhuanxiangmoni.Visibility = System.Windows.Visibility.Visible;//专项模拟
-            listBox.Visibility = System.Windows.Visibility.Visible;
-
-            shunxulianxi.IsEnabled = false;
-            suijilianxi.IsEnabled = false;
+            generation_classification();//生成分类UI
+            classflag = "";//试题一级分类
         }
 
 
         //章节练习
         private void zhangjielianxi_Click(object sender, RoutedEventArgs e)
         {
+            yuyin.Visibility = System.Windows.Visibility.Hidden;//语音课堂
+            lianxi.Visibility = System.Windows.Visibility.Hidden;//基础练习
+            moni.Visibility = System.Windows.Visibility.Hidden;//基础模拟
+            qianghualianxi.Visibility = System.Windows.Visibility.Hidden;//强化练习
+            qianghuamoni.Visibility = System.Windows.Visibility.Hidden;//强化模拟
+            zhuanxianglianxi.Visibility = System.Windows.Visibility.Hidden;//专项练习
+            zhuanxiangmoni.Visibility = System.Windows.Visibility.Hidden;//专项模拟
+            listBox.Items.Clear();
             if (list_bangding(PublicClass.cartype, PublicClass.subjection) == true)//列出章节,解锁顺序随机按钮
             {
+                listBox.Visibility = System.Windows.Visibility.Visible;
                 shunxulianxi.IsEnabled = true;
                 suijilianxi.IsEnabled = true;
             }
@@ -466,47 +310,56 @@ namespace DrivingTest
         //语音课堂
         private void yuyin_Click(object sender, RoutedEventArgs e)
         {
-            if (list_bangding(PublicClass.cartype, PublicClass.subjection) == true)//有题解锁顺序随机按钮
-            {
-                shunxulianxi.IsEnabled = true;
-                suijilianxi.IsEnabled = true;
-            }
+
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 chapter 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.classTableAdapter jiakaoDataSetclassTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.classTableAdapter();
+            jiakaoDataSetclassTableAdapter.Fill(jiakaoDataSet._class);
+
+            DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter jiakaoDataSetclassdetailTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter();
+            jiakaoDataSetclassdetailTableAdapter.Fill(jiakaoDataSet.classdetail);
+
+            //if (list_bangding(PublicClass.cartype, PublicClass.subjection) == true)//有题解锁顺序随机按钮
+            //{
+            //    shunxulianxi.IsEnabled = true;
+            //    suijilianxi.IsEnabled = true;
+            //}
         }
         //基础练习
         private void lianxi_Click(object sender, RoutedEventArgs e)
         {
-            if (list_bangding(PublicClass.cartype, PublicClass.subjection) == true)//有题解锁顺序随机按钮
-            {
-                shunxulianxi.IsEnabled = true;
-                suijilianxi.IsEnabled = true;
-            }
+            //if (list_bangding(PublicClass.cartype, PublicClass.subjection) == true)//有题解锁顺序随机按钮
+            //{
+            //    shunxulianxi.IsEnabled = true;
+            //    suijilianxi.IsEnabled = true;
+            //}
         }
         //基础模拟
         private void moni_Click(object sender, RoutedEventArgs e)
         {
-            if (list_bangding(PublicClass.cartype, PublicClass.subjection) == true)//有题解锁顺序随机按钮
-            {
-                shunxulianxi.IsEnabled = true;
-                suijilianxi.IsEnabled = true;
-            }
+            //if (list_bangding(PublicClass.cartype, PublicClass.subjection) == true)//有题解锁顺序随机按钮
+            //{
+            //    shunxulianxi.IsEnabled = true;
+            //    suijilianxi.IsEnabled = true;
+            //}
         }
         //强化练习
         private void qianghualianxi_Click(object sender, RoutedEventArgs e)
         {
-            if (list_bangding(PublicClass.cartype, PublicClass.subjection) == true)//有题解锁顺序随机按钮
-            {
-                shunxulianxi.IsEnabled = true;
-                suijilianxi.IsEnabled = true;
-            }
+            //if (list_bangding(PublicClass.cartype, PublicClass.subjection) == true)//有题解锁顺序随机按钮
+            //{
+            //    shunxulianxi.IsEnabled = true;
+            //    suijilianxi.IsEnabled = true;
+            //}
         }
         //强化模拟
         private void qianghuamoni_Click(object sender, RoutedEventArgs e)
         {
-            if (list_bangding(PublicClass.cartype, PublicClass.subjection) == true)//有题解锁顺序随机按钮
-            {
-                shunxulianxi.IsEnabled = true;
-                suijilianxi.IsEnabled = true;
-            }
+            //if (list_bangding(PublicClass.cartype, PublicClass.subjection) == true)//有题解锁顺序随机按钮
+            //{
+            //    shunxulianxi.IsEnabled = true;
+            //    suijilianxi.IsEnabled = true;
+            //}
         }
 
         //专项练习
@@ -522,11 +375,11 @@ namespace DrivingTest
         //专项模拟
         private void zhuanxiangmoni_Click(object sender, RoutedEventArgs e)
         {
-            if (list_bangding(PublicClass.cartype, PublicClass.subjection) == true)//有题解锁顺序随机按钮
-            {
-                shunxulianxi.IsEnabled = true;
-                suijilianxi.IsEnabled = true;
-            }
+            //if (list_bangding(PublicClass.cartype, PublicClass.subjection) == true)//有题解锁顺序随机按钮
+            //{
+            //    shunxulianxi.IsEnabled = true;
+            //    suijilianxi.IsEnabled = true;
+            //}
         }
 
         //顺序练习
@@ -681,6 +534,9 @@ namespace DrivingTest
 
 
                 listBox.Items.Clear();
+                //listBox.ItemsSource = null;
+                //listBox.Items.Refresh();
+
                 foreach (var mysub in chapter_list_id)
                 {
                     var temsub = from c in jiakaoDataSet.chapter where c.chapter_id == mysub select c;
@@ -705,16 +561,20 @@ namespace DrivingTest
         {
             try
             {
-                listBox.Items.Clear();
+                //listBox.Items.Clear();
+                //listBox.ItemsSource = null;
+
+
+                //listBox.Items.Refresh();
 
                 listBox.ItemsSource = LoadListBoxData(); 
 
                 listBox.SelectedIndex = 0;
                 return true;
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("题库为空!");
+                //MessageBox.Show("题库为空!");
                 return false;
             }
         }
@@ -724,14 +584,23 @@ namespace DrivingTest
         {
             ArrayList itemsList = new ArrayList();
             itemsList.Add("选择题");
+            zhuanxiang_index.Add("XZ");
             itemsList.Add("图片题");
+            zhuanxiang_index.Add("TP");
             itemsList.Add("非图片题");
+            zhuanxiang_index.Add("FTP");
             itemsList.Add("判断题");
+            zhuanxiang_index.Add("PD");
             itemsList.Add("手势题");
+            zhuanxiang_index.Add("SS");
             itemsList.Add("选对的题");
+            zhuanxiang_index.Add("XD");
             itemsList.Add("选错的题");
+            zhuanxiang_index.Add("XC");
             itemsList.Add("情景分析题");
+            zhuanxiang_index.Add("QJ");
             itemsList.Add("标志题");
+            zhuanxiang_index.Add("BZ");
             return itemsList;
         }
 

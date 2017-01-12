@@ -117,6 +117,7 @@ namespace DrivingTest
             }
         }
 
+
         public static T FindChild<T>(DependencyObject parent, string childName)//查找控件
 where T : DependencyObject
         {

@@ -398,9 +398,6 @@
     <Resource Include="Images\方案四.png" />
     <Resource Include="Images\方案五.png" />
     <Resource Include="Images\自定义.png" />
-    <Content Include="jiakao.accdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
