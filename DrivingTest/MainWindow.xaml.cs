@@ -372,7 +372,7 @@ where T : DependencyObject
                             {
                                 user_textBox.IsEnabled = false;
                                 password_textBox.IsEnabled = false;
-                                updatequestion();
+                                updatequestion();//开始更新题库
                                 //updatedownload();
                                 //version(getchkupdstr);
                                 //xianshi.Text = "下载完毕,更新已完成";

@@ -98,6 +98,10 @@
     <Compile Include="ErrorMessages.xaml.cs">
       <DependentUpon>ErrorMessages.xaml</DependentUpon>
     </Compile>
+    <Compile Include="jiakaoDataSet1.cs">
+      <DependentUpon>jiakaoDataSet1.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="jiakaoDataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -376,8 +380,8 @@
     <Resource Include="Images\摩托车 %283%29.png" />
     <Resource Include="Images\自考驾照 %281%29.png" />
     <Resource Include="Images\ICBCLoading.gif" />
-    <Resource Include="Images\汽车.png" />
     <Resource Include="Images\窗体背景.png" />
+    <Resource Include="Images\汽车.png" />
     <Content Include="sounds\start.wav" />
     <Resource Include="Images\驾照类型.png" />
     <Resource Include="Images\倒车入库02.jpg" />

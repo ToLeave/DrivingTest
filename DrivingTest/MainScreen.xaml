@@ -11,6 +11,8 @@
         <CollectionViewSource x:Key="subjectViewSource" Source="{Binding Path=subject, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="questionViewSource" Source="{Binding Path=question, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="settingViewSource" Source="{Binding Path=setting, Source={StaticResource jiakaoDataSet}}" />
+        <CollectionViewSource x:Key="classViewSource" Source="{Binding Path=class, Source={StaticResource jiakaoDataSet}}" />
+        <CollectionViewSource x:Key="classdetailViewSource" Source="{Binding Path=classdetail, Source={StaticResource jiakaoDataSet}}" />
     </UserControl.Resources>
     <Grid DataContext="{StaticResource chapterViewSource}">
         <TextBlock Height="184" HorizontalAlignment="Left" Margin="31,68,0,0" Name="textBlock1" Text="广   -    告    -   位" VerticalAlignment="Top" Width="739" FontSize="30" TextAlignment="Center"  />

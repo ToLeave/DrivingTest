@@ -1277,6 +1277,10 @@ namespace DrivingTest {
             
             private global::System.Data.DataColumn columnclass_name;
             
+            private global::System.Data.DataColumn columnsubject;
+            
+            private global::System.Data.DataColumn columndriverlicense_type;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public classDataTable() {
@@ -1344,6 +1348,22 @@ namespace DrivingTest {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn subjectColumn {
+                get {
+                    return this.columnsubject;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn driverlicense_typeColumn {
+                get {
+                    return this.columndriverlicense_type;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1379,13 +1399,15 @@ namespace DrivingTest {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public classRow AddclassRow(int class_id, string class_flag, string question_type, string class_name) {
+            public classRow AddclassRow(int class_id, string class_flag, string question_type, string class_name, string subject, string driverlicense_type) {
                 classRow rowclassRow = ((classRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         class_id,
                         class_flag,
                         question_type,
-                        class_name};
+                        class_name,
+                        subject,
+                        driverlicense_type};
                 rowclassRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowclassRow);
                 return rowclassRow;
@@ -1419,6 +1441,8 @@ namespace DrivingTest {
                 this.columnclass_flag = base.Columns["class_flag"];
                 this.columnquestion_type = base.Columns["question_type"];
                 this.columnclass_name = base.Columns["class_name"];
+                this.columnsubject = base.Columns["subject"];
+                this.columndriverlicense_type = base.Columns["driverlicense_type"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1432,6 +1456,10 @@ namespace DrivingTest {
                 base.Columns.Add(this.columnquestion_type);
                 this.columnclass_name = new global::System.Data.DataColumn("class_name", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnclass_name);
+                this.columnsubject = new global::System.Data.DataColumn("subject", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnsubject);
+                this.columndriverlicense_type = new global::System.Data.DataColumn("driverlicense_type", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndriverlicense_type);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnclass_id}, true));
                 this.columnclass_id.AllowDBNull = false;
@@ -1439,6 +1467,8 @@ namespace DrivingTest {
                 this.columnclass_flag.MaxLength = 255;
                 this.columnquestion_type.MaxLength = 255;
                 this.columnclass_name.MaxLength = 255;
+                this.columnsubject.MaxLength = 255;
+                this.columndriverlicense_type.MaxLength = 255;
                 this.ExtendedProperties.Add("Generator_RowClassName", "classRow");
                 this.ExtendedProperties.Add("Generator_RowEvArgName", "classRowChangeEvent");
                 this.ExtendedProperties.Add("Generator_RowEvHandlerName", "classRowChangeEventHandler");
@@ -5492,6 +5522,38 @@ namespace DrivingTest {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string subject {
+                get {
+                    try {
+                        return ((string)(this[this.tableclass.subjectColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("表“class”中列“subject”的值为 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableclass.subjectColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string driverlicense_type {
+                get {
+                    try {
+                        return ((string)(this[this.tableclass.driverlicense_typeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("表“class”中列“driverlicense_type”的值为 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableclass.driverlicense_typeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Isclass_flagNull() {
                 return this.IsNull(this.tableclass.class_flagColumn);
             }
@@ -5524,6 +5586,30 @@ namespace DrivingTest {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Setclass_nameNull() {
                 this[this.tableclass.class_nameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IssubjectNull() {
+                return this.IsNull(this.tableclass.subjectColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetsubjectNull() {
+                this[this.tableclass.subjectColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isdriverlicense_typeNull() {
+                return this.IsNull(this.tableclass.driverlicense_typeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setdriverlicense_typeNull() {
+                this[this.tableclass.driverlicense_typeColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -9439,12 +9525,12 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("class_flag", "class_flag");
             tableMapping.ColumnMappings.Add("question_type", "question_type");
             tableMapping.ColumnMappings.Add("class_name", "class_name");
+            tableMapping.ColumnMappings.Add("subject", "subject");
+            tableMapping.ColumnMappings.Add("driverlicense_type", "driverlicense_type");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM `class` WHERE ((`class_id` = ?) AND ((? = 1 AND `class_flag` IS NULL)" +
-                " OR (`class_flag` = ?)) AND ((? = 1 AND `question_type` IS NULL) OR (`question_t" +
-                "ype` = ?)) AND ((? = 1 AND `class_name` IS NULL) OR (`class_name` = ?)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `class` WHERE ((`class_id` = ?) AND ((? = 1 AND `class_flag` IS NULL) OR (`class_flag` = ?)) AND ((? = 1 AND `question_type` IS NULL) OR (`question_type` = ?)) AND ((? = 1 AND `class_name` IS NULL) OR (`class_name` = ?)) AND ((? = 1 AND `subject` IS NULL) OR (`subject` = ?)) AND ((? = 1 AND `driverlicense_type` IS NULL) OR (`driverlicense_type` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_class_id", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "class_id", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_class_flag", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "class_flag", global::System.Data.DataRowVersion.Original, true, null));
@@ -9453,23 +9539,31 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_question_type", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "question_type", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_class_name", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "class_name", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_class_name", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "class_name", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_subject", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "subject", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_subject", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "subject", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_driverlicense_type", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "driverlicense_type", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_driverlicense_type", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "driverlicense_type", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `class` (`class_id`, `class_flag`, `question_type`, `class_name`) VAL" +
-                "UES (?, ?, ?, ?)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `class` (`class_id`, `class_flag`, `question_type`, `class_name`, `su" +
+                "bject`, `driverlicense_type`) VALUES (?, ?, ?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("class_id", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "class_id", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("class_flag", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "class_flag", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("question_type", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "question_type", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("class_name", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "class_name", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("subject", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "subject", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("driverlicense_type", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "driverlicense_type", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `class` SET `class_id` = ?, `class_flag` = ?, `question_type` = ?, `class_name` = ? WHERE ((`class_id` = ?) AND ((? = 1 AND `class_flag` IS NULL) OR (`class_flag` = ?)) AND ((? = 1 AND `question_type` IS NULL) OR (`question_type` = ?)) AND ((? = 1 AND `class_name` IS NULL) OR (`class_name` = ?)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `class` SET `class_id` = ?, `class_flag` = ?, `question_type` = ?, `class_name` = ?, `subject` = ?, `driverlicense_type` = ? WHERE ((`class_id` = ?) AND ((? = 1 AND `class_flag` IS NULL) OR (`class_flag` = ?)) AND ((? = 1 AND `question_type` IS NULL) OR (`question_type` = ?)) AND ((? = 1 AND `class_name` IS NULL) OR (`class_name` = ?)) AND ((? = 1 AND `subject` IS NULL) OR (`subject` = ?)) AND ((? = 1 AND `driverlicense_type` IS NULL) OR (`driverlicense_type` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("class_id", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "class_id", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("class_flag", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "class_flag", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("question_type", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "question_type", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("class_name", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "class_name", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("subject", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "subject", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("driverlicense_type", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "driverlicense_type", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_class_id", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "class_id", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_class_flag", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "class_flag", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_class_flag", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "class_flag", global::System.Data.DataRowVersion.Original, false, null));
@@ -9477,6 +9571,10 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_question_type", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "question_type", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_class_name", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "class_name", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_class_name", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "class_name", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_subject", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "subject", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_subject", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "subject", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_driverlicense_type", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "driverlicense_type", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_driverlicense_type", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "driverlicense_type", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9492,7 +9590,8 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT class_id, class_flag, question_type, class_name FROM class";
+            this._commandCollection[0].CommandText = "SELECT   class_id, class_flag, question_type, class_name, subject, driverlicense_" +
+                "type\r\nFROM      class";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -9553,7 +9652,7 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_class_id, string Original_class_flag, string Original_question_type, string Original_class_name) {
+        public virtual int Delete(int Original_class_id, string Original_class_flag, string Original_question_type, string Original_class_name, string Original_subject, string Original_driverlicense_type) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_class_id));
             if ((Original_class_flag == null)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
@@ -9579,6 +9678,22 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
                 this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[6].Value = ((string)(Original_class_name));
             }
+            if ((Original_subject == null)) {
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((string)(Original_subject));
+            }
+            if ((Original_driverlicense_type == null)) {
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[10].Value = ((string)(Original_driverlicense_type));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -9599,7 +9714,7 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int class_id, string class_flag, string question_type, string class_name) {
+        public virtual int Insert(int class_id, string class_flag, string question_type, string class_name, string subject, string driverlicense_type) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(class_id));
             if ((class_flag == null)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -9618,6 +9733,18 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             }
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = ((string)(class_name));
+            }
+            if ((subject == null)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(subject));
+            }
+            if ((driverlicense_type == null)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(driverlicense_type));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -9639,7 +9766,7 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int class_id, string class_flag, string question_type, string class_name, int Original_class_id, string Original_class_flag, string Original_question_type, string Original_class_name) {
+        public virtual int Update(int class_id, string class_flag, string question_type, string class_name, string subject, string driverlicense_type, int Original_class_id, string Original_class_flag, string Original_question_type, string Original_class_name, string Original_subject, string Original_driverlicense_type) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(class_id));
             if ((class_flag == null)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -9659,30 +9786,58 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(class_name));
             }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_class_id));
-            if ((Original_class_flag == null)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+            if ((subject == null)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_class_flag));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(subject));
             }
-            if ((Original_question_type == null)) {
+            if ((driverlicense_type == null)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(driverlicense_type));
+            }
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_class_id));
+            if ((Original_class_flag == null)) {
                 this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Original_question_type));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Original_class_flag));
             }
-            if ((Original_class_name == null)) {
+            if ((Original_question_type == null)) {
                 this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Original_class_name));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Original_question_type));
+            }
+            if ((Original_class_name == null)) {
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_class_name));
+            }
+            if ((Original_subject == null)) {
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((string)(Original_subject));
+            }
+            if ((Original_driverlicense_type == null)) {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(Original_driverlicense_type));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -9704,8 +9859,8 @@ namespace DrivingTest.jiakaoDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string class_flag, string question_type, string class_name, int Original_class_id, string Original_class_flag, string Original_question_type, string Original_class_name) {
-            return this.Update(Original_class_id, class_flag, question_type, class_name, Original_class_id, Original_class_flag, Original_question_type, Original_class_name);
+        public virtual int Update(string class_flag, string question_type, string class_name, string subject, string driverlicense_type, int Original_class_id, string Original_class_flag, string Original_question_type, string Original_class_name, string Original_subject, string Original_driverlicense_type) {
+            return this.Update(Original_class_id, class_flag, question_type, class_name, subject, driverlicense_type, Original_class_id, Original_class_flag, Original_question_type, Original_class_name, Original_subject, Original_driverlicense_type);
         }
     }
     
