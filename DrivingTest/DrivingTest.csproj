@@ -37,6 +37,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="C1.WPF.4, Version=4.0.20141.391, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -382,6 +386,9 @@
     <Resource Include="Images\ICBCLoading.gif" />
     <Resource Include="Images\窗体背景.png" />
     <Resource Include="Images\汽车.png" />
+    <Content Include="jiakao.accdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="sounds\start.wav" />
     <Resource Include="Images\驾照类型.png" />
     <Resource Include="Images\倒车入库02.jpg" />

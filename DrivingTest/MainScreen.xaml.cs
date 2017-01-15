@@ -35,9 +35,11 @@ namespace DrivingTest
         string classflag = "";//试题一级分类
         string classtype = "";//试题二级分类
 
+        int class_status = 0;//分类状态,1为常规状态,2为专项,3为章节
+
         int subject_id;
         string subject_name;
-        List<int> questions_id = new List<int>();
+        List<int> questions_id = new List<int>();//题号序列
 
         //int control_state = 0;//控件显示状态 1为触发,0为不触发
 
@@ -65,6 +67,13 @@ namespace DrivingTest
             // 将数据加载到表 setting 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            // 将数据加载到表 subject 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
+            jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
+
+            var sub = from c in jiakaoDataSet.subject where c.subject.Contains(PublicClass.subjection) select c;
+            subject_id = sub.First().subject_id;
 
             var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
 
@@ -248,271 +257,6 @@ namespace DrivingTest
             }
         }
 
-        //新手速成
-        private void sucheng_Click(object sender, RoutedEventArgs e)
-        {
-            generation_classification();//生成分类UI
-            classflag = "";//试题一级分类
-        }
-
-        //速成500
-        private void sucheng500_Click(object sender, RoutedEventArgs e)
-        {
-            generation_classification();//生成分类UI
-            classflag = "";//试题一级分类
-        }
-
-        //速成600
-        private void sucheng600_Click(object sender, RoutedEventArgs e)
-        {
-            generation_classification();//生成分类UI
-            classflag = "";//试题一级分类
-        }
-
-
-        //章节练习
-        private void zhangjielianxi_Click(object sender, RoutedEventArgs e)
-        {
-            yuyin.Visibility = System.Windows.Visibility.Hidden;//语音课堂
-            lianxi.Visibility = System.Windows.Visibility.Hidden;//基础练习
-            moni.Visibility = System.Windows.Visibility.Hidden;//基础模拟
-            qianghualianxi.Visibility = System.Windows.Visibility.Hidden;//强化练习
-            qianghuamoni.Visibility = System.Windows.Visibility.Hidden;//强化模拟
-            zhuanxianglianxi.Visibility = System.Windows.Visibility.Hidden;//专项练习
-            zhuanxiangmoni.Visibility = System.Windows.Visibility.Hidden;//专项模拟
-            listBox.Items.Clear();
-            if (zhangjie_bangding(PublicClass.cartype, PublicClass.subjection) == true)//列出章节,解锁顺序随机按钮
-            {
-                listBox.Visibility = System.Windows.Visibility.Visible;
-                shunxulianxi.IsEnabled = true;
-                suijilianxi.IsEnabled = true;
-            }
-        }
-
-        //仿真考试
-        private void simulation_test_Click(object sender, RoutedEventArgs e)
-        {
-            SimulationTest si = new SimulationTest();
-            C1.WPF.C1Window c1si = new C1.WPF.C1Window();
-            c1si.IsResizable = false;
-            c1si.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - si.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - si.Height / 2, 0, 0);
-            c1si.Content = si;
-            c1si.Show();
-            //c1si.ToolTip = "全真模拟";
-            c1si.Name = "全真模拟";
-
-
-        }
-
-        //我的错题
-        private void my_mistakes_Click(object sender, RoutedEventArgs e)
-        {
-            MyError my = new MyError();
-            C1.WPF.C1Window cmy = new C1.WPF.C1Window();
-            cmy.Name = "错题";
-            cmy.Header = "我的错题";
-            cmy.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - my.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - my.Height / 2, 0, 0);
-            cmy.Content = my;
-            cmy.Show();
-
-
-        }
-
-
-        //语音课堂
-        private void yuyin_Click(object sender, RoutedEventArgs e)
-        {
-            classtype = "";//试题二级分类
-            if (list_binding(PublicClass.cartype, PublicClass.subjection,classflag,classtype) == true)//有题解锁顺序随机按钮
-            {
-                shunxulianxi.IsEnabled = true;
-                suijilianxi.IsEnabled = true;
-            }
-        }
-        //基础练习
-        private void lianxi_Click(object sender, RoutedEventArgs e)
-        {
-            classtype = "";//试题二级分类
-            if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
-            {
-                shunxulianxi.IsEnabled = true;
-                suijilianxi.IsEnabled = true;
-            }
-        }
-        //基础模拟
-        private void moni_Click(object sender, RoutedEventArgs e)
-        {
-            //classtype = "";//试题二级分类
-            //if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
-            //{
-            //    shunxulianxi.IsEnabled = true;
-            //    suijilianxi.IsEnabled = true;
-            //}
-        }
-        //强化练习
-        private void qianghualianxi_Click(object sender, RoutedEventArgs e)
-        {
-            classtype = "";//试题二级分类
-            if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
-            {
-                shunxulianxi.IsEnabled = true;
-                suijilianxi.IsEnabled = true;
-            }
-        }
-        //强化模拟
-        private void qianghuamoni_Click(object sender, RoutedEventArgs e)
-        {
-            //classtype = "";//试题二级分类
-            //if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
-            //{
-            //    shunxulianxi.IsEnabled = true;
-            //    suijilianxi.IsEnabled = true;
-            //}
-        }
-
-        //专项练习
-        private void zhuanxianglianxi_Click(object sender, RoutedEventArgs e)
-        {
-            if (list_zhuanxiang(PublicClass.cartype, PublicClass.subjection) == true)//有题解锁顺序随机按钮
-            {
-                shunxulianxi.IsEnabled = true;
-                suijilianxi.IsEnabled = true;
-            }
-        }
-
-        //专项模拟
-        private void zhuanxiangmoni_Click(object sender, RoutedEventArgs e)
-        {
-            //classtype = "";//试题二级分类
-            //if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
-            //{
-            //    shunxulianxi.IsEnabled = true;
-            //    suijilianxi.IsEnabled = true;
-            //}
-        }
-
-        //顺序练习
-        private void shunxulianxi_Click(object sender, RoutedEventArgs e)
-        {
-
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-
-            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
-
-            var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.chapter_id == chapter_index[listBox.SelectedIndex] select c;
-            questions_id.Clear();
-            foreach (var qu in questions)
-            {
-                questions_id.Add(qu.question_id);
-            }
-            MainExam ma = new MainExam();
-
-
-            C1.WPF.C1Window cwin = new C1.WPF.C1Window();
-            ma.create_question(0, 0, PublicClass.cartype, subject_name, questions_id);
-            cwin.Content = ma;
-            cwin.Name = "驾考";
-            cwin.Header = "驾驶理论考试系统";
-            cwin.Show();
-            cwin.WindowState = C1.WPF.C1WindowState.Maximized;
-            cwin.Closing += new System.ComponentModel.CancelEventHandler(cwin_Closing);
-
-        }
-
-
-        //随机练习
-        private void suijilianxi_Click(object sender, RoutedEventArgs e)
-        {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-
-            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
-            var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.chapter_id == chapter_index[listBox.SelectedIndex] select c;
-            questions_id.Clear();
-            foreach (var qu in questions)
-            {
-                questions_id.Add(qu.question_id);
-            }
-            MainExam ma = new MainExam();
-            C1.WPF.C1Window cwin = new C1.WPF.C1Window();
-            ma.create_question(1, 0, PublicClass.cartype, subject_name, questions_id);
-            cwin.Content = ma;
-            cwin.Name = "驾考";
-            cwin.Header = "驾驶理论考试系统";
-            cwin.Show();
-            //this.Content = ma;
-            cwin.WindowState = C1.WPF.C1WindowState.Maximized;
-            cwin.Closing += new System.ComponentModel.CancelEventHandler(cwin_Closing);
-        }
-
-
-
-
-        //关闭时上传错题
-        void cwin_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
-            jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
-
-            var errquestion = (from c in jiakaoDataSet.errquest where c.user_id == PublicClass.user_id && c.user_id > 0 && c.user_id == PublicClass.user_id select c).ToArray();
-            PublicClass.question_list = new List<PublicClass.Question>();
-            try
-            {
-                ServicePointManager.DefaultConnectionLimit = 1000;
-                HttpWebResponse response = null;
-
-                string url = PublicClass.http + @"/returnjsons/t_errquests?" + "command=clear&user_id=" + PublicClass.user_id;
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//提交请求
-                request.Method = "GET";
-
-                request.Timeout = 10000;
-                response = (HttpWebResponse)request.GetResponse();
-                response.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            try
-            {
-                ServicePointManager.DefaultConnectionLimit = 1000;
-                HttpWebResponse response = null;
-                //StreamReader reader = null;
-
-                int arr_count = errquestion.Count() / 60;
-                arr_count++;
-
-                for (int cou = 0; cou < arr_count; cou++)
-                {
-                    string url = PublicClass.http + @"/returnjsons/t_errquests?user_id=" + PublicClass.user_id + "&";
-                    for (int i = cou * 60; i < (cou + 1) * 60; i++)
-                    {
-                        if (i < errquestion.Count())
-                        {
-                            url += "q[]=" + errquestion[i].question_id + "&a[]=" + errquestion[i].amount + "&";
-                        }
-                    }
-                    url = url.Substring(0, url.Length - 1);
-                    int a = url.Length;
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//
-                    request.Method = "GET";
-
-                    request.Timeout = 10000;
-                    response = (HttpWebResponse)request.GetResponse();
-                    response.Close();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-
         //章节练习绑定list
         private bool zhangjie_bangding(string cartype, string subjection)
         {
@@ -569,18 +313,21 @@ namespace DrivingTest
         {
             try
             {
-                //listBox.Items.Clear();
+                listBox.Items.Clear();
                 //listBox.ItemsSource = null;
-
-
                 //listBox.Items.Refresh();
 
-                listBox.ItemsSource = LoadListBoxData(); 
+                ArrayList item = LoadListBoxData();
+                for (int i = 0; i < item.Count; i++)
+                {
+                    listBox.Items.Add(item[i]);
+                }
+                //listBox.ItemsSource = LoadListBoxData();
 
                 listBox.SelectedIndex = 0;
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //MessageBox.Show("题库为空!");
                 return false;
@@ -612,6 +359,379 @@ namespace DrivingTest
             return itemsList;
         }
 
+        //新手速成
+        private void sucheng_Click(object sender, RoutedEventArgs e)
+        {
+            generation_classification();//生成分类UI
+            classflag = "";//试题一级分类
+        }
+
+        //速成500
+        private void sucheng500_Click(object sender, RoutedEventArgs e)
+        {
+            generation_classification();//生成分类UI
+            classflag = "";//试题一级分类
+        }
+
+        //速成600
+        private void sucheng600_Click(object sender, RoutedEventArgs e)
+        {
+            generation_classification();//生成分类UI
+            classflag = "";//试题一级分类
+        }
+
+
+        //章节练习
+        private void zhangjielianxi_Click(object sender, RoutedEventArgs e)
+        {
+            class_status = 3;//分类状态
+
+            yuyin.Visibility = System.Windows.Visibility.Hidden;//语音课堂
+            lianxi.Visibility = System.Windows.Visibility.Hidden;//基础练习
+            moni.Visibility = System.Windows.Visibility.Hidden;//基础模拟
+            qianghualianxi.Visibility = System.Windows.Visibility.Hidden;//强化练习
+            qianghuamoni.Visibility = System.Windows.Visibility.Hidden;//强化模拟
+            zhuanxianglianxi.Visibility = System.Windows.Visibility.Hidden;//专项练习
+            zhuanxiangmoni.Visibility = System.Windows.Visibility.Hidden;//专项模拟
+            listBox.Items.Clear();
+            if (zhangjie_bangding(PublicClass.cartype, PublicClass.subjection) == true)//列出章节,解锁顺序随机按钮
+            {
+                listBox.Visibility = System.Windows.Visibility.Visible;
+                shunxulianxi.IsEnabled = true;
+                suijilianxi.IsEnabled = true;
+            }
+        }
+
+        //仿真考试
+        private void simulation_test_Click(object sender, RoutedEventArgs e)
+        {
+            SimulationTest si = new SimulationTest();
+            C1.WPF.C1Window c1si = new C1.WPF.C1Window();
+            c1si.IsResizable = false;
+            c1si.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - si.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - si.Height / 2, 0, 0);
+            c1si.Content = si;
+            c1si.Show();
+            //c1si.ToolTip = "全真模拟";
+            c1si.Name = "全真模拟";
+
+
+        }
+
+        //我的错题
+        private void my_mistakes_Click(object sender, RoutedEventArgs e)
+        {
+            MyError my = new MyError();
+            C1.WPF.C1Window cmy = new C1.WPF.C1Window();
+            cmy.Name = "错题";
+            cmy.Header = "我的错题";
+            cmy.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - my.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - my.Height / 2, 0, 0);
+            cmy.Content = my;
+            cmy.Show();
+
+        }
+
+
+        //语音课堂
+        private void yuyin_Click(object sender, RoutedEventArgs e)
+        {
+            classtype = "";//试题二级分类
+            class_status = 1;//分类状态
+            if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
+            {
+                shunxulianxi.IsEnabled = true;
+                suijilianxi.IsEnabled = true;
+            }
+        }
+        //基础练习
+        private void lianxi_Click(object sender, RoutedEventArgs e)
+        {
+            classtype = "";//试题二级分类
+            class_status = 1;//分类状态
+            if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
+            {
+                shunxulianxi.IsEnabled = true;
+                suijilianxi.IsEnabled = true;
+            }
+        }
+        //基础模拟
+        private void moni_Click(object sender, RoutedEventArgs e)
+        {
+            //classtype = "";//试题二级分类
+            //if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
+            //{
+            //    shunxulianxi.IsEnabled = true;
+            //    suijilianxi.IsEnabled = true;
+            //}
+        }
+        //强化练习
+        private void qianghualianxi_Click(object sender, RoutedEventArgs e)
+        {
+            classtype = "";//试题二级分类
+            class_status = 1;//分类状态
+            if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
+            {
+                shunxulianxi.IsEnabled = true;
+                suijilianxi.IsEnabled = true;
+            }
+        }
+        //强化模拟
+        private void qianghuamoni_Click(object sender, RoutedEventArgs e)
+        {
+            //classtype = "";//试题二级分类
+            //if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
+            //{
+            //    shunxulianxi.IsEnabled = true;
+            //    suijilianxi.IsEnabled = true;
+            //}
+        }
+
+        //专项练习
+        private void zhuanxianglianxi_Click(object sender, RoutedEventArgs e)
+        {
+            class_status = 2;//分类状态
+            if (list_zhuanxiang(PublicClass.cartype, PublicClass.subjection) == true)//有题解锁顺序随机按钮
+            {
+                shunxulianxi.IsEnabled = true;
+                suijilianxi.IsEnabled = true;
+            }
+        }
+
+        //专项模拟
+        private void zhuanxiangmoni_Click(object sender, RoutedEventArgs e)
+        {
+            //classtype = "";//试题二级分类
+            //if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
+            //{
+            //    shunxulianxi.IsEnabled = true;
+            //    suijilianxi.IsEnabled = true;
+            //}
+        }
+
+        //顺序练习
+        private void shunxulianxi_Click(object sender, RoutedEventArgs e)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 class 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+            // 将数据加载到表 classdetail 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter jiakaoDataSetclassdetailTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter();
+            jiakaoDataSetclassdetailTableAdapter.Fill(jiakaoDataSet.classdetail);
+
+            if (class_status == 1)//常规
+            {
+                var questions = from c in jiakaoDataSet.classdetail where c.class_id == class_index[listBox.SelectedIndex] select c;
+                questions_id.Clear();
+                if (questions.Count() != 0)
+                {
+                    foreach (var qu in questions)
+                    {
+                        questions_id.Add(qu.question_id);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("此类型题目数量为0!");
+                    goto L1;
+
+                }
+            }
+            if (class_status == 2)//专项
+            {
+                var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.question_type.Contains(zhuanxiang_index[listBox.SelectedIndex]) select c;
+                questions_id.Clear();
+                if (questions.Count() != 0)
+                {
+                    foreach (var qu in questions)
+                    {
+                        questions_id.Add(qu.question_id);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("此类型题目数量为0!");
+                    goto L1;
+              
+                }
+
+            }
+            if (class_status == 3)//章节
+            {
+                var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.chapter_id == chapter_index[listBox.SelectedIndex] select c;
+                questions_id.Clear();
+                foreach (var qu in questions)
+                {
+                    questions_id.Add(qu.question_id);
+                }
+            }
+
+            MainExam ma = new MainExam();
+            C1.WPF.C1Window cwin = new C1.WPF.C1Window();
+            ma.create_question(0, 0, PublicClass.cartype, subject_name, questions_id);
+            cwin.Content = ma;
+            cwin.Name = "驾考";
+            cwin.Header = "驾驶理论考试系统";
+            cwin.Show();
+            cwin.WindowState = C1.WPF.C1WindowState.Maximized;
+            cwin.Closing += new System.ComponentModel.CancelEventHandler(cwin_Closing);
+
+        L1://goto跳转至这里
+            int l = 0;//占位无用变量,不可注释
+
+        }
+
+
+        //随机练习
+        private void suijilianxi_Click(object sender, RoutedEventArgs e)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 class 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+            // 将数据加载到表 classdetail 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter jiakaoDataSetclassdetailTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter();
+            jiakaoDataSetclassdetailTableAdapter.Fill(jiakaoDataSet.classdetail);
+
+            if (class_status == 1)//常规
+            {
+                var questions = from c in jiakaoDataSet.classdetail where c.class_id == class_index[listBox.SelectedIndex] select c;
+                questions_id.Clear();
+                if (questions.Count() != 0)
+                {
+                    foreach (var qu in questions)
+                    {
+                        questions_id.Add(qu.question_id);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("此类型题目数量为0!");
+                    goto L1;
+                }
+            }
+            if (class_status == 2)//专项
+            {
+                var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.question_type.Contains(zhuanxiang_index[listBox.SelectedIndex]) select c;
+                questions_id.Clear();
+                if (questions.Count() != 0)
+                {
+                    foreach (var qu in questions)
+                    {
+                        questions_id.Add(qu.question_id);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("此类型题目数量为0!");
+                    goto L1;
+                }
+            }
+            if (class_status == 3)//章节
+            {
+                var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.chapter_id == chapter_index[listBox.SelectedIndex] select c;
+                questions_id.Clear();
+                foreach (var qu in questions)
+                {
+                    questions_id.Add(qu.question_id);
+                }
+            }
+
+            MainExam ma = new MainExam();
+            C1.WPF.C1Window cwin = new C1.WPF.C1Window();
+            ma.create_question(1, 0, PublicClass.cartype, subject_name, questions_id);
+            cwin.Content = ma;
+            cwin.Name = "驾考";
+            cwin.Header = "驾驶理论考试系统";
+            cwin.Show();
+            cwin.WindowState = C1.WPF.C1WindowState.Maximized;
+            cwin.Closing += new System.ComponentModel.CancelEventHandler(cwin_Closing);
+
+        L1://goto跳转至这里
+            int l = 0;//占位无用变量,不可注释
+        }
+
+
+
+
+        //关闭时上传错题
+        void cwin_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+            MessageBoxResult result = MessageBox.Show("确定退出练习吗？", "询问", MessageBoxButton.OKCancel);
+
+            //关闭窗口
+            if (result == MessageBoxResult.OK)
+            {
+                e.Cancel = false;
+
+                DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+                DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
+                jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
+
+                var errquestion = (from c in jiakaoDataSet.errquest where c.user_id == PublicClass.user_id && c.user_id > 0 && c.user_id == PublicClass.user_id select c).ToArray();
+                PublicClass.question_list = new List<PublicClass.Question>();
+                try
+                {
+                    ServicePointManager.DefaultConnectionLimit = 1000;
+                    HttpWebResponse response = null;
+
+                    string url = PublicClass.http + @"/returnjsons/t_errquests?" + "command=clear&user_id=" + PublicClass.user_id;
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//提交请求
+                    request.Method = "GET";
+
+                    request.Timeout = 10000;
+                    response = (HttpWebResponse)request.GetResponse();
+                    response.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+                try
+                {
+                    ServicePointManager.DefaultConnectionLimit = 1000;
+                    HttpWebResponse response = null;
+                    //StreamReader reader = null;
+
+                    int arr_count = errquestion.Count() / 60;
+                    arr_count++;
+
+                    for (int cou = 0; cou < arr_count; cou++)
+                    {
+                        string url = PublicClass.http + @"/returnjsons/t_errquests?user_id=" + PublicClass.user_id + "&";
+                        for (int i = cou * 60; i < (cou + 1) * 60; i++)
+                        {
+                            if (i < errquestion.Count())
+                            {
+                                url += "q[]=" + errquestion[i].question_id + "&a[]=" + errquestion[i].amount + "&";
+                            }
+                        }
+                        url = url.Substring(0, url.Length - 1);
+                        int a = url.Length;
+                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//
+                        request.Method = "GET";
+
+                        request.Timeout = 10000;
+                        response = (HttpWebResponse)request.GetResponse();
+                        response.Close();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+            //不关闭窗口
+            if (result == MessageBoxResult.Cancel)
+                e.Cancel = true;
+        }
+
+
+        
+
     }
 
 
@@ -639,8 +759,8 @@ namespace DrivingTest
 
     //    }
     //}
-          
- 
+
+
 
 
 

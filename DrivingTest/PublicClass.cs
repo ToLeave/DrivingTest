@@ -19,8 +19,7 @@ namespace DrivingTest
             public bool sz { get; set; }//首正
             public int rept_do { get; set; }//重做次数
         }
-
-        public class Answer
+                public class Answer
         {
             public int answer_id { get; set; }
             public int isright { get; set; }
@@ -62,7 +61,7 @@ namespace DrivingTest
 
 
 
-        public class questions
+        public class questions //题目表
         {
             public int question_id;
             public int chapter_id;
@@ -77,7 +76,7 @@ namespace DrivingTest
         }
         public static List<questions> question_data = new List<questions>();
 
-        public class answers
+        public class answers //答案表
         {
             public int answer_id;
             public int question_id;
@@ -87,7 +86,7 @@ namespace DrivingTest
         }
         public static List<answers> answer_data = new List<answers>();
 
-        public class chapters
+        public class chapters //章节表
         {
             public int chapter_id;
             public string chapter;
@@ -95,7 +94,7 @@ namespace DrivingTest
         }
         public static List<chapters> chapter_data = new List<chapters>();
 
-        public class subjects
+        public class subjects //科目表
         {
             public int subject_id;
             public string subject;
@@ -103,6 +102,23 @@ namespace DrivingTest
         }
         public static List<subjects> subject_data = new List<subjects>();
 
+        public class _class //分类
+        {
+            public int class_id;
+            public string class_flag;
+            public string question_type;
+            public string name;
+            public string driverlicense_type;
+            public string subject;
+        }
+        public static List<_class> class_data = new List<_class>();
 
+        public class classdetail //分类明细
+        {
+            public int classdetail_id;
+            public int class_id;
+            public int question_id;
+        }
+        public static List<classdetail> classdetail_data = new List<classdetail>();
     }
 }

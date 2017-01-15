@@ -51,20 +51,24 @@ namespace DrivingTest
         JArray answer_json;//答案json
         JArray chapter_json;//章节json
         JArray subject_json;//科目json
+        JArray class_json;//分类json
+        JArray classdetail_json;//分类明细json
         int cur_question_step = 0;
 
-        int synccount = 0;
+        int synccount = 0; //进度显示下载总数
         int now_synccount = 0;
 
         List<PublicClass.questions> local_question_data = new List<PublicClass.questions>();
         List<PublicClass.answers> local_answer_data = new List<PublicClass.answers>();
         List<PublicClass.chapters> local_chapter_data = new List<PublicClass.chapters>();
         List<PublicClass.subjects> local_subject_data = new List<PublicClass.subjects>();
+        List<PublicClass._class> local_class_data = new List<PublicClass._class>();
+        List<PublicClass.classdetail> local_classdetail_data = new List<PublicClass.classdetail>();
 
         bool question_update_compaleted = false;
         bool answer_update_compaleted = false;
-        bool chapter_update_compaleted = false;
-        bool subject_update_compaleted = false;
+        //bool chapter_update_compaleted = false;
+        //bool subject_update_compaleted = false;
 
         string ip = ""; //ip
 
@@ -156,88 +160,43 @@ where T : DependencyObject
             return foundChild;
         }
 
+        #region
+        //private void get_local_chapters(object data)
+        //{
+        //    DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
 
-        private void get_local_chapters(object data)
-        {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+        //    // 将数据加载到表 chapter 中。可以根据需要修改此代码。
+        //    DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
+        //    jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
 
-            // 将数据加载到表 chapter 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
-            jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
+        //    foreach (var mychapter in jiakaoDataSet.chapter)
+        //    {
+        //        PublicClass.chapters chapter = new PublicClass.chapters();
+        //        chapter.chapter_id = mychapter.chapter_id;
+        //        chapter.chapter = mychapter.chapter;
+        //        chapter.updated_at = mychapter.updated_at;
+        //        local_chapter_data.Add(chapter);
+        //    }
+        //}
 
-            foreach (var mychapter in jiakaoDataSet.chapter)
-            {
-                PublicClass.chapters chapter = new PublicClass.chapters();
-                chapter.chapter_id = mychapter.chapter_id;
-                chapter.chapter = mychapter.chapter;
-                chapter.updated_at = mychapter.updated_at;
-                local_chapter_data.Add(chapter);
-            }
-        }
+        //private void get_local_subject(object data)
+        //{
+        //    DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
 
-        private void get_local_subject(object data)
-        {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+        //    // 将数据加载到表 subject 中。可以根据需要修改此代码。
+        //    DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
+        //    jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
 
-            // 将数据加载到表 subject 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
-            jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
-
-            foreach (var mysubject in jiakaoDataSet.subject)
-            {
-                PublicClass.subjects subject = new PublicClass.subjects();
-                subject.subject_id = mysubject.subject_id;
-                subject.subject = mysubject.subject;
-                subject.updated_at = mysubject.updated_at;
-                local_subject_data.Add(subject);
-            }
-        }
-
-        private void get_local_questions(object data)
-        {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 question 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-
-                jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
-
-                foreach (var myques in jiakaoDataSet.question)
-                {
-                    PublicClass.questions question = new PublicClass.questions();
-                    question.question_id = myques.question_id;
-                    question.chapter_id = myques.chapter_id;
-                    question.subject_id = myques.subject_id;
-                    question.question_name = myques.question_name;
-                    question.question_image = myques.question_image;
-                    question.voice = myques.voice;
-                    question.driverlicense_type = myques.driverlicense_type;
-                    question.question_type = myques.question_type;
-                    question.update_at = myques.update_at;
-                    question.is_judge = myques.is_judge;
-                    local_question_data.Add(question);
-
-                }
-           
-        }
-
-        private void get_local_answers(object data)
-        {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
-
-                jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
-                foreach (var myanswer in jiakaoDataSet.answer)
-                {
-                    PublicClass.answers answer = new PublicClass.answers();
-                    answer.answer_id = myanswer.answer_id;
-                    answer.question_id = myanswer.question_id;
-                    answer.answer = myanswer.answer;
-                    answer.is_right = myanswer.is_right;
-                    answer.update_at = myanswer.update_at;
-                    local_answer_data.Add(answer);
-                }
-           
-        }
+        //    foreach (var mysubject in jiakaoDataSet.subject)
+        //    {
+        //        PublicClass.subjects subject = new PublicClass.subjects();
+        //        subject.subject_id = mysubject.subject_id;
+        //        subject.subject = mysubject.subject;
+        //        subject.updated_at = mysubject.updated_at;
+        //        local_subject_data.Add(subject);
+        //    }
+        //}
+        #endregion
 
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -370,9 +329,10 @@ where T : DependencyObject
                             }
                             else
                             {
-                                user_textBox.IsEnabled = false;
-                                password_textBox.IsEnabled = false;
+                                button_disable();//更新时禁用所有按钮
+
                                 updatequestion();//开始更新题库
+
                                 //updatedownload();
                                 //version(getchkupdstr);
                                 //xianshi.Text = "下载完毕,更新已完成";
@@ -624,59 +584,56 @@ where T : DependencyObject
         }
 
 
-        #region 数据接收
-
-
-
+        #region
         //接收服务器的Json数据
-        public static string GetHTTPInfo()
-        {
-            string str = null;
-            HttpWebResponse response = null;
-            StreamReader reader = null;
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/getquestion");
-                request.Method = "GET";
-                request.Timeout = 5000;
-                response = (HttpWebResponse)request.GetResponse();
-                reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
-                str = reader.ReadToEnd();
+        //public static string GetHTTPInfo()
+        //{
+        //    string str = null;
+        //    HttpWebResponse response = null;
+        //    StreamReader reader = null;
+        //    try
+        //    {
+        //        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/getquestion");
+        //        request.Method = "GET";
+        //        request.Timeout = 5000;
+        //        response = (HttpWebResponse)request.GetResponse();
+        //        reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
+        //        str = reader.ReadToEnd();
 
 
-                JArray jsonObj = JArray.Parse(str);
+        //        JArray jsonObj = JArray.Parse(str);
 
-                string cc = "";
+        //        string cc = "";
 
-                foreach (JObject jobject in jsonObj)
-                {
-                    cc += jobject["id"];
-                }
+        //        foreach (JObject jobject in jsonObj)
+        //        {
+        //            cc += jobject["id"];
+        //        }
 
 
-            }
-            catch
-            {
-                str = "";
-            }
-            finally
-            {
-                if (reader != null)
-                {
-                    reader.Close();
-                    reader.Dispose();
-                }
-                if (response != null)
-                {
-                    response.Close();
-                }
-            }
-            return str;
-        }
+        //    }
+        //    catch
+        //    {
+        //        str = "";
+        //    }
+        //    finally
+        //    {
+        //        if (reader != null)
+        //        {
+        //            reader.Close();
+        //            reader.Dispose();
+        //        }
+        //        if (response != null)
+        //        {
+        //            response.Close();
+        //        }
+        //    }
+        //    return str;
+        //}
+
 
 
         #endregion
-
 
 
 
@@ -686,6 +643,91 @@ where T : DependencyObject
             this.DragMove();
         }
 
+        private void get_local_questions(object data)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 question 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+
+            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+
+            foreach (var myques in jiakaoDataSet.question)
+            {
+                PublicClass.questions question = new PublicClass.questions();
+                question.question_id = myques.question_id;
+                question.chapter_id = myques.chapter_id;
+                question.subject_id = myques.subject_id;
+                question.question_name = myques.question_name;
+                question.question_image = myques.question_image;
+                question.voice = myques.voice;
+                question.driverlicense_type = myques.driverlicense_type;
+                question.question_type = myques.question_type;
+                question.update_at = myques.update_at;
+                question.is_judge = myques.is_judge;
+                local_question_data.Add(question);
+
+            }
+
+        }
+
+        private void get_local_answers(object data)
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
+
+            jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+            foreach (var myanswer in jiakaoDataSet.answer)
+            {
+                PublicClass.answers answer = new PublicClass.answers();
+                answer.answer_id = myanswer.answer_id;
+                answer.question_id = myanswer.question_id;
+                answer.answer = myanswer.answer;
+                answer.is_right = myanswer.is_right;
+                answer.update_at = myanswer.update_at;
+                local_answer_data.Add(answer);
+            }
+
+        }
+
+        //更新时禁用所有按钮
+        private void button_disable()
+        {
+            user_textBox.IsEnabled = false;
+            password_textBox.IsEnabled = false;
+
+            subject1.IsEnabled = false;
+            subject2.IsEnabled = false;
+            subject3.IsEnabled = false;
+            subject4.IsEnabled = false;
+            car_button.IsEnabled = false;
+            bus_button.IsEnabled = false;
+            truck_button.IsEnabled = false;
+            motorcycle_button.IsEnabled = false;
+            regain_button.IsEnabled = false;
+
+            zhuce.IsEnabled = false;
+            login.IsEnabled = false;
+        }
+
+        //更新后启用所有按钮
+        private void buttton_enable()
+        {
+            user_textBox.IsEnabled = true;
+            password_textBox.IsEnabled = true;
+
+            subject1.IsEnabled = true;
+            subject2.IsEnabled = true;
+            subject3.IsEnabled = true;
+            subject4.IsEnabled = true;
+            car_button.IsEnabled = true;
+            bus_button.IsEnabled = true;
+            truck_button.IsEnabled = true;
+            motorcycle_button.IsEnabled = true;
+            regain_button.IsEnabled = true;
+
+            zhuce.IsEnabled = true;
+            login.IsEnabled = true;
+        }
 
         #region 更新版本号
         //接收版本更新号的json文件
@@ -773,62 +815,6 @@ where T : DependencyObject
         }
         #endregion
 
-        private void update_local_chapter(object data)
-        {
-            foreach (var remotechapter in chapter_json)
-            {
-                PublicClass.chapters chapter = new PublicClass.chapters();
-                try
-                {
-                    chapter.chapter_id = int.Parse(remotechapter["id"].ToString());
-                }
-                catch { }
-
-                try
-                {
-                    chapter.chapter = remotechapter["chapter"].ToString();
-                }
-                catch { }
-
-                try
-                {
-                    chapter.updated_at = remotechapter["updated_at"].ToString();
-                }
-                catch { }
-                local_chapter_data.Add(chapter);
-            }
-            //chapter_update_compaleted = true;
-            //data_complete_validate();
-            //set_chapter("");
-        }
-
-        private void update_subject_data(object data)
-        {
-            foreach (var remotesubject in subject_json)
-            {
-                PublicClass.subjects subject = new PublicClass.subjects();
-                try
-                {
-                    subject.subject_id = int.Parse(remotesubject["id"].ToString());
-                }
-                catch { }
-                try
-                {
-                    subject.subject = remotesubject["subject"].ToString();
-                }
-                catch { }
-                try
-                {
-                    subject.updated_at = remotesubject["updated_at"].ToString();
-                }
-                catch { }
-                local_subject_data.Add(subject);
-            }
-            //subject_update_compaleted = true;
-            //data_complete_validate();
-            //set_subject("");
-        }
-
         private void update_local_question(object data)//更新内存题库
         {
             foreach (var remotequestion in question_json)
@@ -877,7 +863,7 @@ where T : DependencyObject
                     catch { isj = 0; }
                     if (img != "")
                     {
-                        
+
                         attch_down_count++;
                         updatedownload(img, voi);
                         //img_down_list.Add(img);
@@ -985,12 +971,12 @@ where T : DependencyObject
                 }
                 now_synccount++;
                 cur_question_step++;
-                   Dispatcher.Invoke(new Action(() =>
-                    {
-                xianshi.Text = "同步资源..." + cur_question_step;
+                Dispatcher.Invoke(new Action(() =>
+                 {
+                     xianshi.Text = "同步资源..." + cur_question_step;
 
-                progress.Value = now_synccount / synccount * 100;
-                    }));
+                     progress.Value = now_synccount / synccount * 100;
+                 }));
                 System.Windows.Forms.Application.DoEvents();
             }
             question_update_compaleted = true;
@@ -1077,16 +1063,135 @@ where T : DependencyObject
                 now_synccount++;
                 //xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
                 cur_question_step++;
-                                   Dispatcher.Invoke(new Action(() =>
-                    {
-                xianshi.Text = "同步资源..." + cur_question_step;
+                Dispatcher.Invoke(new Action(() =>
+ {
+     xianshi.Text = "同步资源..." + cur_question_step;
 
-                progress.Value = now_synccount / synccount * 100;
-                    }));
+     progress.Value = now_synccount / synccount * 100;
+ }));
                 System.Windows.Forms.Application.DoEvents();
             }
             answer_update_compaleted = true;
             data_complete_validate();
+        }
+
+        private void update_local_chapter(object data)//更新内存章节
+        {
+            foreach (var remotechapter in chapter_json)
+            {
+                PublicClass.chapters chapter = new PublicClass.chapters();
+                try
+                {
+                    chapter.chapter_id = int.Parse(remotechapter["id"].ToString());
+                }
+                catch { }
+
+                try
+                {
+                    chapter.chapter = remotechapter["chapter"].ToString();
+                }
+                catch { }
+
+                try
+                {
+                    chapter.updated_at = remotechapter["updated_at"].ToString();
+                }
+                catch { }
+                local_chapter_data.Add(chapter);
+            }
+            //chapter_update_compaleted = true;
+            //data_complete_validate();
+            //set_chapter("");
+        }
+
+        private void update_local_subject(object data)//更新内存科目
+        {
+            foreach (var remotesubject in subject_json)
+            {
+                PublicClass.subjects subject = new PublicClass.subjects();
+                try
+                {
+                    subject.subject_id = int.Parse(remotesubject["id"].ToString());
+                }
+                catch { }
+                try
+                {
+                    subject.subject = remotesubject["subject"].ToString();
+                }
+                catch { }
+                try
+                {
+                    subject.updated_at = remotesubject["updated_at"].ToString();
+                }
+                catch { }
+                local_subject_data.Add(subject);
+            }
+            //subject_update_compaleted = true;
+            //data_complete_validate();
+            //set_subject("");
+        }
+
+        private void update_local_class(object data)//更新内存分类
+        {
+            foreach (var remoteclass in class_json)
+            {
+                PublicClass._class _class = new PublicClass._class();
+                try
+                {
+                    _class.class_id = int.Parse(remoteclass["id"].ToString());
+                }
+                catch { }
+                try
+                {
+                    _class.class_flag = remoteclass["class_flag"].ToString();
+                }
+                catch { }
+                try
+                {
+                    _class.question_type = remoteclass["question_type"].ToString();
+                }
+                catch { }
+                try
+                {
+                    _class.name = remoteclass["name"].ToString();
+                }
+                catch { }
+                try
+                {
+                    _class.driverlicense_type = remoteclass["driverlicense_type"].ToString();
+                }
+                catch { }
+                try
+                {
+                    _class.subject = remoteclass["subject"].ToString();
+                }
+                catch { }
+                local_class_data.Add(_class);
+            }
+        }
+
+        private void update_local_classdetail(object data)//更新内存分类明细  
+        {
+            PublicClass.classdetail classdetail = new PublicClass.classdetail();
+            foreach (var remoteclassdetail in classdetail_json)
+            {
+                try
+                {
+                    classdetail.classdetail_id = int.Parse(remoteclassdetail["id"].ToString());
+                }
+                catch { }
+                try
+                {
+                    classdetail.class_id = int.Parse(remoteclassdetail["class_id"].ToString());
+                }
+                catch { }
+                try
+                {
+                    classdetail.question_id = int.Parse(remoteclassdetail["question_id"].ToString());
+                }
+                catch { }
+                local_classdetail_data.Add(classdetail);
+            }
         }
 
 
@@ -1113,12 +1218,22 @@ where T : DependencyObject
                 DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
                 jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
 
+                // 将数据加载到表 class 中。可以根据需要修改此代码。
+                DrivingTest.jiakaoDataSetTableAdapters.classTableAdapter jiakaoDataSetclassTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.classTableAdapter();
+                jiakaoDataSetclassTableAdapter.Fill(jiakaoDataSet._class);
+
+                // 将数据加载到表 classdetail 中。可以根据需要修改此代码。
+                DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter jiakaoDataSetclassdetailTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter();
+                jiakaoDataSetclassdetailTableAdapter.Fill(jiakaoDataSet.classdetail);
+
                 #region 从URL获取json
 
                 string questionstr = null;
                 string answerstr = null;
                 string chapterstr = null;
                 string subjectstr = null;
+                string classstr = null;
+                string classdetailstr = null;
 
 
                 HttpWebResponse response = null;
@@ -1153,20 +1268,43 @@ where T : DependencyObject
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 subjectstr = reader.ReadToEnd();
 
+                request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/cla");//分类 url
+                request.Method = "GET";
+                request.Timeout = 30000;
+                response = (HttpWebResponse)request.GetResponse();
+                reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
+                classstr = reader.ReadToEnd();
+
+                request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/classdetail");//分类明细 url
+                request.Method = "GET";
+                request.Timeout = 30000;
+                response = (HttpWebResponse)request.GetResponse();
+                reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
+                classdetailstr = reader.ReadToEnd();
+
                 question_json = JArray.Parse(questionstr);//题目json
                 answer_json = JArray.Parse(answerstr);//答案json
                 chapter_json = JArray.Parse(chapterstr);//章节json
                 subject_json = JArray.Parse(subjectstr);//科目json
+                class_json = JArray.Parse(classstr);//分类json
+                classdetail_json = JArray.Parse(classdetailstr);//分类明细json
 
                 #endregion
-                 synccount = question_json.Count + answer_json.Count + chapter_json.Count + subject_json.Count;
-                 now_synccount = 0;
+                synccount = question_json.Count + answer_json.Count + chapter_json.Count + subject_json.Count;// +class_json.Count + classdetail_json.Count;
+                now_synccount = 0;
+
+                ThreadPool.QueueUserWorkItem(update_local_question, question_json);//写入和更新题目表
+                ThreadPool.QueueUserWorkItem(update_local_answer, answer_json);//写入和更新答案表
+                ThreadPool.QueueUserWorkItem(update_local_chapter, chapter_json);//写入和更新章节表
+                ThreadPool.QueueUserWorkItem(update_local_subject, subject_json);//写入和更新科目表
+                ThreadPool.QueueUserWorkItem(update_local_class, class_json);//写入和更新分类表
+                ThreadPool.QueueUserWorkItem(update_local_classdetail, classdetail_json);//写入和更新分类明细表
 
 
-                #region 题目表和答案表写入和更新
+                #region
 
                 //写入和更新题目表
-                ThreadPool.QueueUserWorkItem(update_local_question, question_json);
+
                 //xianshi.Text = "写入题...";
                 //System.Windows.Forms.Application.DoEvents();
                 //jiakaoDataSetquestionTableAdapter.Update(jiakaoDataSet.question);
@@ -1181,7 +1319,7 @@ where T : DependencyObject
 
 
                 //写入和更新答案表
-                ThreadPool.QueueUserWorkItem(update_local_answer, answer_json);
+
                 //xianshi.Text = "写入答案...";
                 //System.Windows.Forms.Application.DoEvents();
                 //jiakaoDataSetanswerTableAdapter.Update(jiakaoDataSet.answer);
@@ -1194,8 +1332,7 @@ where T : DependencyObject
                 //ThreadPool.QueueUserWorkItem(set_answer, "");
                 //set_answer("");
 
-                #endregion
-                #region 写入和更新章节科目表
+
                 //写入和更新章节表
                 //foreach (var remotechapter in chapter_json)
                 //{
@@ -1245,7 +1382,7 @@ where T : DependencyObject
                 //    progress.Value = now_synccount / synccount * 100;
                 //    System.Windows.Forms.Application.DoEvents();
                 //}
-                ThreadPool.QueueUserWorkItem(update_local_chapter, chapter_json);
+
                 //xianshi.Text = "写入章节...";
                 //System.Windows.Forms.Application.DoEvents();
                 //jiakaoDataSetchapterTableAdapter.Update(jiakaoDataSet.chapter);
@@ -1294,7 +1431,7 @@ where T : DependencyObject
 
                 //        }
                 //    }
-                ThreadPool.QueueUserWorkItem(update_subject_data, subject_json);
+
                 //    now_synccount++;
                 //    //xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
                 //    cur_question_step++;
@@ -1310,6 +1447,7 @@ where T : DependencyObject
                 //jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
                 //jiakaoDataSet.subject.AcceptChanges();
                 #endregion
+
                 if (reader != null)
                 {
                     reader.Close();
@@ -1357,6 +1495,7 @@ where T : DependencyObject
             }
         }
 
+        #region
         private void set_chapter(object data)
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
@@ -1397,143 +1536,6 @@ where T : DependencyObject
             }
         }
 
-        private void set_all_data(object data)
-        {
-            float local_count = local_question_data.Count + local_answer_data.Count + local_chapter_data.Count + local_subject_data.Count;
-            float local_step = 0;
-                        Dispatcher.Invoke(new Action(() =>
-                    {
-
-                        List<int> local_temp_question = new List<int>();
-                        List<int> remote_temp_question = new List<int>();
-                        List<int> del_question = new List<int>();
-                        local_temp_question = (from c in local_question_data select c.question_id).ToList();
-                        remote_temp_question = (from c in question_json select int.Parse(c["id"].ToString())).ToList();
-                        del_question = local_temp_question.Except(remote_temp_question).ToList();
-                        if (del_question.Count() > 0)
-                        {
-                            foreach (var del in del_question)
-                            {
-                                var mydel = from c in local_question_data where c.question_id == del select c;
-                                if (mydel.Count() > 0)
-                                {
-                                    try
-                                    {
-                                        string image_attch = System.Windows.Forms.Application.StartupPath + "\\Image\\" + mydel.First().question_image;
-                                        if (File.Exists(image_attch))
-                                        {
-                                            File.Delete(image_attch);
-                                        }
-                                    }
-                                    catch { }
-
-
-                                    try
-                                    {
-                                        string voice_attch = System.Windows.Forms.Application.StartupPath + "\\Voice\\" + mydel.First().voice;
-                                        if (File.Exists(voice_attch))
-                                        {
-                                            File.Delete(voice_attch);
-                                        }
-                                    }
-                                    catch { }
-                                    local_question_data.Remove(mydel.First());
-
-
-                                    var del_answer = from c in local_answer_data where c.question_id == mydel.First().question_id select c;
-                                    for (int i = 0; i < del_answer.Count(); i++)
-                                    {
-                                        local_answer_data.Remove(del_answer.First());
-                                        i--;
-                                    }
-
-                                }
-                            }
-                        }
-
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 question 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-            lock (jiakaoDataSet)
-            {
-                jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
-                jiakaoDataSet.question.Clear();
-
-                foreach (var myquestion in local_question_data)
-                {
-                    jiakaoDataSet.question.AddquestionRow(myquestion.question_id, myquestion.chapter_id, myquestion.subject_id, myquestion.question_name, myquestion.question_image, myquestion.voice, myquestion.driverlicense_type, myquestion.question_type, myquestion.update_at, myquestion.is_judge);
-                    local_step++;
-
-                }
-                jiakaoDataSetquestionTableAdapter.Update(jiakaoDataSet.question);
-                jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
-                jiakaoDataSet.question.AcceptChanges();
-                progress.Value = (int)(local_step / local_count * 100f);
-                System.Windows.Forms.Application.DoEvents();
-            }
-
-            DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
-            lock (jiakaoDataSet)
-            {
-                jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
-                jiakaoDataSet.answer.Clear();
-                foreach (var myanswer in local_answer_data)
-                {
-                    jiakaoDataSet.answer.AddanswerRow(myanswer.answer_id, myanswer.question_id, myanswer.answer, myanswer.is_right, myanswer.update_at);
-                    local_step++;
-
-                }
-                jiakaoDataSetanswerTableAdapter.Update(jiakaoDataSet.answer);
-                jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
-                jiakaoDataSet.answer.AcceptChanges();
-                progress.Value = (int)(local_step / local_count * 100f);
-                System.Windows.Forms.Application.DoEvents();
-            }
-
-            DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
-            lock (jiakaoDataSet)
-            {
-                jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
-                jiakaoDataSet.chapter.Clear();
-                foreach (var mychapter in local_chapter_data)
-                {
-                    jiakaoDataSet.chapter.AddchapterRow(mychapter.chapter_id, mychapter.chapter, mychapter.updated_at);
-                    local_step++;
-
-                }
-                jiakaoDataSetchapterTableAdapter.Update(jiakaoDataSet.chapter);
-                jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
-                jiakaoDataSet.chapter.AcceptChanges();
-                progress.Value = (int)(local_step / local_count * 100f);
-                System.Windows.Forms.Application.DoEvents();
-            }
-
-            DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
-            lock (jiakaoDataSet)
-            {
-                jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
-                jiakaoDataSet.subject.Clear();
-                foreach (var mysubject in local_subject_data)
-                {
-                    jiakaoDataSet.subject.AddsubjectRow(mysubject.subject_id, mysubject.subject, mysubject.updated_at);
-                    local_step++;
-
-                }
-                jiakaoDataSetsubjectTableAdapter.Update(jiakaoDataSet.subject);
-                jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
-                jiakaoDataSet.subject.AcceptChanges();
-                progress.Value = (int)(local_step / local_count * 100f);
-                System.Windows.Forms.Application.DoEvents();
-            }
-
-            xianshi.Text = "更新完成";
-            user_textBox.IsEnabled = true;
-            password_textBox.IsEnabled = true;
-            progress.Visibility = System.Windows.Visibility.Collapsed;
-                    }));
-
-        }
-
         private void set_question(object data)
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
@@ -1555,7 +1557,6 @@ where T : DependencyObject
 
 
         }
-
 
         private void set_answer(object data)
         {
@@ -1617,6 +1618,184 @@ where T : DependencyObject
             }
 
         }
+        #endregion
+
+        private void set_all_data(object data)
+        {
+            float local_count = local_question_data.Count + local_answer_data.Count + local_chapter_data.Count + local_subject_data.Count;// +local_class_data.Count + local_classdetail_data.Count;
+            float local_step = 0;
+            Dispatcher.Invoke(new Action(() =>
+            {
+
+                List<int> local_temp_question = new List<int>();
+                List<int> remote_temp_question = new List<int>();
+                List<int> del_question = new List<int>();
+                local_temp_question = (from c in local_question_data select c.question_id).ToList();
+                remote_temp_question = (from c in question_json select int.Parse(c["id"].ToString())).ToList();
+                del_question = local_temp_question.Except(remote_temp_question).ToList();
+                if (del_question.Count() > 0)
+                {
+                    foreach (var del in del_question)
+                    {
+                        var mydel = from c in local_question_data where c.question_id == del select c;
+                        if (mydel.Count() > 0)
+                        {
+                            try
+                            {
+                                string image_attch = System.Windows.Forms.Application.StartupPath + "\\Image\\" + mydel.First().question_image;
+                                if (File.Exists(image_attch))
+                                {
+                                    File.Delete(image_attch);
+                                }
+                            }
+                            catch { }
+
+
+                            try
+                            {
+                                string voice_attch = System.Windows.Forms.Application.StartupPath + "\\Voice\\" + mydel.First().voice;
+                                if (File.Exists(voice_attch))
+                                {
+                                    File.Delete(voice_attch);
+                                }
+                            }
+                            catch { }
+                            local_question_data.Remove(mydel.First());
+
+
+                            var del_answer = from c in local_answer_data where c.question_id == mydel.First().question_id select c;
+                            for (int i = 0; i < del_answer.Count(); i++)
+                            {
+                                local_answer_data.Remove(del_answer.First());
+                                i--;
+                            }
+
+                        }
+                    }
+                }
+
+                DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+                // 将数据加载到表 question 中。可以根据需要修改此代码。
+                DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+                lock (jiakaoDataSet)
+                {
+                    jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+                    jiakaoDataSet.question.Clear();
+
+                    foreach (var myquestion in local_question_data)
+                    {
+                        jiakaoDataSet.question.AddquestionRow(myquestion.question_id, myquestion.chapter_id, myquestion.subject_id, myquestion.question_name, myquestion.question_image, myquestion.voice, myquestion.driverlicense_type, myquestion.question_type, myquestion.update_at, myquestion.is_judge);
+                        local_step++;
+
+                    }
+                    jiakaoDataSetquestionTableAdapter.Update(jiakaoDataSet.question);
+                    jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+                    jiakaoDataSet.question.AcceptChanges();
+                    progress.Value = (int)(local_step / local_count * 100f);
+                    System.Windows.Forms.Application.DoEvents();
+                }
+
+                // 将数据加载到表 answer 中。可以根据需要修改此代码。
+                DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
+                lock (jiakaoDataSet)
+                {
+                    jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+                    jiakaoDataSet.answer.Clear();
+                    foreach (var myanswer in local_answer_data)
+                    {
+                        jiakaoDataSet.answer.AddanswerRow(myanswer.answer_id, myanswer.question_id, myanswer.answer, myanswer.is_right, myanswer.update_at);
+                        local_step++;
+
+                    }
+                    jiakaoDataSetanswerTableAdapter.Update(jiakaoDataSet.answer);
+                    jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+                    jiakaoDataSet.answer.AcceptChanges();
+                    progress.Value = (int)(local_step / local_count * 100f);
+                    System.Windows.Forms.Application.DoEvents();
+                }
+
+                // 将数据加载到表 chapter 中。可以根据需要修改此代码。
+                DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
+                lock (jiakaoDataSet)
+                {
+                    jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
+                    jiakaoDataSet.chapter.Clear();
+                    foreach (var mychapter in local_chapter_data)
+                    {
+                        jiakaoDataSet.chapter.AddchapterRow(mychapter.chapter_id, mychapter.chapter, mychapter.updated_at);
+                        local_step++;
+
+                    }
+                    jiakaoDataSetchapterTableAdapter.Update(jiakaoDataSet.chapter);
+                    jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
+                    jiakaoDataSet.chapter.AcceptChanges();
+                    progress.Value = (int)(local_step / local_count * 100f);
+                    System.Windows.Forms.Application.DoEvents();
+                }
+
+                // 将数据加载到表 subject 中。可以根据需要修改此代码。
+                DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
+                lock (jiakaoDataSet)
+                {
+                    jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
+                    jiakaoDataSet.subject.Clear();
+                    foreach (var mysubject in local_subject_data)
+                    {
+                        jiakaoDataSet.subject.AddsubjectRow(mysubject.subject_id, mysubject.subject, mysubject.updated_at);
+                        local_step++;
+
+                    }
+                    jiakaoDataSetsubjectTableAdapter.Update(jiakaoDataSet.subject);
+                    jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
+                    jiakaoDataSet.subject.AcceptChanges();
+                    progress.Value = (int)(local_step / local_count * 100f);
+                    System.Windows.Forms.Application.DoEvents();
+                }
+
+                // 将数据加载到表 class 中。可以根据需要修改此代码。
+                DrivingTest.jiakaoDataSetTableAdapters.classTableAdapter jiakaoDataSetclassTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.classTableAdapter();
+                lock (jiakaoDataSet)
+                {
+                    jiakaoDataSetclassTableAdapter.Fill(jiakaoDataSet._class);
+                    jiakaoDataSet._class.Clear();
+                    foreach (var myclass in local_class_data)
+                    {
+                        jiakaoDataSet._class.AddclassRow(myclass.class_id, myclass.class_flag, myclass.question_type, myclass.name, myclass.driverlicense_type, myclass.subject);
+                        local_step++;
+
+                    }
+                    jiakaoDataSetclassTableAdapter.Update(jiakaoDataSet._class);
+                    jiakaoDataSetclassTableAdapter.Fill(jiakaoDataSet._class);
+                    jiakaoDataSet._class.AcceptChanges();
+                    progress.Value = (int)(local_step / local_count * 100f);
+                    System.Windows.Forms.Application.DoEvents();
+                }
+
+                // 将数据加载到表 classdetail 中。可以根据需要修改此代码。
+                DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter jiakaoDataSetclassdetailTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter();
+                lock (jiakaoDataSet)
+                {
+                    jiakaoDataSetclassdetailTableAdapter.Fill(jiakaoDataSet.classdetail);
+                    jiakaoDataSet.classdetail.Clear();
+                    foreach (var myclassdetail in local_classdetail_data)
+                    {
+                        jiakaoDataSet.classdetail.AddclassdetailRow(myclassdetail.classdetail_id, myclassdetail.class_id, myclassdetail.question_id);
+                        local_step++;
+
+                    }
+                    jiakaoDataSetclassdetailTableAdapter.Update(jiakaoDataSet.classdetail);
+                    jiakaoDataSetclassdetailTableAdapter.Fill(jiakaoDataSet.classdetail);
+                    jiakaoDataSet.classdetail.AcceptChanges();
+                    progress.Value = (int)(local_step / local_count * 100f);
+                    System.Windows.Forms.Application.DoEvents();
+                }
+
+                xianshi.Text = "更新完成";
+                buttton_enable();//更新完启用所有按钮
+                progress.Visibility = System.Windows.Visibility.Collapsed;
+            }));
+
+        }
 
 
         //更新图片及语音
@@ -1671,49 +1850,49 @@ where T : DependencyObject
             //    e.TotalBytesToReceive / 1024 / 1024,
             //    e.ProgressPercentage.ToString("N2"));
 
-                                               Dispatcher.Invoke(new Action(() =>
-                    {
-            if (e.ProgressPercentage > progress.Value)
-            {
-                progress.Value = e.ProgressPercentage;
-                System.Windows.Forms.Application.DoEvents();
-            }
-            //xianshi.Text = e.ProgressPercentage.ToString();
-                    }));
+            Dispatcher.Invoke(new Action(() =>
+{
+    if (e.ProgressPercentage > progress.Value)
+    {
+        progress.Value = e.ProgressPercentage;
+        System.Windows.Forms.Application.DoEvents();
+    }
+    //xianshi.Text = e.ProgressPercentage.ToString();
+}));
 
         }
 
         //下载完成时发生
         void web_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
-                                                           Dispatcher.Invoke(new Action(() =>
-                    {
-            try
-            {
-                if (e.Cancelled)
-                {
-                    xianshi.Text = "下载取消";
-                    cur_cown_count++;
-                }
-                else
-                {
-                    //xianshi.Text = "下载完毕,更新已完成";
-                    cur_cown_count++;
-                    xianshi.Text = "同步附件...  " + cur_cown_count + "/" + attch_down_count;
+            Dispatcher.Invoke(new Action(() =>
+{
+    try
+    {
+        if (e.Cancelled)
+        {
+            xianshi.Text = "下载取消";
+            cur_cown_count++;
+        }
+        else
+        {
+            //xianshi.Text = "下载完毕,更新已完成";
+            cur_cown_count++;
+            xianshi.Text = "同步附件...  " + cur_cown_count + "/" + attch_down_count;
 
-                    progress.Value = 0;
-                    if (cur_cown_count == attch_down_count)
-                    {
-                        data_complete_validate();
-                    }
-
-                }
-            }
-            catch (Exception ex)
+            progress.Value = 0;
+            if (cur_cown_count == attch_down_count)
             {
-                MessageBox.Show(ex.Message);
+                data_complete_validate();
             }
-                    }));
+
+        }
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show(ex.Message);
+    }
+}));
         }
 
         //同步完成后，本地数据完整性验证
@@ -1829,7 +2008,7 @@ where T : DependencyObject
                 string time = loginUUID_json[0]["time"].ToString();//剩余时间或次数
                 string state = loginUUID_json[0]["status"].ToString();//账号状态
 
-                if (state != "1")
+                if (state != "1")//账号状态为禁用直接跳过验证
                 {
                     goto L1;
                 }
@@ -2177,6 +2356,7 @@ where T : DependencyObject
             }
             else { }
         }
+
         //登录
         private void login_Click(object sender, RoutedEventArgs e)
         {
@@ -2194,7 +2374,7 @@ where T : DependencyObject
             //{
             //    return my_connect.login(_user_name, _password);
             //});
-           
+
             if (testlogin() == false)//验证
             {
                 MessageBox.Show("登录失败!");
@@ -2256,11 +2436,11 @@ where T : DependencyObject
                 }
 
             }
-                //    }));
+            //    }));
 
 
 
-                //}));
+            //}));
         }
 
 
@@ -2404,7 +2584,7 @@ where T : DependencyObject
                     maincanvas.Visibility = Visibility.Hidden;
                     System.Windows.Forms.Application.DoEvents();
                     this.WindowState = System.Windows.WindowState.Maximized;
-                    
+
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
                 else if (subjectname == "科目四")
@@ -2424,7 +2604,7 @@ where T : DependencyObject
                     this.WindowState = System.Windows.WindowState.Maximized;
                     //maingrid.Width = SystemParameters.WorkArea.Width;
                     //maingrid.Height = SystemParameters.WorkArea.Height;
-                    
+
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                 }
@@ -2468,7 +2648,7 @@ where T : DependencyObject
                     this.WindowState = System.Windows.WindowState.Maximized;
                     //maingrid.Width = SystemParameters.WorkArea.Width;
                     //maingrid.Height = SystemParameters.WorkArea.Height;
-                    
+
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                 }
@@ -2490,7 +2670,7 @@ where T : DependencyObject
                     this.WindowState = System.Windows.WindowState.Maximized;
                     //maingrid.Width = SystemParameters.WorkArea.Width;
                     //maingrid.Height = SystemParameters.WorkArea.Height;
-                    
+
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
             }
@@ -2518,7 +2698,7 @@ where T : DependencyObject
                     this.WindowState = System.Windows.WindowState.Maximized;
                     //maingrid.Width = SystemParameters.WorkArea.Width;
                     //maingrid.Height = SystemParameters.WorkArea.Height;
-                    
+
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
                 else if (subjectname == "科目四")
@@ -2539,7 +2719,7 @@ where T : DependencyObject
                     this.WindowState = System.Windows.WindowState.Maximized;
                     //maingrid.Width = SystemParameters.WorkArea.Width;
                     //maingrid.Height = SystemParameters.WorkArea.Height;
-                    
+
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
             }
@@ -2570,7 +2750,7 @@ where T : DependencyObject
                     this.WindowState = System.Windows.WindowState.Maximized;
                     //maingrid.Width = SystemParameters.WorkArea.Width;
                     //maingrid.Height = SystemParameters.WorkArea.Height;
-                    
+
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
                 else if (subjectname == "科目四")
@@ -2591,7 +2771,7 @@ where T : DependencyObject
                     this.WindowState = System.Windows.WindowState.Maximized;
                     //maingrid.Width = SystemParameters.WorkArea.Width;
                     //maingrid.Height = SystemParameters.WorkArea.Height;
-                    
+
                     c1ma.Closed += new EventHandler(c1ma_Closed);
                 }
             }
@@ -2616,7 +2796,7 @@ where T : DependencyObject
             this.WindowState = System.Windows.WindowState.Maximized;
             //maingrid.Width = SystemParameters.WorkArea.Width;
             //maingrid.Height = SystemParameters.WorkArea.Height;
-            
+
             c1ma.Closed += new EventHandler(c1ma_Closed);
         }
 
@@ -2701,7 +2881,7 @@ where T : DependencyObject
             }
         }
 
-   
+
 
 
 

@@ -50,66 +50,77 @@ namespace DrivingTest
         //关闭时上传错题
         void cwin_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
-            jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
+            MessageBoxResult result = MessageBox.Show("确定退出考试吗？", "询问", MessageBoxButton.OKCancel);
 
-            var errquestion = (from c in jiakaoDataSet.errquest where c.user_id == PublicClass.user_id && c.user_id > 0 && c.user_id == PublicClass.user_id select c).ToArray();
-
-            PublicClass.question_list = new List<PublicClass.Question>();
-
-            try
+            //关闭窗口
+            if (result == MessageBoxResult.OK)
             {
-                ServicePointManager.DefaultConnectionLimit = 1000;
-                HttpWebResponse response = null;
+                e.Cancel = false;
 
-                string url = PublicClass.http + @"/returnjsons/t_errquests?" + "command=clear&user_id=" + PublicClass.user_id ;
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//提交请求
-                request.Method = "GET";
+                DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+                DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
+                jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
 
-                request.Timeout = 10000;
-                response = (HttpWebResponse)request.GetResponse();
-                response.Close();
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+                var errquestion = (from c in jiakaoDataSet.errquest where c.user_id == PublicClass.user_id && c.user_id > 0 && c.user_id == PublicClass.user_id select c).ToArray();
 
-            try
-            {
-                ServicePointManager.DefaultConnectionLimit = 1000;
-                HttpWebResponse response = null;
-                //StreamReader reader = null;
+                PublicClass.question_list = new List<PublicClass.Question>();
 
-                int arr_count = errquestion.Count() / 60;
-                arr_count++;
-
-                for (int cou = 0; cou < arr_count; cou++)
+                try
                 {
-                    string url = PublicClass.http + @"/returnjsons/t_errquests?user_id=" + PublicClass.user_id + "&";
-                    for (int i = cou * 60; i < (cou + 1) * 60; i++)
-                    {
-                        if (i < errquestion.Count())
-                        {
-                            url += "q[]=" + errquestion[i].question_id + "&a[]=" + errquestion[i].amount + "&";
-                        }
-                    }
-                    url = url.Substring(0, url.Length - 1);
-                    int a = url.Length;
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//上传题目
+                    ServicePointManager.DefaultConnectionLimit = 1000;
+                    HttpWebResponse response = null;
+
+                    string url = PublicClass.http + @"/returnjsons/t_errquests?" + "command=clear&user_id=" + PublicClass.user_id;
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//提交请求
                     request.Method = "GET";
 
                     request.Timeout = 10000;
                     response = (HttpWebResponse)request.GetResponse();
                     response.Close();
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+                try
+                {
+                    ServicePointManager.DefaultConnectionLimit = 1000;
+                    HttpWebResponse response = null;
+                    //StreamReader reader = null;
+
+                    int arr_count = errquestion.Count() / 60;
+                    arr_count++;
+
+                    for (int cou = 0; cou < arr_count; cou++)
+                    {
+                        string url = PublicClass.http + @"/returnjsons/t_errquests?user_id=" + PublicClass.user_id + "&";
+                        for (int i = cou * 60; i < (cou + 1) * 60; i++)
+                        {
+                            if (i < errquestion.Count())
+                            {
+                                url += "q[]=" + errquestion[i].question_id + "&a[]=" + errquestion[i].amount + "&";
+                            }
+                        }
+                        url = url.Substring(0, url.Length - 1);
+                        int a = url.Length;
+                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//上传题目
+                        request.Method = "GET";
+
+                        request.Timeout = 10000;
+                        response = (HttpWebResponse)request.GetResponse();
+                        response.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
 
+            //不关闭窗口
+            if (result == MessageBoxResult.Cancel)
+                e.Cancel = true;
 
         }
 
