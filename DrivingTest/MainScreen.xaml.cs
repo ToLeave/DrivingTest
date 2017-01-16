@@ -35,7 +35,7 @@ namespace DrivingTest
         string classflag = "";//试题一级分类
         string classtype = "";//试题二级分类
 
-        int class_status = 0;//分类状态,1为常规状态,2为专项,3为章节
+        int class_status = 0;//分类状态,1为常规状态,2为专项,3为章节,4为常规模拟
 
         int subject_id;
         string subject_name;
@@ -301,7 +301,7 @@ namespace DrivingTest
             }
             catch
             {
-                MessageBox.Show("题库为空!");
+                MessageBox.Show("此目录下分类为空!");
                 return false;
             }
 
@@ -363,21 +363,21 @@ namespace DrivingTest
         private void sucheng_Click(object sender, RoutedEventArgs e)
         {
             generation_classification();//生成分类UI
-            classflag = "";//试题一级分类
+            classflag = "新手速成";//试题一级分类
         }
 
         //速成500
         private void sucheng500_Click(object sender, RoutedEventArgs e)
         {
             generation_classification();//生成分类UI
-            classflag = "";//试题一级分类
+            classflag = "速成500";//试题一级分类
         }
 
         //速成600
         private void sucheng600_Click(object sender, RoutedEventArgs e)
         {
             generation_classification();//生成分类UI
-            classflag = "";//试题一级分类
+            classflag = "速成600";//试题一级分类
         }
 
 
@@ -431,80 +431,129 @@ namespace DrivingTest
         }
 
 
+
         //语音课堂
         private void yuyin_Click(object sender, RoutedEventArgs e)
         {
-            classtype = "";//试题二级分类
+            classtype = "语音课堂";//试题二级分类
             class_status = 1;//分类状态
+            shunxulianxi.Visibility = System.Windows.Visibility.Visible;
+            suijilianxi.Content = "随机练习";
             if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
             {
                 shunxulianxi.IsEnabled = true;
                 suijilianxi.IsEnabled = true;
+            }
+            else
+            {
+                shunxulianxi.IsEnabled = false;
+                suijilianxi.IsEnabled = false;
             }
         }
         //基础练习
         private void lianxi_Click(object sender, RoutedEventArgs e)
         {
-            classtype = "";//试题二级分类
+            classtype = "基础练习";//试题二级分类
             class_status = 1;//分类状态
+            shunxulianxi.Visibility = System.Windows.Visibility.Visible;
+            suijilianxi.Content = "随机练习";
             if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
             {
                 shunxulianxi.IsEnabled = true;
                 suijilianxi.IsEnabled = true;
+            }
+            else
+            {
+                shunxulianxi.IsEnabled = false;
+                suijilianxi.IsEnabled = false;
             }
         }
         //基础模拟
         private void moni_Click(object sender, RoutedEventArgs e)
         {
-            //classtype = "";//试题二级分类
-            //if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
-            //{
-            //    shunxulianxi.IsEnabled = true;
-            //    suijilianxi.IsEnabled = true;
-            //}
+            classtype = "基础练习";//试题二级分类
+            class_status = 4;//分类状态
+            if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
+            {
+                shunxulianxi.Visibility = System.Windows.Visibility.Hidden;
+                suijilianxi.IsEnabled = true;
+                suijilianxi.Content = "开始考试";
+            }
+            else
+            {
+                shunxulianxi.IsEnabled = false;
+                suijilianxi.IsEnabled = false;
+            }
         }
         //强化练习
         private void qianghualianxi_Click(object sender, RoutedEventArgs e)
         {
-            classtype = "";//试题二级分类
+            classtype = "强化练习";//试题二级分类
             class_status = 1;//分类状态
+            shunxulianxi.Visibility = System.Windows.Visibility.Visible;
+            suijilianxi.Content = "随机练习";
             if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
             {
                 shunxulianxi.IsEnabled = true;
                 suijilianxi.IsEnabled = true;
             }
+            else
+            {
+                shunxulianxi.IsEnabled = false;
+                suijilianxi.IsEnabled = false;
+            }
         }
         //强化模拟
         private void qianghuamoni_Click(object sender, RoutedEventArgs e)
         {
-            //classtype = "";//试题二级分类
-            //if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
-            //{
-            //    shunxulianxi.IsEnabled = true;
-            //    suijilianxi.IsEnabled = true;
-            //}
+            classtype = "强化练习";//试题二级分类
+            class_status = 4;//分类状态
+            if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
+            {
+                shunxulianxi.Visibility = System.Windows.Visibility.Hidden;
+                suijilianxi.IsEnabled = true;
+                suijilianxi.Content = "开始考试";
+            }
+            else
+            {
+                shunxulianxi.IsEnabled = false;
+                suijilianxi.IsEnabled = false;
+            }
         }
 
         //专项练习
         private void zhuanxianglianxi_Click(object sender, RoutedEventArgs e)
         {
             class_status = 2;//分类状态
+            shunxulianxi.Visibility = System.Windows.Visibility.Visible;
+            suijilianxi.Content = "随机练习";
             if (list_zhuanxiang(PublicClass.cartype, PublicClass.subjection) == true)//有题解锁顺序随机按钮
             {
                 shunxulianxi.IsEnabled = true;
                 suijilianxi.IsEnabled = true;
+            }
+            else
+            {
+                shunxulianxi.IsEnabled = false;
+                suijilianxi.IsEnabled = false;
             }
         }
 
         //专项模拟
         private void zhuanxiangmoni_Click(object sender, RoutedEventArgs e)
         {
-            //classtype = "";//试题二级分类
-            //if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
-            //{
-            //    shunxulianxi.IsEnabled = true;
-            //    suijilianxi.IsEnabled = true;
-            //}
+            class_status = 4;//分类状态
+            if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
+            {
+                shunxulianxi.Visibility = System.Windows.Visibility.Hidden;
+                suijilianxi.IsEnabled = true;
+                suijilianxi.Content = "开始考试";
+            }
+            else
+            {
+                shunxulianxi.IsEnabled = false;
+                suijilianxi.IsEnabled = false;
+            }
         }
 
         //顺序练习
@@ -551,7 +600,7 @@ namespace DrivingTest
                 {
                     MessageBox.Show("此类型题目数量为0!");
                     goto L1;
-              
+
                 }
 
             }
@@ -634,7 +683,51 @@ namespace DrivingTest
                 {
                     questions_id.Add(qu.question_id);
                 }
+
             }
+            if (class_status == 4)//常规模拟
+            {
+                var questions = from c in jiakaoDataSet.classdetail where c.class_id == class_index[listBox.SelectedIndex] select c;
+                questions_id.Clear();
+                if (questions.Count() != 0)
+                {
+                    foreach (var qu in questions)
+                    {
+                        questions_id.Add(qu.question_id);
+                        if (questions_id.Count > 99)
+                        {
+                            goto L2;
+                        }
+                    }
+
+                    if (questions_id.Count > 99)
+                    {
+                        //List<int> questions_c = new List<int>();
+                        //Random r = new Random();
+                        //var r4 = questions_id.OrderBy(x => r.Next()).Take(100);
+
+                        //Hashtable hashtable = new Hashtable();
+                        //Random rm = new Random();
+                        //int RmNum = questions_id.Count;
+                        //for (int i = 0; hashtable.Count < RmNum; i++)
+                        //{
+                        //    int nValue = rm.Next(100);
+                        //    if (!hashtable.ContainsValue(nValue) && nValue != 0)
+                        //    {
+                        //        hashtable.Add(nValue, nValue);
+                        //        Console.WriteLine(nValue.ToString());
+                        //    }
+                        //}
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("此类型题目数量为0!");
+                    goto L1;
+                }
+            }
+
+        L2://goto跳转至这里
 
             MainExam ma = new MainExam();
             C1.WPF.C1Window cwin = new C1.WPF.C1Window();
@@ -730,7 +823,7 @@ namespace DrivingTest
         }
 
 
-        
+
 
     }
 

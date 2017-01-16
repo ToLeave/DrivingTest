@@ -690,6 +690,7 @@ where T : DependencyObject
                     }));
         }
 
+
         //显示正确答案
         private void showright_answer(int question_index)
         {
@@ -731,7 +732,7 @@ where T : DependencyObject
             {
                 if (ex.Message.Substring(0, 6) == "索引超出范围")
                 {
-                    MessageBox.Show("数据异常");
+                    MessageBox.Show("正确答案数据异常");
                 }
             }
 

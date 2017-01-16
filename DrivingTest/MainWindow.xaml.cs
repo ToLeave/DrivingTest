@@ -1143,12 +1143,12 @@ where T : DependencyObject
                 catch { }
                 try
                 {
-                    _class.class_flag = remoteclass["class_flag"].ToString();
+                    _class.class_flag = remoteclass["classflag"].ToString();
                 }
                 catch { }
                 try
                 {
-                    _class.question_type = remoteclass["question_type"].ToString();
+                    _class.question_type = remoteclass["questiontype"].ToString();
                 }
                 catch { }
                 try
@@ -1158,7 +1158,7 @@ where T : DependencyObject
                 catch { }
                 try
                 {
-                    _class.driverlicense_type = remoteclass["driverlicense_type"].ToString();
+                    _class.driverlicense_type = remoteclass["cartype"].ToString();
                 }
                 catch { }
                 try
@@ -1172,9 +1172,9 @@ where T : DependencyObject
 
         private void update_local_classdetail(object data)//更新内存分类明细  
         {
-            PublicClass.classdetail classdetail = new PublicClass.classdetail();
             foreach (var remoteclassdetail in classdetail_json)
             {
+                PublicClass.classdetail classdetail = new PublicClass.classdetail();
                 try
                 {
                     classdetail.classdetail_id = int.Parse(remoteclassdetail["id"].ToString());
@@ -1182,7 +1182,7 @@ where T : DependencyObject
                 catch { }
                 try
                 {
-                    classdetail.class_id = int.Parse(remoteclassdetail["class_id"].ToString());
+                    classdetail.class_id = int.Parse(remoteclassdetail["cla_id"].ToString());
                 }
                 catch { }
                 try
@@ -1290,8 +1290,9 @@ where T : DependencyObject
                 classdetail_json = JArray.Parse(classdetailstr);//分类明细json
 
                 #endregion
-                synccount = question_json.Count + answer_json.Count + chapter_json.Count + subject_json.Count;// +class_json.Count + classdetail_json.Count;
+                synccount = question_json.Count + answer_json.Count + chapter_json.Count + subject_json.Count + class_json.Count + classdetail_json.Count;
                 now_synccount = 0;
+
 
                 ThreadPool.QueueUserWorkItem(update_local_question, question_json);//写入和更新题目表
                 ThreadPool.QueueUserWorkItem(update_local_answer, answer_json);//写入和更新答案表
@@ -1457,7 +1458,6 @@ where T : DependencyObject
                 {
                     response.Close();
                 }
-
 
                 //for (int i = 0; i < img_down_list.Count; i++)
                 //{
@@ -1760,7 +1760,7 @@ where T : DependencyObject
                     jiakaoDataSet._class.Clear();
                     foreach (var myclass in local_class_data)
                     {
-                        jiakaoDataSet._class.AddclassRow(myclass.class_id, myclass.class_flag, myclass.question_type, myclass.name, myclass.driverlicense_type, myclass.subject);
+                        jiakaoDataSet._class.AddclassRow(myclass.class_id, myclass.class_flag, myclass.question_type, myclass.name, myclass.subject,myclass.driverlicense_type);
                         local_step++;
 
                     }
