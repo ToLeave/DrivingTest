@@ -408,7 +408,7 @@ namespace DrivingTest
             SimulationTest si = new SimulationTest();
             C1.WPF.C1Window c1si = new C1.WPF.C1Window();
             c1si.IsResizable = false;
-            c1si.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - si.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - si.Height / 2, 0, 0);
+            c1si.Margin = PublicClass.window_thickness(si);
             c1si.Content = si;
             c1si.Show();
             //c1si.ToolTip = "全真模拟";
@@ -417,6 +417,7 @@ namespace DrivingTest
 
         }
 
+
         //我的错题
         private void my_mistakes_Click(object sender, RoutedEventArgs e)
         {
@@ -424,9 +425,10 @@ namespace DrivingTest
             C1.WPF.C1Window cmy = new C1.WPF.C1Window();
             cmy.Name = "错题";
             cmy.Header = "我的错题";
-            cmy.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - my.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - my.Height / 2, 0, 0);
+            cmy.Margin = PublicClass.window_thickness(my);
             cmy.Content = my;
             cmy.Show();
+
 
         }
 

@@ -1249,7 +1249,7 @@ where T : DependencyObject
                     c1w.Header = "提示";
                     c1w.ShowMinimizeButton = false;
                     c1w.ShowMaximizeButton = false;
-                    c1w.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - err.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - err.Height / 2, 0, 0);
+                    c1w.Margin = PublicClass.window_thickness(err);
                     PublicClass.err_questionid = question_id;
                     PublicClass.question_answer = zhengque_textBlock.Text;
                 }
@@ -2050,7 +2050,7 @@ where T : DependencyObject
             c1w.ShowModal();
             c1w.Name = "交卷";
             c1w.Header = "提示";
-            c1w.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ass.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ass.Height / 2, 0, 0);
+            c1w.Margin = PublicClass.window_thickness(ass);
         }
 
         //手动添加错题
@@ -2371,7 +2371,7 @@ where T : DependencyObject
                             co.ShowModal();
                             co.Name = "查看原图";
                             co.ToolTip = "查看全图";
-                            co.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - or.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - or.Height / 2, 0, 0);
+                            co.Margin = PublicClass.window_thickness(or);
                             co.ShowMinimizeButton = false;
                             co.ShowMaximizeButton = false;
                             co.Focus();
@@ -2473,7 +2473,7 @@ where T : DependencyObject
                     c1w.Name = "交卷";
                     c1w.Header = "提示";
                     ass.kaoshicishu = kaoshicishu;
-                    c1w.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - ass.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - ass.Height / 2, 0, 0);
+                    c1w.Margin = PublicClass.window_thickness(ass);
                     ass.queren_button_Click(null, null);
                     c1w.IsActive = true;
                 }

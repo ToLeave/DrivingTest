@@ -23,7 +23,7 @@ namespace DrivingTest
             InitializeComponent();
         }
 
-        private void kaipao_Click(object sender, RoutedEventArgs e)
+        private void kaikao_Click(object sender, RoutedEventArgs e)
         {
             PreparePage pr = new PreparePage();
             C1.WPF.C1Window c1pr = new C1.WPF.C1Window();

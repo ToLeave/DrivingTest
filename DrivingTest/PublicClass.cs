@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Threading;
 using System.Windows.Media;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace DrivingTest
 {
@@ -120,5 +122,14 @@ namespace DrivingTest
             public int question_id;
         }
         public static List<classdetail> classdetail_data = new List<classdetail>();
+
+
+        //窗口居中的四个边位置
+        public static Thickness window_thickness(UserControl window)
+        {
+            Thickness thick = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - window.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - window.Height / 2, 0, 0);
+            return thick;
+        }
+
     }
 }
