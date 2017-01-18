@@ -59,10 +59,12 @@ namespace DrivingTest
         JArray subject_json;//科目json
         JArray class_json;//分类json
         JArray classdetail_json;//分类明细json
-        int cur_question_step = 0;
+        //int cur_question_step = 0;
 
         int synccount = 0; //进度显示下载总数
         int now_synccount = 0;
+
+        bool update_status = false;//更新状态
 
         List<PublicClass.questions> local_question_data = new List<PublicClass.questions>();
         List<PublicClass.answers> local_answer_data = new List<PublicClass.answers>();
@@ -896,9 +898,11 @@ where T : DependencyObject
                     question.update_at = upd;
                     question.is_judge = isj;
                     local_question_data.Add(question);
+                    now_synccount++;
                 }
                 else
                 {
+                    update_status = true;//true为更新状态
                     //foreach (var lq in localquestion)
                     foreach (var lq in local_question_data)
                     {
@@ -942,24 +946,7 @@ where T : DependencyObject
                             try { isj = int.Parse(remotequestion["isjudge"].ToString()); }
                             catch { isj = 0; }
 
-                            //lq.question_id = int1;
-                            //lq.chapter_id = id2;
-                            //lq.subject_id = id3;
-                            //lq.question_name = name;
-                            //lq.question_image = img;
-                            //lq.voice = voi;
-                            //lq.driverlicense_type = dri;
-                            //lq.question_type = que;
-                            //lq.update_at = upd;
-                            //lq.is_judge = isj;
-                            //attch_down_count++;
-                            //updatedownload(img, voi);
-                            //img_down_list.Add(img);
-                            //voice_down_list.Add(voi);
-
-
-
-                            //PublicClass.questions question = new PublicClass.questions();
+                            PublicClass.questions question = new PublicClass.questions();
                             //var question=from c in local_question_data 
                             lq.question_id = int1;
                             lq.chapter_id = id2;
@@ -972,24 +959,25 @@ where T : DependencyObject
                             lq.update_at = upd;
                             lq.is_judge = isj;
 
-                            attch_down_count++;
-                            updatedownload(img, voi);
+                            if (img != "")
+                            {
+                                attch_down_count++;
+                                updatedownload(img, voi);
+                            }
+
                             //img_down_list.Add(img);
                             //voice_down_list.Add(voi);
-
-
                         }
                     }
+                    now_synccount++;
                 }
-                now_synccount++;
-                cur_question_step++;
+                //cur_question_step++;
                 Dispatcher.Invoke(new Action(() =>
                  {
-                     xianshi.Text = "同步资源..." + cur_question_step;
-
+                     xianshi.Text = "同步资源..." + now_synccount + "/" + synccount;
                      progress.Value = now_synccount / synccount * 100;
+                     System.Windows.Forms.Application.DoEvents();
                  }));
-                System.Windows.Forms.Application.DoEvents();
             }
             question_update_compaleted = true;
             data_complete_validate();
@@ -1030,6 +1018,7 @@ where T : DependencyObject
                     answer.is_right = isr;
                     answer.update_at = upd;
                     local_answer_data.Add(answer);
+                    now_synccount++;
                 }
                 else
                 {
@@ -1056,13 +1045,6 @@ where T : DependencyObject
                             try { upd = remoteanswer["updated_at"].ToString(); }
                             catch { upd = ""; }
 
-                            //la.answer_id = id1;
-                            //la.question_id = id2;
-                            //la.answer = ans;
-                            //la.is_right = isr;
-                            //la.update_at = upd;
-
-
                             la.answer_id = id1;
                             la.question_id = id2;
                             la.answer = ans;
@@ -1071,17 +1053,17 @@ where T : DependencyObject
 
                         }
                     }
+                    now_synccount++;
                 }
-                now_synccount++;
                 //xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
-                cur_question_step++;
-                Dispatcher.Invoke(new Action(() =>
- {
-     xianshi.Text = "同步资源..." + cur_question_step;
+                //cur_question_step++;
 
-     progress.Value = now_synccount / synccount * 100;
- }));
-                System.Windows.Forms.Application.DoEvents();
+                Dispatcher.Invoke(new Action(() =>
+                 {
+                     xianshi.Text = "同步资源..." + now_synccount + "/" + synccount;
+                     progress.Value = now_synccount / synccount * 100;
+                     System.Windows.Forms.Application.DoEvents();
+                 }));
             }
             answer_update_compaleted = true;
             data_complete_validate();
@@ -1203,6 +1185,14 @@ where T : DependencyObject
                 }
                 catch { }
                 local_classdetail_data.Add(classdetail);
+
+                now_synccount++;
+                Dispatcher.Invoke(new Action(() =>
+                 {
+                     xianshi.Text = "同步资源..." + now_synccount + "/" + synccount;
+                     progress.Value = now_synccount / synccount * 100;
+                     System.Windows.Forms.Application.DoEvents();
+                 }));
             }
         }
 
@@ -1632,6 +1622,7 @@ where T : DependencyObject
         }
         #endregion
 
+
         //内存往数据表中写入数据
         private void set_all_data(object data)
         {
@@ -1675,6 +1666,11 @@ where T : DependencyObject
                         catch { }
                         local_question_data.Remove(mydel.First());
 
+                        for (int i = 0; i < mydel.Count(); i++)
+                        {
+                            local_question_data.Remove(mydel.First());
+                            i--;
+                        }
 
                         var del_answer = from c in local_answer_data where c.question_id == mydel.First().question_id select c;
                         for (int i = 0; i < del_answer.Count(); i++)
@@ -1697,19 +1693,39 @@ where T : DependencyObject
 
                 foreach (var myquestion in local_question_data)
                 {
-                    jiakaoDataSet.question.AddquestionRow(myquestion.question_id, myquestion.chapter_id, myquestion.subject_id, myquestion.question_name, myquestion.question_image, myquestion.voice, myquestion.driverlicense_type, myquestion.question_type, myquestion.update_at, myquestion.is_judge);
-                    local_step++;
+                    if (update_status != true)//写入
+                    {
+                        jiakaoDataSet.question.AddquestionRow(myquestion.question_id, myquestion.chapter_id, myquestion.subject_id, myquestion.question_name, myquestion.question_image, myquestion.voice, myquestion.driverlicense_type, myquestion.question_type, myquestion.update_at, myquestion.is_judge);
+                        local_step++;
+                    }
+                    else//更新
+                    {
+                        foreach (var uq in jiakaoDataSet.question)
+                        {
+                            uq.question_id = myquestion.question_id;
+                            uq.chapter_id = myquestion.chapter_id;
+                            uq.subject_id = myquestion.subject_id;
+                            uq.question_name = myquestion.question_name;
+                            uq.question_image = myquestion.question_image;
+                            uq.voice = myquestion.voice;
+                            uq.driverlicense_type = myquestion.driverlicense_type;
+                            uq.question_type = myquestion.question_type;
+                            uq.update_at = myquestion.update_at;
+                            uq.is_judge = myquestion.is_judge;
+                            local_step++;
+                        }
+                    }
 
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        progress.Value = local_step / local_count * 100;
+                        System.Windows.Forms.Application.DoEvents();
+                    }));
                 }
                 jiakaoDataSetquestionTableAdapter.Update(jiakaoDataSet.question);
                 jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
                 jiakaoDataSet.question.AcceptChanges();
-                Dispatcher.Invoke(new Action(() =>
-                {
 
-                    progress.Value = local_step / local_count * 100;
-                    System.Windows.Forms.Application.DoEvents();
-                }));
             }
 
             // 将数据加载到表 answer 中。可以根据需要修改此代码。
@@ -1720,18 +1736,33 @@ where T : DependencyObject
                 jiakaoDataSet.answer.Clear();
                 foreach (var myanswer in local_answer_data)
                 {
-                    jiakaoDataSet.answer.AddanswerRow(myanswer.answer_id, myanswer.question_id, myanswer.answer, myanswer.is_right, myanswer.update_at);
-                    local_step++;
-
+                    if (update_status != true)//写入
+                    {
+                        jiakaoDataSet.answer.AddanswerRow(myanswer.answer_id, myanswer.question_id, myanswer.answer, myanswer.is_right, myanswer.update_at);
+                        local_step++;
+                    }
+                    else//更新
+                    {
+                        foreach (var ua in jiakaoDataSet.answer)
+                        {
+                            ua.answer_id = myanswer.answer_id;
+                            ua.question_id = myanswer.question_id;
+                            ua.answer = myanswer.answer;
+                            ua.is_right = myanswer.is_right;
+                            ua.update_at = myanswer.update_at;
+                            local_step++;
+                        }
+                    }
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        progress.Value = local_step / local_count * 100;
+                        System.Windows.Forms.Application.DoEvents();
+                    }));
                 }
                 jiakaoDataSetanswerTableAdapter.Update(jiakaoDataSet.answer);
                 jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
                 jiakaoDataSet.answer.AcceptChanges();
-                Dispatcher.Invoke(new Action(() =>
-            {
-                progress.Value = local_step / local_count * 100;
-                System.Windows.Forms.Application.DoEvents();
-            }));
+
             }
 
             // 将数据加载到表 chapter 中。可以根据需要修改此代码。
@@ -1742,18 +1773,30 @@ where T : DependencyObject
                 jiakaoDataSet.chapter.Clear();
                 foreach (var mychapter in local_chapter_data)
                 {
-                    jiakaoDataSet.chapter.AddchapterRow(mychapter.chapter_id, mychapter.chapter, mychapter.updated_at);
-                    local_step++;
-
+                    if (update_status != true)//写入
+                    {
+                        jiakaoDataSet.chapter.AddchapterRow(mychapter.chapter_id, mychapter.chapter, mychapter.updated_at);
+                        local_step++;
+                    }
+                    else//更新
+                    {
+                        foreach (var uc in jiakaoDataSet.chapter)
+                        {
+                            uc.chapter_id = mychapter.chapter_id;
+                            uc.chapter = mychapter.chapter;
+                            uc.updated_at = mychapter.updated_at;
+                            local_step++;
+                        }
+                    }
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        progress.Value = local_step / local_count * 100;
+                        System.Windows.Forms.Application.DoEvents();
+                    }));
                 }
                 jiakaoDataSetchapterTableAdapter.Update(jiakaoDataSet.chapter);
                 jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
                 jiakaoDataSet.chapter.AcceptChanges();
-                Dispatcher.Invoke(new Action(() =>
-           {
-               progress.Value = local_step / local_count * 100;
-               System.Windows.Forms.Application.DoEvents();
-           }));
             }
 
             // 将数据加载到表 subject 中。可以根据需要修改此代码。
@@ -1764,18 +1807,30 @@ where T : DependencyObject
                 jiakaoDataSet.subject.Clear();
                 foreach (var mysubject in local_subject_data)
                 {
-                    jiakaoDataSet.subject.AddsubjectRow(mysubject.subject_id, mysubject.subject, mysubject.updated_at);
-                    local_step++;
-
+                    if (update_status != true)//写入
+                    {
+                        jiakaoDataSet.subject.AddsubjectRow(mysubject.subject_id, mysubject.subject, mysubject.updated_at);
+                        local_step++;
+                    }
+                    else//更新
+                    {
+                        foreach (var us in jiakaoDataSet.subject)
+                        {
+                            us.subject_id = mysubject.subject_id;
+                            us.subject = mysubject.subject;
+                            us.updated_at = mysubject.updated_at;
+                            local_step++;
+                        }
+                    }
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        progress.Value = local_step / local_count * 100;
+                        System.Windows.Forms.Application.DoEvents();
+                    }));
                 }
                 jiakaoDataSetsubjectTableAdapter.Update(jiakaoDataSet.subject);
                 jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
                 jiakaoDataSet.subject.AcceptChanges();
-                Dispatcher.Invoke(new Action(() =>
-           {
-               progress.Value = local_step / local_count * 100;
-               System.Windows.Forms.Application.DoEvents();
-           }));
             }
 
             // 将数据加载到表 class 中。可以根据需要修改此代码。
@@ -1786,18 +1841,33 @@ where T : DependencyObject
                 jiakaoDataSet._class.Clear();
                 foreach (var myclass in local_class_data)
                 {
-                    jiakaoDataSet._class.AddclassRow(myclass.class_id, myclass.class_flag, myclass.question_type, myclass.name, myclass.subject, myclass.driverlicense_type);
-                    local_step++;
-
+                    if (update_status != true)//写入
+                    {
+                        jiakaoDataSet._class.AddclassRow(myclass.class_id, myclass.class_flag, myclass.question_type, myclass.name, myclass.subject, myclass.driverlicense_type);
+                        local_step++;
+                    }
+                    else//更新
+                    {
+                        foreach (var uc in jiakaoDataSet._class)
+                        {
+                            uc.class_id = myclass.class_id;
+                            uc.class_flag = myclass.class_flag;
+                            uc.question_type = myclass.question_type;
+                            uc.class_name = myclass.name;
+                            uc.subject = myclass.subject;
+                            uc.driverlicense_type = myclass.driverlicense_type;
+                            local_step++;
+                        }
+                    }
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        progress.Value = local_step / local_count * 100;
+                        System.Windows.Forms.Application.DoEvents();
+                    }));
                 }
                 jiakaoDataSetclassTableAdapter.Update(jiakaoDataSet._class);
                 jiakaoDataSetclassTableAdapter.Fill(jiakaoDataSet._class);
                 jiakaoDataSet._class.AcceptChanges();
-                Dispatcher.Invoke(new Action(() =>
-           {
-               progress.Value = local_step / local_count * 100;
-               System.Windows.Forms.Application.DoEvents();
-           }));
             }
 
             // 将数据加载到表 classdetail 中。可以根据需要修改此代码。
@@ -1808,18 +1878,30 @@ where T : DependencyObject
                 jiakaoDataSet.classdetail.Clear();
                 foreach (var myclassdetail in local_classdetail_data)
                 {
-                    jiakaoDataSet.classdetail.AddclassdetailRow(myclassdetail.classdetail_id, myclassdetail.class_id, myclassdetail.question_id);
-                    local_step++;
-
+                    if (update_status != true)//写入
+                    {
+                        jiakaoDataSet.classdetail.AddclassdetailRow(myclassdetail.classdetail_id, myclassdetail.class_id, myclassdetail.question_id);
+                        local_step++;
+                    }
+                    else//更新
+                    {
+                        foreach (var uc in jiakaoDataSet.classdetail)
+                        {
+                            uc.classdetail_id = myclassdetail.classdetail_id;
+                            uc.class_id = myclassdetail.class_id;
+                            uc.question_id = myclassdetail.question_id;
+                            local_step++;
+                        }
+                    }
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        progress.Value = local_step / local_count * 100;
+                        System.Windows.Forms.Application.DoEvents();
+                    }));
                 }
                 jiakaoDataSetclassdetailTableAdapter.Update(jiakaoDataSet.classdetail);
                 jiakaoDataSetclassdetailTableAdapter.Fill(jiakaoDataSet.classdetail);
                 jiakaoDataSet.classdetail.AcceptChanges();
-                Dispatcher.Invoke(new Action(() =>
-           {
-               progress.Value = local_step / local_count * 100;
-               System.Windows.Forms.Application.DoEvents();
-           }));
             }
             Dispatcher.Invoke(new Action(() =>
      {
@@ -1827,7 +1909,6 @@ where T : DependencyObject
          buttton_enable();//更新完启用所有按钮
          progress.Visibility = System.Windows.Visibility.Collapsed;
      }));
-
 
         }
 
@@ -1912,9 +1993,12 @@ where T : DependencyObject
         {
             //xianshi.Text = "下载完毕,更新已完成";
             cur_cown_count++;
+            //progress.Value = cur_cown_count / attch_down_count * 100;
             xianshi.Text = "同步附件...  " + cur_cown_count + "/" + attch_down_count;
 
             progress.Value = 0;
+            System.Windows.Forms.Application.DoEvents();
+
             if (cur_cown_count == attch_down_count)
             {
                 data_complete_validate();
