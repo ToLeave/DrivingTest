@@ -49,8 +49,8 @@ namespace DrivingTest
         //public string SelectedValue { get; private set; }
 
         //public event RoutedEventHandler CheckChanged;
-        int attch_down_count = 0;//待下载附件数
-        int cur_cown_count = 0;//正在下载附件数
+        float attch_down_count = 0;//待下载附件数
+        float cur_cown_count = 0;//正在下载附件数
         List<string> img_down_list = new List<string>();
         List<string> voice_down_list = new List<string>();
         JArray question_json;//题目json
@@ -61,8 +61,8 @@ namespace DrivingTest
         JArray classdetail_json;//分类明细json
         //int cur_question_step = 0;
 
-        int synccount = 0; //进度显示下载总数
-        int now_synccount = 0;
+        float synccount = 0; //进度显示下载总数
+        float now_synccount = 0;
 
         bool update_status = false;//更新状态
 
@@ -75,8 +75,10 @@ namespace DrivingTest
 
         bool question_update_compaleted = false;
         bool answer_update_compaleted = false;
-        //bool chapter_update_compaleted = false;
-        //bool subject_update_compaleted = false;
+        bool chapter_update_compaleted = false;
+        bool subject_update_compaleted = false;
+        bool class_update_compaleted = false;
+        bool classdetail_update_compaleted = false;
 
         string ip = ""; //ip
 
@@ -219,9 +221,9 @@ where T : DependencyObject
             }
 
 
-            PublicClass.timer.Interval = new TimeSpan(5000);// 计时器触发间隔 5秒  
-            PublicClass.timer.Tick += new EventHandler(timer_Tick);
-            PublicClass.timer.Start();
+            //PublicClass.timer.Interval = new TimeSpan(5000);// 计时器触发间隔 5秒  
+            //PublicClass.timer.Tick += new EventHandler(timer_Tick);
+            //PublicClass.timer.Start();
 
             //PublicClass.http = @"http://192.168.1.98:3000";
             //PublicClass.http = @"http://47.89.28.92";
@@ -344,7 +346,6 @@ where T : DependencyObject
                {
                    button_disable();//更新时禁用所有按钮
                }));
-
                             updatequestion();//开始更新题库
 
                             //updatedownload();
@@ -898,7 +899,7 @@ where T : DependencyObject
                     question.update_at = upd;
                     question.is_judge = isj;
                     local_question_data.Add(question);
-                    now_synccount++;
+                    //now_synccount++;
                 }
                 else
                 {
@@ -946,7 +947,7 @@ where T : DependencyObject
                             try { isj = int.Parse(remotequestion["isjudge"].ToString()); }
                             catch { isj = 0; }
 
-                            PublicClass.questions question = new PublicClass.questions();
+                            //PublicClass.questions question = new PublicClass.questions();
                             //var question=from c in local_question_data 
                             lq.question_id = int1;
                             lq.chapter_id = id2;
@@ -969,12 +970,13 @@ where T : DependencyObject
                             //voice_down_list.Add(voi);
                         }
                     }
-                    now_synccount++;
+                    
                 }
                 //cur_question_step++;
+                now_synccount++;
                 Dispatcher.Invoke(new Action(() =>
                  {
-                     xianshi.Text = "同步资源..." + now_synccount + "/" + synccount;
+                     xianshi.Text = "下载数据中..." + now_synccount + "/" + synccount;
                      progress.Value = now_synccount / synccount * 100;
                      System.Windows.Forms.Application.DoEvents();
                  }));
@@ -1018,7 +1020,7 @@ where T : DependencyObject
                     answer.is_right = isr;
                     answer.update_at = upd;
                     local_answer_data.Add(answer);
-                    now_synccount++;
+                    //now_synccount++;
                 }
                 else
                 {
@@ -1053,14 +1055,14 @@ where T : DependencyObject
 
                         }
                     }
-                    now_synccount++;
+                  
                 }
                 //xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
                 //cur_question_step++;
-
+                now_synccount++;
                 Dispatcher.Invoke(new Action(() =>
                  {
-                     xianshi.Text = "同步资源..." + now_synccount + "/" + synccount;
+                     xianshi.Text = "下载数据中..." + now_synccount + "/" + synccount;
                      progress.Value = now_synccount / synccount * 100;
                      System.Windows.Forms.Application.DoEvents();
                  }));
@@ -1093,7 +1095,7 @@ where T : DependencyObject
                 catch { }
                 local_chapter_data.Add(chapter);
             }
-            //chapter_update_compaleted = true;
+            chapter_update_compaleted = true;
             //data_complete_validate();
             //set_chapter("");
         }
@@ -1120,7 +1122,7 @@ where T : DependencyObject
                 catch { }
                 local_subject_data.Add(subject);
             }
-            //subject_update_compaleted = true;
+            subject_update_compaleted = true;
             //data_complete_validate();
             //set_subject("");
         }
@@ -1161,7 +1163,17 @@ where T : DependencyObject
                 }
                 catch { }
                 local_class_data.Add(_class);
+
+                now_synccount++;
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    xianshi.Text = "下载数据中..." + now_synccount + "/" + synccount;
+                    progress.Value = now_synccount / synccount * 100;
+                    System.Windows.Forms.Application.DoEvents();
+                }));
             }
+            class_update_compaleted = true;
+          
         }
 
         private void update_local_classdetail(object data)//更新内存分类明细  
@@ -1189,11 +1201,12 @@ where T : DependencyObject
                 now_synccount++;
                 Dispatcher.Invoke(new Action(() =>
                  {
-                     xianshi.Text = "同步资源..." + now_synccount + "/" + synccount;
+                     xianshi.Text = "下载数据中..." + now_synccount + "/" + synccount;
                      progress.Value = now_synccount / synccount * 100;
                      System.Windows.Forms.Application.DoEvents();
                  }));
             }
+            classdetail_update_compaleted = true;
         }
 
 
@@ -1295,6 +1308,10 @@ where T : DependencyObject
                 synccount = question_json.Count + answer_json.Count + chapter_json.Count + subject_json.Count + class_json.Count + classdetail_json.Count;
                 now_synccount = 0;
 
+                // Dispatcher.Invoke(new Action(() =>
+                // {
+                //xianshi.Text = "更新中...";
+                // }));
 
                 ThreadPool.QueueUserWorkItem(update_local_question, question_json);//写入和更新题目表
                 ThreadPool.QueueUserWorkItem(update_local_answer, answer_json);//写入和更新答案表
@@ -1303,6 +1320,10 @@ where T : DependencyObject
                 ThreadPool.QueueUserWorkItem(update_local_class, class_json);//写入和更新分类表
                 ThreadPool.QueueUserWorkItem(update_local_classdetail, classdetail_json);//写入和更新分类明细表
 
+                // Dispatcher.Invoke(new Action(() =>
+                // {
+                //xianshi.Text = "同步附件...  ";
+                // }));
 
                 #region
 
@@ -1938,7 +1959,7 @@ where T : DependencyObject
                     string httpaddr = PublicClass.http + @"/questionimages/" + attch;
                     downclient.DownloadFileAsync(new Uri(httpaddr), imagepath + attch);
                     downclient.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(web_DownloadFileCompleted);
-                    downclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(web_DownloadProgressChanged);
+                    //downclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(web_DownloadProgressChanged);
 
                 }
                 if (voice != "")
@@ -1946,7 +1967,7 @@ where T : DependencyObject
                     string httpaddr = PublicClass.http + @"/voices/" + voice;
                     downclient.DownloadFileAsync(new Uri(httpaddr), voicepath + voice);
                     downclient.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(web_DownloadFileCompleted);
-                    downclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(web_DownloadProgressChanged);
+                    //downclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(web_DownloadProgressChanged);
                 }
             }
             catch (Exception ex)
@@ -1958,24 +1979,24 @@ where T : DependencyObject
         }
 
         //下载进度改变时发生
-        void web_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        {
-            //xianshi.Text = string.Format("开始下载文件... 已下载:{0}Mb 剩余:{1}Mb 已完成:{2}%",
-            //    e.BytesReceived / 1024 / 1024,
-            //    e.TotalBytesToReceive / 1024 / 1024,
-            //    e.ProgressPercentage.ToString("N2"));
+//        void web_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+//        {
+//            //xianshi.Text = string.Format("开始下载文件... 已下载:{0}Mb 剩余:{1}Mb 已完成:{2}%",
+//            //    e.BytesReceived / 1024 / 1024,
+//            //    e.TotalBytesToReceive / 1024 / 1024,
+//            //    e.ProgressPercentage.ToString("N2"));
 
-            Dispatcher.Invoke(new Action(() =>
-{
-    if (e.ProgressPercentage > progress.Value)
-    {
-        progress.Value = e.ProgressPercentage;
-        System.Windows.Forms.Application.DoEvents();
-    }
-    //xianshi.Text = e.ProgressPercentage.ToString();
-}));
+//            Dispatcher.Invoke(new Action(() =>
+//{
+//    if (e.ProgressPercentage > progress.Value)
+//    {
+//        progress.Value = e.ProgressPercentage;
+//        System.Windows.Forms.Application.DoEvents();
+//    }
+//    //xianshi.Text = e.ProgressPercentage.ToString();
+//}));
 
-        }
+//        }
 
         //下载完成时发生
         void web_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
@@ -1993,10 +2014,10 @@ where T : DependencyObject
         {
             //xianshi.Text = "下载完毕,更新已完成";
             cur_cown_count++;
-            //progress.Value = cur_cown_count / attch_down_count * 100;
-            xianshi.Text = "同步附件...  " + cur_cown_count + "/" + attch_down_count;
+            progress.Value = cur_cown_count / attch_down_count * 100;
+            xianshi.Text = "下载数据中...  " + cur_cown_count + "/" + attch_down_count;
 
-            progress.Value = 0;
+            //progress.Value = 0;
             System.Windows.Forms.Application.DoEvents();
 
             if (cur_cown_count == attch_down_count)
@@ -2016,7 +2037,7 @@ where T : DependencyObject
         //同步完成后，本地数据完整性验证
         private void data_complete_validate()
         {
-            if (question_update_compaleted && answer_update_compaleted && cur_cown_count == attch_down_count)
+            if (question_update_compaleted && answer_update_compaleted && cur_cown_count == attch_down_count && chapter_update_compaleted && subject_update_compaleted && class_update_compaleted && classdetail_update_compaleted)
             {
                 try
                 {
@@ -2500,6 +2521,10 @@ where T : DependencyObject
             else
             {
                 login_control_ShowHide();//登录后控件的显示或隐藏
+
+                PublicClass.timer.Interval = new TimeSpan(5000);// 计时器触发间隔 5秒  
+                PublicClass.timer.Tick += new EventHandler(timer_Tick);
+                PublicClass.timer.Start();
 
                 DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
                 // 将数据加载到表 question 中。可以根据需要修改此代码。
