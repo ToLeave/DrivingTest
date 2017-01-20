@@ -1954,12 +1954,13 @@ where T : DependencyObject
                 }
 
 
+
                 if (attch != "")
                 {
                     string httpaddr = PublicClass.http + @"/questionimages/" + attch;
                     downclient.DownloadFileAsync(new Uri(httpaddr), imagepath + attch);
                     downclient.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(web_DownloadFileCompleted);
-                    //downclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(web_DownloadProgressChanged);
+                    downclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(web_DownloadProgressChanged);
 
                 }
                 if (voice != "")
@@ -1967,7 +1968,7 @@ where T : DependencyObject
                     string httpaddr = PublicClass.http + @"/voices/" + voice;
                     downclient.DownloadFileAsync(new Uri(httpaddr), voicepath + voice);
                     downclient.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(web_DownloadFileCompleted);
-                    //downclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(web_DownloadProgressChanged);
+                    downclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(web_DownloadProgressChanged);
                 }
             }
             catch (Exception ex)
@@ -1979,24 +1980,24 @@ where T : DependencyObject
         }
 
         //下载进度改变时发生
-//        void web_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-//        {
-//            //xianshi.Text = string.Format("开始下载文件... 已下载:{0}Mb 剩余:{1}Mb 已完成:{2}%",
-//            //    e.BytesReceived / 1024 / 1024,
-//            //    e.TotalBytesToReceive / 1024 / 1024,
-//            //    e.ProgressPercentage.ToString("N2"));
+        void web_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            //xianshi.Text = string.Format("开始下载文件... 已下载:{0}Mb 剩余:{1}Mb 已完成:{2}%",
+            //    e.BytesReceived / 1024 / 1024,
+            //    e.TotalBytesToReceive / 1024 / 1024,
+            //    e.ProgressPercentage.ToString("N2"));
 
-//            Dispatcher.Invoke(new Action(() =>
-//{
-//    if (e.ProgressPercentage > progress.Value)
-//    {
-//        progress.Value = e.ProgressPercentage;
-//        System.Windows.Forms.Application.DoEvents();
-//    }
-//    //xianshi.Text = e.ProgressPercentage.ToString();
-//}));
+            Dispatcher.Invoke(new Action(() =>
+{
+    if (e.ProgressPercentage > progress.Value)
+    {
+        progress.Value = e.ProgressPercentage;
+        System.Windows.Forms.Application.DoEvents();
+    }
+    //xianshi.Text = e.ProgressPercentage.ToString();
+}));
 
-//        }
+        }
 
         //下载完成时发生
         void web_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
