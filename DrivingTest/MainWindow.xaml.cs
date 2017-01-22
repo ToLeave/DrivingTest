@@ -411,10 +411,10 @@ where T : DependencyObject
                 newthread.Start();
 
 
-                qianlunqipao.MouseEnter += new MouseEventHandler(qianlun_MouseEnter);
-                qianlunqipao.MouseLeave += new MouseEventHandler(qianlun_MouseLeave);
-                houlunqipao.MouseEnter += new MouseEventHandler(houlun_MouseEnter);
-                houlunqipao.MouseLeave += new MouseEventHandler(houlun_MouseLeave);
+                //qianlunqipao.MouseEnter += new MouseEventHandler(qianlun_MouseEnter);
+                //qianlunqipao.MouseLeave += new MouseEventHandler(qianlun_MouseLeave);
+                //houlunqipao.MouseEnter += new MouseEventHandler(houlun_MouseEnter);
+                //houlunqipao.MouseLeave += new MouseEventHandler(houlun_MouseLeave);
 
                 //显示账号剩余次数、帐号毕业、帐号异常、在其它机器登陆
                 string zhanghao = "";
@@ -2059,11 +2059,12 @@ where T : DependencyObject
                     //// 将数据加载到表 subject 中。可以根据需要修改此代码。
                     //DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
                     //jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
-
+                        Dispatcher.Invoke(new Action(() =>
+                        {
                     xianshi.Text = "验证数据...";
                     System.Windows.Forms.Application.DoEvents();
                     //progress.Visibility = System.Windows.Visibility.Collapsed;
-
+                    }));
                     var getchkupdstr = getupdatecheck();
                     version(getchkupdstr);
 
@@ -2286,7 +2287,7 @@ where T : DependencyObject
             DoubleAnimation touming = new DoubleAnimation();
             touming.To = 1;
             touming.Duration = TimeSpan.FromSeconds(1);
-            qianlunqipao.BeginAnimation(Image.OpacityProperty, touming);
+            //qianlunqipao.BeginAnimation(Image.OpacityProperty, touming);
 
             //RotateTransform qipao = new RotateTransform();
             //qianlunqipao.RenderTransform = qipao;
@@ -2314,7 +2315,7 @@ where T : DependencyObject
             DoubleAnimation touming = new DoubleAnimation();
             touming.To = 0;
             touming.Duration = TimeSpan.FromSeconds(1);
-            qianlunqipao.BeginAnimation(Image.OpacityProperty, touming);
+            //qianlunqipao.BeginAnimation(Image.OpacityProperty, touming);
 
             //RotateTransform qipao = new RotateTransform();
             //qianlunqipao.RenderTransform = qipao;
@@ -2342,7 +2343,7 @@ where T : DependencyObject
             DoubleAnimation touming = new DoubleAnimation();
             touming.To = 1;
             touming.Duration = TimeSpan.FromSeconds(1);
-            houlunqipao.BeginAnimation(Image.OpacityProperty, touming);
+            //houlunqipao.BeginAnimation(Image.OpacityProperty, touming);
 
             //RotateTransform qipao = new RotateTransform();
             //houlunqipao.RenderTransform = qipao;
@@ -2368,7 +2369,7 @@ where T : DependencyObject
             DoubleAnimation touming = new DoubleAnimation();
             touming.To = 0;
             touming.Duration = TimeSpan.FromSeconds(1);
-            houlunqipao.BeginAnimation(Image.OpacityProperty, touming);
+            //houlunqipao.BeginAnimation(Image.OpacityProperty, touming);
 
             //RotateTransform qipao = new RotateTransform();
             //houlunqipao.RenderTransform = qipao;
@@ -2611,8 +2612,8 @@ where T : DependencyObject
             password_textBox.Visibility = System.Windows.Visibility.Hidden;
             zhuce.Visibility = System.Windows.Visibility.Hidden;
             login.Visibility = System.Windows.Visibility.Hidden;
-            qianlunqipao.Visibility = System.Windows.Visibility.Hidden;
-            houlunqipao.Visibility = System.Windows.Visibility.Hidden;
+            //qianlunqipao.Visibility = System.Windows.Visibility.Hidden;
+            //houlunqipao.Visibility = System.Windows.Visibility.Hidden;
         }
 
         public string subjectname;
