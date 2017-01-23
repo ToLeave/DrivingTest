@@ -136,7 +136,7 @@
         <MediaElement Margin="155,421,262,57" Height="290"  x:Name="gif_image" MediaEnded="gif_image_MediaEnded" HorizontalAlignment="Center" VerticalAlignment="Center" Width="607" MouseLeftButtonDown="gif_image_MouseLeftButtonDown">    </MediaElement>
         <GroupBox Header="考试图片信息" Height="320" HorizontalAlignment="Center" Margin="130,398,223,50" Name="groupBox7" VerticalAlignment="Center" Width="671" Visibility="Visible" />
         <TextBlock Height="285" HorizontalAlignment="Left" Margin="46,422,0,0" Name="guanggao_textBlock" Text="    广 -     告   -   位" VerticalAlignment="Top" Width="46" TextWrapping="Wrap" FontSize="30" TextAlignment="Center" TextTrimming="None" FontStretch="Normal" />
-        <Image Height="299" HorizontalAlignment="Left" Margin="20,416,0,0" Name="guanggao_image" Stretch="Fill" VerticalAlignment="Top" Width="100" />
+        <Image Height="300" HorizontalAlignment="Left" Margin="20,416,0,0" Name="guanggao_image" Stretch="Fill" VerticalAlignment="Top" Width="100" />
         
         <Grid x:Name="shezhi_grid" Visibility="Hidden">
         <CheckBox Content="显示答案" Height="16" HorizontalAlignment="Center" Margin="21,423,939,329" Name="xianshi_checkBox" VerticalAlignment="Center" />
