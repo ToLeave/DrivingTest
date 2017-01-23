@@ -59,6 +59,7 @@ namespace DrivingTest
         JArray subject_json;//科目json
         JArray class_json;//分类json
         JArray classdetail_json;//分类明细json
+        JToken avatar_json;
         //int cur_question_step = 0;
 
         float synccount = 0; //进度显示下载总数
@@ -884,6 +885,7 @@ where T : DependencyObject
                         //img_down_list.Add(img);
                         //voice_down_list.Add(voi);
 
+
                     }
                     //jiakaoDataSet.question.AddquestionRow(id1, id2, id3, name, img, voi, dri, que, upd, isj);
                     //jiakaoDataSet.question.AddquestionRow(id1, id2, id3, name, img, voi, dri, que, upd, isj);
@@ -965,12 +967,11 @@ where T : DependencyObject
                                 attch_down_count++;
                                 updatedownload(img, voi);
                             }
-
                             //img_down_list.Add(img);
                             //voice_down_list.Add(voi);
                         }
                     }
-                    
+
                 }
                 //cur_question_step++;
                 now_synccount++;
@@ -1055,7 +1056,7 @@ where T : DependencyObject
 
                         }
                     }
-                  
+
                 }
                 //xianshi.Text = "更新中..." + (now_synccount / synccount * 100).ToString() + "%";
                 //cur_question_step++;
@@ -1173,7 +1174,7 @@ where T : DependencyObject
                 }));
             }
             class_update_compaleted = true;
-          
+
         }
 
         private void update_local_classdetail(object data)//更新内存分类明细  
@@ -1249,6 +1250,7 @@ where T : DependencyObject
                 string subjectstr = null;
                 string classstr = null;
                 string classdetailstr = null;
+                string avatarstr = null;
 
 
                 HttpWebResponse response = null;
@@ -1297,12 +1299,21 @@ where T : DependencyObject
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 classdetailstr = reader.ReadToEnd();
 
+                request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/avatar");//分类明细 url
+                request.Method = "GET";
+                request.Timeout = 30000;
+                response = (HttpWebResponse)request.GetResponse();
+                reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
+                avatarstr = reader.ReadToEnd();
+
                 question_json = JArray.Parse(questionstr);//题目json
                 answer_json = JArray.Parse(answerstr);//答案json
                 chapter_json = JArray.Parse(chapterstr);//章节json
                 subject_json = JArray.Parse(subjectstr);//科目json
                 class_json = JArray.Parse(classstr);//分类json
                 classdetail_json = JArray.Parse(classdetailstr);//分类明细json
+                avatar_json = JToken.Parse(avatarstr);
+                int c;
 
                 #endregion
                 synccount = question_json.Count + answer_json.Count + chapter_json.Count + subject_json.Count + class_json.Count + classdetail_json.Count;
@@ -1319,6 +1330,11 @@ where T : DependencyObject
                 ThreadPool.QueueUserWorkItem(update_local_subject, subject_json);//写入和更新科目表
                 ThreadPool.QueueUserWorkItem(update_local_class, class_json);//写入和更新分类表
                 ThreadPool.QueueUserWorkItem(update_local_classdetail, classdetail_json);//写入和更新分类明细表
+
+                //string imagename1 = "car1.jpg";
+                //string imagename2 = "car2.jpg";
+                updateadvertise(avatar_json["topavatar"].ToString());//下载广告图片
+                updateadvertise(avatar_json["leftavatar"].ToString());//下载广告图片
 
                 // Dispatcher.Invoke(new Action(() =>
                 // {
@@ -1979,6 +1995,33 @@ where T : DependencyObject
 
         }
 
+        //接收广告
+        private void updateadvertise(string iamgename)
+        {
+            try
+            {
+                WebClient advertiseclient = new WebClient();
+
+                string advertisepath = System.Windows.Forms.Application.StartupPath + "\\Image\\Advertise\\";
+
+                if (!Directory.Exists(advertisepath))//如果路径不存在
+                {
+                    Directory.CreateDirectory(advertisepath);//创建一个路径的文件夹
+                }
+                string iamgefilepath = iamgename.Split('?')[0];
+                string httpaddr = PublicClass.http + iamgefilepath;
+                iamgename = iamgefilepath.Split('/').Last();
+                advertiseclient.DownloadFileAsync(new Uri(httpaddr), advertisepath + iamgename);
+                //advertiseclient.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(web_DownloadFileCompleted);
+                //advertiseclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(web_DownloadProgressChanged);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
         //下载进度改变时发生
         void web_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
@@ -2059,11 +2102,11 @@ where T : DependencyObject
                     //// 将数据加载到表 subject 中。可以根据需要修改此代码。
                     //DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
                     //jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
-                        Dispatcher.Invoke(new Action(() =>
-                        {
-                    xianshi.Text = "验证数据...";
-                    System.Windows.Forms.Application.DoEvents();
-                    //progress.Visibility = System.Windows.Visibility.Collapsed;
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        xianshi.Text = "验证数据...";
+                        System.Windows.Forms.Application.DoEvents();
+                        //progress.Visibility = System.Windows.Visibility.Collapsed;
                     }));
                     var getchkupdstr = getupdatecheck();
                     version(getchkupdstr);

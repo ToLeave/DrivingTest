@@ -105,6 +105,8 @@ where T : DependencyObject
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            guanggao_image.Source = new BitmapImage(new Uri(System.Windows.Forms.Application.StartupPath + "\\Image\\Advertise\\car2.jpg"));
+
             if (first_run)
             {
                 //this.Name = "mainW";

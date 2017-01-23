@@ -40,6 +40,6 @@
         
         
         <TextBlock Height="50" HorizontalAlignment="Left" Margin="0,12,0,0" Name="textBlock2" Text="  驾考速成,专业培训,理论包过 加盟电话:18687768373" VerticalAlignment="Top" Width="800" FontSize="32" FontWeight="Normal" />
-        <Image Height="180" HorizontalAlignment="Left" Margin="38,68,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="720" />
+        <Image Height="180" HorizontalAlignment="Left" Margin="38,68,0,0" Name="guanggao_image" Stretch="Fill" VerticalAlignment="Top" Width="720" />
     </Grid>
 </UserControl>

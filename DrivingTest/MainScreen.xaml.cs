@@ -59,6 +59,8 @@ namespace DrivingTest
             b.Stretch = Stretch.Fill;
             this.Background = b;
 
+            guanggao_image.Source = new BitmapImage(new Uri(System.Windows.Forms.Application.StartupPath + "\\Image\\Advertise\\car1.jpg"));
+
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 chapter 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
