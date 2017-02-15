@@ -14,6 +14,9 @@ using System.Net;
 using System.Collections.ObjectModel;
 using System.Collections;
 using System.ComponentModel;
+using System.Timers;
+using System.Windows.Media.Animation;
+using System.Diagnostics;
 
 namespace DrivingTest
 {
@@ -40,6 +43,8 @@ namespace DrivingTest
         int subject_id;
         string subject_name;
         List<int> questions_id = new List<int>();//题号序列
+        Timer timer = new Timer();
+        int imgheight = 0;
 
         //int control_state = 0;//控件显示状态 1为触发,0为不触发
 
@@ -59,7 +64,7 @@ namespace DrivingTest
             b.Stretch = Stretch.Fill;
             this.Background = b;
 
-            guanggao_image.Source = new BitmapImage(new Uri(System.Windows.Forms.Application.StartupPath + "\\Image\\Advertise\\car1.jpg"));
+            //guanggao_image.Source = new BitmapImage(new Uri(System.Windows.Forms.Application.StartupPath + "\\Image\\Advertise\\car1.jpg"));
 
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 chapter 中。可以根据需要修改此代码。
@@ -126,6 +131,57 @@ namespace DrivingTest
                 }
 
             }
+
+            var imggroup = from c in PublicClass.avatar_list where c.avatar_type == "left" select c;
+            imgheight = imggroup.Count() * 180;
+            foreach (var img in imggroup)
+            {
+                Image image = new Image();
+                image.Width = 720;
+                image.Height = 180;
+                image.Source = new BitmapImage(new Uri(System.Windows.Forms.Application.StartupPath + "\\avatar\\"+img.avatarurl));
+                image.MouseUp += new MouseButtonEventHandler(image_MouseUp);
+                img_panel.Children.Add(image);
+            }
+            img_panel.Margin = new Thickness(0, -imgheight + 180, 0, 0);
+
+            timer.Interval = 10000;
+            timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
+            timer.Start();
+
+
+        }
+
+        void image_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Image img = sender as Image;
+            if (img != null)
+            {
+                var link = from c in PublicClass.avatar_list where c.avatarurl.Contains(img.Source.ToString().Split('/').Last()) select c;
+                Process proc = new System.Diagnostics.Process();
+                proc.StartInfo.FileName = link.First().link;
+                proc.Start();
+
+            }
+                     
+        }
+
+        void timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                ThicknessAnimation panelani = new ThicknessAnimation();
+                if (img_panel.Margin.Top == 0)
+                {
+                    panelani.To = new Thickness(0, -imgheight + 180, 0, 0);
+                }
+                else
+                {
+                    panelani.To = new Thickness(0, img_panel.Margin.Top + 180, 0, 0);
+                }
+                panelani.Duration = TimeSpan.FromSeconds(1);
+                img_panel.BeginAnimation(StackPanel.MarginProperty, panelani);
+            }));
         }
 
         //生成分类UI

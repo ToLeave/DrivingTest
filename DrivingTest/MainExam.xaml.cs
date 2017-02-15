@@ -17,6 +17,9 @@ using System.Windows.Controls.Primitives;
 using System.IO;
 using System.Speech.Synthesis;
 using System.Threading;
+using System.Diagnostics;
+using System.Windows.Media.Animation;
+using System.Xml;
 
 
 
@@ -51,6 +54,8 @@ namespace DrivingTest
         int cur_question_lab_index = 0;//当前选中题标签的索引
         bool first_run = true;//首次运行
 
+        System.Timers.Timer imagetimer = new System.Timers.Timer();
+        int imgwidth = 0;
 
 
         public MainExam()
@@ -105,7 +110,7 @@ where T : DependencyObject
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            guanggao_image.Source = new BitmapImage(new Uri(System.Windows.Forms.Application.StartupPath + "\\Image\\Advertise\\car2.jpg"));
+            //guanggao_image.Source = new BitmapImage(new Uri(System.Windows.Forms.Application.StartupPath + "\\Image\\Advertise\\car2.jpg"));
 
             if (first_run)
             {
@@ -196,8 +201,73 @@ where T : DependencyObject
 
                 #endregion
                 first_run = false;
+
+
+
+
+
+                var imggroup = from c in PublicClass.avatar_list where c.avatar_type == "top" select c;
+                imgwidth = imggroup.Count() * 100;
+                foreach (var img in imggroup)
+                {
+                    Image image = new Image();
+                    image.Width = 100;
+                    image.Height = 300;
+                    image.Source = new BitmapImage(new Uri(System.Windows.Forms.Application.StartupPath + "\\avatar\\" + img.avatarurl));
+                    image.MouseUp += new MouseButtonEventHandler(image_MouseUp);
+                    img_panel.Children.Add(image);
+                }
+                img_panel.Margin = new Thickness(-imgwidth + 100,0,0, 0);
+
+                imagetimer.Interval = 10000;
+                imagetimer.Elapsed += new System.Timers.ElapsedEventHandler(imagetimer_Elapsed);
+                imagetimer.Start();
+
+
+
+
+
             }
 
+
+
+
+
+
+
+
+
+        }
+
+        void imagetimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                ThicknessAnimation panelani = new ThicknessAnimation();
+                if (img_panel.Margin.Left == 0)
+                {
+                    panelani.To = new Thickness(-imgwidth + 100, 0, 0, 0);
+                }
+                else
+                {
+                    panelani.To = new Thickness(img_panel.Margin.Left + 100, 0, 0, 0);
+                }
+                panelani.Duration = TimeSpan.FromSeconds(1);
+                img_panel.BeginAnimation(StackPanel.MarginProperty, panelani);
+            }));
+        }
+
+        void image_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Image img = sender as Image;
+            if (img != null)
+            {
+                var link = from c in PublicClass.avatar_list where c.avatarurl.Contains(img.Source.ToString().Split('/').Last()) select c;
+                Process proc = new System.Diagnostics.Process();
+                proc.StartInfo.FileName = link.First().link;
+                proc.Start();
+
+            }
         }
 
         //随机题目
@@ -262,7 +332,8 @@ where T : DependencyObject
                 tianjiacuoti.Visibility = System.Windows.Visibility.Hidden;
                 shanchucuoti.Visibility = System.Windows.Visibility.Hidden;
                 guanggao_textBlock.Visibility = System.Windows.Visibility.Hidden;
-                guanggao_image.Visibility = System.Windows.Visibility.Hidden;
+                //guanggao_image.Visibility = System.Windows.Visibility.Hidden;
+                main_image_panel.Visibility = Visibility.Hidden;
 
                 timer_type = "考试";
                 var question_pd = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.question_type.Contains("PD") && c.subject_id == local_subject.First().subject_id select c;
@@ -601,7 +672,8 @@ where T : DependencyObject
             var question = from c in PublicClass.question_data where c.question_id == PublicClass.question_list[question_index].question_id select c;
             foreach (var temqu in question)
             {
-                timu_textBlock.Text = question_index + 1 + "." + temqu.question_name;//显示题目
+                //timu_textBlock.Text = question_index + 1 + "." + temqu.question_name;//显示题目
+                timu_xaml(question_index + 1 + "." + temqu.question_name);
                 imagename = temqu.question_image; //获取题目对应图片文件名
                 question_image();//显示图片
                 break;
@@ -837,7 +909,8 @@ where T : DependencyObject
             {
                 if (PublicClass.user_id != -1)//用户已登录
                 {
-                    timu_textBlock.Text = question_index + 1 + "." + temqu.question_name;//显示题目
+                    //timu_textBlock.Text = question_index + 1 + "." + temqu.question_name;//显示题目
+                    timu_xaml(question_index + 1 + "." + temqu.question_name);
                     imagename = temqu.question_image; //获取题目对应图片文件名
                     question_image();//显示图片
                 }
@@ -845,13 +918,15 @@ where T : DependencyObject
                 {
                     if (question_index < 10)//前10题正常显示
                     {
-                        timu_textBlock.Text = question_index + 1 + "." + temqu.question_name;//显示题目
+                        //timu_textBlock.Text = question_index + 1 + "." + temqu.question_name;//显示题目
+                        timu_xaml(question_index + 1 + "." + temqu.question_name);
                         imagename = temqu.question_image; //获取题目对应图片文件名
                         question_image();//显示图片
                     }
                     else//超出10题不予显示
                     {
-                        timu_textBlock.Text = "未注册用户,只能练习前10题,注册后可以练习全部试题,无任何限制!";
+                        //timu_textBlock.Text = "未注册用户,只能练习前10题,注册后可以练习全部试题,无任何限制!";
+                        timu_xaml("未注册用户,只能练习前10题,注册后可以练习全部试题,无任何限制!");
                         register re = new register();
                         re.Show();
                         re.Topmost = true;
@@ -997,7 +1072,8 @@ where T : DependencyObject
                     //shouzheng_cal(last_question_lab_index);
                     ThreadPool.QueueUserWorkItem(errquestion, last_question_lab_index);
                     //errquestion(last_question_lab_index);
-                    play_voice(timu_textBlock.Text);
+                    //play_voice(timu_textBlock.Text);
+                    play_voice(doc_text());
 
                     showright_answer(cur_question_lab_index);
                     error_messages(cur_question_lab_index);
@@ -1089,7 +1165,8 @@ where T : DependencyObject
                 ThreadPool.QueueUserWorkItem(errquestion, cur_question_lab_index + 1);
                 //errquestion(cur_question_lab_index - 1);
                 ThreadPool.QueueUserWorkItem(err_count, cur_question_lab_index + 1);
-                play_voice(timu_textBlock.Text);
+                //play_voice(timu_textBlock.Text);
+                play_voice(doc_text());
                 if (cur_question_lab_index > -1)
                 {
                     showright_answer(cur_question_lab_index);
@@ -1193,7 +1270,8 @@ where T : DependencyObject
                 //errquestion(cur_question_lab_index - 1);
                 ThreadPool.QueueUserWorkItem(err_count, cur_question_lab_index - 1);
                 //err_count(cur_question_lab_index - 1);
-                play_voice(timu_textBlock.Text);
+                //play_voice(timu_textBlock.Text);
+                play_voice(doc_text());
                 if (cur_question_lab_index < question_c)
                 {
                     showright_answer(cur_question_lab_index);
@@ -1453,7 +1531,8 @@ where T : DependencyObject
             {
                 if (PublicClass.user_id != -1)//用户已登录
                 {
-                    timu_textBlock.Text = question_id + 1 + "." + temqu.question_name;//显示题目
+                    //timu_textBlock.Text = question_id + 1 + "." + temqu.question_name;//显示题目
+                    timu_xaml(question_id + 1 + "." + temqu.question_name);
                     imagename = temqu.question_image; //获取题目对应图片文件名
                     question_image();//显示图片
                 }
@@ -1461,13 +1540,15 @@ where T : DependencyObject
                 {
                     if (question_id < 10)//前10题正常显示
                     {
-                        timu_textBlock.Text = question_id + 1 + "." + temqu.question_name;//显示题目
+                        //timu_textBlock.Text = question_id + 1 + "." + temqu.question_name;//显示题目
+                        timu_xaml(question_id + 1 + "." + temqu.question_name);
                         imagename = temqu.question_image; //获取题目对应图片文件名
                         question_image();//显示图片
                     }
                     else//超出10题不予显示
                     {
-                        timu_textBlock.Text = "未注册用户,只能练习前10题,注册后可以练习全部试题,无任何限制!";
+                        //timu_textBlock.Text = "未注册用户,只能练习前10题,注册后可以练习全部试题,无任何限制!";
+                        timu_xaml("未注册用户,只能练习前10题,注册后可以练习全部试题,无任何限制!");
                         register re = new register();
                         re.Show();
                         re.Topmost = true;
@@ -1969,17 +2050,18 @@ where T : DependencyObject
         //字体大小
         private void xiao_button_Click(object sender, RoutedEventArgs e)//变小
         {
-            if (timu_textBlock.FontSize > 14)
+            if (doc_reader.Zoom > 10)
             {
-                timu_textBlock.FontSize -= 2;
+                //timu_textBlock.FontSize -= 2;
+                doc_reader.Zoom -= 10;
                 xuanxiang_textBlock1.FontSize -= 2;
                 xuanxiang_textBlock2.FontSize -= 2;
                 xuanxiang_textBlock3.FontSize -= 2;
                 xuanxiang_textBlock4.FontSize -= 2;
 
-                if (timu_textBlock.FontSize != 14)
+                if (doc_reader.Zoom != 10)
                 {
-                    if (timu_textBlock.FontSize != 24)
+                    if (doc_reader.Zoom != 200)
                     {
                         da_button.IsEnabled = true;
                     }
@@ -1990,7 +2072,7 @@ where T : DependencyObject
                     da_button.IsEnabled = true;
                 }
             }
-            else if (timu_textBlock.FontSize == 14)
+            else if (doc_reader.Zoom == 10)
             {
                 xiao_button.IsEnabled = false;
                 da_button.IsEnabled = true;
@@ -2003,17 +2085,17 @@ where T : DependencyObject
 
         private void da_button_Click(object sender, RoutedEventArgs e)//变大
         {
-            if (timu_textBlock.FontSize < 24)
+            if (doc_reader.Zoom < 200)
             {
-                timu_textBlock.FontSize += 2;
+                doc_reader.Zoom += 10;
                 xuanxiang_textBlock1.FontSize += 2;
                 xuanxiang_textBlock2.FontSize += 2;
                 xuanxiang_textBlock3.FontSize += 2;
                 xuanxiang_textBlock4.FontSize += 2;
 
-                if (timu_textBlock.FontSize != 24)
+                if (doc_reader.Zoom != 200)
                 {
-                    if (timu_textBlock.FontSize != 14)
+                    if (doc_reader.Zoom != 10)
                     {
                         xiao_button.IsEnabled = true;
                     }
@@ -2024,7 +2106,7 @@ where T : DependencyObject
                     da_button.IsEnabled = false;
                 }
             }
-            else if (timu_textBlock.FontSize == 24)
+            else if (doc_reader.Zoom == 200)
             {
                 xiao_button.IsEnabled = true;
                 da_button.IsEnabled = false;
@@ -2436,6 +2518,33 @@ where T : DependencyObject
         private void CommandBinding_ButtonConfirmHandExams_Executed(object sender, ExecutedRoutedEventArgs e)//确认交卷
         {
 
+        }
+
+        private void timu_xaml(string timu_text)
+        {
+            SautinSoft.HtmlToRtf h = new SautinSoft.HtmlToRtf();
+            string rtfstr = h.ConvertString(timu_text);
+            rtfstr = rtfstr.Substring(0, rtfstr.LastIndexOf("________________________________________________________") - 1);
+            //doc_reader.Document = (FlowDocument)rtfstr;
+
+            Byte[] bytes = Encoding.UTF8.GetBytes(rtfstr);
+            MemoryStream memoryStream = new MemoryStream(bytes);
+            XmlTextReader xmlTextReader = new XmlTextReader(memoryStream);
+            FlowDocument doc = new FlowDocument();
+            var content = new TextRange(doc.ContentStart, doc.ContentEnd);
+            content.Load(memoryStream, DataFormats.Rtf);
+            doc_reader.Document = doc;
+        }
+
+        private string doc_text()
+        {
+            TextRange flowDocSelection = new TextRange(doc_reader.Document.ContentStart, doc_reader.Document.ContentEnd);
+            string vocestr = flowDocSelection.Text;
+            if(vocestr==null)
+            {
+                vocestr = "";
+            }
+            return flowDocSelection.Text;
         }
 
 

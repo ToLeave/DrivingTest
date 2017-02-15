@@ -131,5 +131,14 @@ namespace DrivingTest
             return thick;
         }
 
+        public class avatar//广告
+        {
+            public string avatarurl;
+            public string link;
+            public string avatar_type;
+        }
+
+        public static List<avatar> avatar_list = new List<avatar>();//广告list
+
     }
 }

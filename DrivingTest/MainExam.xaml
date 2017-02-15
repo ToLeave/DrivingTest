@@ -90,7 +90,11 @@
         <TextBlock Height="20" HorizontalAlignment="Center" Margin="34,360,934,388" Text="00:45:00" Name="SecondArea" VerticalAlignment="Center" FontSize="14" />
         <GroupBox Header="剩余时间" Height="52" HorizontalAlignment="Center" Margin="8,339,903,377" Name="groupBox3" VerticalAlignment="Center" Width="113" Visibility="Visible" />
 
-        <TextBox Height="100" BorderThickness="0" Background="{x:Null}" HorizontalAlignment="Center" Margin="140,28,295,640" Name="timu_textBlock" Text="" VerticalAlignment="Center" Width="589" TextWrapping="Wrap" FontWeight="Bold" FontSize="16" Visibility="Visible" IsReadOnly="True" />
+        <!--<TextBox Height="100" BorderThickness="0" Background="{x:Null}" HorizontalAlignment="Center" Margin="140,28,295,640" Name="timu_textBlock" Text="" VerticalAlignment="Center" Width="589" TextWrapping="Wrap" FontWeight="Bold" FontSize="16" Visibility="Visible" IsReadOnly="True" />-->
+        <StackPanel Margin="140,28,295,640" ClipToBounds="True">
+            <FlowDocumentReader Height="125" HorizontalAlignment="Center"  Width="589" VerticalAlignment="Center" x:Name="doc_reader" IsPrintEnabled="False" IsScrollViewEnabled="False" IsTabStop="False" IsTwoPageViewEnabled="False" IsFindEnabled="False"></FlowDocumentReader>
+        </StackPanel>
+        
         <TextBox Height="37" BorderThickness="0" Background="{x:Null}" HorizontalAlignment="Center" Margin="140,127,295,603" Name="xuanxiang_textBlock1" Text="" VerticalAlignment="Center" FontSize="16" Width="589" FontWeight="Bold" IsReadOnly="True" />
         <TextBox Height="37" BorderThickness="0" Background="{x:Null}" HorizontalAlignment="Center" Margin="140,165,295,567" Name="xuanxiang_textBlock2" Text="" VerticalAlignment="Center" FontSize="16" Width="589" FontWeight="Bold" IsReadOnly="True" />
         <TextBox Height="37" BorderThickness="0" Background="{x:Null}" HorizontalAlignment="Center" Margin="140,201,295,529" Name="xuanxiang_textBlock3" Text="" VerticalAlignment="Center" FontSize="16" Width="589" FontWeight="Bold" IsReadOnly="True" />
@@ -136,7 +140,10 @@
         <MediaElement Margin="155,421,262,57" Height="290"  x:Name="gif_image" MediaEnded="gif_image_MediaEnded" HorizontalAlignment="Center" VerticalAlignment="Center" Width="607" MouseLeftButtonDown="gif_image_MouseLeftButtonDown">    </MediaElement>
         <GroupBox Header="考试图片信息" Height="320" HorizontalAlignment="Center" Margin="130,398,223,50" Name="groupBox7" VerticalAlignment="Center" Width="671" Visibility="Visible" />
         <TextBlock Height="285" HorizontalAlignment="Left" Margin="46,422,0,0" Name="guanggao_textBlock" Text="    广 -     告   -   位" VerticalAlignment="Top" Width="46" TextWrapping="Wrap" FontSize="30" TextAlignment="Center" TextTrimming="None" FontStretch="Normal" />
-        <Image Height="300" HorizontalAlignment="Left" Margin="20,416,0,0" Name="guanggao_image" Stretch="Fill" VerticalAlignment="Top" Width="100" />
+        <StackPanel Height="300" Width="100" Margin="20,416,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="main_image_panel" Orientation="Horizontal" ClipToBounds="True">
+            <StackPanel x:Name="img_panel" Orientation="Horizontal"></StackPanel>
+        </StackPanel>
+        <!--<Image Height="300" HorizontalAlignment="Left" Margin="20,416,0,0" Name="guanggao_image" Stretch="Fill" VerticalAlignment="Top" Width="100" />-->
         
         <Grid x:Name="shezhi_grid" Visibility="Hidden">
         <CheckBox Content="显示答案" Height="16" HorizontalAlignment="Center" Margin="21,423,939,329" Name="xianshi_checkBox" VerticalAlignment="Center" />

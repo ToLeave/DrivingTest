@@ -15,6 +15,7 @@
         <CollectionViewSource x:Key="subjectViewSource" Source="{Binding Path=subject, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="settingViewSource" Source="{Binding Path=setting, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="userViewSource" Source="{Binding Path=user, Source={StaticResource jiakaoDataSet}}" />
+        <CollectionViewSource x:Key="avatarViewSource" Source="{Binding Path=avatar, Source={StaticResource jiakaoDataSet}}" />
     </Window.Resources>
 
     <Grid x:Name="maingrid" MouseLeftButtonDown="Grid_MouseLeftButtonDown" DataContext="{StaticResource updatecheckViewSource}">

@@ -14,9 +14,11 @@
         <CollectionViewSource x:Key="classViewSource" Source="{Binding Path=class, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="classdetailViewSource" Source="{Binding Path=classdetail, Source={StaticResource jiakaoDataSet}}" />
     </UserControl.Resources>
-    <Grid DataContext="{StaticResource chapterViewSource}">
-        <TextBlock Height="184" HorizontalAlignment="Left" Margin="31,68,0,0" Name="textBlock1" Text="广   -    告    -   位" VerticalAlignment="Top" Width="739" FontSize="30" TextAlignment="Center"  />
-
+    <Grid DataContext="{StaticResource chapterViewSource}" ClipToBounds="True">
+        <!--<TextBlock Height="184" HorizontalAlignment="Left" Margin="31,68,0,0" Name="textBlock1" Text="广   -    告    -   位" VerticalAlignment="Top" Width="739" FontSize="30" TextAlignment="Center"  />-->
+        <StackPanel Height="180" Width="720" Margin="0,68,0,0" VerticalAlignment="Top" ClipToBounds="True">
+            <StackPanel x:Name="img_panel"></StackPanel>
+        </StackPanel>
         <xly:FButton FIcon="&#xe60e;" Content="新手速成" Height="40" HorizontalAlignment="Left" Margin="31,274,0,0" Name="sucheng" VerticalAlignment="Top" Width="99" Click="sucheng_Click" FontSize="16" FontWeight="Bold" />
         <xly:FButton FIcon="&#xeb94;" Content="速成500" Height="40" HorizontalAlignment="Left" Margin="31,320,0,0" Name="sucheng500" VerticalAlignment="Top" Width="99" Click="sucheng500_Click" FontSize="16" FontWeight="Bold" />
         <xly:FButton FIcon="&#xeb93;" Content="速成600" Height="40" HorizontalAlignment="Left" Margin="31,366,0,0" Name="sucheng600" VerticalAlignment="Top" Width="99" Click="sucheng600_Click" FontSize="16" FontWeight="Bold" />
@@ -40,6 +42,7 @@
         
         
         <TextBlock Height="50" HorizontalAlignment="Left" Margin="0,12,0,0" Name="textBlock2" Text="  驾考速成,专业培训,理论包过 加盟电话:18687768373" VerticalAlignment="Top" Width="800" FontSize="32" FontWeight="Normal" />
-        <Image Height="180" HorizontalAlignment="Left" Margin="38,68,0,0" Name="guanggao_image" Stretch="Fill" VerticalAlignment="Top" Width="720" />
+        <!--<Image Height="180" HorizontalAlignment="Left" Margin="38,68,0,0" Name="guanggao_image" Stretch="Fill" VerticalAlignment="Top" Width="720" />-->
+        
     </Grid>
 </UserControl>

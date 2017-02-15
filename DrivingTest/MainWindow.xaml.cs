@@ -326,6 +326,8 @@ where T : DependencyObject
                     }));
                     if (checknetwork())
                     {
+                        update_avatar("top");//更新顶部广告
+                        update_avatar("left");//更新考试广告
                         var chkupd = from c in jiakaoDataSet.updatecheck select c;
                         var getchkupdstr = getupdatecheck();
                         var localchkupdstr = "";
@@ -1299,12 +1301,12 @@ where T : DependencyObject
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 classdetailstr = reader.ReadToEnd();
 
-                request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/avatar");//分类明细 url
-                request.Method = "GET";
-                request.Timeout = 30000;
-                response = (HttpWebResponse)request.GetResponse();
-                reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
-                avatarstr = reader.ReadToEnd();
+                //request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/avatar");//分类明细 url
+                //request.Method = "GET";
+                //request.Timeout = 30000;
+                //response = (HttpWebResponse)request.GetResponse();
+                //reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
+                //avatarstr = reader.ReadToEnd();
 
                 question_json = JArray.Parse(questionstr);//题目json
                 answer_json = JArray.Parse(answerstr);//答案json
@@ -1312,7 +1314,7 @@ where T : DependencyObject
                 subject_json = JArray.Parse(subjectstr);//科目json
                 class_json = JArray.Parse(classstr);//分类json
                 classdetail_json = JArray.Parse(classdetailstr);//分类明细json
-                avatar_json = JToken.Parse(avatarstr);
+                //avatar_json = JToken.Parse(avatarstr);
                 int c;
 
                 #endregion
@@ -1333,8 +1335,8 @@ where T : DependencyObject
 
                 //string imagename1 = "car1.jpg";
                 //string imagename2 = "car2.jpg";
-                updateadvertise(avatar_json["topavatar"].ToString());//下载广告图片
-                updateadvertise(avatar_json["leftavatar"].ToString());//下载广告图片
+                //updateadvertise(avatar_json["topavatar"].ToString());//下载广告图片
+                //updateadvertise(avatar_json["leftavatar"].ToString());//下载广告图片
 
                 // Dispatcher.Invoke(new Action(() =>
                 // {
@@ -3082,6 +3084,106 @@ where T : DependencyObject
             if (e.Key == Key.Enter)
             {
                 login_Click(null, null);
+            }
+        }
+
+        private void update_avatar(string avatarname)
+        {
+            string avatarstr = null;
+            JArray avatar_json;
+            HttpWebResponse response = null;
+            StreamReader reader = null;
+            HttpWebRequest request;
+            if (avatarname == "top")
+            {
+                request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/topavatar");
+            }
+            else
+            {
+                request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/leftavatar");
+            }
+            request.Method = "GET";
+            request.Timeout = 30000;
+            response = (HttpWebResponse)request.GetResponse();
+            reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
+            avatarstr = reader.ReadToEnd();
+            avatar_json = JArray.Parse(avatarstr);
+            
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 updatecheck 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.avatarTableAdapter jiakaoDataSetavatarTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.avatarTableAdapter();
+            jiakaoDataSetavatarTableAdapter.Fill(jiakaoDataSet.avatar);
+            var delavatars = from c in jiakaoDataSet.avatar where c.topavatar != "" select c;//top
+            if (avatarname == "left")
+            {
+                delavatars = from c in jiakaoDataSet.avatar where c.leftavatar != "" select c;//left
+            }
+            foreach (var del in delavatars)
+            {
+                string advertisepath = System.Windows.Forms.Application.StartupPath + "\\avatar\\";
+                if (avatarname == "top")
+                {
+                    advertisepath += del.topavatar;
+                }
+                else
+                {
+                    advertisepath += del.leftavatar;
+                }
+                File.Delete(advertisepath);
+                del.Delete();
+            }
+            foreach(var avatar in avatar_json)
+            {
+                if (avatarname == "left")
+                {
+                    string avatarurl=avatar_download(avatar["avatar"].ToString());
+                    jiakaoDataSet.avatar.AddavatarRow(avatarurl, avatar["link"].ToString(), "");
+                    PublicClass.avatar myavatar = new PublicClass.avatar();
+                    myavatar.avatarurl = avatarurl;
+                    myavatar.link = avatar["link"].ToString();
+                    myavatar.avatar_type = "left";
+                    PublicClass.avatar_list.Add(myavatar);
+                }
+                else
+                {
+                    string avatarurl = avatar_download(avatar["avatar"].ToString());
+                    jiakaoDataSet.avatar.AddavatarRow("", avatar["link"].ToString(), avatarurl);
+                    PublicClass.avatar myavatar = new PublicClass.avatar();
+                    myavatar.avatarurl = avatarurl;
+                    myavatar.link = avatar["link"].ToString();
+                    myavatar.avatar_type = "top";
+                    PublicClass.avatar_list.Add(myavatar);
+                }
+            }
+            jiakaoDataSetavatarTableAdapter.Update(jiakaoDataSet.avatar);
+            jiakaoDataSet.avatar.AcceptChanges();
+        }
+
+        private string avatar_download(string imagename)
+        {
+            try
+            {
+                WebClient advertiseclient = new WebClient();
+
+                string advertisepath = System.Windows.Forms.Application.StartupPath + "\\avatar\\";
+
+                if (!Directory.Exists(advertisepath))//如果路径不存在
+                {
+                    Directory.CreateDirectory(advertisepath);//创建一个路径的文件夹
+                }
+                string imagefilepath = imagename.Split('?')[0];
+                string httpaddr = PublicClass.http + imagefilepath;
+                imagefilepath = imagefilepath.Split('/').Last();
+                string newfilename = Guid.NewGuid() + "." + imagefilepath.Split('.').Last();
+                advertiseclient.DownloadFileAsync(new Uri(httpaddr), advertisepath + newfilename);
+                return newfilename;
+                //advertiseclient.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(web_DownloadFileCompleted);
+                //advertiseclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(web_DownloadProgressChanged);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return "";
             }
         }
 
