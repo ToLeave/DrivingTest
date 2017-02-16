@@ -646,7 +646,7 @@ where T : DependencyObject
                 //qu.Name = "q" + i.ToString();
                 qu.MouseDown += new MouseButtonEventHandler(OK);
                 qu.setnum(i + 1, true, "");
-                
+
                 dati_canvas.Children.Add(qu);
                 dati_canvas.RegisterName("q" + i, qu);
             }
@@ -2050,7 +2050,7 @@ where T : DependencyObject
         //字体大小
         private void xiao_button_Click(object sender, RoutedEventArgs e)//变小
         {
-            if (doc_reader.Zoom > 10)
+            if (doc_reader.Zoom > 80)
             {
                 //timu_textBlock.FontSize -= 2;
                 doc_reader.Zoom -= 10;
@@ -2059,9 +2059,9 @@ where T : DependencyObject
                 xuanxiang_textBlock3.FontSize -= 2;
                 xuanxiang_textBlock4.FontSize -= 2;
 
-                if (doc_reader.Zoom != 10)
+                if (doc_reader.Zoom != 80)
                 {
-                    if (doc_reader.Zoom != 200)
+                    if (doc_reader.Zoom != 160)
                     {
                         da_button.IsEnabled = true;
                     }
@@ -2072,7 +2072,7 @@ where T : DependencyObject
                     da_button.IsEnabled = true;
                 }
             }
-            else if (doc_reader.Zoom == 10)
+            else if (doc_reader.Zoom == 80)
             {
                 xiao_button.IsEnabled = false;
                 da_button.IsEnabled = true;
@@ -2085,7 +2085,7 @@ where T : DependencyObject
 
         private void da_button_Click(object sender, RoutedEventArgs e)//变大
         {
-            if (doc_reader.Zoom < 200)
+            if (doc_reader.Zoom < 160)
             {
                 doc_reader.Zoom += 10;
                 xuanxiang_textBlock1.FontSize += 2;
@@ -2093,9 +2093,9 @@ where T : DependencyObject
                 xuanxiang_textBlock3.FontSize += 2;
                 xuanxiang_textBlock4.FontSize += 2;
 
-                if (doc_reader.Zoom != 200)
+                if (doc_reader.Zoom != 160)
                 {
-                    if (doc_reader.Zoom != 10)
+                    if (doc_reader.Zoom != 80)
                     {
                         xiao_button.IsEnabled = true;
                     }
@@ -2106,7 +2106,7 @@ where T : DependencyObject
                     da_button.IsEnabled = false;
                 }
             }
-            else if (doc_reader.Zoom == 200)
+            else if (doc_reader.Zoom == 160)
             {
                 xiao_button.IsEnabled = true;
                 da_button.IsEnabled = false;

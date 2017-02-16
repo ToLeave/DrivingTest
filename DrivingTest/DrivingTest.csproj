@@ -55,7 +55,7 @@
     </Reference>
     <Reference Include="PresentationFramework.Luna" />
     <Reference Include="SautinSoft.HtmlToRtf">
-      <HintPath>..\..\..\迅雷下载\htmltortf_pro_net\HTML to RTF .Net Trial (5.8.2.9)\SautinSoft.HtmlToRtf.dll</HintPath>
+      <HintPath>..\dll\SautinSoft.HtmlToRtf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

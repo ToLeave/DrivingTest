@@ -451,6 +451,8 @@ namespace DrivingTest
             qianghuamoni.Visibility = System.Windows.Visibility.Hidden;//强化模拟
             zhuanxianglianxi.Visibility = System.Windows.Visibility.Hidden;//专项练习
             zhuanxiangmoni.Visibility = System.Windows.Visibility.Hidden;//专项模拟
+            shunxulianxi.Visibility = System.Windows.Visibility.Visible;//
+            suijilianxi.Visibility = System.Windows.Visibility.Visible;//
             listBox.Items.Clear();
             if (zhangjie_bangding(PublicClass.cartype, PublicClass.subjection) == true)//列出章节,解锁顺序随机按钮
             {
