@@ -178,11 +178,7 @@ where T : DependencyObject
                 synth.Volume = 100;
                 synth.Rate = 0;
 
-
-                #region 启动定时器
-
                 //设置定时器
-
                 timer.Interval = new TimeSpan(10000000);   //时间间隔为一秒
                 timer.Tick += new EventHandler(timer_Tick);
                 timer.Start();
@@ -197,9 +193,6 @@ where T : DependencyObject
                 //processCount = new ProcessCount(hour * 3600 + minute * 60 + second);
                 //CountDown += new CountDownHandler(processCount.ProcessCountDown);
 
-
-
-                #endregion
                 first_run = false;
 
 
@@ -217,7 +210,7 @@ where T : DependencyObject
                     image.MouseUp += new MouseButtonEventHandler(image_MouseUp);
                     img_panel.Children.Add(image);
                 }
-                img_panel.Margin = new Thickness(-imgwidth + 100,0,0, 0);
+                img_panel.Margin = new Thickness(-imgwidth + 100, 0, 0, 0);
 
                 imagetimer.Interval = 10000;
                 imagetimer.Elapsed += new System.Timers.ElapsedEventHandler(imagetimer_Elapsed);
@@ -228,14 +221,6 @@ where T : DependencyObject
 
 
             }
-
-
-
-
-
-
-
-
 
         }
 
@@ -405,7 +390,7 @@ where T : DependencyObject
                         //ThreadPool.QueueUserWorkItem(local_question.answer= question.First().question_id);
                         //PublicClass.question_list.Add(local_question);
                         //ThreadPool.SetMaxThreads(16, 2);
-                        ThreadPool.QueueUserWorkItem(Thread_Question,questions_id[i]);
+                        ThreadPool.QueueUserWorkItem(Thread_Question, questions_id[i]);
                     }
                 }
                 else
@@ -426,6 +411,9 @@ where T : DependencyObject
                     }
                     PublicClass.question_list = random_question(PublicClass.question_list, questions_id.Count());
                 }
+                //question_c = PublicClass.question_list.Count();
+                //create_question_num();
+                //questionindex();
 
             }
             //question_c = PublicClass.question_list.Count();
@@ -630,138 +618,143 @@ where T : DependencyObject
         //生成题号
         private void create_question_num()
         {
-                                Dispatcher.Invoke(new Action(() =>
-                    {
-            int cou = question_c;
-            for (int i = 0; i < cou; i++)
-            {
-                int x = i / 10;
-                int y = i % 10;
-                x *= 30;
-                y *= 24;
-                QuestionNum qu = new QuestionNum();
+            Dispatcher.Invoke(new Action(() =>
+{
+    //dati_canvas.Children.Clear();
+    int cou = question_c;
+    for (int i = 0; i < cou; i++)
+    {
+        int x = i / 10;
+        int y = i % 10;
+        x *= 30;
+        y *= 24;
+        QuestionNum qu = new QuestionNum();
 
-                qu.Margin = new Thickness(y, x, 0, 0);
-                qu.label1.Content = i + 1;
-                //qu.Name = "q" + i.ToString();
-                qu.MouseDown += new MouseButtonEventHandler(OK);
-                qu.setnum(i + 1, true, "");
+        qu.Margin = new Thickness(y, x, 0, 0);
+        qu.label1.Content = i + 1;
+        qu.Name = "q" + i.ToString();
+        qu.MouseDown += new MouseButtonEventHandler(OK);
+        qu.setnum(i + 1, true, "");
 
-                dati_canvas.Children.Add(qu);
-                dati_canvas.RegisterName("q" + i, qu);
-            }
-            dati_canvas.Height = cou / 10 * 30;
-                    }));
+        dati_canvas.Children.Add(qu);
+        dati_canvas.RegisterName("q" + i, qu);
+    }
+    if (cou % 10 > 0)
+        dati_canvas.Height = (cou / 10 + 1) * 30;
+    else
+        dati_canvas.Height = cou / 10 * 30;
+
+}));
         }
 
         //初始化第一题
         private void questionindex()
         {
-                                            Dispatcher.Invoke(new Action(() =>
-                    {
-            //DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            //// 将数据加载到表 question 中。可以根据需要修改此代码。
-            //DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-            //jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+            Dispatcher.Invoke(new Action(() =>
+{
+    //DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+    //// 将数据加载到表 question 中。可以根据需要修改此代码。
+    //DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+    //jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
 
-            //// 将数据加载到表 answer 中。可以根据需要修改此代码。
-            //DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
-            //jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+    //// 将数据加载到表 answer 中。可以根据需要修改此代码。
+    //DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
+    //jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
 
-            int question_index = 0;
-            var question = from c in PublicClass.question_data where c.question_id == PublicClass.question_list[question_index].question_id select c;
-            foreach (var temqu in question)
+    int question_index = 0;
+    var question = from c in PublicClass.question_data where c.question_id == PublicClass.question_list[question_index].question_id select c;
+    foreach (var temqu in question)
+    {
+        //timu_textBlock.Text = question_index + 1 + "." + temqu.question_name;//显示题目
+        timu_xaml(question_index + 1 + "." + temqu.question_name);
+        imagename = temqu.question_image; //获取题目对应图片文件名
+        question_image();//显示图片
+        break;
+    }
+
+
+    int step = 0;
+    if (!PublicClass.question_list[question_index].question_type.Contains("PD"))
+    {
+        foreach (var an in PublicClass.question_list[question_index].answer)
+        {
+            PublicClass.Answer myan = an as PublicClass.Answer;
+            var teman = from c in PublicClass.answer_data where c.answer_id == myan.answer_id select c;
+            foreach (var temann in teman)
             {
-                //timu_textBlock.Text = question_index + 1 + "." + temqu.question_name;//显示题目
-                timu_xaml(question_index + 1 + "." + temqu.question_name);
-                imagename = temqu.question_image; //获取题目对应图片文件名
-                question_image();//显示图片
-                break;
-            }
-
-
-            int step = 0;
-            if (!PublicClass.question_list[question_index].question_type.Contains("PD"))
-            {
-                foreach (var an in PublicClass.question_list[question_index].answer)
+                switch (step)
                 {
-                    PublicClass.Answer myan = an as PublicClass.Answer;
-                    var teman = from c in PublicClass.answer_data where c.answer_id == myan.answer_id select c;
-                    foreach (var temann in teman)
-                    {
-                        switch (step)
-                        {
-                            case 0:
-                                xuanxiang_textBlock1.Text = "A." + temann.answer;
-                                break;
-                            case 1:
-                                xuanxiang_textBlock2.Text = "B." + temann.answer;
-                                break;
-                            case 2:
-                                xuanxiang_textBlock3.Text = "C." + temann.answer;
-                                break;
-                            case 3:
-                                xuanxiang_textBlock4.Text = "D." + temann.answer;
-                                break;
-                        }
-
-                    }
-
-                    step++;
+                    case 0:
+                        xuanxiang_textBlock1.Text = "A." + temann.answer;
+                        break;
+                    case 1:
+                        xuanxiang_textBlock2.Text = "B." + temann.answer;
+                        break;
+                    case 2:
+                        xuanxiang_textBlock3.Text = "C." + temann.answer;
+                        break;
+                    case 3:
+                        xuanxiang_textBlock4.Text = "D." + temann.answer;
+                        break;
                 }
 
-
-
-
             }
-            else
+
+            step++;
+        }
+
+
+
+
+    }
+    else
+    {
+        duicuo();
+    }
+
+    //foreach (var q in dati_canvas.Children)
+    //{
+    //    QuestionNum temnum = q as QuestionNum;
+    //    if (temnum != null && temnum.Name == "q0")
+    //    {
+    //        temnum.setbackcolor();
+    //    }
+    //}
+
+    QuestionNum temnum = dati_canvas.FindName("q0") as QuestionNum;
+    if (temnum != null)
+    {
+        temnum.setbackcolor();
+    }
+
+
+    if (PublicClass.question_list[0].question_type.Contains("PD"))
+    {
+        current_question_type = "P";
+    }
+    else
+    {
+        var answers = from c in PublicClass.question_list[0].answer select c;
+        int isright_count = 0;
+        foreach (var answer in answers)
+        {
+            if (answer.isright == 1)
             {
-                duicuo();
+                isright_count++;
             }
+        }
+        if (isright_count > 1)
+        {
+            current_question_type = "M";
+        }
+        else
+        {
+            current_question_type = "S";
+        }
+    }
 
-            //foreach (var q in dati_canvas.Children)
-            //{
-            //    QuestionNum temnum = q as QuestionNum;
-            //    if (temnum != null && temnum.Name == "q0")
-            //    {
-            //        temnum.setbackcolor();
-            //    }
-            //}
-
-            QuestionNum temnum = dati_canvas.FindName("q0") as QuestionNum;
-            if (temnum != null)
-            {
-                temnum.setbackcolor();
-            }
-
-
-            if (PublicClass.question_list[0].question_type.Contains("PD"))
-            {
-                current_question_type = "P";
-            }
-            else
-            {
-                var answers = from c in PublicClass.question_list[0].answer select c;
-                int isright_count = 0;
-                foreach (var answer in answers)
-                {
-                    if (answer.isright == 1)
-                    {
-                        isright_count++;
-                    }
-                }
-                if (isright_count > 1)
-                {
-                    current_question_type = "M";
-                }
-                else
-                {
-                    current_question_type = "S";
-                }
-            }
-
-            showright_answer(question_index);
-                    }));
+    showright_answer(question_index);
+}));
         }
 
 
@@ -1129,19 +1122,19 @@ where T : DependencyObject
                 //if (PublicClass.question_mode == 1)//考试下做题后不可修改            
                 //{
                 if (PublicClass.question_list[cur_question_lab_index].rept_do != 0)
-                    {
-                        a_button.IsEnabled = false;
-                        b_button.IsEnabled = false;
-                        c_button.IsEnabled = false;
-                        d_button.IsEnabled = false;
-                    }
-                    else
-                    {
-                        a_button.IsEnabled = true;
-                        b_button.IsEnabled = true;
-                        c_button.IsEnabled = true;
-                        d_button.IsEnabled = true;
-                    }
+                {
+                    a_button.IsEnabled = false;
+                    b_button.IsEnabled = false;
+                    c_button.IsEnabled = false;
+                    d_button.IsEnabled = false;
+                }
+                else
+                {
+                    a_button.IsEnabled = true;
+                    b_button.IsEnabled = true;
+                    c_button.IsEnabled = true;
+                    d_button.IsEnabled = true;
+                }
                 //}
                 process_question_type(cur_question_lab_index);
             }
@@ -1156,7 +1149,7 @@ where T : DependencyObject
 
             if (PublicClass.user_id != -1 || cur_question_lab_index < 10)
             {
-                if (cur_question_lab_index == 0)
+                if (cur_question_lab_index != 0)
                 {
                     ThreadPool.QueueUserWorkItem(judge_answer, "");
                     ThreadPool.QueueUserWorkItem(answer_UI, "");
@@ -1235,19 +1228,19 @@ where T : DependencyObject
                 //if (PublicClass.question_mode == 1)//考试下做题后不可修改            
                 //{
                 if (PublicClass.question_list[cur_question_lab_index].rept_do != 0)
-                    {
-                        a_button.IsEnabled = false;
-                        b_button.IsEnabled = false;
-                        c_button.IsEnabled = false;
-                        d_button.IsEnabled = false;
-                    }
-                    else
-                    {
-                        a_button.IsEnabled = true;
-                        b_button.IsEnabled = true;
-                        c_button.IsEnabled = true;
-                        d_button.IsEnabled = true;
-                    }
+                {
+                    a_button.IsEnabled = false;
+                    b_button.IsEnabled = false;
+                    c_button.IsEnabled = false;
+                    d_button.IsEnabled = false;
+                }
+                else
+                {
+                    a_button.IsEnabled = true;
+                    b_button.IsEnabled = true;
+                    c_button.IsEnabled = true;
+                    d_button.IsEnabled = true;
+                }
                 //}
                 process_question_type(cur_question_lab_index);
             }
@@ -1263,7 +1256,7 @@ where T : DependencyObject
 
             if (PublicClass.user_id != -1 || cur_question_lab_index < 10)
             {
-                if (cur_question_lab_index == PublicClass.question_list.Count() - 1)
+                if (cur_question_lab_index != PublicClass.question_list.Count() - 1)
                 {
                     ThreadPool.QueueUserWorkItem(judge_answer, "");
                     //judge_answer();
@@ -1297,26 +1290,26 @@ where T : DependencyObject
 
         private void err_count(object data)//做错次数显示
         {
-                Dispatcher.Invoke(new Action(() =>
+            Dispatcher.Invoke(new Action(() =>
+                {
+
+                    int question_id = int.Parse(data.ToString());
+                    DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+                    DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
+                    lock (jiakaoDataSet)
                     {
-                        
-                            int question_id = int.Parse(data.ToString());
-                            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-                            DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
-                            lock (jiakaoDataSet)
-                            {
-                                jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
-                                var myerr = from c in jiakaoDataSet.errquest where question_id == c.amount select c;
-                                if (myerr.Count() > 0)
-                                {
-                                    errcount.Text = myerr.First().amount.ToString();
-                                }
-                                else
-                                {
-                                    errcount.Text = "0";
-                                }
-                            }
-                    }));
+                        jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
+                        var myerr = from c in jiakaoDataSet.errquest where question_id == c.amount select c;
+                        if (myerr.Count() > 0)
+                        {
+                            errcount.Text = myerr.First().amount.ToString();
+                        }
+                        else
+                        {
+                            errcount.Text = "0";
+                        }
+                    }
+                }));
 
         }
 
@@ -1345,35 +1338,35 @@ where T : DependencyObject
 
         private void shouzheng_cal(object data)//计算首正
         {
-                                Dispatcher.Invoke(new Action(() =>
-                    {
-            int question_id = int.Parse(data.ToString());
-            if (PublicClass.question_list[question_id].select_answer != "")
-            {
-                if (PublicClass.question_list[question_id].rept_do == 0 && PublicClass.question_list[question_id].check_answer == false)
-                {
-                    PublicClass.question_list[question_id].sz = false;
-                }
-                PublicClass.question_list[question_id].rept_do += 1;
-                int question_sz_count = (from c in PublicClass.question_list where c.sz == true select c).Count();
-                shouzheng.Text = ((int)(((float)question_sz_count / (float)question_c) * 100)).ToString();
+            Dispatcher.Invoke(new Action(() =>
+{
+    int question_id = int.Parse(data.ToString());
+    if (PublicClass.question_list[question_id].select_answer != "")
+    {
+        if (PublicClass.question_list[question_id].rept_do == 0 && PublicClass.question_list[question_id].check_answer == false)
+        {
+            PublicClass.question_list[question_id].sz = false;
+        }
+        PublicClass.question_list[question_id].rept_do += 1;
+        int question_sz_count = (from c in PublicClass.question_list where c.sz == true select c).Count();
+        shouzheng.Text = ((int)(((float)question_sz_count / (float)question_c) * 100)).ToString();
 
-                int dadui_count = (from c in PublicClass.question_list where c.check_answer == true && c.rept_do > 0 select c).Count();
-                dadui.Text = dadui_count.ToString();
+        int dadui_count = (from c in PublicClass.question_list where c.check_answer == true && c.rept_do > 0 select c).Count();
+        dadui.Text = dadui_count.ToString();
 
-                int dacuo_count = (from c in PublicClass.question_list where c.check_answer == false select c).Count();
-                dacuo.Text = dacuo_count.ToString();
+        int dacuo_count = (from c in PublicClass.question_list where c.check_answer == false select c).Count();
+        dacuo.Text = dacuo_count.ToString();
 
-                int yida_count = (from c in PublicClass.question_list where c.rept_do > 0 select c).Count();
-                dati_precent.Text = ((int)(((float)dadui_count / (float)yida_count) * 100)).ToString();
+        int yida_count = (from c in PublicClass.question_list where c.rept_do > 0 select c).Count();
+        dati_precent.Text = ((int)(((float)dadui_count / (float)yida_count) * 100)).ToString();
 
-                chouti_precent.Text = ((int)(((float)dadui_count / (float)question_c) * 100)).ToString();
-                PublicClass.fenshu = int.Parse(chouti_precent.Text);
+        chouti_precent.Text = ((int)(((float)dadui_count / (float)question_c) * 100)).ToString();
+        PublicClass.fenshu = int.Parse(chouti_precent.Text);
 
-                int weida_count = (from c in PublicClass.question_list where c.rept_do == 0 select c).Count();
-                weida.Text = weida_count.ToString();
-            }
-                    }));
+        int weida_count = (from c in PublicClass.question_list where c.rept_do == 0 select c).Count();
+        weida.Text = weida_count.ToString();
+    }
+}));
         }
 
         private void process_question_type(int question_id)//判断所选题型
@@ -1407,34 +1400,34 @@ where T : DependencyObject
         //判断对错
         private void judge_answer(object data)
         {
-                      Dispatcher.Invoke(new Action(() =>
-                    {
-            //DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            //// 将数据加载到表 question 中。可以根据需要修改此代码。
-            //DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-            //jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+            Dispatcher.Invoke(new Action(() =>
+          {
+              //DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+              //// 将数据加载到表 question 中。可以根据需要修改此代码。
+              //DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+              //jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
 
-            //// 将数据加载到表 answer 中。可以根据需要修改此代码。
-            //DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
-            //jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
+              //// 将数据加载到表 answer 中。可以根据需要修改此代码。
+              //DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
+              //jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
 
-            //DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
-            //jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
+              //DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
+              //jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
 
-            //    var answer = from c in jiakaoDataSet.answer where c.question_id == question_list[question_id].question_id select c;
-            //foreach (var lab in dati_canvas.Children)
-            //{
-            //    QuestionNum mylab = lab as QuestionNum;
-            //    int question_index = int.Parse(mylab.Name.ToString().Substring(1, mylab.Name.ToString().Length - 1));
-            //    mylab.check_answer(PublicClass.question_list[question_index].check_answer);
-            //}
+              //    var answer = from c in jiakaoDataSet.answer where c.question_id == question_list[question_id].question_id select c;
+              //foreach (var lab in dati_canvas.Children)
+              //{
+              //    QuestionNum mylab = lab as QuestionNum;
+              //    int question_index = int.Parse(mylab.Name.ToString().Substring(1, mylab.Name.ToString().Length - 1));
+              //    mylab.check_answer(PublicClass.question_list[question_index].check_answer);
+              //}
 
-            QuestionNum mylab = dati_canvas.FindName("q" + last_question_lab_index) as QuestionNum;
-            if (mylab != null)
-            {
-                mylab.check_answer(PublicClass.question_list[last_question_lab_index].check_answer);
-            }
-                    }));
+              QuestionNum mylab = dati_canvas.FindName("q" + last_question_lab_index) as QuestionNum;
+              if (mylab != null)
+              {
+                  mylab.check_answer(PublicClass.question_list[last_question_lab_index].check_answer);
+              }
+          }));
 
 
         }
@@ -1511,157 +1504,157 @@ where T : DependencyObject
             //}
             //if (last_question_lab_index != cur_question_lab_index)
             //{
-             Dispatcher.Invoke(new Action(() =>
-                    {
-                QuestionNum lastqu = dati_canvas.FindName("q" + last_question_lab_index) as QuestionNum;
-                if (lastqu != null)
-                {
-                    lastqu.canvas1.Background = Brushes.White;
-                }
-                QuestionNum curqu = dati_canvas.FindName("q" + cur_question_lab_index) as QuestionNum;
-                if (curqu != null)
-                {
-                    curqu.setbackcolor();
-                }
-                    
-            //}
+            Dispatcher.Invoke(new Action(() =>
+                   {
+                       QuestionNum lastqu = dati_canvas.FindName("q" + last_question_lab_index) as QuestionNum;
+                       if (lastqu != null)
+                       {
+                           lastqu.canvas1.Background = Brushes.White;
+                       }
+                       QuestionNum curqu = dati_canvas.FindName("q" + cur_question_lab_index) as QuestionNum;
+                       if (curqu != null)
+                       {
+                           curqu.setbackcolor();
+                       }
 
-            //QuestionNum qu = sender as QuestionNum;
-            //qu.setbackcolor();
+                       //}
 
-            //int question_index = int.Parse(qu.Name.ToString().Substring(1, qu.Name.ToString().Length - 1));
-            //lab_index = question_index;
+                       //QuestionNum qu = sender as QuestionNum;
+                       //qu.setbackcolor();
+
+                       //int question_index = int.Parse(qu.Name.ToString().Substring(1, qu.Name.ToString().Length - 1));
+                       //lab_index = question_index;
 
 
-            var question = from c in PublicClass.question_data where c.question_id == PublicClass.question_list[question_id].question_id select c;
-            foreach (var temqu in question)
-            {
-                if (PublicClass.user_id != -1)//用户已登录
-                {
-                    //timu_textBlock.Text = question_id + 1 + "." + temqu.question_name;//显示题目
-                    timu_xaml(question_id + 1 + "." + temqu.question_name);
-                    imagename = temqu.question_image; //获取题目对应图片文件名
-                    question_image();//显示图片
-                }
-                else//没有用户登录为试用10题
-                {
-                    if (question_id < 10)//前10题正常显示
-                    {
-                        //timu_textBlock.Text = question_id + 1 + "." + temqu.question_name;//显示题目
-                        timu_xaml(question_id + 1 + "." + temqu.question_name);
-                        imagename = temqu.question_image; //获取题目对应图片文件名
-                        question_image();//显示图片
-                    }
-                    else//超出10题不予显示
-                    {
-                        //timu_textBlock.Text = "未注册用户,只能练习前10题,注册后可以练习全部试题,无任何限制!";
-                        timu_xaml("未注册用户,只能练习前10题,注册后可以练习全部试题,无任何限制!");
-                        register re = new register();
-                        re.Show();
-                        re.Topmost = true;
-                    }
-                }
-                break;
-            }
+                       var question = from c in PublicClass.question_data where c.question_id == PublicClass.question_list[question_id].question_id select c;
+                       foreach (var temqu in question)
+                       {
+                           if (PublicClass.user_id != -1)//用户已登录
+                           {
+                               //timu_textBlock.Text = question_id + 1 + "." + temqu.question_name;//显示题目
+                               timu_xaml(question_id + 1 + "." + temqu.question_name);
+                               imagename = temqu.question_image; //获取题目对应图片文件名
+                               question_image();//显示图片
+                           }
+                           else//没有用户登录为试用10题
+                           {
+                               if (question_id < 10)//前10题正常显示
+                               {
+                                   //timu_textBlock.Text = question_id + 1 + "." + temqu.question_name;//显示题目
+                                   timu_xaml(question_id + 1 + "." + temqu.question_name);
+                                   imagename = temqu.question_image; //获取题目对应图片文件名
+                                   question_image();//显示图片
+                               }
+                               else//超出10题不予显示
+                               {
+                                   //timu_textBlock.Text = "未注册用户,只能练习前10题,注册后可以练习全部试题,无任何限制!";
+                                   timu_xaml("未注册用户,只能练习前10题,注册后可以练习全部试题,无任何限制!");
+                                   register re = new register();
+                                   re.Show();
+                                   re.Topmost = true;
+                               }
+                           }
+                           break;
+                       }
 
-            int step = 0;
+                       int step = 0;
 
-            if (PublicClass.user_id != -1)//用户已登录
-            {
-                if (!PublicClass.question_list[question_id].question_type.Contains("PD"))
-                {
-                    foreach (var an in PublicClass.question_list[question_id].answer)
-                    {
-                        PublicClass.Answer myan = an as PublicClass.Answer;
-                        var teman = from c in PublicClass.answer_data where c.answer_id == myan.answer_id select c;
-                        foreach (var temann in teman)
-                        {
-                            switch (step)
-                            {
-                                case 0:
-                                    xuanxiang_textBlock1.Text = "A." + temann.answer;
-                                    break;
-                                case 1:
-                                    xuanxiang_textBlock2.Text = "B." + temann.answer;
-                                    break;
-                                case 2:
-                                    xuanxiang_textBlock3.Text = "C." + temann.answer;
-                                    break;
-                                case 3:
-                                    xuanxiang_textBlock4.Text = "D." + temann.answer;
-                                    break;
-                            }
+                       if (PublicClass.user_id != -1)//用户已登录
+                       {
+                           if (!PublicClass.question_list[question_id].question_type.Contains("PD"))
+                           {
+                               foreach (var an in PublicClass.question_list[question_id].answer)
+                               {
+                                   PublicClass.Answer myan = an as PublicClass.Answer;
+                                   var teman = from c in PublicClass.answer_data where c.answer_id == myan.answer_id select c;
+                                   foreach (var temann in teman)
+                                   {
+                                       switch (step)
+                                       {
+                                           case 0:
+                                               xuanxiang_textBlock1.Text = "A." + temann.answer;
+                                               break;
+                                           case 1:
+                                               xuanxiang_textBlock2.Text = "B." + temann.answer;
+                                               break;
+                                           case 2:
+                                               xuanxiang_textBlock3.Text = "C." + temann.answer;
+                                               break;
+                                           case 3:
+                                               xuanxiang_textBlock4.Text = "D." + temann.answer;
+                                               break;
+                                       }
 
-                        }
+                                   }
 
-                        step++;
-                    }
-                    abcd();
-                }
-                else
-                {
-                    xuanxiang_textBlock1.Text = "";
-                    xuanxiang_textBlock2.Text = "";
-                    xuanxiang_textBlock3.Text = "";
-                    xuanxiang_textBlock4.Text = "";
-                    duicuo();
-                }
-            }
-            else //没有用户登录为试用10题
-            {
+                                   step++;
+                               }
+                               abcd();
+                           }
+                           else
+                           {
+                               xuanxiang_textBlock1.Text = "";
+                               xuanxiang_textBlock2.Text = "";
+                               xuanxiang_textBlock3.Text = "";
+                               xuanxiang_textBlock4.Text = "";
+                               duicuo();
+                           }
+                       }
+                       else //没有用户登录为试用10题
+                       {
 
-                if (question_id < 10)//前10题正常显示
-                {
-                    if (!PublicClass.question_list[question_id].question_type.Contains("PD"))
-                    {
-                        foreach (var an in PublicClass.question_list[question_id].answer)
-                        {
-                            PublicClass.Answer myan = an as PublicClass.Answer;
-                            var teman = from c in PublicClass.answer_data where c.answer_id == myan.answer_id select c;
-                            foreach (var temann in teman)
-                            {
-                                switch (step)
-                                {
-                                    case 0:
-                                        xuanxiang_textBlock1.Text = "A." + temann.answer;
-                                        break;
-                                    case 1:
-                                        xuanxiang_textBlock2.Text = "B." + temann.answer;
-                                        break;
-                                    case 2:
-                                        xuanxiang_textBlock3.Text = "C." + temann.answer;
-                                        break;
-                                    case 3:
-                                        xuanxiang_textBlock4.Text = "D." + temann.answer;
-                                        break;
-                                }
+                           if (question_id < 10)//前10题正常显示
+                           {
+                               if (!PublicClass.question_list[question_id].question_type.Contains("PD"))
+                               {
+                                   foreach (var an in PublicClass.question_list[question_id].answer)
+                                   {
+                                       PublicClass.Answer myan = an as PublicClass.Answer;
+                                       var teman = from c in PublicClass.answer_data where c.answer_id == myan.answer_id select c;
+                                       foreach (var temann in teman)
+                                       {
+                                           switch (step)
+                                           {
+                                               case 0:
+                                                   xuanxiang_textBlock1.Text = "A." + temann.answer;
+                                                   break;
+                                               case 1:
+                                                   xuanxiang_textBlock2.Text = "B." + temann.answer;
+                                                   break;
+                                               case 2:
+                                                   xuanxiang_textBlock3.Text = "C." + temann.answer;
+                                                   break;
+                                               case 3:
+                                                   xuanxiang_textBlock4.Text = "D." + temann.answer;
+                                                   break;
+                                           }
 
-                            }
+                                       }
 
-                            step++;
-                        }
-                        abcd();
-                    }
-                    else
-                    {
-                        xuanxiang_textBlock1.Text = "";
-                        xuanxiang_textBlock2.Text = "";
-                        xuanxiang_textBlock3.Text = "";
-                        xuanxiang_textBlock4.Text = "";
-                        duicuo();
-                    }
+                                       step++;
+                                   }
+                                   abcd();
+                               }
+                               else
+                               {
+                                   xuanxiang_textBlock1.Text = "";
+                                   xuanxiang_textBlock2.Text = "";
+                                   xuanxiang_textBlock3.Text = "";
+                                   xuanxiang_textBlock4.Text = "";
+                                   duicuo();
+                               }
 
-                }
-                else//超出10题不予显示
-                {
-                    abcd();
-                    xuanxiang_textBlock1.Text = "";
-                    xuanxiang_textBlock2.Text = "";
-                    xuanxiang_textBlock3.Text = "";
-                    xuanxiang_textBlock4.Text = "";
-                }
-            }
-                    }));
+                           }
+                           else//超出10题不予显示
+                           {
+                               abcd();
+                               xuanxiang_textBlock1.Text = "";
+                               xuanxiang_textBlock2.Text = "";
+                               xuanxiang_textBlock3.Text = "";
+                               xuanxiang_textBlock4.Text = "";
+                           }
+                       }
+                   }));
         }
 
 
@@ -1669,84 +1662,84 @@ where T : DependencyObject
         {
             Dispatcher.Invoke(new Action(() =>
                     {
-            a_button.IsChecked = false;
-            b_button.IsChecked = false;
-            c_button.IsChecked = false;
-            d_button.IsChecked = false;
-            xuanxiang_textBlock.Text = "";
-            //foreach (var lab in dati_canvas.Children)
-            //{
+                        a_button.IsChecked = false;
+                        b_button.IsChecked = false;
+                        c_button.IsChecked = false;
+                        d_button.IsChecked = false;
+                        xuanxiang_textBlock.Text = "";
+                        //foreach (var lab in dati_canvas.Children)
+                        //{
 
-            //    QuestionNum mylab = lab as QuestionNum;
-            //    if (mylab.canvas1.Background == Brushes.SkyBlue)
-            //    {
-            //        if (mylab.label2.Content.ToString().Contains("A"))
-            //        {
-            //            a_button.IsChecked = true;
-            //            xuanxiang_textBlock.Text += "A";
-            //        }
-            //        if (mylab.label2.Content.ToString().Contains("B"))
-            //        {
-            //            b_button.IsChecked = true;
-            //            xuanxiang_textBlock.Text += "B";
-            //        }
-            //        if (mylab.label2.Content.ToString().Contains("C"))
-            //        {
-            //            c_button.IsChecked = true;
-            //            xuanxiang_textBlock.Text += "C";
-            //        }
-            //        if (mylab.label2.Content.ToString().Contains("D"))
-            //        {
-            //            d_button.IsChecked = true;
-            //            xuanxiang_textBlock.Text += "D";
-            //        }
-            //        if (mylab.label2.Content.ToString().Contains("√"))
-            //        {
-            //            a_button.IsChecked = true;
-            //            xuanxiang_textBlock.Text += "√";
-            //        }
-            //        if (mylab.label2.Content.ToString().Contains("×"))
-            //        {
-            //            b_button.IsChecked = true;
-            //            xuanxiang_textBlock.Text += "×";
-            //        }
-            //    }
+                        //    QuestionNum mylab = lab as QuestionNum;
+                        //    if (mylab.canvas1.Background == Brushes.SkyBlue)
+                        //    {
+                        //        if (mylab.label2.Content.ToString().Contains("A"))
+                        //        {
+                        //            a_button.IsChecked = true;
+                        //            xuanxiang_textBlock.Text += "A";
+                        //        }
+                        //        if (mylab.label2.Content.ToString().Contains("B"))
+                        //        {
+                        //            b_button.IsChecked = true;
+                        //            xuanxiang_textBlock.Text += "B";
+                        //        }
+                        //        if (mylab.label2.Content.ToString().Contains("C"))
+                        //        {
+                        //            c_button.IsChecked = true;
+                        //            xuanxiang_textBlock.Text += "C";
+                        //        }
+                        //        if (mylab.label2.Content.ToString().Contains("D"))
+                        //        {
+                        //            d_button.IsChecked = true;
+                        //            xuanxiang_textBlock.Text += "D";
+                        //        }
+                        //        if (mylab.label2.Content.ToString().Contains("√"))
+                        //        {
+                        //            a_button.IsChecked = true;
+                        //            xuanxiang_textBlock.Text += "√";
+                        //        }
+                        //        if (mylab.label2.Content.ToString().Contains("×"))
+                        //        {
+                        //            b_button.IsChecked = true;
+                        //            xuanxiang_textBlock.Text += "×";
+                        //        }
+                        //    }
 
-            //}
-            QuestionNum mylab = dati_canvas.FindName("q" + cur_question_lab_index) as QuestionNum;
-            if (mylab != null)
-            {
-                if (mylab.label2.Content.ToString().Contains("A"))
-                {
-                    a_button.IsChecked = true;
-                    xuanxiang_textBlock.Text += "A";
-                }
-                if (mylab.label2.Content.ToString().Contains("B"))
-                {
-                    b_button.IsChecked = true;
-                    xuanxiang_textBlock.Text += "B";
-                }
-                if (mylab.label2.Content.ToString().Contains("C"))
-                {
-                    c_button.IsChecked = true;
-                    xuanxiang_textBlock.Text += "C";
-                }
-                if (mylab.label2.Content.ToString().Contains("D"))
-                {
-                    d_button.IsChecked = true;
-                    xuanxiang_textBlock.Text += "D";
-                }
-                if (mylab.label2.Content.ToString().Contains("√"))
-                {
-                    a_button.IsChecked = true;
-                    xuanxiang_textBlock.Text += "√";
-                }
-                if (mylab.label2.Content.ToString().Contains("×"))
-                {
-                    b_button.IsChecked = true;
-                    xuanxiang_textBlock.Text += "×";
-                }
-            }
+                        //}
+                        QuestionNum mylab = dati_canvas.FindName("q" + cur_question_lab_index) as QuestionNum;
+                        if (mylab != null)
+                        {
+                            if (mylab.label2.Content.ToString().Contains("A"))
+                            {
+                                a_button.IsChecked = true;
+                                xuanxiang_textBlock.Text += "A";
+                            }
+                            if (mylab.label2.Content.ToString().Contains("B"))
+                            {
+                                b_button.IsChecked = true;
+                                xuanxiang_textBlock.Text += "B";
+                            }
+                            if (mylab.label2.Content.ToString().Contains("C"))
+                            {
+                                c_button.IsChecked = true;
+                                xuanxiang_textBlock.Text += "C";
+                            }
+                            if (mylab.label2.Content.ToString().Contains("D"))
+                            {
+                                d_button.IsChecked = true;
+                                xuanxiang_textBlock.Text += "D";
+                            }
+                            if (mylab.label2.Content.ToString().Contains("√"))
+                            {
+                                a_button.IsChecked = true;
+                                xuanxiang_textBlock.Text += "√";
+                            }
+                            if (mylab.label2.Content.ToString().Contains("×"))
+                            {
+                                b_button.IsChecked = true;
+                                xuanxiang_textBlock.Text += "×";
+                            }
+                        }
                     }));
 
 
@@ -1874,7 +1867,7 @@ where T : DependencyObject
                 }
 
                 PublicClass.question_list[question_index].check_answer = isright;
-                
+
 
             }
 
@@ -2000,21 +1993,21 @@ where T : DependencyObject
 
 
 
-                if (playvoice)//启用
+            if (playvoice)//启用
+            {
+                if (zhengque_textBlock.Text == "√")
                 {
-                    if (zhengque_textBlock.Text == "√")
-                    {
-                        play_voice("正确答案 选对");
-                    }
-                    else if (zhengque_textBlock.Text == "×")
-                    {
-                        play_voice("正确答案 选错");
-                    }
-                    else
-                    {
-                        play_voice("正确答案 选" + zhengque_textBlock.Text);
-                    }
+                    play_voice("正确答案 选对");
                 }
+                else if (zhengque_textBlock.Text == "×")
+                {
+                    play_voice("正确答案 选错");
+                }
+                else
+                {
+                    play_voice("正确答案 选" + zhengque_textBlock.Text);
+                }
+            }
 
 
 
@@ -2283,7 +2276,7 @@ where T : DependencyObject
                 PublicClass.question_list = new List<PublicClass.Question>();
                 create_question(PublicClass.create_method, PublicClass.question_mode, PublicClass.cartype, PublicClass.subject, PublicClass.questions_id);//重新执行抽题
                 Window_Loaded(null, null);//重新执行界面
-                
+
             }
             else//考试
             {
@@ -2547,7 +2540,7 @@ where T : DependencyObject
         {
             TextRange flowDocSelection = new TextRange(doc_reader.Document.ContentStart, doc_reader.Document.ContentEnd);
             string vocestr = flowDocSelection.Text;
-            if(vocestr==null)
+            if (vocestr == null)
             {
                 vocestr = "";
             }

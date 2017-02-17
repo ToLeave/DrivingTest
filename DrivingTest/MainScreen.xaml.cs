@@ -676,6 +676,7 @@ namespace DrivingTest
                 }
             }
 
+
             MainExam ma = new MainExam();
             C1.WPF.C1Window cwin = new C1.WPF.C1Window();
             ma.create_question(0, 0, PublicClass.cartype, subject_name, questions_id);
