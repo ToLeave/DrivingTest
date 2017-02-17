@@ -1120,7 +1120,7 @@ where T : DependencyObject
             }
             ThreadPool.QueueUserWorkItem(select_question, cur_question_lab_index);
 
-            if (cur_question_lab_index == -1)
+            if (cur_question_lab_index == 0)
             {
                 MessageBoxResult result = MessageBox.Show("已是第一题");
             }
@@ -1156,22 +1156,25 @@ where T : DependencyObject
 
             if (PublicClass.user_id != -1 || cur_question_lab_index < 10)
             {
-                ThreadPool.QueueUserWorkItem(judge_answer, "");
-                ThreadPool.QueueUserWorkItem(answer_UI, "");
-                //judge_answer();
-                //answer_UI();
-                ThreadPool.QueueUserWorkItem(shouzheng_cal, cur_question_lab_index + 1);
-                //shouzheng_cal(cur_question_lab_index - 1);
-                ThreadPool.QueueUserWorkItem(errquestion, cur_question_lab_index + 1);
-                //errquestion(cur_question_lab_index - 1);
-                ThreadPool.QueueUserWorkItem(err_count, cur_question_lab_index + 1);
-                //play_voice(timu_textBlock.Text);
-                play_voice(doc_text());
-                if (cur_question_lab_index > -1)
+                if (cur_question_lab_index == 0)
                 {
-                    showright_answer(cur_question_lab_index);
+                    ThreadPool.QueueUserWorkItem(judge_answer, "");
+                    ThreadPool.QueueUserWorkItem(answer_UI, "");
+                    //judge_answer();
+                    //answer_UI();
+                    ThreadPool.QueueUserWorkItem(shouzheng_cal, cur_question_lab_index + 1);
+                    //shouzheng_cal(cur_question_lab_index - 1);
+                    ThreadPool.QueueUserWorkItem(errquestion, cur_question_lab_index + 1);
+                    //errquestion(cur_question_lab_index - 1);
+                    ThreadPool.QueueUserWorkItem(err_count, cur_question_lab_index + 1);
+                    //play_voice(timu_textBlock.Text);
+                    play_voice(doc_text());
+                    if (cur_question_lab_index > -1)
+                    {
+                        showright_answer(cur_question_lab_index);
+                    }
+                    error_messages(cur_question_lab_index);
                 }
-                error_messages(cur_question_lab_index);
             }
             if (PublicClass.question_mode == 1)
             {
@@ -1223,7 +1226,7 @@ where T : DependencyObject
 
 
 
-            if (cur_question_lab_index == PublicClass.question_list.Count())
+            if (cur_question_lab_index == PublicClass.question_list.Count() - 1)
             {
                 MessageBoxResult result = MessageBox.Show("已是最后一题");
             }
@@ -1260,23 +1263,26 @@ where T : DependencyObject
 
             if (PublicClass.user_id != -1 || cur_question_lab_index < 10)
             {
-                ThreadPool.QueueUserWorkItem(judge_answer,"");
-                //judge_answer();
-                ThreadPool.QueueUserWorkItem(answer_UI, "");
-                //answer_UI();
-                ThreadPool.QueueUserWorkItem(shouzheng_cal, cur_question_lab_index - 1);
-                //shouzheng_cal(cur_question_lab_index - 1);
-                ThreadPool.QueueUserWorkItem(errquestion, cur_question_lab_index - 1);
-                //errquestion(cur_question_lab_index - 1);
-                ThreadPool.QueueUserWorkItem(err_count, cur_question_lab_index - 1);
-                //err_count(cur_question_lab_index - 1);
-                //play_voice(timu_textBlock.Text);
-                play_voice(doc_text());
-                if (cur_question_lab_index < question_c)
+                if (cur_question_lab_index == PublicClass.question_list.Count() - 1)
                 {
-                    showright_answer(cur_question_lab_index);
+                    ThreadPool.QueueUserWorkItem(judge_answer, "");
+                    //judge_answer();
+                    ThreadPool.QueueUserWorkItem(answer_UI, "");
+                    //answer_UI();
+                    ThreadPool.QueueUserWorkItem(shouzheng_cal, cur_question_lab_index - 1);
+                    //shouzheng_cal(cur_question_lab_index - 1);
+                    ThreadPool.QueueUserWorkItem(errquestion, cur_question_lab_index - 1);
+                    //errquestion(cur_question_lab_index - 1);
+                    ThreadPool.QueueUserWorkItem(err_count, cur_question_lab_index - 1);
+                    //err_count(cur_question_lab_index - 1);
+                    //play_voice(timu_textBlock.Text);
+                    play_voice(doc_text());
+                    if (cur_question_lab_index < question_c)
+                    {
+                        showright_answer(cur_question_lab_index);
+                    }
+                    error_messages(cur_question_lab_index);
                 }
-                error_messages(cur_question_lab_index);
             }
 
             //last_question_lab_index = cur_question_lab_index;
@@ -1335,6 +1341,7 @@ where T : DependencyObject
                 }
             }
         }
+
 
         private void shouzheng_cal(object data)//计算首正
         {
