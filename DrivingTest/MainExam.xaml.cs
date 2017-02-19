@@ -1010,8 +1010,8 @@ where T : DependencyObject
                 errquestion(last_question_lab_index);
                 //play_voice(timu_textBlock.Text);
 
-                showright_answer(cur_question_lab_index);
-                error_messages(cur_question_lab_index);
+                showright_answer(cur_question_lab_index);//正确答案显示
+                error_messages(cur_question_lab_index);//错题提示,此处必须在错误答案显示后面
             }
             else //没有用户登录为试用10题
             {
@@ -1068,8 +1068,8 @@ where T : DependencyObject
                     //play_voice(timu_textBlock.Text);
                     play_voice(doc_text());
 
-                    showright_answer(cur_question_lab_index);
-                    error_messages(cur_question_lab_index);
+                    showright_answer(cur_question_lab_index);//正确答案显示
+                    error_messages(cur_question_lab_index);//错题提示,此处必须在错误答案显示后面
 
                 }
                 else//超出10题不予显示
@@ -1162,11 +1162,11 @@ where T : DependencyObject
                     ThreadPool.QueueUserWorkItem(err_count, cur_question_lab_index + 1);
                     //play_voice(timu_textBlock.Text);
                     play_voice(doc_text());
+                    error_messages(cur_question_lab_index + 1);//错题提示,必须在错误答案显示前面
                     if (cur_question_lab_index > -1)
                     {
-                        showright_answer(cur_question_lab_index + 1);
+                        showright_answer(cur_question_lab_index);//正确答案显示
                     }
-                    error_messages(cur_question_lab_index + 1);
                 }
             }
             if (PublicClass.question_mode == 1)
@@ -1270,11 +1270,11 @@ where T : DependencyObject
                     //err_count(cur_question_lab_index - 1);
                     //play_voice(timu_textBlock.Text);
                     play_voice(doc_text());
+                    error_messages(cur_question_lab_index - 1);//错题提示,必须在正确答案显示前面
                     if (cur_question_lab_index < question_c)
                     {
-                        showright_answer(cur_question_lab_index - 1);
+                        showright_answer(cur_question_lab_index);//正确答案显示
                     }
-                    error_messages(cur_question_lab_index - 1);
                 }
             }
 
