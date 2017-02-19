@@ -85,28 +85,6 @@ namespace DrivingTest
                 }
 
 
-                //int step = 0;
-                //var an = from c in PublicClass.question_list[PublicClass.err_questionid].answer select c;
-                //foreach (var myan in an)
-                //{
-                //    switch (step)
-                //    {
-                //        case 0:
-                //            textBlock2.Text = "A." + myan.answer;
-                //            break;
-                //        case 1:
-                //            textBlock3.Text = "B." + myan.answer;
-                //            break;
-                //        case 2:
-                //            textBlock4.Text = "C." + myan.answer;
-                //            break;
-                //        case 3:
-                //            textBlock5.Text = "D." + myan.answer;
-                //            break;
-                //    }
-                //    step++;
-                //}
-
             }
             else
             {

@@ -1164,7 +1164,7 @@ where T : DependencyObject
                     play_voice(doc_text());
                     if (cur_question_lab_index > -1)
                     {
-                        showright_answer(cur_question_lab_index);
+                        showright_answer(cur_question_lab_index + 1);
                     }
                     error_messages(cur_question_lab_index + 1);
                 }
@@ -1272,7 +1272,7 @@ where T : DependencyObject
                     play_voice(doc_text());
                     if (cur_question_lab_index < question_c)
                     {
-                        showright_answer(cur_question_lab_index);
+                        showright_answer(cur_question_lab_index - 1);
                     }
                     error_messages(cur_question_lab_index - 1);
                 }
@@ -1320,6 +1320,9 @@ where T : DependencyObject
             {
                 if (PublicClass.question_list[question_id].check_answer == false)
                 {
+                    PublicClass.err_questionid = question_id;
+                    PublicClass.question_answer = zhengque_textBlock.Text;
+
                     ErrorMessages err = new ErrorMessages();
                     C1.WPF.C1Window c1w = new C1.WPF.C1Window();
                     c1w.Content = err;
@@ -1329,8 +1332,6 @@ where T : DependencyObject
                     c1w.ShowMinimizeButton = false;
                     c1w.ShowMaximizeButton = false;
                     c1w.Margin = PublicClass.window_thickness(err);
-                    PublicClass.err_questionid = question_id;
-                    PublicClass.question_answer = zhengque_textBlock.Text;
                 }
             }
         }
