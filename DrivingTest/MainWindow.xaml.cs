@@ -221,11 +221,6 @@ where T : DependencyObject
                 return;
             }
 
-
-            //PublicClass.timer.Interval = new TimeSpan(5000);// 计时器触发间隔 5秒  
-            //PublicClass.timer.Tick += new EventHandler(timer_Tick);
-            //PublicClass.timer.Start();
-
             //PublicClass.http = @"http://192.168.1.98:3000";
             //PublicClass.http = @"http://47.89.28.92";
             PublicClass.http = @"http://jiakao.cloudtimesoft.com";
@@ -236,79 +231,17 @@ where T : DependencyObject
             //get_local_chapters("");
             //get_local_subject("");
 
-            //maincanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2, SystemParameters.PrimaryScreenHeight / 2, 0, 0);
-
             try
             {
                 DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
                 // 将数据加载到表 updatecheck 中。可以根据需要修改此代码。
                 DrivingTest.jiakaoDataSetTableAdapters.updatecheckTableAdapter jiakaoDataSetupdatecheckTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.updatecheckTableAdapter();
                 jiakaoDataSetupdatecheckTableAdapter.Fill(jiakaoDataSet.updatecheck);
-                // 将数据加载到表 setting 中。可以根据需要修改此代码。
-                DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
-                jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+                // 将数据加载到表 user 中。可以根据需要修改此代码。
                 DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter jiakaoDataSetuserTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter();
                 jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
 
-
-
-                string key = "NumPad1,NumPad2,NumPad3,NumPad5,NumPad4,NumPad6,Subtract,Add,None,None,Divide,None";//初始默认快捷键为方案一
-                var setting = from c in jiakaoDataSet.setting select c;
-                if (setting.Count() == 0)//初始化设置表
-                {
-                    //int? a = null;
-                    //int b = a.Value;
-                    jiakaoDataSet.setting.AddsettingRow(0, 0, 0, "", 0, 0, "", "", "", "", 0, "", "", 0, 0, "", 0, 0, 0, "", "", "", "", "1", "", "", "", "", "", "", "", "", "", "", "", 0, "", "", 0, key, 0, 2, "0,0,0", 0, 0);
-                    jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
-                    jiakaoDataSet.setting.AcceptChanges();
-                    foreach (var se in setting)
-                    {
-                        if (se.not_show.ToString() == "0")
-                        {
-                            Notice no = new Notice();
-                            no.Show();
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (var se in setting)
-                    {
-                        if (se.subject_module != "")
-                        {
-                            if (se.subject_module.Substring(0, 1) == "1")
-                            {
-                                subject2.Visibility = System.Windows.Visibility.Hidden;
-                            }
-                            else
-                            {
-                                subject2.Visibility = System.Windows.Visibility.Visible;
-                            }
-                            if (se.subject_module.Substring(2, 1) == "1")
-                            {
-                                subject3.Visibility = System.Windows.Visibility.Hidden;
-                            }
-                            else
-                            {
-                                subject3.Visibility = System.Windows.Visibility.Visible;
-                            }
-                        }
-                        else
-                        {
-                            subject2.Visibility = System.Windows.Visibility.Visible;
-                            subject3.Visibility = System.Windows.Visibility.Visible;
-                        }
-
-                        if (se.not_show.ToString() == "0")
-                        {
-                            Notice no = new Notice();
-                            no.Show();
-                        }
-                    }
-                }
-
-
-
+                initial_setting();//初始化设置
 
                 Thread newthread = new Thread(new ThreadStart(() =>
                 {
@@ -348,6 +281,7 @@ where T : DependencyObject
                             Dispatcher.Invoke(new Action(() =>
                {
                    button_disable();//更新时禁用所有按钮
+                   progress.Visibility = System.Windows.Visibility.Visible;//显示进度条
                }));
                             updatequestion();//开始更新题库
 
@@ -359,7 +293,10 @@ where T : DependencyObject
                     }
                     else
                     {
+                                        Dispatcher.Invoke(new Action(() =>
+               {
                         xianshi.Text = "无法连接网络,脱机模式下请到注册页面联系客服购买注册码";
+               }));
                         string cpuid = "";//历史机器码
                         int num = 0;//机器码登陆次数
                         int time = 0;//机器码截止日期
@@ -403,10 +340,6 @@ where T : DependencyObject
                         ThreadPool.QueueUserWorkItem(push_to_public, "");
                     }
 
-
-
-
-
                 }));
                 newthread.SetApartmentState(ApartmentState.MTA);
                 newthread.IsBackground = true;
@@ -435,6 +368,68 @@ where T : DependencyObject
 
         }
 
+        private void initial_setting()//初始化设置
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+
+            string key = "NumPad1,NumPad2,NumPad3,NumPad5,NumPad4,NumPad6,Subtract,Add,None,None,Divide,None";//初始默认快捷键为方案一
+            var setting = from c in jiakaoDataSet.setting select c;
+            if (setting.Count() == 0)//初始化设置表
+            {
+                //int? a = null;
+                //int b = a.Value;
+                jiakaoDataSet.setting.AddsettingRow(0, 0, 0, "", 0, 0, "", "", "", "", 0, "", "", 0, 0, "", 0, 0, 0, "", "", "", "", "1", "", "", "", "", "", "", "", "", "", "", "", 0, "", "", 0, key, 0, 2, "0,0,0", 0, 0);
+                jiakaoDataSetsettingTableAdapter.Update(jiakaoDataSet.setting);
+                jiakaoDataSet.setting.AcceptChanges();
+                foreach (var se in setting)
+                {
+                    if (se.not_show.ToString() == "0")
+                    {
+                        Notice no = new Notice();
+                        no.Show();
+                    }
+                }
+            }
+            else
+            {
+                foreach (var se in setting)
+                {
+                    if (se.subject_module != "")
+                    {
+                        if (se.subject_module.Substring(0, 1) == "1")
+                        {
+                            subject2.Visibility = System.Windows.Visibility.Hidden;
+                        }
+                        else
+                        {
+                            subject2.Visibility = System.Windows.Visibility.Visible;
+                        }
+                        if (se.subject_module.Substring(2, 1) == "1")
+                        {
+                            subject3.Visibility = System.Windows.Visibility.Hidden;
+                        }
+                        else
+                        {
+                            subject3.Visibility = System.Windows.Visibility.Visible;
+                        }
+                    }
+                    else
+                    {
+                        subject2.Visibility = System.Windows.Visibility.Visible;
+                        subject3.Visibility = System.Windows.Visibility.Visible;
+                    }
+
+                    if (se.not_show.ToString() == "0")
+                    {
+                        Notice no = new Notice();
+                        no.Show();
+                    }
+                }
+            }
+        }
 
         private void push_to_public(object data)//将题库写入公共内存
         {
@@ -1946,7 +1941,7 @@ where T : DependencyObject
      {
          xianshi.Text = "更新完成";
          buttton_enable();//更新完启用所有按钮
-         progress.Visibility = System.Windows.Visibility.Collapsed;
+         progress.Visibility = System.Windows.Visibility.Hidden;
      }));
 
         }
@@ -2004,7 +1999,7 @@ where T : DependencyObject
             {
                 WebClient advertiseclient = new WebClient();
 
-                string advertisepath = System.Windows.Forms.Application.StartupPath + "\\Image\\Advertise\\";
+                string advertisepath = System.Windows.Forms.Application.StartupPath + "\\Image\\" + "\\Advertise\\";
 
                 if (!Directory.Exists(advertisepath))//如果路径不存在
                 {
@@ -3120,7 +3115,7 @@ where T : DependencyObject
             }
             foreach (var del in delavatars)
             {
-                string advertisepath = System.Windows.Forms.Application.StartupPath + "\\avatar\\";
+                string advertisepath = System.Windows.Forms.Application.StartupPath + "\\Image\\" + "\\Avatar\\";
                 if (avatarname == "top")
                 {
                     advertisepath += del.topavatar;
@@ -3165,7 +3160,7 @@ where T : DependencyObject
             {
                 WebClient advertiseclient = new WebClient();
 
-                string advertisepath = System.Windows.Forms.Application.StartupPath + "\\avatar\\";
+                string advertisepath = System.Windows.Forms.Application.StartupPath + "\\Image\\" + "\\Avatar\\";
 
                 if (!Directory.Exists(advertisepath))//如果路径不存在
                 {

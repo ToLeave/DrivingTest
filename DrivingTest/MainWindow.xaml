@@ -109,7 +109,7 @@
             <!--<Image Name="houlunqipao" Source="/DrivingTest;component/Images/气泡5.png" Margin="695,255,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="98" Width="97" Opacity="0" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="False" Canvas.Left="-46" Canvas.Top="-21" />-->
             <!--<Button Content="试用" Style="{DynamicResource SubjectButton}" Height="46" HorizontalAlignment="Left" Margin="828,255,0,0" Name="shiyon_button" VerticalAlignment="Top" Width="46" Click="shiyon_button_Click" />-->
             <TextBlock Height="22" HorizontalAlignment="Left" Margin="257,267,0,0" Name="xianshi" Text="" VerticalAlignment="Top" Width="376" GotFocus="user_textBox_GotFocus" DataContextChanged="xianshi_DataContextChanged" Canvas.Left="-18" Canvas.Top="0" FontSize="13" Foreground ="Black" />
-            <ProgressBar Height="10" x:Name="progress" HorizontalAlignment="Left" Margin="257,292,0,0" VerticalAlignment="Top" Width="376" Background="{x:Null}" Canvas.Left="-18" Canvas.Top="-36" >
+            <ProgressBar Height="10" x:Name="progress" HorizontalAlignment="Left" Margin="257,292,0,0" VerticalAlignment="Top" Width="376" Background="{x:Null}" Canvas.Left="-18" Canvas.Top="-36" Visibility="Hidden">
                 <!--<ProgressBar.Triggers>
                     <EventTrigger RoutedEvent="Window.Loaded">
                         <BeginStoryboard>

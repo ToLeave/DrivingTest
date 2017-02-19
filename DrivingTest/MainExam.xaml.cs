@@ -206,7 +206,7 @@ where T : DependencyObject
                     Image image = new Image();
                     image.Width = 100;
                     image.Height = 300;
-                    image.Source = new BitmapImage(new Uri(System.Windows.Forms.Application.StartupPath + "\\avatar\\" + img.avatarurl));
+                    image.Source = new BitmapImage(new Uri(System.Windows.Forms.Application.StartupPath + "\\Image\\" + "\\Avatar\\" + img.avatarurl));
                     image.MouseUp += new MouseButtonEventHandler(image_MouseUp);
                     img_panel.Children.Add(image);
                 }
@@ -837,7 +837,7 @@ where T : DependencyObject
                     int Length = (int)fd.Length;
                     if (Length > 0)
                     {
-                        gif_image.Source = new Uri(path, UriKind.Absolute);
+                        gif_image.Source = new BitmapImage(new Uri(path, UriKind.Absolute));
                     }
                     else
                     {

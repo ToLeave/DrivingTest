@@ -139,7 +139,7 @@ namespace DrivingTest
                 Image image = new Image();
                 image.Width = 720;
                 image.Height = 180;
-                image.Source = new BitmapImage(new Uri(System.Windows.Forms.Application.StartupPath + "\\avatar\\"+img.avatarurl));
+                image.Source = new BitmapImage(new Uri(System.Windows.Forms.Application.StartupPath + "\\Image\\" + "\\Avatar\\" + img.avatarurl));
                 image.MouseUp += new MouseButtonEventHandler(image_MouseUp);
                 img_panel.Children.Add(image);
             }
