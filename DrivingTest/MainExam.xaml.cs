@@ -1166,7 +1166,7 @@ where T : DependencyObject
                     {
                         showright_answer(cur_question_lab_index);
                     }
-                    error_messages(cur_question_lab_index);
+                    error_messages(cur_question_lab_index + 1);
                 }
             }
             if (PublicClass.question_mode == 1)
@@ -1274,7 +1274,7 @@ where T : DependencyObject
                     {
                         showright_answer(cur_question_lab_index);
                     }
-                    error_messages(cur_question_lab_index);
+                    error_messages(cur_question_lab_index - 1);
                 }
             }
 
@@ -1318,7 +1318,7 @@ where T : DependencyObject
         {
             if (timer_type == "考试")
             {
-                if (PublicClass.question_list[question_id - 1].check_answer == false)
+                if (PublicClass.question_list[question_id].check_answer == false)
                 {
                     ErrorMessages err = new ErrorMessages();
                     C1.WPF.C1Window c1w = new C1.WPF.C1Window();
