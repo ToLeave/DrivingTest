@@ -1116,23 +1116,23 @@ where T : DependencyObject
             }
             else
             {
-                //if (PublicClass.question_mode == 1)//考试下做题后不可修改            
-                //{
-                if (PublicClass.question_list[cur_question_lab_index].rept_do != 0)
+                if (PublicClass.question_mode == 1)//考试下做题后不可修改            
                 {
-                    a_button.IsEnabled = false;
-                    b_button.IsEnabled = false;
-                    c_button.IsEnabled = false;
-                    d_button.IsEnabled = false;
+                    if (PublicClass.question_list[cur_question_lab_index].rept_do != 0)
+                    {
+                        a_button.IsEnabled = false;
+                        b_button.IsEnabled = false;
+                        c_button.IsEnabled = false;
+                        d_button.IsEnabled = false;
+                    }
+                    else
+                    {
+                        a_button.IsEnabled = true;
+                        b_button.IsEnabled = true;
+                        c_button.IsEnabled = true;
+                        d_button.IsEnabled = true;
+                    }
                 }
-                else
-                {
-                    a_button.IsEnabled = true;
-                    b_button.IsEnabled = true;
-                    c_button.IsEnabled = true;
-                    d_button.IsEnabled = true;
-                }
-                //}
                 process_question_type(cur_question_lab_index);
             }
             if (current_question_type == "S" || current_question_type == "M")
@@ -1222,23 +1222,23 @@ where T : DependencyObject
             }
             else
             {
-                //if (PublicClass.question_mode == 1)//考试下做题后不可修改            
-                //{
-                if (PublicClass.question_list[cur_question_lab_index].rept_do != 0)
+                if (PublicClass.question_mode == 1)//考试下做题后不可修改            
                 {
-                    a_button.IsEnabled = false;
-                    b_button.IsEnabled = false;
-                    c_button.IsEnabled = false;
-                    d_button.IsEnabled = false;
+                    if (PublicClass.question_list[cur_question_lab_index].rept_do != 0)
+                    {
+                        a_button.IsEnabled = false;
+                        b_button.IsEnabled = false;
+                        c_button.IsEnabled = false;
+                        d_button.IsEnabled = false;
+                    }
+                    else
+                    {
+                        a_button.IsEnabled = true;
+                        b_button.IsEnabled = true;
+                        c_button.IsEnabled = true;
+                        d_button.IsEnabled = true;
+                    }
                 }
-                else
-                {
-                    a_button.IsEnabled = true;
-                    b_button.IsEnabled = true;
-                    c_button.IsEnabled = true;
-                    d_button.IsEnabled = true;
-                }
-                //}
                 process_question_type(cur_question_lab_index);
             }
             if (current_question_type == "S" || current_question_type == "M")
