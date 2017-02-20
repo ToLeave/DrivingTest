@@ -92,7 +92,7 @@
 
         <!--<TextBox Height="100" BorderThickness="0" Background="{x:Null}" HorizontalAlignment="Center" Margin="140,28,295,640" Name="timu_textBlock" Text="" VerticalAlignment="Center" Width="589" TextWrapping="Wrap" FontWeight="Bold" FontSize="16" Visibility="Visible" IsReadOnly="True" />-->
         <StackPanel Margin="140,28,295,640" ClipToBounds="True">
-            <FlowDocumentReader Height="125" HorizontalAlignment="Center"  Width="589" VerticalAlignment="Center" x:Name="doc_reader" IsPrintEnabled="False" IsScrollViewEnabled="False" IsTabStop="False" IsTwoPageViewEnabled="False" IsFindEnabled="False"></FlowDocumentReader>
+            <FlowDocumentReader Height="150" HorizontalAlignment="Center"  Width="589" VerticalAlignment="Center" x:Name="doc_reader" IsPrintEnabled="False" IsTabStop="False" IsFindEnabled="False" ViewingMode="Page" MinZoom="90"></FlowDocumentReader>
         </StackPanel>
         
         <TextBox Height="37" BorderThickness="0" Background="{x:Null}" HorizontalAlignment="Center" Margin="140,127,295,603" Name="xuanxiang_textBlock1" Text="" VerticalAlignment="Center" FontSize="16" Width="589" FontWeight="Bold" IsReadOnly="True" />
@@ -131,7 +131,7 @@
         <Button Content="添加错题" Height="23" Width="60" Margin="936,340,28,399" HorizontalAlignment="Center" VerticalAlignment="Center" Name="tianjiacuoti" Click="tianjiacuoti_Click" />
         <Button Content="删除错题" Height="23" Width="60" Margin="936,365,28,376" HorizontalAlignment="Center" VerticalAlignment="Center" Name="shanchucuoti" Click="shanchucuoti_Click" />
         
-        <Image x:Name="gif_image"  Margin="155,421,262,57" Height="290" Width="607" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Fill" StretchDirection="DownOnly"/>
+        <Image x:Name="gif_image"  Margin="155,421,262,57" Height="290"  HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" StretchDirection="DownOnly"/>
         <!--<wfi:WindowsFormsHost Margin="155,421,262,57" Height="290" Width="607" HorizontalAlignment="Center" Name="kaoshi_gif"  VerticalAlignment="Center" Width="667" Visibility="Visible" >
             <wf:PictureBox x:Name="gif_images" Height="299" Width="667" SizeMode="StretchImage">
             </wf:PictureBox>

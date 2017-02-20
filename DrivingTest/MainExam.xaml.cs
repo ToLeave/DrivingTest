@@ -2051,7 +2051,7 @@ where T : DependencyObject
         //字体大小
         private void xiao_button_Click(object sender, RoutedEventArgs e)//变小
         {
-            if (doc_reader.Zoom > 80)
+            if (doc_reader.Zoom > 90)
             {
                 //timu_textBlock.FontSize -= 2;
                 doc_reader.Zoom -= 10;
@@ -2060,7 +2060,7 @@ where T : DependencyObject
                 xuanxiang_textBlock3.FontSize -= 2;
                 xuanxiang_textBlock4.FontSize -= 2;
 
-                if (doc_reader.Zoom != 80)
+                if (doc_reader.Zoom != 90)
                 {
                     if (doc_reader.Zoom != 160)
                     {
@@ -2073,7 +2073,7 @@ where T : DependencyObject
                     da_button.IsEnabled = true;
                 }
             }
-            else if (doc_reader.Zoom == 80)
+            else if (doc_reader.Zoom == 90)
             {
                 xiao_button.IsEnabled = false;
                 da_button.IsEnabled = true;
@@ -2096,7 +2096,7 @@ where T : DependencyObject
 
                 if (doc_reader.Zoom != 160)
                 {
-                    if (doc_reader.Zoom != 80)
+                    if (doc_reader.Zoom != 90)
                     {
                         xiao_button.IsEnabled = true;
                     }
