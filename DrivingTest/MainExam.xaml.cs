@@ -1216,6 +1216,7 @@ where T : DependencyObject
 
 
 
+
             if (cur_question_lab_index == PublicClass.question_list.Count() - 1)
             {
                 MessageBoxResult result = MessageBox.Show("已是最后一题");
@@ -1239,6 +1240,7 @@ where T : DependencyObject
                         d_button.IsEnabled = true;
                     }
                 }
+
                 process_question_type(cur_question_lab_index);
             }
             if (current_question_type == "S" || current_question_type == "M")
