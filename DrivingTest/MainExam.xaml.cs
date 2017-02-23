@@ -929,23 +929,23 @@ where T : DependencyObject
                 break;
             }
 
-            if (PublicClass.question_mode == 1)//考试下做题后不可修改            
+            //if (PublicClass.question_mode == 1)//考试下做题后不可修改            
+            //{
+            if (PublicClass.question_list[question_index].rept_do != 0)
             {
-                if (PublicClass.question_list[question_index].rept_do != 0)
-                {
-                    a_button.IsEnabled = false;
-                    b_button.IsEnabled = false;
-                    c_button.IsEnabled = false;
-                    d_button.IsEnabled = false;
-                }
-                else
-                {
-                    a_button.IsEnabled = true;
-                    b_button.IsEnabled = true;
-                    c_button.IsEnabled = true;
-                    d_button.IsEnabled = true;
-                }
+                a_button.IsEnabled = false;
+                b_button.IsEnabled = false;
+                c_button.IsEnabled = false;
+                d_button.IsEnabled = false;
             }
+            else
+            {
+                a_button.IsEnabled = true;
+                b_button.IsEnabled = true;
+                c_button.IsEnabled = true;
+                d_button.IsEnabled = true;
+            }
+            //}
 
             process_question_type(question_index);//判断所选题型
             if (current_question_type == "S" || current_question_type == "M")
@@ -1011,7 +1011,7 @@ where T : DependencyObject
                 //play_voice(timu_textBlock.Text);
 
                 showright_answer(cur_question_lab_index);//正确答案显示
-                error_messages(cur_question_lab_index);//错题提示,此处必须在错误答案显示后面
+                error_messages(cur_question_lab_index);//错题提示,此处必须在正确答案显示后面
             }
             else //没有用户登录为试用10题
             {
@@ -1069,7 +1069,7 @@ where T : DependencyObject
                     play_voice(doc_text());
 
                     showright_answer(cur_question_lab_index);//正确答案显示
-                    error_messages(cur_question_lab_index);//错题提示,此处必须在错误答案显示后面
+                    error_messages(cur_question_lab_index);//错题提示,此处必须在正确答案显示后面
 
                 }
                 else//超出10题不予显示
@@ -1110,31 +1110,32 @@ where T : DependencyObject
             }
             ThreadPool.QueueUserWorkItem(select_question, cur_question_lab_index);
 
+            //if (PublicClass.question_mode == 1)//考试下做题后不可修改            
+            //{
+            if (PublicClass.question_list[cur_question_lab_index].rept_do != 0)
+            {
+                a_button.IsEnabled = false;
+                b_button.IsEnabled = false;
+                c_button.IsEnabled = false;
+                d_button.IsEnabled = false;
+            }
+            else
+            {
+                a_button.IsEnabled = true;
+                b_button.IsEnabled = true;
+                c_button.IsEnabled = true;
+                d_button.IsEnabled = true;
+            }
+            //}
+
             if (cur_question_lab_index == 0)
             {
                 MessageBoxResult result = MessageBox.Show("已是第一题");
             }
-            else
-            {
-                if (PublicClass.question_mode == 1)//考试下做题后不可修改            
-                {
-                    if (PublicClass.question_list[cur_question_lab_index].rept_do != 0)
-                    {
-                        a_button.IsEnabled = false;
-                        b_button.IsEnabled = false;
-                        c_button.IsEnabled = false;
-                        d_button.IsEnabled = false;
-                    }
-                    else
-                    {
-                        a_button.IsEnabled = true;
-                        b_button.IsEnabled = true;
-                        c_button.IsEnabled = true;
-                        d_button.IsEnabled = true;
-                    }
-                }
-                process_question_type(cur_question_lab_index);
-            }
+            //else
+            //{
+            process_question_type(cur_question_lab_index);
+            //}
             if (current_question_type == "S" || current_question_type == "M")
             {
                 tishi_label.Content = "选择题,请在备选答案中选择您认为正确的答案!";
@@ -1159,7 +1160,7 @@ where T : DependencyObject
                     ThreadPool.QueueUserWorkItem(err_count, cur_question_lab_index + 1);
                     //play_voice(timu_textBlock.Text);
                     play_voice(doc_text());
-                    error_messages(cur_question_lab_index + 1);//错题提示,必须在错误答案显示前面
+                    error_messages(cur_question_lab_index + 1);//错题提示,必须在正确答案显示前面
                     if (cur_question_lab_index > -1)
                     {
                         showright_answer(cur_question_lab_index);//正确答案显示
@@ -1171,7 +1172,7 @@ where T : DependencyObject
 
             }
 
-            //xuanxiang_textBlock.Text = "";
+            //xuanxiang_textBlock.Text = "";    
         }
 
         //下一题
@@ -1214,35 +1215,34 @@ where T : DependencyObject
 
 
 
-
+            //if (PublicClass.question_mode == 1)//考试下做题后不可修改            
+            //{
+            if (PublicClass.question_list[cur_question_lab_index].rept_do != 0)
+            {
+                a_button.IsEnabled = false;
+                b_button.IsEnabled = false;
+                c_button.IsEnabled = false;
+                d_button.IsEnabled = false;
+            }
+            else
+            {
+                a_button.IsEnabled = true;
+                b_button.IsEnabled = true;
+                c_button.IsEnabled = true;
+                d_button.IsEnabled = true;
+            }
+            //}
 
 
             if (cur_question_lab_index == PublicClass.question_list.Count() - 1)
             {
                 MessageBoxResult result = MessageBox.Show("已是最后一题");
             }
-            else
-            {
-                if (PublicClass.question_mode == 1)//考试下做题后不可修改            
-                {
-                    if (PublicClass.question_list[cur_question_lab_index].rept_do != 0)
-                    {
-                        a_button.IsEnabled = false;
-                        b_button.IsEnabled = false;
-                        c_button.IsEnabled = false;
-                        d_button.IsEnabled = false;
-                    }
-                    else
-                    {
-                        a_button.IsEnabled = true;
-                        b_button.IsEnabled = true;
-                        c_button.IsEnabled = true;
-                        d_button.IsEnabled = true;
-                    }
-                }
+            //else
+            //{
 
-                process_question_type(cur_question_lab_index);
-            }
+            process_question_type(cur_question_lab_index);
+            //}
             if (current_question_type == "S" || current_question_type == "M")
             {
                 tishi_label.Content = "选择题,请在备选答案中选择您认为正确的答案!";
@@ -1291,14 +1291,14 @@ where T : DependencyObject
         {
             Dispatcher.Invoke(new Action(() =>
                 {
+                    int question_id = PublicClass.question_list[int.Parse(data.ToString())].question_id;//通过下标获取id
 
-                    int question_id = int.Parse(data.ToString());
                     DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
                     DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
                     lock (jiakaoDataSet)
                     {
                         jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
-                        var myerr = from c in jiakaoDataSet.errquest where question_id == c.amount select c;
+                        var myerr = from c in jiakaoDataSet.errquest where question_id == c.question_id select c;
                         if (myerr.Count() > 0)
                         {
                             errcount.Text = myerr.First().amount.ToString();
