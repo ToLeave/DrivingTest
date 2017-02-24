@@ -2176,7 +2176,7 @@ where T : DependencyObject
 
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/getvalidate?login=" + userlogin);//随机UUID url
                 request.Method = "GET";
-                request.Timeout = 20000;
+                request.Timeout = 30000;
                 response = (HttpWebResponse)request.GetResponse();
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 loginstr = reader.ReadToEnd();
@@ -2203,7 +2203,7 @@ where T : DependencyObject
                 request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/getuser?login=" + userlogin + "&validate=" + loginMD5 + "&ip=" + ip);//验证 url
                 request.Method = "GET";
                 request.Timeout = 30000;
-                response = (HttpWebResponse)request.GetResponse();
+                response = (HttpWebResponse)request.GetResponse();  
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 passwordstr = reader.ReadToEnd();
                 if (passwordstr.Substring(0, 1) != "[")
@@ -2285,7 +2285,6 @@ where T : DependencyObject
             string tempip = "";
             try
             {
-
                 WebRequest request = WebRequest.Create("http://ip.qq.com/");
                 request.Timeout = 10000;
                 WebResponse response = request.GetResponse();

@@ -835,7 +835,7 @@ namespace DrivingTest
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//提交请求
                     request.Method = "GET";
 
-                    request.Timeout = 10000;
+                    request.Timeout = 20000;
                     response = (HttpWebResponse)request.GetResponse();
                     response.Close();
                 }
@@ -868,7 +868,7 @@ namespace DrivingTest
                         HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//
                         request.Method = "GET";
 
-                        request.Timeout = 10000;
+                        request.Timeout = 20000;
                         response = (HttpWebResponse)request.GetResponse();
                         response.Close();
                     }
