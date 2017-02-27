@@ -32,6 +32,7 @@ namespace DrivingTest
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+
             if (PublicClass.question_image != "")
             {
                 try

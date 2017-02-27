@@ -80,7 +80,7 @@ namespace DrivingTest
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    //MessageBox.Show(ex.Message);
                 }
 
                 try
@@ -114,7 +114,7 @@ namespace DrivingTest
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    //MessageBox.Show(ex.Message);
                 }
             }
 

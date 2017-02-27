@@ -2454,15 +2454,12 @@ where T : DependencyObject
                             co.Content = or;
                             co.ShowModal();
                             co.Name = "查看原图";
-                            co.ToolTip = "查看全图";
-                            co.Margin = PublicClass.window_thickness(or);
+                            //co.ToolTip = "查看全图";
                             co.ShowMinimizeButton = false;
                             co.ShowMaximizeButton = false;
-                            co.Focus();
-                            co.IsActive = true;
-
-
-
+                            co.Margin = PublicClass.window_thickness(or);
+                            //co.Focus();
+                            //co.IsActive = true;
 
                         }
                     }
@@ -2618,8 +2615,6 @@ where T : DependencyObject
 
             return false;
         }
-
-
 
 
     }

@@ -833,7 +833,7 @@ namespace DrivingTest
 
                     string url = PublicClass.http + @"/returnjsons/t_errquests?" + "command=clear&user_id=" + PublicClass.user_id;
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//提交请求
-                    request.Method = "GET";
+                    request.Method = "GET"; 
 
                     request.Timeout = 20000;
                     response = (HttpWebResponse)request.GetResponse();
@@ -841,7 +841,7 @@ namespace DrivingTest
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+    
                 }
 
                 try
@@ -876,7 +876,7 @@ namespace DrivingTest
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    //MessageBox.Show(ex.Message);
                 }
             }
 

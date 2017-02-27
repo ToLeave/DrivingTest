@@ -131,7 +131,7 @@
         <Button Content="添加错题" Height="23" Width="60" Margin="936,340,28,399" HorizontalAlignment="Center" VerticalAlignment="Center" Name="tianjiacuoti" Click="tianjiacuoti_Click" />
         <Button Content="删除错题" Height="23" Width="60" Margin="936,365,28,376" HorizontalAlignment="Center" VerticalAlignment="Center" Name="shanchucuoti" Click="shanchucuoti_Click" />
 
-        <Image x:Name="gif_image"  Margin="155,421,262,57" Height="290"  HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" StretchDirection="DownOnly"/>
+        <Image x:Name="gif_image"  Margin="155,421,262,57" Height="290" Width="607" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Fill" StretchDirection="DownOnly" MouseLeftButtonDown="gif_image_MouseLeftButtonDown" />
         <!--<wfi:WindowsFormsHost Margin="155,421,262,57" Height="290" Width="607" HorizontalAlignment="Center" Name="kaoshi_gif"  VerticalAlignment="Center" Width="667" Visibility="Visible" >
             <wf:PictureBox x:Name="gif_images" Height="299" Width="667" SizeMode="StretchImage">
             </wf:PictureBox>
