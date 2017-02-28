@@ -67,20 +67,20 @@ namespace DrivingTest
             //guanggao_image.Source = new BitmapImage(new Uri(System.Windows.Forms.Application.StartupPath + "\\Image\\Advertise\\car1.jpg"));
 
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 chapter 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
-            jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
+            //// 将数据加载到表 chapter 中。可以根据需要修改此代码。
+            //DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter jiakaoDataSetchapterTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.chapterTableAdapter();
+            //jiakaoDataSetchapterTableAdapter.Fill(jiakaoDataSet.chapter);
 
             // 将数据加载到表 setting 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
             jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
-            // 将数据加载到表 subject 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
-            jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
+            //// 将数据加载到表 subject 中。可以根据需要修改此代码。
+            //DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
+            //jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
 
-            var sub = from c in jiakaoDataSet.subject where c.subject.Contains(PublicClass.subjection) select c;
-            subject_id = sub.First().subject_id;
+            //var sub = from c in jiakaoDataSet.subject where c.subject.Contains(PublicClass.subjection) select c;
+            //subject_id = sub.First().subject_id;
 
             var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
 

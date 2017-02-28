@@ -257,7 +257,7 @@ where T : DependencyObject
                         xianshi.Text = "正在检查更新";
                         System.Windows.Forms.Application.DoEvents();
                     }));
-                    if (checknetwork())
+                    if (checknetwork() && checkserver())//判断是否能正确连接网络 //判断是否能正确连接服务器
                     {
                         update_avatar("top");//更新顶部广告
                         update_avatar("left");//更新考试广告
@@ -293,10 +293,10 @@ where T : DependencyObject
                     }
                     else
                     {
-                                        Dispatcher.Invoke(new Action(() =>
-               {
-                        xianshi.Text = "无法连接网络,脱机模式下请到注册页面联系客服购买注册码";
-               }));
+                        Dispatcher.Invoke(new Action(() =>
+{
+    xianshi.Text = "无法连接服务器,脱机模式下请到注册页面联系客服购买注册码";
+}));
                         string cpuid = "";//历史机器码
                         int num = 0;//机器码登陆次数
                         int time = 0;//机器码截止日期
@@ -565,7 +565,7 @@ where T : DependencyObject
             }
         }
 
-        //登录界面判断本机是否联网
+        //判断本机是否联网
         private bool checknetwork()
         {
             try
@@ -588,14 +588,67 @@ where T : DependencyObject
                 if (is_ping)
                     return true;
                 else
-                    return false;
+                    MessageBox.Show("无法连接网络!");
+                return false;
             }
             catch
             {
+                MessageBox.Show("无法连接网络!");
                 return false;
             }
         }
 
+        //判断是否能正确连接服务器
+        private bool checkserver()
+        {
+            try
+            {
+                System.Net.NetworkInformation.Ping ping;
+                System.Net.NetworkInformation.PingReply res;
+                ping = new System.Net.NetworkInformation.Ping();
+                bool is_ping = false;
+                for (int i = 0; i < 2; i++)
+                {
+
+                    res = ping.Send("jiakao.cloudtimesoft.com");
+                    if (res.Status == System.Net.NetworkInformation.IPStatus.Success)
+                    {
+                        is_ping = true;
+                        i = 2;
+                    }
+
+                }
+                if (is_ping)
+                    return true;
+                else
+                    MessageBox.Show("无法连接服务器!");
+                return false;
+            }
+            catch
+            {
+                MessageBox.Show("无法连接服务器!");
+                return false;
+            }
+            //try
+            //{
+            //    HttpWebResponse response = null;
+            //    StreamReader reader = null;
+            //    HttpWebRequest request;
+
+            //    request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/topavatar");
+            //    request.Method = "GET";
+            //    request.Timeout = 10000;
+            //    response = (HttpWebResponse)request.GetResponse();
+            //    reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
+
+            //    return true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("无法连接服务器!");
+            //    return false;
+            //}
+        }
 
         #region
         //接收服务器的Json数据
@@ -2203,7 +2256,7 @@ where T : DependencyObject
                 request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/getuser?login=" + userlogin + "&validate=" + loginMD5 + "&ip=" + ip);//验证 url
                 request.Method = "GET";
                 request.Timeout = 30000;
-                response = (HttpWebResponse)request.GetResponse();  
+                response = (HttpWebResponse)request.GetResponse();
                 reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
                 passwordstr = reader.ReadToEnd();
                 if (passwordstr.Substring(0, 1) != "[")
@@ -3088,69 +3141,78 @@ where T : DependencyObject
             HttpWebResponse response = null;
             StreamReader reader = null;
             HttpWebRequest request;
-            if (avatarname == "top")
+
+            try
             {
-                request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/topavatar");
-            }
-            else
-            {
-                request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/leftavatar");
-            }
-            request.Method = "GET";
-            request.Timeout = 30000;
-            response = (HttpWebResponse)request.GetResponse();
-            reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
-            avatarstr = reader.ReadToEnd();
-            avatar_json = JArray.Parse(avatarstr);
-            
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 updatecheck 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.avatarTableAdapter jiakaoDataSetavatarTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.avatarTableAdapter();
-            jiakaoDataSetavatarTableAdapter.Fill(jiakaoDataSet.avatar);
-            var delavatars = from c in jiakaoDataSet.avatar where c.topavatar != "" select c;//top
-            if (avatarname == "left")
-            {
-                delavatars = from c in jiakaoDataSet.avatar where c.leftavatar != "" select c;//left
-            }
-            foreach (var del in delavatars)
-            {
-                string advertisepath = System.Windows.Forms.Application.StartupPath + "\\Image\\" + "\\Avatar\\";
                 if (avatarname == "top")
                 {
-                    advertisepath += del.topavatar;
+                    request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/topavatar");
                 }
                 else
                 {
-                    advertisepath += del.leftavatar;
+                    request = (HttpWebRequest)WebRequest.Create(PublicClass.http + @"/returnjsons/leftavatar");
                 }
-                File.Delete(advertisepath);
-                del.Delete();
-            }
-            foreach(var avatar in avatar_json)
-            {
+                request.Method = "GET";
+                request.Timeout = 30000;
+                response = (HttpWebResponse)request.GetResponse();
+                reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
+                avatarstr = reader.ReadToEnd();
+                avatar_json = JArray.Parse(avatarstr);
+
+                DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+                // 将数据加载到表 updatecheck 中。可以根据需要修改此代码。
+                DrivingTest.jiakaoDataSetTableAdapters.avatarTableAdapter jiakaoDataSetavatarTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.avatarTableAdapter();
+                jiakaoDataSetavatarTableAdapter.Fill(jiakaoDataSet.avatar);
+                var delavatars = from c in jiakaoDataSet.avatar where c.topavatar != "" select c;//top
                 if (avatarname == "left")
                 {
-                    string avatarurl=avatar_download(avatar["avatar"].ToString());
-                    jiakaoDataSet.avatar.AddavatarRow(avatarurl, avatar["link"].ToString(), "");
-                    PublicClass.avatar myavatar = new PublicClass.avatar();
-                    myavatar.avatarurl = avatarurl;
-                    myavatar.link = avatar["link"].ToString();
-                    myavatar.avatar_type = "left";
-                    PublicClass.avatar_list.Add(myavatar);
+                    delavatars = from c in jiakaoDataSet.avatar where c.leftavatar != "" select c;//left
                 }
-                else
+                foreach (var del in delavatars)
                 {
-                    string avatarurl = avatar_download(avatar["avatar"].ToString());
-                    jiakaoDataSet.avatar.AddavatarRow("", avatar["link"].ToString(), avatarurl);
-                    PublicClass.avatar myavatar = new PublicClass.avatar();
-                    myavatar.avatarurl = avatarurl;
-                    myavatar.link = avatar["link"].ToString();
-                    myavatar.avatar_type = "top";
-                    PublicClass.avatar_list.Add(myavatar);
+                    string advertisepath = System.Windows.Forms.Application.StartupPath + "\\Image\\" + "\\Avatar\\";
+                    if (avatarname == "top")
+                    {
+                        advertisepath += del.topavatar;
+                    }
+                    else
+                    {
+                        advertisepath += del.leftavatar;
+                    }
+                    File.Delete(advertisepath);
+                    del.Delete();
                 }
+                foreach (var avatar in avatar_json)
+                {
+                    if (avatarname == "left")
+                    {
+                        string avatarurl = avatar_download(avatar["avatar"].ToString());
+                        jiakaoDataSet.avatar.AddavatarRow(avatarurl, avatar["link"].ToString(), "");
+                        PublicClass.avatar myavatar = new PublicClass.avatar();
+                        myavatar.avatarurl = avatarurl;
+                        myavatar.link = avatar["link"].ToString();
+                        myavatar.avatar_type = "left";
+                        PublicClass.avatar_list.Add(myavatar);
+                    }
+                    else
+                    {
+                        string avatarurl = avatar_download(avatar["avatar"].ToString());
+                        jiakaoDataSet.avatar.AddavatarRow("", avatar["link"].ToString(), avatarurl);
+                        PublicClass.avatar myavatar = new PublicClass.avatar();
+                        myavatar.avatarurl = avatarurl;
+                        myavatar.link = avatar["link"].ToString();
+                        myavatar.avatar_type = "top";
+                        PublicClass.avatar_list.Add(myavatar);
+                    }
+                }
+                jiakaoDataSetavatarTableAdapter.Update(jiakaoDataSet.avatar);
+                jiakaoDataSet.avatar.AcceptChanges();
             }
-            jiakaoDataSetavatarTableAdapter.Update(jiakaoDataSet.avatar);
-            jiakaoDataSet.avatar.AcceptChanges();
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);
+            }
+
         }
 
         private string avatar_download(string imagename)

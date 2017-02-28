@@ -54,6 +54,7 @@ namespace DrivingTest
         int cur_question_lab_index = 0;//当前选中题标签的索引
         bool first_run = true;//首次运行
 
+
         System.Timers.Timer imagetimer = new System.Timers.Timer();
         int imgwidth = 0;
 
@@ -1286,8 +1287,8 @@ where T : DependencyObject
 
         }
 
-
-        private void err_count(object data)//做错次数显示
+        //做错次数显示
+        private void err_count(object data)
         {
             Dispatcher.Invoke(new Action(() =>
                 {
@@ -1335,8 +1336,8 @@ where T : DependencyObject
             }
         }
 
-
-        private void shouzheng_cal(object data)//计算首正
+        //计算首正
+        private void shouzheng_cal(object data)
         {
             Dispatcher.Invoke(new Action(() =>
 {
@@ -1369,7 +1370,8 @@ where T : DependencyObject
 }));
         }
 
-        private void process_question_type(int question_id)//判断所选题型
+        //判断所选题型
+        private void process_question_type(int question_id)
         {
             //DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             //// 将数据加载到表 question 中。可以根据需要修改此代码。
@@ -1476,7 +1478,7 @@ where T : DependencyObject
         }
 
         //生成题目和答案
-        private void select_question(object data)//
+        private void select_question(object data)
         {
             int question_id = int.Parse(data.ToString());
             //DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
@@ -1657,8 +1659,8 @@ where T : DependencyObject
                    }));
         }
 
-
-        private void answer_UI(object data)//处理所选答案在UI的显示
+        //处理所选答案在UI的显示
+        private void answer_UI(object data)
         {
             Dispatcher.Invoke(new Action(() =>
                     {
@@ -1779,7 +1781,6 @@ where T : DependencyObject
                 }
             }
         }
-
 
         //选项
         private void xuanxiang_button_Click(object sender, RoutedEventArgs e)
@@ -2118,23 +2119,50 @@ where T : DependencyObject
         }
 
         //字体颜色
-        //private void ziti_c1ColorPicker_SelectedColorChanged(object sender, C1.WPF.PropertyChangedEventArgs<Color> e)
-        //{
-        //    timu_textBlock.Foreground = new SolidColorBrush(ziti_c1ColorPicker.SelectedColor);
-        //}
-
+        private void ziti_c1ColorPicker_SelectedColorChanged(object sender, C1.WPF.PropertyChangedEventArgs<Color> e)
+        {
+            //timu_textBlock.Foreground = new SolidColorBrush(ziti_c1ColorPicker.SelectedColor);
+        }
 
         //交卷
         private void jiaojuan_button_Click(object sender, RoutedEventArgs e)
         {
-            Assignment ass = new Assignment();
-            C1.WPF.C1Window c1w = new C1.WPF.C1Window();
-            ass.kaoshicishu = kaoshicishu;
-            c1w.Content = ass;
-            c1w.ShowModal();
-            c1w.Name = "交卷";
-            c1w.Header = "提示";
-            c1w.Margin = PublicClass.window_thickness(ass);
+            if (PublicClass.question_mode == 1)//考试下交卷        
+            {
+                Assignment ass = new Assignment();
+                C1.WPF.C1Window c1w = new C1.WPF.C1Window();
+                ass.kaoshicishu = kaoshicishu;
+                c1w.Content = ass;
+                c1w.ShowModal();
+                c1w.Name = "交卷";
+                c1w.Header = "提示";
+                c1w.Margin = PublicClass.window_thickness(ass);
+            }
+            else//练习下交卷
+            {
+                MessageBoxResult result = MessageBox.Show("尚有" + weida.Text + "道题未答,确定交卷吗？", "询问", MessageBoxButton.OKCancel);
+
+                //确定
+                if (result == MessageBoxResult.OK)
+                {
+                    string xueyuanName = name_textBlock.Text;
+                    string xueyuanMark = chouti_precent.Text;
+
+                    EndTest en = new EndTest(xueyuanName, xueyuanMark);
+                    C1.WPF.C1Window c1 = new C1.WPF.C1Window();
+                    c1.Name = "end";
+                    c1.Margin = PublicClass.window_thickness(en);
+                    c1.Content = en;
+                    c1.ShowModal();
+                }
+
+                //取消
+                if (result == MessageBoxResult.Cancel)
+                {
+
+                }
+
+            }
         }
 
         //手动添加错题
@@ -2221,6 +2249,7 @@ where T : DependencyObject
             }
 
         }
+
 
         //重新考试
         private void chongkao_button_Click(object sender, RoutedEventArgs e)
@@ -2451,13 +2480,13 @@ where T : DependencyObject
 
                             OriginalImages or = new OriginalImages();
                             C1.WPF.C1Window co = new C1.WPF.C1Window();
-                            co.Content = or;
-                            co.ShowModal();
                             co.Name = "查看原图";
                             //co.ToolTip = "查看全图";
                             co.ShowMinimizeButton = false;
                             co.ShowMaximizeButton = false;
                             co.Margin = PublicClass.window_thickness(or);
+                            co.Content = or;
+                            co.ShowModal();
                             //co.Focus();
                             //co.IsActive = true;
 
@@ -2567,12 +2596,6 @@ where T : DependencyObject
                 if (SecondArea.Text == "00:00:00")
                 {
                     timer.Stop();
-                    //EndTest en = new EndTest();
-                    //C1.WPF.C1Window c1 = new C1.WPF.C1Window();
-                    //c1.Name = "end";
-                    //c1.Margin = new Thickness(SystemParameters.PrimaryScreenWidth / 2 - en.Width / 2, SystemParameters.PrimaryScreenHeight / 2 - en.Height / 2, 0, 0);
-                    //c1.Content = en;
-                    //c1.ShowModal();
 
                     Assignment ass = new Assignment();
                     C1.WPF.C1Window c1w = new C1.WPF.C1Window();
