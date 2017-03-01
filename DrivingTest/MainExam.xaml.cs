@@ -622,6 +622,19 @@ where T : DependencyObject
             Dispatcher.Invoke(new Action(() =>
 {
     //dati_canvas.Children.Clear();
+
+    for (int i = 0; i < dati_canvas.Children.Count; i++)
+    {
+        QuestionNum delqu = dati_canvas.Children[i] as QuestionNum;
+        if (delqu != null)
+        {
+            dati_canvas.UnregisterName(delqu.Name);
+            dati_canvas.Children.Remove(delqu);
+            i--;
+        }
+    }
+
+
     int cou = question_c;
     for (int i = 0; i < cou; i++)
     {
@@ -2254,66 +2267,77 @@ where T : DependencyObject
         //重新考试
         private void chongkao_button_Click(object sender, RoutedEventArgs e)
         {
-            chongkao_button.Visibility = System.Windows.Visibility.Hidden;
-            zongfen_TextBlock.Visibility = System.Windows.Visibility.Hidden;
-            jiaojuan_button.Visibility = System.Windows.Visibility.Visible;
-            dadui.Text = "0";
-            dacuo.Text = "0";
-            shouzheng.Text = "0";
-            dati_precent.Text = "0";
-            chouti_precent.Text = "0";
+            MessageBoxResult result = MessageBox.Show("确定重新考试吗？", "询问", MessageBoxButton.OKCancel);
 
-            if (PublicClass.question_mode == 0)//练习下显示重考错题
+            //确定
+            if (result == MessageBoxResult.OK)
             {
-                DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-                // 将数据加载到表 question 中。可以根据需要修改此代码。
-                DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-                jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+                chongkao_button.Visibility = System.Windows.Visibility.Hidden;
+                zongfen_TextBlock.Visibility = System.Windows.Visibility.Hidden;
+                jiaojuan_button.Visibility = System.Windows.Visibility.Visible;
+                dadui.Text = "0";
+                dacuo.Text = "0";
+                shouzheng.Text = "0";
+                dati_precent.Text = "0";
+                chouti_precent.Text = "0";
 
-                int question_id = 0;
-                List<int> questionsid = new List<int>();
-                foreach (var lab in dati_canvas.Children)
+                if (PublicClass.question_mode == 0)//练习下显示重考错题
                 {
-                    QuestionNum qu = lab as QuestionNum;
-                    if (qu.label2.Foreground == Brushes.Black && qu.label2.Content.ToString() != "")
+                    DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+                    // 将数据加载到表 question 中。可以根据需要修改此代码。
+                    DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+                    jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+
+                    int question_id = 0;
+                    List<int> questionsid = new List<int>();
+                    foreach (var lab in dati_canvas.Children)
                     {
-                        question_id = int.Parse(qu.Name.ToString().Substring(1, qu.Name.ToString().Length - 1));
-                        if (question_id >= 0)
+                        QuestionNum qu = lab as QuestionNum;
+                        if (qu.label2.Foreground == Brushes.Black && qu.label2.Content.ToString() != "")
                         {
-                            var question = from c in jiakaoDataSet.question where c.question_id == PublicClass.question_list[question_id].question_id select c;
-                            foreach (var temqu in question)
+                            question_id = int.Parse(qu.Name.ToString().Substring(1, qu.Name.ToString().Length - 1));
+                            if (question_id >= 0)
                             {
-                                questionsid.Add(temqu.question_id); //获取需删除题目ID
+                                var question = from c in jiakaoDataSet.question where c.question_id == PublicClass.question_list[question_id].question_id select c;
+                                foreach (var temqu in question)
+                                {
+                                    questionsid.Add(temqu.question_id); //获取需删除题目ID
+                                }
                             }
                         }
                     }
-                }
-                for (int i = 0; i < questionsid.Count(); i++)
-                {
-                    for (int j = 0; j < PublicClass.questions_id.Count; j++)
+                    for (int i = 0; i < questionsid.Count(); i++)
                     {
-                        if (questionsid[i] == PublicClass.questions_id[j])
+                        for (int j = 0; j < PublicClass.questions_id.Count; j++)
                         {
-                            PublicClass.questions_id.RemoveAt(j);
-                            j--;
+                            if (questionsid[i] == PublicClass.questions_id[j])
+                            {
+                                PublicClass.questions_id.RemoveAt(j);
+                                j--;
+                            }
                         }
                     }
+
+                    PublicClass.question_list = new List<PublicClass.Question>();
+                    create_question(PublicClass.create_method, PublicClass.question_mode, PublicClass.cartype, PublicClass.subject, PublicClass.questions_id);//重新执行抽题
+                    Window_Loaded(null, null);//重新执行界面
+
                 }
-
-
-
-                PublicClass.question_list = new List<PublicClass.Question>();
-                create_question(PublicClass.create_method, PublicClass.question_mode, PublicClass.cartype, PublicClass.subject, PublicClass.questions_id);//重新执行抽题
-                Window_Loaded(null, null);//重新执行界面
-
+                else//考试
+                {
+                    PublicClass.question_list = new List<PublicClass.Question>();
+                    create_question(PublicClass.create_method, PublicClass.question_mode, PublicClass.cartype, PublicClass.subject, PublicClass.questions_id);//重新执行抽题
+                    Window_Loaded(null, null);//重新执行界面
+                    kaoshicishu = kaoshicishu + 1;
+                }
             }
-            else//考试
+
+            //取消
+            if (result == MessageBoxResult.Cancel)
             {
-                PublicClass.question_list = new List<PublicClass.Question>();
-                create_question(PublicClass.create_method, PublicClass.question_mode, PublicClass.cartype, PublicClass.subject, PublicClass.questions_id);//重新执行抽题
-                Window_Loaded(null, null);//重新执行界面
-                kaoshicishu = kaoshicishu + 1;
+
             }
+
         }
 
 
@@ -2323,7 +2347,6 @@ where T : DependencyObject
             //(sender as MediaElement).Stop();
             //(sender as MediaElement).Play();  
         }
-
 
 
         //显示答案单击事件

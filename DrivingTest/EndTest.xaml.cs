@@ -51,6 +51,21 @@ namespace DrivingTest
         //查看错题
         private void error_button_Click(object sender, RoutedEventArgs e)
         {
+            C1.WPF.C1Window me = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "驾考");
+            if (me != null)
+            {
+                MainExam ma = me.Content as MainExam;
+                ma.jiaojuan_button.Visibility = System.Windows.Visibility.Hidden;
+                ma.chongkao_button.Visibility = System.Windows.Visibility.Visible;
+                ma.zongfen_TextBlock.Visibility = System.Windows.Visibility.Visible;
+                ma.zongfen_TextBlock.Text = "得分:" + PublicClass.fenshu.ToString() + "分";
+                if (PublicClass.question_mode == 0)//练习下显示重考错题
+                {
+                    ma.chongkao_button.Content = "重考错题";
+                }
+            }
+
+
             C1.WPF.C1Window end = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "end");
             if (end != null)
             {
