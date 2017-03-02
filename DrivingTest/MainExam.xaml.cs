@@ -635,6 +635,7 @@ where T : DependencyObject
     }
 
 
+
     int cou = question_c;
     for (int i = 0; i < cou; i++)
     {
@@ -2321,7 +2322,7 @@ where T : DependencyObject
                     PublicClass.question_list = new List<PublicClass.Question>();
                     create_question(PublicClass.create_method, PublicClass.question_mode, PublicClass.cartype, PublicClass.subject, PublicClass.questions_id);//重新执行抽题
                     Window_Loaded(null, null);//重新执行界面
-
+                    weida.Text = chouti_count.Text;
                 }
                 else//考试
                 {
@@ -2329,6 +2330,7 @@ where T : DependencyObject
                     create_question(PublicClass.create_method, PublicClass.question_mode, PublicClass.cartype, PublicClass.subject, PublicClass.questions_id);//重新执行抽题
                     Window_Loaded(null, null);//重新执行界面
                     kaoshicishu = kaoshicishu + 1;
+                    weida.Text = chouti_count.Text; 
                 }
             }
 
