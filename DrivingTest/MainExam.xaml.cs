@@ -635,7 +635,6 @@ where T : DependencyObject
     }
 
 
-
     int cou = question_c;
     for (int i = 0; i < cou; i++)
     {
