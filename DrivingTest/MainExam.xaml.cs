@@ -614,7 +614,13 @@ where T : DependencyObject
 
         }
 
-
+        public void show_err_question()
+        {
+            question_c = PublicClass.question_list.Count();
+            
+            create_question_num();
+            questionindex();
+        }
 
         //生成题号
         private void create_question_num()
@@ -646,6 +652,14 @@ where T : DependencyObject
 
         qu.Margin = new Thickness(y, x, 0, 0);
         qu.label1.Content = i + 1;
+        if (PublicClass.question_list[i].shownum > -1)
+        {
+            qu.labelshow.Content = PublicClass.question_list[i].shownum.ToString();
+        }
+        else
+        {
+            qu.labelshow.Content = qu.label1.Content;
+        }
         qu.Name = "q" + i.ToString();
         qu.MouseDown += new MouseButtonEventHandler(OK);
         qu.setnum(i + 1, true, "");

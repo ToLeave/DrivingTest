@@ -20,6 +20,7 @@ namespace DrivingTest
             public List<Answer> answer { get; set; }
             public bool sz { get; set; }//首正
             public int rept_do { get; set; }//重做次数
+            public int shownum = -1;
         }
                 public class Answer
         {

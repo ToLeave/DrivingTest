@@ -8,7 +8,8 @@
     <Grid>
         <Canvas Name="canvas1">
             <Rectangle Width="23" Height="29" Stroke="DodgerBlue"  Opacity="0.5" SnapsToDevicePixels="True"/>
-            <Label Canvas.Left="0" Canvas.Top="0" Content="100"  Name="label1" Padding="2" FontSize="11" />
+            <Label Canvas.Left="0" Canvas.Top="0" Content="100" Visibility="Hidden"  Name="label1" Padding="2" FontSize="11" />
+            <Label Canvas.Left="0" Canvas.Top="0" Content="100"  Name="labelshow" Padding="2" FontSize="11" />
             <Label Canvas.Left="9"  Canvas.Top="12" Content="√" Name="label2" Padding="2" Foreground="Black" HorizontalContentAlignment="Right" FontSize="11" />
         </Canvas>
     

@@ -2716,7 +2716,6 @@ where T : DependencyObject
             subject4.Foreground = new SolidColorBrush(Colors.White);
             subjectname = "科目一";
 
-
         }
         //科目二
         private void subject2_Click(object sender, RoutedEventArgs e)
@@ -2801,55 +2800,61 @@ where T : DependencyObject
         //c1c2c3c4
         private void car_button_Click(object sender, RoutedEventArgs e)
         {
-
-            if (subjectname != "")
+            try
             {
-                if (subjectname == "科目一")
+                if (subjectname != "")
                 {
-                    MainScreen ma = new MainScreen();
-                    C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
-                    PublicClass.cartype = "C1";
-                    PublicClass.subjection = "科目一";
-                    c1ma.Content = ma;
+                    if (subjectname == "科目一")
+                    {
+                        MainScreen ma = new MainScreen();
+                        C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                        PublicClass.cartype = "C1";
+                        PublicClass.subjection = "科目一";
+                        c1ma.Content = ma;
 
-                    //c1ma.ToolTip = "小车类:科目一";
-                    c1ma.Name = "科目一";
-                    c1ma.Header = "小车类:科目一";
-                    c1ma.Show();
-                    //c1ma.Background = Brushes.SkyBlue;
-                    c1ma.IsResizable = false;
+                        //c1ma.ToolTip = "小车类:科目一";
+                        c1ma.Name = "科目一";
+                        c1ma.Header = "小车类:科目一";
+                        c1ma.Show();
+                        //c1ma.Background = Brushes.SkyBlue;
+                        c1ma.IsResizable = false;
 
-                    c1ma.Margin = PublicClass.window_thickness(ma);
-                    maincanvas.Visibility = Visibility.Hidden;
-                    System.Windows.Forms.Application.DoEvents();
-                    this.WindowState = System.Windows.WindowState.Maximized;
+                        c1ma.Margin = PublicClass.window_thickness(ma);
+                        maincanvas.Visibility = Visibility.Hidden;
+                        System.Windows.Forms.Application.DoEvents();
+                        this.WindowState = System.Windows.WindowState.Maximized;
 
-                    c1ma.Closed += new EventHandler(c1ma_Closed);
+                        c1ma.Closed += new EventHandler(c1ma_Closed);
+                    }
+                    else if (subjectname == "科目四")
+                    {
+                        MainScreen ma = new MainScreen();
+                        C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+                        PublicClass.cartype = "C1";
+                        PublicClass.subjection = "科目四";
+                        c1ma.Content = ma;
+                        c1ma.Show();
+                        //c1ma.ToolTip = "小车类:科目四";
+                        c1ma.Name = "科目四";
+                        c1ma.Header = "小车类:科目四";
+                        c1ma.Margin = PublicClass.window_thickness(ma);
+                        maincanvas.Visibility = Visibility.Hidden;
+                        System.Windows.Forms.Application.DoEvents();
+                        this.WindowState = System.Windows.WindowState.Maximized;
+                        //maingrid.Width = SystemParameters.WorkArea.Width;
+                        //maingrid.Height = SystemParameters.WorkArea.Height;
+
+                        c1ma.Closed += new EventHandler(c1ma_Closed);
+                        //this.Visibility = System.Windows.Visibility.Collapsed;
+                    }
                 }
-                else if (subjectname == "科目四")
+                else
                 {
-                    MainScreen ma = new MainScreen();
-                    C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
-                    PublicClass.cartype = "C1";
-                    PublicClass.subjection = "科目四";
-                    c1ma.Content = ma;
-                    c1ma.Show();
-                    //c1ma.ToolTip = "小车类:科目四";
-                    c1ma.Name = "科目四";
-                    c1ma.Header = "小车类:科目四";
-                    c1ma.Margin = PublicClass.window_thickness(ma);
-                    maincanvas.Visibility = Visibility.Hidden;
-                    System.Windows.Forms.Application.DoEvents();
-                    this.WindowState = System.Windows.WindowState.Maximized;
-                    //maingrid.Width = SystemParameters.WorkArea.Width;
-                    //maingrid.Height = SystemParameters.WorkArea.Height;
-
-                    c1ma.Closed += new EventHandler(c1ma_Closed);
-                    //this.Visibility = System.Windows.Visibility.Collapsed;
                 }
             }
-            else
+            catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
             }
 
         }

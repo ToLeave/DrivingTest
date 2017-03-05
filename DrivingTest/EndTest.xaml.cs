@@ -51,6 +51,27 @@ namespace DrivingTest
         //查看错题
         private void error_button_Click(object sender, RoutedEventArgs e)
         {
+            int step = 0;
+            for (int i = 0; i < PublicClass.question_list.Count(); i++)
+            {
+                PublicClass.question_list[i].shownum = i + 1;
+                if (PublicClass.question_list[i].check_answer == true && PublicClass.question_list[i].select_answer != "")
+                {
+                    PublicClass.question_list.RemoveAt(i);
+                    i--;
+                }
+                else if (PublicClass.question_list[i].check_answer == false)
+                {
+                    PublicClass.Question question = new PublicClass.Question();
+                    question = PublicClass.question_list[i];
+                    PublicClass.question_list.RemoveAt(i);
+                    PublicClass.question_list.Insert(step, question);
+                    step++;
+                }
+
+
+            }
+
             C1.WPF.C1Window me = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "驾考");
             if (me != null)
             {
@@ -63,6 +84,7 @@ namespace DrivingTest
                 {
                     ma.chongkao_button.Content = "重考错题";
                 }
+                ma.show_err_question();
             }
 
 
