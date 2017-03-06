@@ -35,10 +35,16 @@ namespace DrivingTest
             MainExam ma = new MainExam();
             name_textBlock.Text = xueyuanName;
             fenshu_textBlock.Text = xueyuanMark;
-            if (int.Parse(xueyuanMark) >= 80)
+            if (int.Parse(xueyuanMark) >= 80 && int.Parse(xueyuanMark) != 100)
             {
                 chengji_textBlock.Text = "恭喜你,本次成绩为:";
                 hege_textBlock.Text = "成绩合格";
+            }
+            else if (int.Parse(xueyuanMark) == 100)
+            {
+                chengji_textBlock.Text = "恭喜你,本次成绩为:";
+                hege_textBlock.Text = "成绩合格";
+                error_button.IsEnabled = false;
             }
             else
             {
@@ -84,7 +90,7 @@ namespace DrivingTest
                 {
                     ma.chongkao_button.Content = "重考错题";
                 }
-                ma.show_err_question();
+                ma.show_err_question(int.Parse(xueyuanMark));
             }
 
 
@@ -98,6 +104,20 @@ namespace DrivingTest
         //退出
         private void end_button_Click(object sender, RoutedEventArgs e)
         {
+            C1.WPF.C1Window me = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "驾考");
+            if (me != null)
+            {
+                MainExam ma = me.Content as MainExam;
+                ma.jiaojuan_button.Visibility = System.Windows.Visibility.Hidden;
+                ma.chongkao_button.Visibility = System.Windows.Visibility.Visible;
+                ma.zongfen_TextBlock.Visibility = System.Windows.Visibility.Visible;
+                ma.zongfen_TextBlock.Text = "得分:" + PublicClass.fenshu.ToString() + "分";
+                if (PublicClass.question_mode == 0)//练习下显示重考错题
+                {
+                    ma.chongkao_button.Content = "重考错题";
+                }
+                ma.show_err_question(int.Parse(xueyuanMark));
+            }
             C1.WPF.C1Window end = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "end");
             if (end != null)
             {

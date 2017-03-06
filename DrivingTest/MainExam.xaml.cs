@@ -30,11 +30,11 @@ namespace DrivingTest
     /// </summary>
     public partial class MainExam : UserControl
     {
+        #region 公共变量
         private DispatcherTimer timer = new DispatcherTimer();
         //private ProcessCount processCount;
 
         List<string> question_pd_list = new List<string>();//随机题号列表
-
 
         int question_c = 0;//总题数
         int question_x = 0;//选择题总题数
@@ -58,6 +58,7 @@ namespace DrivingTest
 
         System.Timers.Timer imagetimer = new System.Timers.Timer();
         int imgwidth = 0;
+        #endregion
 
 
         public MainExam()
@@ -2235,19 +2236,33 @@ where T : DependencyObject
         }
 
         //查看错题
-        public void show_err_question()
+        public void show_err_question(int mark)
         {
-            question_c = PublicClass.question_list.Count();
-            create_question_num();
-            questionindex();
-            check_error = true;
+            if (mark == 100)//满分,没有错题
+            {
+                check_error = false;
 
-            zhengque_label.Visibility = System.Windows.Visibility.Visible;
-            zhengque_textBlock.Visibility = System.Windows.Visibility.Visible;
-            a_button.Visibility = System.Windows.Visibility.Hidden;
-            b_button.Visibility = System.Windows.Visibility.Hidden;
-            c_button.Visibility = System.Windows.Visibility.Hidden;
-            d_button.Visibility = System.Windows.Visibility.Hidden;
+                zhengque_label.Visibility = System.Windows.Visibility.Visible;
+                zhengque_textBlock.Visibility = System.Windows.Visibility.Visible;
+                a_button.Visibility = System.Windows.Visibility.Hidden;
+                b_button.Visibility = System.Windows.Visibility.Hidden;
+                c_button.Visibility = System.Windows.Visibility.Hidden;
+                d_button.Visibility = System.Windows.Visibility.Hidden;
+            }
+            else
+            {
+                question_c = PublicClass.question_list.Count();
+                create_question_num();
+                questionindex();
+                check_error = true;
+
+                zhengque_label.Visibility = System.Windows.Visibility.Visible;
+                zhengque_textBlock.Visibility = System.Windows.Visibility.Visible;
+                a_button.Visibility = System.Windows.Visibility.Hidden;
+                b_button.Visibility = System.Windows.Visibility.Hidden;
+                c_button.Visibility = System.Windows.Visibility.Hidden;
+                d_button.Visibility = System.Windows.Visibility.Hidden;
+            }
         }
 
         //重新考试
@@ -2308,6 +2323,16 @@ where T : DependencyObject
                     create_question(PublicClass.create_method, PublicClass.question_mode, PublicClass.cartype, PublicClass.subject, PublicClass.questions_id);//重新执行抽题
                     Window_Loaded(null, null);//重新执行界面
                     weida.Text = chouti_count.Text;
+
+                    check_error = false;
+                    zhengque_label.Visibility = System.Windows.Visibility.Hidden;
+                    zhengque_textBlock.Visibility = System.Windows.Visibility.Hidden;
+                    a_button.Visibility = System.Windows.Visibility.Visible;
+                    b_button.Visibility = System.Windows.Visibility.Visible;
+                    c_button.Visibility = System.Windows.Visibility.Visible;
+                    d_button.Visibility = System.Windows.Visibility.Visible;
+                    xuanxiang_textBlock.Text = "";
+                    questionindex();
                 }
                 else//考试
                 {
@@ -2317,13 +2342,6 @@ where T : DependencyObject
                     kaoshicishu = kaoshicishu + 1;
                     weida.Text = chouti_count.Text; 
                 }
-                check_error = false;
-                zhengque_label.Visibility = System.Windows.Visibility.Hidden;
-                zhengque_textBlock.Visibility = System.Windows.Visibility.Hidden;
-                a_button.Visibility = System.Windows.Visibility.Visible;
-                b_button.Visibility = System.Windows.Visibility.Visible;
-                c_button.Visibility = System.Windows.Visibility.Visible;
-                d_button.Visibility = System.Windows.Visibility.Visible;
             }
 
             //取消
@@ -2344,8 +2362,8 @@ where T : DependencyObject
 
 
         //显示答案单击事件
-        //private void xianshi_question()
-        //{
+        private void xianshi_question()
+        {
         //    DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
         //    // 将数据加载到表 setting 中。可以根据需要修改此代码。
         //    DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
@@ -2365,7 +2383,7 @@ where T : DependencyObject
         //            zhengque_textBlock.Visibility = System.Windows.Visibility.Hidden;
         //        }
         //    }
-        //}
+        }
 
         //显示考试科目和车型
         private void cart_sub(string cartpye, string subject)

@@ -47,7 +47,6 @@ namespace DrivingTest
         public static bool tuojizhuce = false;//脱机码注册状态
 
             
-        
 
         public static DispatcherTimer timer = new DispatcherTimer();
 
