@@ -109,10 +109,6 @@
     <Compile Include="ErrorMessages.xaml.cs">
       <DependentUpon>ErrorMessages.xaml</DependentUpon>
     </Compile>
-    <Compile Include="jiakaoDataSet1.cs">
-      <DependentUpon>jiakaoDataSet1.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="jiakaoDataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

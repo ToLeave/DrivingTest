@@ -35,7 +35,7 @@ namespace DrivingTest
             MainExam ma = new MainExam();
             name_textBlock.Text = xueyuanName;
             fenshu_textBlock.Text = xueyuanMark;
-            if (int.Parse(xueyuanMark) >= 80 && int.Parse(xueyuanMark) != 100)
+            if (int.Parse(xueyuanMark) >= 90 && int.Parse(xueyuanMark) != 100)
             {
                 chengji_textBlock.Text = "恭喜你,本次成绩为:";
                 hege_textBlock.Text = "成绩合格";
