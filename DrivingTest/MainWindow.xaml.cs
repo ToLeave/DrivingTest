@@ -2626,6 +2626,9 @@ where T : DependencyObject
                 DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
                 jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
 
+                DrivingTest.jiakaoDataSetTableAdapters.recordTableAdapter jiakaoDataSetrecordTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.recordTableAdapter();
+                jiakaoDataSetrecordTableAdapter.Fill(jiakaoDataSet.record);
+
 
                 string err = null;//数据流
                 HttpWebResponse response = null;
@@ -2672,6 +2675,29 @@ where T : DependencyObject
                     MessageBox.Show(ex.Message);
                 }
 
+                if (jiakaoDataSet.record.Count != 0)
+                {
+                    var re = from c in jiakaoDataSet.record where c.user_id == PublicClass.user_id select c;
+                    foreach (var r in re)
+                    {
+                        int tishu = r.question_index;
+                        MessageBoxResult result = MessageBox.Show("上次练习到第{0}题,是否继续？", "提示", MessageBoxButton.YesNo);
+
+                        //确定
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            //MainScreen ma = new MainScreen();
+                            //ma.shunxulianxi_Click(null, null);
+                        }
+
+                        //取消
+                        if (result == MessageBoxResult.No)
+                        {
+
+                        }
+                    }
+                }
+
             }
             //    }));
 
@@ -2679,7 +2705,6 @@ where T : DependencyObject
 
             //}));
         }
-
 
         //登录后控件的显示或隐藏
         private void login_control_ShowHide()
@@ -2706,6 +2731,12 @@ where T : DependencyObject
             login.Visibility = System.Windows.Visibility.Hidden;
             //qianlunqipao.Visibility = System.Windows.Visibility.Hidden;
             //houlunqipao.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        //继续做题
+        private void continuetodo(string cartype, string subject)
+        {
+ 
         }
 
         public string subjectname;
