@@ -1329,6 +1329,48 @@ where T : DependencyObject
 
         }
 
+        //下次继续做题储存信息
+        private void continuetodo(int index)
+        {
+            if (PublicClass.create_method == 0 && PublicClass.question_mode != 1)
+            {
+                DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+                // 将数据加载到表 question 中。可以根据需要修改此代码。
+                DrivingTest.jiakaoDataSetTableAdapters.recordTableAdapter jiakaoDataSetrecordTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.recordTableAdapter();
+                jiakaoDataSetrecordTableAdapter.Fill(jiakaoDataSet.record);
+
+                var re = from c in jiakaoDataSet.record where c.user_id == PublicClass.user_id select c;
+                if (re.Count() != 0)//更新
+                {
+                    foreach (var r in re)
+                    {
+                        r.subject = PublicClass.subjection;
+                        r.driverlicense = PublicClass.cartype;
+                        r._class = PublicClass.classflag;
+                        r.class_flag = PublicClass.classtype;
+                    }
+                }
+                else//创建
+                {
+                    if (PublicClass.class_index.Count() != 0)
+                    {
+                        jiakaoDataSet.record.AddrecordRow(PublicClass.user_id, PublicClass.subjection, PublicClass.cartype, PublicClass.classflag, PublicClass.classtype, PublicClass.class_index[0], index);
+                    }
+                    else
+                    {
+                        jiakaoDataSet.record.AddrecordRow(PublicClass.user_id, PublicClass.subjection, PublicClass.cartype, PublicClass.classflag, PublicClass.classtype, PublicClass.chapter_index[0], index);
+                    }
+                }
+
+                jiakaoDataSetrecordTableAdapter.Update(jiakaoDataSet.record);
+                jiakaoDataSet.record.AcceptChanges();
+
+
+            }
+
+
+        }
+
         //做错次数显示
         private void err_count(object data)
         {
@@ -2340,7 +2382,7 @@ where T : DependencyObject
                     create_question(PublicClass.create_method, PublicClass.question_mode, PublicClass.cartype, PublicClass.subject, PublicClass.questions_id);//重新执行抽题
                     Window_Loaded(null, null);//重新执行界面
                     kaoshicishu = kaoshicishu + 1;
-                    weida.Text = chouti_count.Text; 
+                    weida.Text = chouti_count.Text;
                 }
             }
 
@@ -2364,25 +2406,25 @@ where T : DependencyObject
         //显示答案单击事件
         private void xianshi_question()
         {
-        //    DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-        //    // 将数据加载到表 setting 中。可以根据需要修改此代码。
-        //    DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
-        //    jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+            //    DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            //    // 将数据加载到表 setting 中。可以根据需要修改此代码。
+            //    DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            //    jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
-        //    var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
-        //    foreach (var s in set)
-        //    {
-        //        if (xianshi_checkBox.IsChecked == true)
-        //        {
-        //            zhengque_label.Visibility = System.Windows.Visibility.Visible;
-        //            zhengque_textBlock.Visibility = System.Windows.Visibility.Visible;
-        //        }
-        //        else
-        //        {
-        //            zhengque_label.Visibility = System.Windows.Visibility.Hidden;
-        //            zhengque_textBlock.Visibility = System.Windows.Visibility.Hidden;
-        //        }
-        //    }
+            //    var set = from c in jiakaoDataSet.setting where c.setting_id == 1 select c;
+            //    foreach (var s in set)
+            //    {
+            //        if (xianshi_checkBox.IsChecked == true)
+            //        {
+            //            zhengque_label.Visibility = System.Windows.Visibility.Visible;
+            //            zhengque_textBlock.Visibility = System.Windows.Visibility.Visible;
+            //        }
+            //        else
+            //        {
+            //            zhengque_label.Visibility = System.Windows.Visibility.Hidden;
+            //            zhengque_textBlock.Visibility = System.Windows.Visibility.Hidden;
+            //        }
+            //    }
         }
 
         //显示考试科目和车型

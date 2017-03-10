@@ -15,6 +15,7 @@
         <CollectionViewSource x:Key="subjectViewSource" Source="{Binding Path=subject, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="errquestViewSource" Source="{Binding Path=errquest, Source={StaticResource jiakaoDataSet}}" />
         <CollectionViewSource x:Key="userViewSource" Source="{Binding Path=user, Source={StaticResource jiakaoDataSet}}" />
+        <CollectionViewSource x:Key="recordViewSource" Source="{Binding Path=record, Source={StaticResource jiakaoDataSet}}" />
         <!-- 快捷键  -->
         <RoutedUICommand x:Key="ButtonA" Text="选项A和对" />
         <RoutedUICommand x:Key="ButtonB" Text="选项B和错" />      

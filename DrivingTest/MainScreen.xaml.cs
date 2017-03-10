@@ -32,11 +32,12 @@ namespace DrivingTest
         }
 
 
-        List<int> chapter_index = new List<int>();//章节index
-        List<int> class_index = new List<int>();//分类index
+        //List<int> chapter_index = new List<int>();//章节index
+        //List<int> class_index = new List<int>();//分类index
         List<string> zhuanxiang_index = new List<string>();//专项字段关键字
-        string classflag = "";//试题一级分类
-        string classtype = "";//试题二级分类
+
+        //string classflag = "";//试题一级分类
+        //string classtype = "";//试题二级分类
 
         int class_status = 0;//分类状态,1为常规状态,2为专项,3为章节,4为常规模拟
 
@@ -302,7 +303,8 @@ namespace DrivingTest
                 foreach (var cla in c_count)
                 {
                     listBox.Items.Add(cla.class_name);//把分类名加入listbox
-                    class_index.Add(cla.class_id);//同时把分类ID当做下标存入
+                    PublicClass.class_index.Add(cla.class_id);//同时把分类ID当做下标存入
+                    PublicClass.chapter_index = new List<int>();
                 }
 
                 listBox.SelectedIndex = 0;//初始化焦点
@@ -351,7 +353,8 @@ namespace DrivingTest
                 {
                     var temsub = from c in jiakaoDataSet.chapter where c.chapter_id == mysub select c;
                     listBox.Items.Add(temsub.First().chapter);
-                    chapter_index.Add(temsub.First().chapter_id);
+                    PublicClass.chapter_index.Add(temsub.First().chapter_id);
+                    PublicClass.class_index = new List<int>();
                 }
 
                 listBox.SelectedIndex = 0;
@@ -421,26 +424,26 @@ namespace DrivingTest
         private void sucheng_Click(object sender, RoutedEventArgs e)
         {
             generation_classification();//生成分类UI
-            classflag = "新手速成";//试题一级分类
+            PublicClass.classflag = "新手速成";//试题一级分类
         }
 
         //速成500
         private void sucheng500_Click(object sender, RoutedEventArgs e)
         {
             generation_classification();//生成分类UI
-            classflag = "速成500";//试题一级分类
+            PublicClass.classflag = "速成500";//试题一级分类
         }
 
         //速成600
         private void sucheng600_Click(object sender, RoutedEventArgs e)
         {
             generation_classification();//生成分类UI
-            classflag = "速成600";//试题一级分类
+            PublicClass.classflag = "速成600";//试题一级分类
         }
 
 
         //章节练习
-        private void zhangjielianxi_Click(object sender, RoutedEventArgs e)
+        public void zhangjielianxi_Click(object sender, RoutedEventArgs e)
         {
             class_status = 3;//分类状态
 
@@ -451,8 +454,8 @@ namespace DrivingTest
             qianghuamoni.Visibility = System.Windows.Visibility.Hidden;//强化模拟
             zhuanxianglianxi.Visibility = System.Windows.Visibility.Hidden;//专项练习
             zhuanxiangmoni.Visibility = System.Windows.Visibility.Hidden;//专项模拟
-            shunxulianxi.Visibility = System.Windows.Visibility.Visible;//
-            suijilianxi.Visibility = System.Windows.Visibility.Visible;//
+            shunxulianxi.Visibility = System.Windows.Visibility.Visible;//顺序练习
+            suijilianxi.Visibility = System.Windows.Visibility.Visible;//随机练习
             listBox.Items.Clear();
             if (zhangjie_bangding(PublicClass.cartype, PublicClass.subjection) == true)//列出章节,解锁顺序随机按钮
             {
@@ -495,13 +498,13 @@ namespace DrivingTest
 
 
         //语音课堂
-        private void yuyin_Click(object sender, RoutedEventArgs e)
+        public void yuyin_Click(object sender, RoutedEventArgs e)
         {
-            classtype = "语音课堂";//试题二级分类
+            PublicClass.classtype = "语音课堂";//试题二级分类
             class_status = 1;//分类状态
             shunxulianxi.Visibility = System.Windows.Visibility.Visible;
             suijilianxi.Content = "随机练习";
-            if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
+            if (list_binding(PublicClass.cartype, PublicClass.subjection, PublicClass.classflag, PublicClass.classtype) == true)//有题解锁顺序随机按钮
             {
                 shunxulianxi.IsEnabled = true;
                 suijilianxi.IsEnabled = true;
@@ -513,13 +516,13 @@ namespace DrivingTest
             }
         }
         //基础练习
-        private void lianxi_Click(object sender, RoutedEventArgs e)
+        public void lianxi_Click(object sender, RoutedEventArgs e)
         {
-            classtype = "基础练习";//试题二级分类
+            PublicClass.classtype = "基础练习";//试题二级分类
             class_status = 1;//分类状态
             shunxulianxi.Visibility = System.Windows.Visibility.Visible;
             suijilianxi.Content = "随机练习";
-            if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
+            if (list_binding(PublicClass.cartype, PublicClass.subjection, PublicClass.classflag, PublicClass.classtype) == true)//有题解锁顺序随机按钮
             {
                 shunxulianxi.IsEnabled = true;
                 suijilianxi.IsEnabled = true;
@@ -531,11 +534,11 @@ namespace DrivingTest
             }
         }
         //基础模拟
-        private void moni_Click(object sender, RoutedEventArgs e)
+        public void moni_Click(object sender, RoutedEventArgs e)
         {
-            classtype = "基础练习";//试题二级分类
+            PublicClass.classtype = "基础练习";//试题二级分类
             class_status = 4;//分类状态
-            if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
+            if (list_binding(PublicClass.cartype, PublicClass.subjection, PublicClass.classflag, PublicClass.classtype) == true)//有题解锁顺序随机按钮
             {
                 shunxulianxi.Visibility = System.Windows.Visibility.Hidden;
                 suijilianxi.IsEnabled = true;
@@ -548,13 +551,13 @@ namespace DrivingTest
             }
         }
         //强化练习
-        private void qianghualianxi_Click(object sender, RoutedEventArgs e)
+        public void qianghualianxi_Click(object sender, RoutedEventArgs e)
         {
-            classtype = "强化练习";//试题二级分类
+            PublicClass.classtype = "强化练习";//试题二级分类
             class_status = 1;//分类状态
             shunxulianxi.Visibility = System.Windows.Visibility.Visible;
             suijilianxi.Content = "随机练习";
-            if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
+            if (list_binding(PublicClass.cartype, PublicClass.subjection, PublicClass.classflag, PublicClass.classtype) == true)//有题解锁顺序随机按钮
             {
                 shunxulianxi.IsEnabled = true;
                 suijilianxi.IsEnabled = true;
@@ -566,11 +569,11 @@ namespace DrivingTest
             }
         }
         //强化模拟
-        private void qianghuamoni_Click(object sender, RoutedEventArgs e)
+        public void qianghuamoni_Click(object sender, RoutedEventArgs e)
         {
-            classtype = "强化练习";//试题二级分类
+            PublicClass.classtype = "强化练习";//试题二级分类
             class_status = 4;//分类状态
-            if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
+            if (list_binding(PublicClass.cartype, PublicClass.subjection, PublicClass.classflag, PublicClass.classtype) == true)//有题解锁顺序随机按钮
             {
                 shunxulianxi.Visibility = System.Windows.Visibility.Hidden;
                 suijilianxi.IsEnabled = true;
@@ -584,7 +587,7 @@ namespace DrivingTest
         }
 
         //专项练习
-        private void zhuanxianglianxi_Click(object sender, RoutedEventArgs e)
+        public void zhuanxianglianxi_Click(object sender, RoutedEventArgs e)
         {
             class_status = 2;//分类状态
             shunxulianxi.Visibility = System.Windows.Visibility.Visible;
@@ -605,7 +608,7 @@ namespace DrivingTest
         private void zhuanxiangmoni_Click(object sender, RoutedEventArgs e)
         {
             class_status = 4;//分类状态
-            if (list_binding(PublicClass.cartype, PublicClass.subjection, classflag, classtype) == true)//有题解锁顺序随机按钮
+            if (list_binding(PublicClass.cartype, PublicClass.subjection, PublicClass.classflag, PublicClass.classtype) == true)//有题解锁顺序随机按钮
             {
                 shunxulianxi.Visibility = System.Windows.Visibility.Hidden;
                 suijilianxi.IsEnabled = true;
@@ -619,7 +622,7 @@ namespace DrivingTest
         }
 
         //顺序练习
-        private void shunxulianxi_Click(object sender, RoutedEventArgs e)
+        public void shunxulianxi_Click(object sender, RoutedEventArgs e)
         {
             DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
             // 将数据加载到表 class 中。可以根据需要修改此代码。
@@ -631,7 +634,7 @@ namespace DrivingTest
 
             if (class_status == 1)//常规
             {
-                var questions = from c in jiakaoDataSet.classdetail where c.class_id == class_index[listBox.SelectedIndex] select c;
+                var questions = from c in jiakaoDataSet.classdetail where c.class_id == PublicClass.class_index[listBox.SelectedIndex] select c;
                 questions_id.Clear();
                 if (questions.Count() != 0)
                 {
@@ -668,7 +671,7 @@ namespace DrivingTest
             }
             if (class_status == 3)//章节
             {
-                var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.chapter_id == chapter_index[listBox.SelectedIndex] select c;
+                var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.chapter_id == PublicClass.chapter_index[listBox.SelectedIndex] select c;
                 questions_id.Clear();
                 foreach (var qu in questions)
                 {
@@ -706,7 +709,7 @@ namespace DrivingTest
 
             if (class_status == 1)//常规
             {
-                var questions = from c in jiakaoDataSet.classdetail where c.class_id == class_index[listBox.SelectedIndex] select c;
+                var questions = from c in jiakaoDataSet.classdetail where c.class_id == PublicClass.class_index[listBox.SelectedIndex] select c;
                 questions_id.Clear();
                 if (questions.Count() != 0)
                 {
@@ -740,7 +743,7 @@ namespace DrivingTest
             }
             if (class_status == 3)//章节
             {
-                var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.chapter_id == chapter_index[listBox.SelectedIndex] select c;
+                var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.chapter_id == PublicClass.chapter_index[listBox.SelectedIndex] select c;
                 questions_id.Clear();
                 foreach (var qu in questions)
                 {
@@ -750,7 +753,7 @@ namespace DrivingTest
             }
             if (class_status == 4)//常规模拟
             {
-                var questions = from c in jiakaoDataSet.classdetail where c.class_id == class_index[listBox.SelectedIndex] select c;
+                var questions = from c in jiakaoDataSet.classdetail where c.class_id == PublicClass.class_index[listBox.SelectedIndex] select c;
                 questions_id.Clear();
                 if (questions.Count() != 0)
                 {

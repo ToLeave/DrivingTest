@@ -22,12 +22,15 @@ namespace DrivingTest
             public int rept_do { get; set; }//重做次数
             public int shownum = -1;
         }
-                public class Answer
+        public class Answer
         {
             public int answer_id { get; set; }
             public int isright { get; set; }
         }
 
+        /// <summary>
+        /// 考试题目
+        /// </summary>
         public static List<PublicClass.Question> question_list = new List<PublicClass.Question>();
         public static int end = 0;
         public static string http { get; set; }
@@ -36,8 +39,17 @@ namespace DrivingTest
         public static int user_id = -1;//登录用户ID
         public static int fenshu = 0;//考试总分数
 
+        /// <summary>
+        /// 查找章节,提取题目,重新联系,继续联系使用参数
+        /// </summary>
         public static string cartype = "";//车型
         public static string subjection = "";//科目
+        public static string classflag = "";//试题一级分类
+        public static string classtype = "";//试题二级分类
+        public static List<int> chapter_index = new List<int>();//章节index
+        public static List<int> class_index = new List<int>();//分类index
+        //public static int question_index = 0;//题目下标
+
         public static bool delerr = false;//是否删除错题
         public static string shezhi = "";//设置或退出
         public static int err_questionid = 0;//做错了的题号下标
@@ -46,7 +58,7 @@ namespace DrivingTest
         public static bool wuwangluo = false;//无网络状态
         public static bool tuojizhuce = false;//脱机码注册状态
 
-            
+
 
         public static DispatcherTimer timer = new DispatcherTimer();
 
