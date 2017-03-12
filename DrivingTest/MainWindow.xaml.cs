@@ -2799,10 +2799,10 @@ where T : DependencyObject
                 PublicClass.listBox_index = chapter;
                 ma.shunxulianxi_Click(null, null);
             }
-            else if (class_ == "我的错题")
-            {
-                ma.my_mistakes_Click(null, null);
-            }
+            //else if (class_ == "我的错题")
+            //{
+            //    ma.my_mistakes_Click(null, null);
+            //}
 
             if (class_flag == "语音课堂")
             {
