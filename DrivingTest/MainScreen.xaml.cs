@@ -32,8 +32,8 @@ namespace DrivingTest
         }
 
 
-        //List<int> chapter_index = new List<int>();//章节index
-        //List<int> class_index = new List<int>();//分类index
+        List<int> chapter_index = new List<int>();//章节index
+        List<int> class_index = new List<int>();//分类index
         List<string> zhuanxiang_index = new List<string>();//专项字段关键字
 
         //string classflag = "";//试题一级分类
@@ -164,7 +164,7 @@ namespace DrivingTest
                 proc.Start();
 
             }
-                     
+
         }
 
         void timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -303,8 +303,8 @@ namespace DrivingTest
                 foreach (var cla in c_count)
                 {
                     listBox.Items.Add(cla.class_name);//把分类名加入listbox
-                    PublicClass.class_index.Add(cla.class_id);//同时把分类ID当做下标存入
-                    PublicClass.chapter_index = new List<int>();
+                    class_index.Add(cla.class_id);//同时把分类ID当做下标存入
+                    //PublicClass.chapter_index = new List<int>();
                 }
 
                 listBox.SelectedIndex = 0;//初始化焦点
@@ -353,8 +353,8 @@ namespace DrivingTest
                 {
                     var temsub = from c in jiakaoDataSet.chapter where c.chapter_id == mysub select c;
                     listBox.Items.Add(temsub.First().chapter);
-                    PublicClass.chapter_index.Add(temsub.First().chapter_id);
-                    PublicClass.class_index = new List<int>();
+                    chapter_index.Add(temsub.First().chapter_id);
+                    //PublicClass.class_index = new List<int>();
                 }
 
                 listBox.SelectedIndex = 0;
@@ -372,6 +372,13 @@ namespace DrivingTest
         //专项练习list绑定
         private bool list_zhuanxiang(string cartype, string subjection)
         {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter jiakaoDataSetsubjectTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.subjectTableAdapter();
+            jiakaoDataSetsubjectTableAdapter.Fill(jiakaoDataSet.subject);
+
+            var sub = from c in jiakaoDataSet.subject where c.subject.Contains(subjection) select c;
+            subject_id = sub.First().subject_id;
+
             try
             {
                 listBox.Items.Clear();
@@ -421,31 +428,31 @@ namespace DrivingTest
         }
 
         //新手速成
-        private void sucheng_Click(object sender, RoutedEventArgs e)
+        public void sucheng_Click(object sender, RoutedEventArgs e)
         {
             generation_classification();//生成分类UI
             PublicClass.classflag = "新手速成";//试题一级分类
         }
 
         //速成500
-        private void sucheng500_Click(object sender, RoutedEventArgs e)
+        public void sucheng500_Click(object sender, RoutedEventArgs e)
         {
             generation_classification();//生成分类UI
             PublicClass.classflag = "速成500";//试题一级分类
         }
 
         //速成600
-        private void sucheng600_Click(object sender, RoutedEventArgs e)
+        public void sucheng600_Click(object sender, RoutedEventArgs e)
         {
             generation_classification();//生成分类UI
             PublicClass.classflag = "速成600";//试题一级分类
         }
 
-
         //章节练习
         public void zhangjielianxi_Click(object sender, RoutedEventArgs e)
         {
             class_status = 3;//分类状态
+            PublicClass.classflag = "章节练习";//试题一级分类
 
             yuyin.Visibility = System.Windows.Visibility.Hidden;//语音课堂
             lianxi.Visibility = System.Windows.Visibility.Hidden;//基础练习
@@ -480,10 +487,11 @@ namespace DrivingTest
 
         }
 
-
         //我的错题
-        private void my_mistakes_Click(object sender, RoutedEventArgs e)
+        public void my_mistakes_Click(object sender, RoutedEventArgs e)
         {
+            PublicClass.classflag = "我的错题";//试题一级分类
+
             MyError my = new MyError();
             C1.WPF.C1Window cmy = new C1.WPF.C1Window();
             cmy.Name = "错题";
@@ -534,7 +542,7 @@ namespace DrivingTest
             }
         }
         //基础模拟
-        public void moni_Click(object sender, RoutedEventArgs e)
+        private void moni_Click(object sender, RoutedEventArgs e)
         {
             PublicClass.classtype = "基础练习";//试题二级分类
             class_status = 4;//分类状态
@@ -569,7 +577,7 @@ namespace DrivingTest
             }
         }
         //强化模拟
-        public void qianghuamoni_Click(object sender, RoutedEventArgs e)
+        private void qianghuamoni_Click(object sender, RoutedEventArgs e)
         {
             PublicClass.classtype = "强化练习";//试题二级分类
             class_status = 4;//分类状态
@@ -590,6 +598,7 @@ namespace DrivingTest
         public void zhuanxianglianxi_Click(object sender, RoutedEventArgs e)
         {
             class_status = 2;//分类状态
+            PublicClass.classtype = "专项练习";//试题二级分类
             shunxulianxi.Visibility = System.Windows.Visibility.Visible;
             suijilianxi.Content = "随机练习";
             if (list_zhuanxiang(PublicClass.cartype, PublicClass.subjection) == true)//有题解锁顺序随机按钮
@@ -632,9 +641,14 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter jiakaoDataSetclassdetailTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter();
             jiakaoDataSetclassdetailTableAdapter.Fill(jiakaoDataSet.classdetail);
 
+            if (PublicClass.listBox_index == -1)
+            {
+                PublicClass.listBox_index = listBox.SelectedIndex;
+            }
+
             if (class_status == 1)//常规
             {
-                var questions = from c in jiakaoDataSet.classdetail where c.class_id == PublicClass.class_index[listBox.SelectedIndex] select c;
+                var questions = from c in jiakaoDataSet.classdetail where c.class_id == class_index[PublicClass.listBox_index] select c;
                 questions_id.Clear();
                 if (questions.Count() != 0)
                 {
@@ -652,7 +666,7 @@ namespace DrivingTest
             }
             if (class_status == 2)//专项
             {
-                var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.question_type.Contains(zhuanxiang_index[listBox.SelectedIndex]) select c;
+                var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.question_type.Contains(zhuanxiang_index[PublicClass.listBox_index]) select c;
                 questions_id.Clear();
                 if (questions.Count() != 0)
                 {
@@ -671,7 +685,7 @@ namespace DrivingTest
             }
             if (class_status == 3)//章节
             {
-                var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.chapter_id == PublicClass.chapter_index[listBox.SelectedIndex] select c;
+                var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.chapter_id == chapter_index[PublicClass.listBox_index] select c;
                 questions_id.Clear();
                 foreach (var qu in questions)
                 {
@@ -707,9 +721,14 @@ namespace DrivingTest
             DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter jiakaoDataSetclassdetailTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter();
             jiakaoDataSetclassdetailTableAdapter.Fill(jiakaoDataSet.classdetail);
 
+            if (PublicClass.listBox_index == -1)
+            {
+                PublicClass.listBox_index = listBox.SelectedIndex;
+            }
+
             if (class_status == 1)//常规
             {
-                var questions = from c in jiakaoDataSet.classdetail where c.class_id == PublicClass.class_index[listBox.SelectedIndex] select c;
+                var questions = from c in jiakaoDataSet.classdetail where c.class_id == class_index[listBox.SelectedIndex] select c;
                 questions_id.Clear();
                 if (questions.Count() != 0)
                 {
@@ -726,7 +745,7 @@ namespace DrivingTest
             }
             if (class_status == 2)//专项
             {
-                var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.question_type.Contains(zhuanxiang_index[listBox.SelectedIndex]) select c;
+                var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.question_type.Contains(zhuanxiang_index[PublicClass.listBox_index]) select c;
                 questions_id.Clear();
                 if (questions.Count() != 0)
                 {
@@ -743,7 +762,7 @@ namespace DrivingTest
             }
             if (class_status == 3)//章节
             {
-                var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.chapter_id == PublicClass.chapter_index[listBox.SelectedIndex] select c;
+                var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.chapter_id == chapter_index[PublicClass.listBox_index] select c;
                 questions_id.Clear();
                 foreach (var qu in questions)
                 {
@@ -753,7 +772,7 @@ namespace DrivingTest
             }
             if (class_status == 4)//常规模拟
             {
-                var questions = from c in jiakaoDataSet.classdetail where c.class_id == PublicClass.class_index[listBox.SelectedIndex] select c;
+                var questions = from c in jiakaoDataSet.classdetail where c.class_id == class_index[PublicClass.listBox_index] select c;
                 questions_id.Clear();
                 if (questions.Count() != 0)
                 {
@@ -815,6 +834,8 @@ namespace DrivingTest
         //关闭时上传错题
         void cwin_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            PublicClass.listBox_index = -1;//初始化变量
+            PublicClass.question_index = -1;//初始化变量
 
             MessageBoxResult result = MessageBox.Show("确定退出练习吗？", "询问", MessageBoxButton.OKCancel);
 
@@ -836,7 +857,7 @@ namespace DrivingTest
 
                     string url = PublicClass.http + @"/returnjsons/t_errquests?" + "command=clear&user_id=" + PublicClass.user_id;
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//提交请求
-                    request.Method = "GET"; 
+                    request.Method = "GET";
 
                     request.Timeout = 20000;
                     response = (HttpWebResponse)request.GetResponse();
@@ -844,7 +865,7 @@ namespace DrivingTest
                 }
                 catch (Exception ex)
                 {
-    
+
                 }
 
                 try

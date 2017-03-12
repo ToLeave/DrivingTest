@@ -43,13 +43,14 @@ namespace DrivingTest
             cwin.Focus();
         
             cwin.Closing += new System.ComponentModel.CancelEventHandler(cwin_Closing);
-
             
         }
 
         //关闭时上传错题
         void cwin_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            PublicClass.listBox_index = -1;
+            PublicClass.question_index = -1;//初始化变量
             MessageBoxResult result = MessageBox.Show("确定退出考试吗？", "询问", MessageBoxButton.OKCancel);
 
             //关闭窗口

@@ -687,6 +687,14 @@ where T : DependencyObject
     //jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
 
     int question_index = 0;
+    if (PublicClass.question_index == -1)
+    {
+        question_index = 0;
+    }
+    else
+    {
+        question_index = PublicClass.question_index;
+    }
     var question = from c in PublicClass.question_data where c.question_id == PublicClass.question_list[question_index].question_id select c;
     foreach (var temqu in question)
     {
@@ -746,20 +754,22 @@ where T : DependencyObject
     //    }
     //}
 
-    QuestionNum temnum = dati_canvas.FindName("q0") as QuestionNum;
+    string q = "q" + question_index;
+
+    QuestionNum temnum = dati_canvas.FindName(q) as QuestionNum;
     if (temnum != null)
     {
         temnum.setbackcolor();
     }
 
 
-    if (PublicClass.question_list[0].question_type.Contains("PD"))
+    if (PublicClass.question_list[question_index].question_type.Contains("PD"))
     {
         current_question_type = "P";
     }
     else
     {
-        var answers = from c in PublicClass.question_list[0].answer select c;
+        var answers = from c in PublicClass.question_list[question_index].answer select c;
         int isright_count = 0;
         foreach (var answer in answers)
         {
@@ -1041,6 +1051,9 @@ where T : DependencyObject
                 {
                     shouzheng_cal(last_question_lab_index);
                 }
+
+                //continuetodo(last_question_lab_index);//贮存记录
+
                 errquestion(last_question_lab_index);
                 //play_voice(timu_textBlock.Text);
 
@@ -1104,6 +1117,8 @@ where T : DependencyObject
                     //errquestion(last_question_lab_index);
                     //play_voice(timu_textBlock.Text);
                     play_voice(doc_text());
+
+                    //continuetodo(last_question_lab_index);//贮存记录
 
                     showright_answer(cur_question_lab_index);//正确答案显示
                     error_messages(cur_question_lab_index);//错题提示,此处必须在正确答案显示后面
@@ -1200,6 +1215,9 @@ where T : DependencyObject
                     ThreadPool.QueueUserWorkItem(err_count, cur_question_lab_index + 1);
                     //play_voice(timu_textBlock.Text);
                     play_voice(doc_text());
+
+                    //continuetodo(cur_question_lab_index + 1);//贮存记录
+
                     error_messages(cur_question_lab_index + 1);//错题提示,必须在正确答案显示前面
                     if (cur_question_lab_index > -1)
                     {
@@ -1312,6 +1330,9 @@ where T : DependencyObject
                     //err_count(cur_question_lab_index - 1);
                     //play_voice(timu_textBlock.Text);
                     play_voice(doc_text());
+
+                    //continuetodo(cur_question_lab_index - 1);//贮存记录
+
                     error_messages(cur_question_lab_index - 1);//错题提示,必须在正确答案显示前面
                     if (cur_question_lab_index < question_c)
                     {
@@ -1326,18 +1347,22 @@ where T : DependencyObject
             //MessageBox.Show((t2 - t1).ToString());
             //xuanxiang_textBlock.Text = "";
 
-
         }
 
         //下次继续做题储存信息
         private void continuetodo(int index)
         {
-            if (PublicClass.create_method == 0 && PublicClass.question_mode != 1)
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 question 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.recordTableAdapter jiakaoDataSetrecordTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.recordTableAdapter();
+            jiakaoDataSetrecordTableAdapter.Fill(jiakaoDataSet.record);
+
+            if (PublicClass.create_method == 0 && PublicClass.question_mode != 1 && PublicClass.user_id != -2 && index != 0 && cur_question_lab_index != PublicClass.question_list.Count() - 1)
             {
-                DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-                // 将数据加载到表 question 中。可以根据需要修改此代码。
-                DrivingTest.jiakaoDataSetTableAdapters.recordTableAdapter jiakaoDataSetrecordTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.recordTableAdapter();
-                jiakaoDataSetrecordTableAdapter.Fill(jiakaoDataSet.record);
+                if (PublicClass.classflag == "章节练习")
+                {
+                    PublicClass.classtype = "";
+                }
 
                 var re = from c in jiakaoDataSet.record where c.user_id == PublicClass.user_id select c;
                 if (re.Count() != 0)//更新
@@ -1348,24 +1373,29 @@ where T : DependencyObject
                         r.driverlicense = PublicClass.cartype;
                         r._class = PublicClass.classflag;
                         r.class_flag = PublicClass.classtype;
+                        r.chapter = PublicClass.listBox_index;
+                        r.question_index = index;
                     }
                 }
                 else//创建
                 {
-                    if (PublicClass.class_index.Count() != 0)
-                    {
-                        jiakaoDataSet.record.AddrecordRow(PublicClass.user_id, PublicClass.subjection, PublicClass.cartype, PublicClass.classflag, PublicClass.classtype, PublicClass.class_index[0], index);
-                    }
-                    else
-                    {
-                        jiakaoDataSet.record.AddrecordRow(PublicClass.user_id, PublicClass.subjection, PublicClass.cartype, PublicClass.classflag, PublicClass.classtype, PublicClass.chapter_index[0], index);
-                    }
+                    jiakaoDataSet.record.AddrecordRow(PublicClass.user_id, PublicClass.subjection, PublicClass.cartype, PublicClass.classflag, PublicClass.classtype, PublicClass.listBox_index, index);
+
                 }
 
                 jiakaoDataSetrecordTableAdapter.Update(jiakaoDataSet.record);
                 jiakaoDataSet.record.AcceptChanges();
+            }
+            else
+            {
+                var re = from c in jiakaoDataSet.record where c.user_id == PublicClass.user_id select c;
+                foreach (var r in re)
+                {
+                    jiakaoDataSet.record.FindByID(r.ID).Delete();
+                }
 
-
+                jiakaoDataSetrecordTableAdapter.Update(jiakaoDataSet.record);
+                jiakaoDataSet.record.AcceptChanges();
             }
 
 
@@ -1847,6 +1877,7 @@ where T : DependencyObject
             QuestionNum selectquestionnum = dati_canvas.FindName("q" + cur_question_lab_index) as QuestionNum;
             //int question_id = 0;
 
+            continuetodo(question_index + 1);//贮存记录
 
             //process_question_type(question_index);
             //选择题选项
@@ -2172,6 +2203,20 @@ where T : DependencyObject
                 //确定
                 if (result == MessageBoxResult.OK)
                 {
+                    DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+                    // 将数据加载到表 question 中。可以根据需要修改此代码。
+                    DrivingTest.jiakaoDataSetTableAdapters.recordTableAdapter jiakaoDataSetrecordTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.recordTableAdapter();
+                    jiakaoDataSetrecordTableAdapter.Fill(jiakaoDataSet.record);
+
+                    var re = from c in jiakaoDataSet.record where c.user_id == PublicClass.user_id select c;
+                    foreach (var r in re)
+                    {
+                        jiakaoDataSet.record.FindByID(r.ID).Delete();
+                    }
+
+                    jiakaoDataSetrecordTableAdapter.Update(jiakaoDataSet.record);
+                    jiakaoDataSet.record.AcceptChanges();
+
                     string xueyuanName = name_textBlock.Text;
                     string xueyuanMark = chouti_precent.Text;
 

@@ -2678,16 +2678,22 @@ where T : DependencyObject
                 if (jiakaoDataSet.record.Count != 0)
                 {
                     var re = from c in jiakaoDataSet.record where c.user_id == PublicClass.user_id select c;
+                    bool jixu = false;
+                    int tishu = 0;
                     foreach (var r in re)
                     {
-                        int tishu = r.question_index;
-                        MessageBoxResult result = MessageBox.Show("上次练习到第{0}题,是否继续？", "提示", MessageBoxButton.YesNo);
+                        jixu = true;
+                        tishu = r.question_index + 1;
+                    }
+                    if (jixu)
+                    {
+                        
+                        MessageBoxResult result = MessageBox.Show("上次练习到第" + tishu + "题,是否继续？", "提示", MessageBoxButton.YesNo);
 
                         //确定
                         if (result == MessageBoxResult.Yes)
                         {
-                            //MainScreen ma = new MainScreen();
-                            //ma.shunxulianxi_Click(null, null);
+                            continuetodo();//继续做题
                         }
 
                         //取消
@@ -2733,79 +2739,97 @@ where T : DependencyObject
             //houlunqipao.Visibility = System.Windows.Visibility.Hidden;
         }
 
-
-        List<int> questions_id = new List<int>();//题号序列
         //继续做题
-        private void continuetodo(string cartype, int subject, int class_status)
+        private void continuetodo()
         {
-        //    DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-        //    // 将数据加载到表 class 中。可以根据需要修改此代码。
-        //    DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-        //    jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
-        //    // 将数据加载到表 classdetail 中。可以根据需要修改此代码。
-        //    DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter jiakaoDataSetclassdetailTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter();
-        //    jiakaoDataSetclassdetailTableAdapter.Fill(jiakaoDataSet.classdetail);
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 record 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.recordTableAdapter jiakaoDataSetrecordTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.recordTableAdapter();
+            jiakaoDataSetrecordTableAdapter.Fill(jiakaoDataSet.record);
 
-        //    if (class_status == 1)//常规
-        //    {
-        //        var questions = from c in jiakaoDataSet.classdetail where c.class_id == class_index[listBox.SelectedIndex] select c;
-        //        questions_id.Clear();
-        //        if (questions.Count() != 0)
-        //        {
-        //            foreach (var qu in questions)
-        //            {
-        //                questions_id.Add(qu.question_id);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("此类型题目数量为0!");
-        //            goto L1;
+            //int user_id = 0;
+            string subject = "";
+            string driverlicense = "";
+            string class_ = "";
+            string class_flag = "";
+            int chapter = 0;
+            int question_index = 0;
 
-        //        }
-        //    }
-        //    if (class_status == 2)//专项
-        //    {
-        //        var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject && c.question_type.Contains(zhuanxiang_index[listBox.SelectedIndex]) select c;
-        //        questions_id.Clear();
-        //        if (questions.Count() != 0)
-        //        {
-        //            foreach (var qu in questions)
-        //            {
-        //                questions_id.Add(qu.question_id);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("此类型题目数量为0!");
-        //            goto L1;
+            var re = from c in jiakaoDataSet.record where c.user_id == PublicClass.user_id select c;
+            foreach (var r in re)
+            {
+                subject = r.subject;
+                driverlicense = r.driverlicense;
+                class_ = r._class;
+                class_flag = r.class_flag;
+                chapter = r.chapter;
+                question_index = r.question_index;
+            }
 
-        //        }
+            MainScreen ma = new MainScreen();
+            C1.WPF.C1Window c1ma = new C1.WPF.C1Window();
+            PublicClass.cartype = driverlicense;
+            PublicClass.subjection = subject;
+            c1ma.Content = ma;
+            c1ma.Show();
+            c1ma.IsResizable = false;
+            c1ma.Visibility = System.Windows.Visibility.Visible;
+            c1ma.Margin = PublicClass.window_thickness(ma);
+            c1ma.Closed += new EventHandler(c1ma_Closed);
 
-        //    }
-        //    if (class_status == 3)//章节
-        //    {
-        //        var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject && c.chapter_id == chapter_index[listBox.SelectedIndex] select c;
-        //        questions_id.Clear();
-        //        foreach (var qu in questions)
-        //        {
-        //            questions_id.Add(qu.question_id);
-        //        }
-        //    }
+            maincanvas.Visibility = Visibility.Hidden;
+            System.Windows.Forms.Application.DoEvents();
+            this.WindowState = System.Windows.WindowState.Maximized;
 
+            if (class_ == "新手速成")
+            {
+                ma.sucheng_Click(null, null);
+            }
+            else if (class_ == "速成500")
+            {
+                ma.sucheng500_Click(null, null);
+            }
+            else if (class_ == "速成600")
+            {
+                ma.sucheng600_Click(null, null);
+            }
+            else if (class_ == "章节练习" && class_flag == "")
+            {
+                ma.zhangjielianxi_Click(null, null);
+                PublicClass.listBox_index = chapter;
+                ma.shunxulianxi_Click(null, null);
+            }
+            else if (class_ == "我的错题")
+            {
+                ma.my_mistakes_Click(null, null);
+            }
 
-        //    MainExam ma = new MainExam();
-        //    C1.WPF.C1Window cwin = new C1.WPF.C1Window();
-        //    ma.create_question(0, 0, PublicClass.cartype, subject_name, questions_id);
-        //    cwin.Content = ma;
-        //    cwin.Name = "驾考";
-        //    cwin.Header = "驾驶理论考试系统";
-        //    cwin.Show();
-        //    cwin.WindowState = C1.WPF.C1WindowState.Maximized;
-        //    cwin.Closing += new System.ComponentModel.CancelEventHandler(cwin_Closing);
+            if (class_flag == "语音课堂")
+            {
+                ma.yuyin_Click(null, null);
+                PublicClass.listBox_index = chapter;
+                ma.shunxulianxi_Click(null, null);
+            }
+            else if (class_flag == "基础练习")
+            {
+                ma.lianxi_Click(null, null);
+                PublicClass.listBox_index = chapter;
+                ma.shunxulianxi_Click(null, null);
+            }
+            else if (class_flag == "强化练习")
+            {
+                ma.qianghualianxi_Click(null, null);
+                PublicClass.listBox_index = chapter;
+                ma.shunxulianxi_Click(null, null);
+            }
+            else if (class_flag == "专项练习")
+            {
+                ma.zhuanxianglianxi_Click(null, null);
+                PublicClass.listBox_index = chapter;
+                ma.shunxulianxi_Click(null, null);
+            }
 
-        //L1://goto跳转至这里
-        //    int l = 0;//占位无用变量,不可注释
+            PublicClass.question_index = question_index;
         }
 
         public string subjectname;
@@ -2896,7 +2920,6 @@ where T : DependencyObject
 
 
         }
-
         //c1c2c3c4
         private void car_button_Click(object sender, RoutedEventArgs e)
         {

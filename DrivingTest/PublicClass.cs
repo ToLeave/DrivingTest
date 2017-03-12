@@ -36,19 +36,21 @@ namespace DrivingTest
         public static string http { get; set; }
 
         public static string login = "";//登录用户名
-        public static int user_id = -1;//登录用户ID
-        public static int fenshu = 0;//考试总分数
 
         /// <summary>
-        /// 查找章节,提取题目,重新联系,继续联系使用参数
+        /// 登录用户ID,-1为脱机账户,-2为空账户
         /// </summary>
+        public static int user_id = -2;
+        public static int fenshu = 0;//考试总分数
+
         public static string cartype = "";//车型
         public static string subjection = "";//科目
         public static string classflag = "";//试题一级分类
         public static string classtype = "";//试题二级分类
-        public static List<int> chapter_index = new List<int>();//章节index
-        public static List<int> class_index = new List<int>();//分类index
-        //public static int question_index = 0;//题目下标
+        public static int listBox_index = -1;//章节下标
+        //public static List<int> chapter_index = new List<int>();//章节index
+        //public static List<int> class_index = new List<int>();//分类index
+        public static int question_index = 0;//题目下标
 
         public static bool delerr = false;//是否删除错题
         public static string shezhi = "";//设置或退出
