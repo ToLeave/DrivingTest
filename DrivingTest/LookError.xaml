@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="DrivingTest.LookError"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" xmlns:my="clr-namespace:DrivingTest"
+             d:DesignHeight="300" d:DesignWidth="500" Loaded="UserControl_Loaded">
+
+    <UserControl.Resources>
+        <my:jiakaoDataSet x:Key="jiakaoDataSet" />
+        <CollectionViewSource x:Key="updatecheckViewSource" Source="{Binding Path=updatecheck, Source={StaticResource jiakaoDataSet}}" />
+        <CollectionViewSource x:Key="questionViewSource" Source="{Binding Path=question, Source={StaticResource jiakaoDataSet}}" />
+        <CollectionViewSource x:Key="answerViewSource" Source="{Binding Path=answer, Source={StaticResource jiakaoDataSet}}" />
+    </UserControl.Resources>
+
+
+    <Grid>
+        <DataGrid Name="dataGrid1"  AutoGenerateColumns="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="编号" Width="80" Binding="{Binding 公司名称, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="题目" Width="80" Binding="{Binding 职员姓名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="正确答案" Width="80" Binding="{Binding 职员姓名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="做错次数" Width="80" Binding="{Binding 职员姓名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="所属章节" Width="80" Binding="{Binding 职员姓名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

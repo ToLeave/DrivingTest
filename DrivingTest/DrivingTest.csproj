@@ -121,6 +121,9 @@
     <Compile Include="Lateral.xaml.cs">
       <DependentUpon>Lateral.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LookError.xaml.cs">
+      <DependentUpon>LookError.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainExam.xaml.cs">
       <DependentUpon>MainExam.xaml</DependentUpon>
     </Compile>
@@ -180,9 +183,6 @@
     <Compile Include="SubjectTwo.xaml.cs">
       <DependentUpon>SubjectTwo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="test.xaml.cs">
-      <DependentUpon>test.xaml</DependentUpon>
-    </Compile>
     <Page Include="Assignment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -208,6 +208,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Lateral.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LookError.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -311,10 +315,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="test.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -335,7 +335,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="jiakaoDataSet1.xsc">
       <DependentUpon>jiakaoDataSet1.xsd</DependentUpon>
     </None>

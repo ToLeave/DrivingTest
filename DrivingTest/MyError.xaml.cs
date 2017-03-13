@@ -68,7 +68,7 @@ namespace DrivingTest
 
 
 
-            var subject = from c in jiakaoDataSet.subject where c.subject.Contains("一") select c;
+            var subject = from c in jiakaoDataSet.subject where c.subject.Contains(PublicClass.subjection) select c;
 
             var user = from c in jiakaoDataSet.errquest where c.user_id == PublicClass.user_id select c;
 
@@ -371,6 +371,28 @@ namespace DrivingTest
             b.ImageSource = new BitmapImage(new Uri("pack://application:,,,/DrivingTest;component/Images/窗体背景.png"));
             b.Stretch = Stretch.Fill;
             this.Background = b;
+        }
+
+
+        private void chakan_button_Click(object sender, RoutedEventArgs e)
+        {
+            LookError lo = new LookError();
+            C1.WPF.C1Window clo = new C1.WPF.C1Window();
+            clo.Content = lo;
+            clo.Name = "查看错题";
+            clo.Header = "我的错题";
+            clo.ShowModal();
+            clo.IsActive = true;
+            clo.WindowState = C1.WPF.C1WindowState.Maximized;
+            clo.Closing += new System.ComponentModel.CancelEventHandler(cwin_Closing);
+
+            //ma.create_question(1, 0, PublicClass.cartype, PublicClass.subjection, question_list);
+
+            //C1.WPF.C1Window cp = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "错题");
+            //if (cp != null)
+            //{
+            //    cp.Close();
+            //}
         }
     }
 }
