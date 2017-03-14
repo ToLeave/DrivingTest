@@ -15,13 +15,13 @@
 
 
     <Grid>
-        <DataGrid Name="dataGrid1"  AutoGenerateColumns="True">
+        <DataGrid Name="dataGrid1"  AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="编号" Width="80" Binding="{Binding 公司名称, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="题目" Width="80" Binding="{Binding 职员姓名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="正确答案" Width="80" Binding="{Binding 职员姓名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="做错次数" Width="80" Binding="{Binding 职员姓名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="所属章节" Width="80" Binding="{Binding 职员姓名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="编号" Width="80" Binding="{Binding id}"/>
+                <DataGridTextColumn Header="题目" Width="80" Binding="{Binding question}"/>
+                <DataGridTextColumn Header="正确答案" Width="80" Binding="{Binding answer}"/>
+                <DataGridTextColumn Header="做错次数" Width="80" Binding="{Binding frequency}"/>
+                <DataGridTextColumn Header="所属章节" Width="80" Binding="{Binding chapter}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

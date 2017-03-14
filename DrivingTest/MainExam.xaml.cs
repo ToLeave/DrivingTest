@@ -289,8 +289,15 @@ where T : DependencyObject
         }
 
 
-        //生成题库
-        public void create_question(int create_method, int question_mode, string cartype, string subject, List<int> questions_id)// create_method 0 顺序,1随机; question_mode 0 练习,1考试,2错题; cartype 车型;subject 科目; questions_id 题库ID
+        /// <summary>
+        /// 生成题库
+        /// </summary>
+        /// <param name="create_method">0顺序,1随机</param>
+        /// <param name="question_mode">0练习,1考试,2错题</param>
+        /// <param name="cartype">车型</param>
+        /// <param name="subject">科目</param>
+        /// <param name="questions_id">需生成题库题目ID</param>
+        public void create_question(int create_method, int question_mode, string cartype, string subject, List<int> questions_id)
         {
             //存参以留重新考试
             PublicClass.create_method = create_method;

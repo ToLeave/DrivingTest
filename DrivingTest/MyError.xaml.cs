@@ -101,7 +101,6 @@ namespace DrivingTest
                 MainExam ma = new MainExam();
                 ma.create_question(0, 0, PublicClass.cartype, PublicClass.subjection, question_list);
 
-
                 C1.WPF.C1Window cp = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "错题");
                 if (cp != null)
                 {
