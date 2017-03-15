@@ -948,7 +948,7 @@ where T : DependencyObject
             var question = from c in PublicClass.question_data where c.question_id == PublicClass.question_list[question_index].question_id select c;
             foreach (var temqu in question)
             {
-                if (PublicClass.user_id != -1)//用户已登录
+                if (PublicClass.user_id != -2)//用户已登录
                 {
                     //timu_textBlock.Text = question_index + 1 + "." + temqu.question_name;//显示题目
                     timu_xaml(question_index + 1 + "." + temqu.question_name);
@@ -1008,7 +1008,7 @@ where T : DependencyObject
 
 
             int step = 0;
-            if (PublicClass.user_id != -1)//用户已登录
+            if (PublicClass.user_id != -2)//用户已登录
             {
                 if (!PublicClass.question_list[question_index].question_type.Contains("PD"))
                 {
@@ -1204,7 +1204,7 @@ where T : DependencyObject
                 tishi_label.Content = "判断题,请在备选答案中选择您认为正确的答案!";
             }
 
-            if (PublicClass.user_id != -1 || cur_question_lab_index < 10)
+            if (PublicClass.user_id != -2 || cur_question_lab_index < 10)
             {
                 if (cur_question_lab_index != 0)
                 {
@@ -1318,7 +1318,7 @@ where T : DependencyObject
             }
 
 
-            if (PublicClass.user_id != -1 || cur_question_lab_index < 10)
+            if (PublicClass.user_id != -2 || cur_question_lab_index < 10)
             {
                 if (cur_question_lab_index != PublicClass.question_list.Count() - 1)
                 {

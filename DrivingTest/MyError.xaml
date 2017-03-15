@@ -23,6 +23,6 @@
         <CheckBox Height="16" HorizontalAlignment="Left" Margin="196,145,0,0" Name="checkBox3" VerticalAlignment="Top" Visibility="Hidden" />
         <Button Content="删除错题" Height="23" HorizontalAlignment="Left" Margin="44,206,0,0" Name="shanchu_button" VerticalAlignment="Top" Width="75" Click="shanchu_button_Click" />
         <Rectangle Height="123" HorizontalAlignment="Left" Margin="74,46,0,0" Name="rectangle1" Stroke="White" VerticalAlignment="Top" Width="19" Fill="White" Visibility="Hidden" />
-        <Button Content="查看错题" Height="23" HorizontalAlignment="Left" Margin="179,206,0,0" Name="chakan_button" VerticalAlignment="Top" Width="75" Click="chakan_button_Click" />
+        <Button Content="查看错题" Height="23" HorizontalAlignment="Left" Margin="179,206,0,0" Name="chakan_button" VerticalAlignment="Top" Width="75" Click="chakan_button_Click" Visibility="Hidden" />
     </Grid>
 </UserControl>
