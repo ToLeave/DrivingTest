@@ -52,7 +52,7 @@
       <HintPath>C:\Users\CloudTime\Desktop\房产地产管理软件(2016-7-14-am)\房产地产管理软件\fcz\PocclientApplication\PocclientApplication\bin\Debug\C1.WPF.4.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\realticket\shishicai\bin\Debug\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\dll\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Luna" />
     <Reference Include="SautinSoft.HtmlToRtf">
@@ -65,7 +65,7 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Speech" />
     <Reference Include="System.Utility">
-      <HintPath>bin\Debug\System.Utility.dll</HintPath>
+      <HintPath>..\dll\System.Utility.dll</HintPath>
     </Reference>
     <Reference Include="System.Web">
       <HintPath>bin\Debug\System.Web.dll</HintPath>
@@ -80,14 +80,14 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="Util.Controls">
-      <HintPath>bin\Debug\Util.Controls.dll</HintPath>
+      <HintPath>..\dll\Util.Controls.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
     <Reference Include="Xceed.Wpf.AvalonDock">
-      <HintPath>..\..\realticket\shishicai\bin\Debug\Xceed.Wpf.AvalonDock.dll</HintPath>
+      <HintPath>..\dll\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
