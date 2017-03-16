@@ -104,10 +104,10 @@
         <TextBlock Height="23" HorizontalAlignment="Center" Margin="207,290,748,461" Name="xuanxiang_textBlock"  VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Width="69" TextAlignment="Center" />
         <Label Content="选择:" Height="28" HorizontalAlignment="Center" Margin="281,282,700,440" Name="label9" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" />
 
-        <ToggleButton Content="A" Height="42" HorizontalAlignment="Center" Margin="346,282,632,444" Name="a_button" VerticalAlignment="Center"  Width="46" FontSize="14" FontWeight="Bold" Click="xuanxiang_button_Click" />
-        <ToggleButton Content="B" Height="42" HorizontalAlignment="Center" Margin="414,282,564,444" Name="b_button" VerticalAlignment="Center" Width="46" FontSize="14" FontWeight="Bold" Click="xuanxiang_button_Click" />
-        <ToggleButton Content="C" Height="42" HorizontalAlignment="Center" Margin="483,282,495,444" Name="c_button" VerticalAlignment="Center" Width="46" FontSize="14" FontWeight="Bold" Click="xuanxiang_button_Click" />
-        <ToggleButton Content="D" Height="42" HorizontalAlignment="Center" Margin="551,282,427,444" Name="d_button" VerticalAlignment="Center" Width="46" FontSize="14" FontWeight="Bold" Click="xuanxiang_button_Click" />
+        <ToggleButton Content="A" Height="46" HorizontalAlignment="Center" Margin="346,280,632,442" Name="a_button" VerticalAlignment="Center"  Width="46" FontSize="30" FontWeight="Bold" Click="xuanxiang_button_Click" />
+        <ToggleButton Content="B" Height="46" HorizontalAlignment="Center" Margin="414,280,564,442" Name="b_button" VerticalAlignment="Center" Width="46" FontSize="30" FontWeight="Bold" Click="xuanxiang_button_Click" />
+        <ToggleButton Content="C" Height="46" HorizontalAlignment="Center" Margin="483,280,495,442" Name="c_button" VerticalAlignment="Center" Width="46" FontSize="30" FontWeight="Bold" Click="xuanxiang_button_Click" />
+        <ToggleButton Content="D" Height="46" HorizontalAlignment="Center" Margin="551,280,427,442" Name="d_button" VerticalAlignment="Center" Width="46" FontSize="30" FontWeight="Bold" Click="xuanxiang_button_Click" />
         <!--<Label Content="字号设置" Height="23" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="750,260,400,420" Name="Label20"/>-->
         <Button Content="小" Height="22" HorizontalAlignment="Center" Margin="634,302,368,444" Name="xiao_button" VerticalAlignment="Center" Width="22" Click="xiao_button_Click" />
         <Button Content="大" Height="22" HorizontalAlignment="Center" Margin="667,302,335,444" Name="da_button" VerticalAlignment="Center" Width="22" Click="da_button_Click" />

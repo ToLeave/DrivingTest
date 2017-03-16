@@ -633,79 +633,86 @@ namespace DrivingTest
         //顺序练习
         public void shunxulianxi_Click(object sender, RoutedEventArgs e)
         {
-            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-            // 将数据加载到表 class 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-            jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
-            // 将数据加载到表 classdetail 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter jiakaoDataSetclassdetailTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter();
-            jiakaoDataSetclassdetailTableAdapter.Fill(jiakaoDataSet.classdetail);
-
-            if (PublicClass.listBox_index == -1)
+            try
             {
-                PublicClass.listBox_index = listBox.SelectedIndex;
-            }
+                DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+                // 将数据加载到表 class 中。可以根据需要修改此代码。
+                DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+                jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+                // 将数据加载到表 classdetail 中。可以根据需要修改此代码。
+                DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter jiakaoDataSetclassdetailTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.classdetailTableAdapter();
+                jiakaoDataSetclassdetailTableAdapter.Fill(jiakaoDataSet.classdetail);
 
-            if (class_status == 1)//常规
-            {
-                var questions = from c in jiakaoDataSet.classdetail where c.class_id == class_index[PublicClass.listBox_index] select c;
-                questions_id.Clear();
-                if (questions.Count() != 0)
+                if (PublicClass.listBox_index == -1)
                 {
+                    PublicClass.listBox_index = listBox.SelectedIndex;
+                }
+
+                if (class_status == 1)//常规
+                {
+                    var questions = from c in jiakaoDataSet.classdetail where c.class_id == class_index[PublicClass.listBox_index] select c;
+                    questions_id.Clear();
+                    if (questions.Count() != 0)
+                    {
+                        foreach (var qu in questions)
+                        {
+                            questions_id.Add(qu.question_id);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("此类型题目数量为0!");
+                        goto L1;
+
+                    }
+                }
+                if (class_status == 2)//专项
+                {
+                    var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.question_type.Contains(zhuanxiang_index[PublicClass.listBox_index]) select c;
+                    questions_id.Clear();
+                    if (questions.Count() != 0)
+                    {
+                        foreach (var qu in questions)
+                        {
+                            questions_id.Add(qu.question_id);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("此类型题目数量为0!");
+                        goto L1;
+
+                    }
+
+                }
+                if (class_status == 3)//章节
+                {
+                    var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.chapter_id == chapter_index[PublicClass.listBox_index] select c;
+                    questions_id.Clear();
                     foreach (var qu in questions)
                     {
                         questions_id.Add(qu.question_id);
                     }
                 }
-                else
-                {
-                    MessageBox.Show("此类型题目数量为0!");
-                    goto L1;
 
-                }
+
+                MainExam ma = new MainExam();
+                C1.WPF.C1Window cwin = new C1.WPF.C1Window();
+                ma.create_question(0, 0, PublicClass.cartype, subject_name, questions_id);
+                cwin.Content = ma;
+                cwin.Name = "驾考";
+                cwin.Header = "驾驶理论考试系统";
+                cwin.Show();
+                cwin.WindowState = C1.WPF.C1WindowState.Maximized;
+                cwin.Closing += new System.ComponentModel.CancelEventHandler(cwin_Closing);
+
+            L1://goto跳转至这里
+                int l = 0;//占位无用变量,不可注释
             }
-            if (class_status == 2)//专项
+            catch (Exception ex)
             {
-                var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.question_type.Contains(zhuanxiang_index[PublicClass.listBox_index]) select c;
-                questions_id.Clear();
-                if (questions.Count() != 0)
-                {
-                    foreach (var qu in questions)
-                    {
-                        questions_id.Add(qu.question_id);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("此类型题目数量为0!");
-                    goto L1;
-
-                }
-
+                MessageBox.Show(ex.Message);
             }
-            if (class_status == 3)//章节
-            {
-                var questions = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(PublicClass.cartype) && c.subject_id == subject_id && c.chapter_id == chapter_index[PublicClass.listBox_index] select c;
-                questions_id.Clear();
-                foreach (var qu in questions)
-                {
-                    questions_id.Add(qu.question_id);
-                }
-            }
-
-
-            MainExam ma = new MainExam();
-            C1.WPF.C1Window cwin = new C1.WPF.C1Window();
-            ma.create_question(0, 0, PublicClass.cartype, subject_name, questions_id);
-            cwin.Content = ma;
-            cwin.Name = "驾考";
-            cwin.Header = "驾驶理论考试系统";
-            cwin.Show();
-            cwin.WindowState = C1.WPF.C1WindowState.Maximized;
-            cwin.Closing += new System.ComponentModel.CancelEventHandler(cwin_Closing);
-
-        L1://goto跳转至这里
-            int l = 0;//占位无用变量,不可注释
 
         }
 

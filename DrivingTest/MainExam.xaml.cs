@@ -796,7 +796,9 @@ where T : DependencyObject
     }
 
     showright_answer(question_index);
+    play_voice(doc_text());
 }));
+
         }
 
 
@@ -853,10 +855,16 @@ where T : DependencyObject
         {
             if (!check_error)
             {
-                a_button.Content = "√";
-                b_button.Content = "×";
-                c_button.Visibility = System.Windows.Visibility.Hidden;
-                d_button.Visibility = System.Windows.Visibility.Hidden;
+                //a_button.Content = "√";
+                //b_button.Content = "×";
+                //c_button.Visibility = System.Windows.Visibility.Hidden;
+                //d_button.Visibility = System.Windows.Visibility.Hidden;
+
+                a_button.Visibility = System.Windows.Visibility.Hidden;
+                b_button.Visibility = System.Windows.Visibility.Hidden;
+                c_button.Content = "√";
+                d_button.Content = "×";
+
             }
         }
         //选择题选项
@@ -864,10 +872,16 @@ where T : DependencyObject
         {
             if (!check_error)
             {
-                a_button.Content = "A";
-                b_button.Content = "B";
-                c_button.Visibility = System.Windows.Visibility.Visible;
-                d_button.Visibility = System.Windows.Visibility.Visible;
+                //a_button.Content = "A";
+                //b_button.Content = "B";
+                //c_button.Visibility = System.Windows.Visibility.Visible;
+                //d_button.Visibility = System.Windows.Visibility.Visible;
+
+                a_button.Visibility = System.Windows.Visibility.Visible;
+                b_button.Visibility = System.Windows.Visibility.Visible;
+                c_button.Content = "C";
+                d_button.Content = "D";
+
             }
 
         }
@@ -1066,6 +1080,7 @@ where T : DependencyObject
 
                 showright_answer(cur_question_lab_index);//正确答案显示
                 error_messages(cur_question_lab_index);//错题提示,此处必须在正确答案显示后面
+                play_voice(doc_text());
             }
             else //没有用户登录为试用10题
             {
@@ -1123,7 +1138,7 @@ where T : DependencyObject
                     ThreadPool.QueueUserWorkItem(errquestion, last_question_lab_index);
                     //errquestion(last_question_lab_index);
                     //play_voice(timu_textBlock.Text);
-                    play_voice(doc_text());
+
 
                     //continuetodo(last_question_lab_index);//贮存记录
 
@@ -1221,7 +1236,7 @@ where T : DependencyObject
                     //errquestion(cur_question_lab_index - 1);
                     ThreadPool.QueueUserWorkItem(err_count, cur_question_lab_index + 1);
                     //play_voice(timu_textBlock.Text);
-                    play_voice(doc_text());
+
 
                     //continuetodo(cur_question_lab_index + 1);//贮存记录
 
@@ -1230,13 +1245,13 @@ where T : DependencyObject
                     {
                         showright_answer(cur_question_lab_index);//正确答案显示
                     }
+                    play_voice(doc_text());
                 }
             }
             if (PublicClass.question_mode == 1)
             {
 
             }
-
             //xuanxiang_textBlock.Text = "";    
         }
 
@@ -1269,6 +1284,7 @@ where T : DependencyObject
             //        break;
             //    }
             //}
+ 
             last_question_lab_index = cur_question_lab_index;
             if (cur_question_lab_index < PublicClass.question_list.Count() - 1)
             {
@@ -1336,7 +1352,7 @@ where T : DependencyObject
                     ThreadPool.QueueUserWorkItem(err_count, cur_question_lab_index - 1);
                     //err_count(cur_question_lab_index - 1);
                     //play_voice(timu_textBlock.Text);
-                    play_voice(doc_text());
+
 
                     //continuetodo(cur_question_lab_index - 1);//贮存记录
 
@@ -1345,6 +1361,7 @@ where T : DependencyObject
                     {
                         showright_answer(cur_question_lab_index);//正确答案显示
                     }
+   
                 }
             }
 
@@ -1633,7 +1650,7 @@ where T : DependencyObject
                        var question = from c in PublicClass.question_data where c.question_id == PublicClass.question_list[question_id].question_id select c;
                        foreach (var temqu in question)
                        {
-                           if (PublicClass.user_id != -1)//用户已登录
+                           if (PublicClass.user_id != -2)//用户已登录
                            {
                                //timu_textBlock.Text = question_id + 1 + "." + temqu.question_name;//显示题目
                                timu_xaml(question_id + 1 + "." + temqu.question_name);
@@ -1663,7 +1680,7 @@ where T : DependencyObject
 
                        int step = 0;
 
-                       if (PublicClass.user_id != -1)//用户已登录
+                       if (PublicClass.user_id != -2)//用户已登录
                        {
                            if (!PublicClass.question_list[question_id].question_type.Contains("PD"))
                            {
@@ -1703,6 +1720,7 @@ where T : DependencyObject
                                xuanxiang_textBlock4.Text = "";
                                duicuo();
                            }
+                           play_voice(doc_text());
                        }
                        else //没有用户登录为试用10题
                        {
@@ -1797,12 +1815,12 @@ where T : DependencyObject
                             }
                             if (mylab.label2.Content.ToString().Contains("√"))
                             {
-                                a_button.IsChecked = true;
+                                c_button.IsChecked = true;
                                 xuanxiang_textBlock.Text += "√";
                             }
                             if (mylab.label2.Content.ToString().Contains("×"))
                             {
-                                b_button.IsChecked = true;
+                                d_button.IsChecked = true;
                                 xuanxiang_textBlock.Text += "×";
                             }
                         }
@@ -1884,7 +1902,7 @@ where T : DependencyObject
             QuestionNum selectquestionnum = dati_canvas.FindName("q" + cur_question_lab_index) as QuestionNum;
             //int question_id = 0;
 
-            continuetodo(question_index + 1);//贮存记录
+            //continuetodo(question_index + 1);//贮存记录
 
             //process_question_type(question_index);
             //选择题选项
@@ -2767,6 +2785,9 @@ where T : DependencyObject
 
             return false;
         }
+
+
+
 
 
     }
