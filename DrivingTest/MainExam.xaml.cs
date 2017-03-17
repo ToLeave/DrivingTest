@@ -317,6 +317,9 @@ where T : DependencyObject
 
             List<PublicClass.Question> question_pd_list = new List<PublicClass.Question>();
             List<PublicClass.Question> question_xz_list = new List<PublicClass.Question>();
+            List<PublicClass.Question> question_hh_list = new List<PublicClass.Question>();
+            List<PublicClass.Question> question_dx_list = new List<PublicClass.Question>();
+            List<PublicClass.Question> question_zhongzhuan_list = new List<PublicClass.Question>();
             var local_subject = from c in jiakaoDataSet.subject where c.subject.Contains(subject) select c;
 
 
@@ -348,9 +351,16 @@ where T : DependencyObject
                     //question.answer = random_answer(qu.question_id);
                     question_pd_list.Add(question);
                 }
-                question_pd_list = random_question(question_pd_list, 40);
+                if (subject == "科目四")
+                {
+                    question_pd_list = random_question(question_pd_list, 20);
+                }
+                else 
+                {
+                    question_pd_list = random_question(question_pd_list, 40);
+                }
 
-                var question_xz = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.question_type.Contains("XZ") && c.subject_id == local_subject.First().subject_id select c;
+                var question_xz = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.question_type.Contains("XZ") && !c.question_type.Contains("DX") && c.subject_id == local_subject.First().subject_id select c;
 
                 foreach (var qu in question_xz)
                 {
@@ -364,7 +374,66 @@ where T : DependencyObject
                     //question.answer = random_answer(qu.question_id);
                     question_xz_list.Add(question);
                 }
-                question_xz_list = random_question(question_xz_list, 60);
+                if (subject == "科目四")
+                {
+                    question_xz_list = random_question(question_xz_list, 23);
+                    //question_zhongzhuan_list = question_xz_list;
+                }
+                else 
+                {
+                    question_xz_list = random_question(question_xz_list, 60);
+                }
+
+                if (subject == "科目四")
+                {
+                //抽5题多选
+
+
+                var question_dx = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.question_type.Contains("DX") && c.subject_id == local_subject.First().subject_id select c;
+                foreach (var dx in question_dx)
+                {
+                    PublicClass.Question question = new PublicClass.Question();
+                    question.question_id = dx.question_id;
+                    question.check_answer = true;
+                    question.select_answer = "";
+                    question.question_type = dx.question_type;
+                    question.sz = true;
+                    question.rept_do = 0;
+                    //question.answer = random_answer(qu.question_id);
+                    question_dx_list.Add(question);
+                }
+                question_dx_list = random_question(question_dx_list, 5);
+                question_xz_list.AddRange(question_dx_list);
+                 List<int> questionid=new List<int>();
+                 foreach (var id in question_xz_list)
+                {
+                    questionid.Add(id.question_id);
+                }
+
+                
+
+                //抽2题随机
+                var question_hh = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.question_type.Contains("XZ") && !questionid.Contains(c.question_id) && c.subject_id == local_subject.First().subject_id select c;
+                foreach (var qu in question_hh)
+                {
+                    PublicClass.Question question = new PublicClass.Question();
+                    question.question_id = qu.question_id;
+                    question.check_answer = true;
+                    question.select_answer = "";
+                    question.question_type = qu.question_type;
+                    question.sz = true;
+                    question.rept_do = 0;
+                    //question.answer = random_answer(qu.question_id);
+                    question_hh_list.Add(question);
+                }
+              
+                    question_hh_list = random_question(question_hh_list, 2);
+
+                    question_xz_list.InsertRange(23, question_hh_list);
+
+                }
+             
+
 
                 for (int i = 0; i < question_pd_list.Count(); i++)
                 {
