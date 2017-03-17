@@ -30,6 +30,7 @@ using Util.Controls;
 using System.Management;
 using System.Diagnostics;
 using System.Windows.Interop;
+using SpeechLib;
 
 namespace DrivingTest
 {
@@ -2526,6 +2527,10 @@ where T : DependencyObject
         //注册
         private void zhuce_Click(object sender, RoutedEventArgs e)
         {
+            //SpVoice voice = new SpVoice();
+            //voice.Voice = voice.GetVoices(string.Empty, string.Empty).Item(0);
+            //voice.Speak("测试ABCD,对错,1 2 3 4 5 6 7 8 9 0", SpeechVoiceSpeakFlags.SVSFDefault);
+
             register re = new register();
             re.ChangeTextEvent += new DrivingTest.register.ChangeTextHandler(updateUI);
             re.Show();

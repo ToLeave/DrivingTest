@@ -797,6 +797,7 @@ where T : DependencyObject
 
     showright_answer(question_index);
     play_voice(doc_text());
+    cur_question_lab_index = 0;
 }));
 
         }
@@ -1245,7 +1246,7 @@ where T : DependencyObject
                     {
                         showright_answer(cur_question_lab_index);//正确答案显示
                     }
-                    play_voice(doc_text());
+                    //play_voice(doc_text());
                 }
             }
             if (PublicClass.question_mode == 1)
@@ -1876,9 +1877,9 @@ where T : DependencyObject
             //DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
             //jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
 
-            // 将数据加载到表 setting 中。可以根据需要修改此代码。
-            DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
-            jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
+            //// 将数据加载到表 setting 中。可以根据需要修改此代码。
+            //DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter jiakaoDataSetsettingTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.settingTableAdapter();
+            //jiakaoDataSetsettingTableAdapter.Fill(jiakaoDataSet.setting);
 
 
             var question_index = 0;
