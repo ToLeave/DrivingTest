@@ -319,7 +319,6 @@ where T : DependencyObject
             List<PublicClass.Question> question_xz_list = new List<PublicClass.Question>();
             List<PublicClass.Question> question_hh_list = new List<PublicClass.Question>();
             List<PublicClass.Question> question_dx_list = new List<PublicClass.Question>();
-            List<PublicClass.Question> question_zhongzhuan_list = new List<PublicClass.Question>();
             var local_subject = from c in jiakaoDataSet.subject where c.subject.Contains(subject) select c;
 
 
@@ -359,6 +358,7 @@ where T : DependencyObject
                 {
                     question_pd_list = random_question(question_pd_list, 40);
                 }
+
 
                 var question_xz = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.question_type.Contains("XZ") && !c.question_type.Contains("DX") && c.subject_id == local_subject.First().subject_id select c;
 
