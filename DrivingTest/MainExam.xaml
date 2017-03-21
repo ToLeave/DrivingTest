@@ -93,7 +93,7 @@
 
         <!--<TextBox Height="100" BorderThickness="0" Background="{x:Null}" HorizontalAlignment="Center" Margin="140,28,295,640" Name="timu_textBlock" Text="" VerticalAlignment="Center" Width="589" TextWrapping="Wrap" FontWeight="Bold" FontSize="16" Visibility="Visible" IsReadOnly="True" />-->
         <StackPanel Margin="140,28,295,640" ClipToBounds="True">
-            <FlowDocumentReader Height="150" HorizontalAlignment="Center"  Width="589" VerticalAlignment="Center" x:Name="doc_reader" IsPrintEnabled="False" IsTabStop="False" IsFindEnabled="False" ViewingMode="Page" MinZoom="90"></FlowDocumentReader>
+            <FlowDocumentReader Height="150" HorizontalAlignment="Center"  Width="589" VerticalAlignment="Center" x:Name="doc_reader" IsPrintEnabled="False" IsTabStop="False" IsFindEnabled="False" ViewingMode="Scroll" MinZoom="90"/>
         </StackPanel>
 
         <TextBox Height="37" BorderThickness="0" Background="{x:Null}" HorizontalAlignment="Center" Margin="140,127,295,603" Name="xuanxiang_textBlock1" Text="" VerticalAlignment="Center" FontSize="16" Width="589" FontWeight="Bold" IsReadOnly="True" />

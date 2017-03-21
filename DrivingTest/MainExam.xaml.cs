@@ -175,11 +175,11 @@ where T : DependencyObject
                 weida.Text = question_c.ToString();
 
                 // Configure the audio output. 
-                synth.SetOutputToDefaultAudioDevice();
-                synth.SelectVoiceByHints(VoiceGender.Male);
+                //synth.SetOutputToDefaultAudioDevice();
+                //synth.SelectVoiceByHints(VoiceGender.Male);
                 // Speak a string.
-                synth.Volume = 100;
-                synth.Rate = 0;
+                //synth.Volume = 100;
+                //synth.Rate = 0;
 
                 //设置定时器
                 timer.Interval = new TimeSpan(10000000);   //时间间隔为一秒
@@ -763,11 +763,7 @@ where T : DependencyObject
     //jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
 
     int question_index = 0;
-    if (PublicClass.question_index == -1)
-    {
-        question_index = 0;
-    }
-    else
+    if (PublicClass.question_index != -1)
     {
         question_index = PublicClass.question_index;
     }
@@ -2732,11 +2728,11 @@ where T : DependencyObject
         }
         private void CommandBinding_ButtonYes_Executed(object sender, ExecutedRoutedEventArgs e)//对
         {
-            xuanxiang_button_Click(a_button, null);
+            xuanxiang_button_Click(c_button, null);
         }
         private void CommandBinding_ButtonNo_Executed(object sender, ExecutedRoutedEventArgs e)//错
         {
-            xuanxiang_button_Click(b_button, null);
+            xuanxiang_button_Click(d_button, null);
         }
         private void CommandBinding_ButtonUpOne_Executed(object sender, ExecutedRoutedEventArgs e)//上一题
         {

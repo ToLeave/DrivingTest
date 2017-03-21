@@ -222,9 +222,9 @@ where T : DependencyObject
                 return;
             }
 
-            //PublicClass.http = @"http://192.168.1.98:3000";
+            PublicClass.http = @"http://192.168.1.116:3000";
             //PublicClass.http = @"http://47.89.28.92";
-            PublicClass.http = @"http://jiakao.cloudtimesoft.com";
+            //PublicClass.http = @"http://jiakao.cloudtimesoft.com";
             //ThreadPool.QueueUserWorkItem(get_local_questions, "");
             //ThreadPool.QueueUserWorkItem(get_local_answers, "");
             get_local_questions("");
