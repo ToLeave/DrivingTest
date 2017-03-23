@@ -486,7 +486,7 @@ where T : DependencyObject
         void timer_Tick(object sender, EventArgs e)
         {
             // 距离上一次系统输入时间大于5秒  
-            if (GetLastInputTime() >= 3600 * 1000)
+            if (GetLastInputTime() >= 3600 * 2000)
             {
                 Environment.Exit(0);
             }
