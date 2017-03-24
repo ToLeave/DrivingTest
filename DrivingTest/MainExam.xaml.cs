@@ -354,7 +354,7 @@ where T : DependencyObject
                 {
                     question_pd_list = random_question(question_pd_list, 20);
                 }
-                else 
+                else
                 {
                     question_pd_list = random_question(question_pd_list, 40);
                 }
@@ -379,60 +379,60 @@ where T : DependencyObject
                     question_xz_list = random_question(question_xz_list, 23);
                     //question_zhongzhuan_list = question_xz_list;
                 }
-                else 
+                else
                 {
                     question_xz_list = random_question(question_xz_list, 60);
                 }
 
                 if (subject == "科目四")
                 {
-                //抽5题多选
+                    //抽5题多选
 
 
-                var question_dx = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.question_type.Contains("DX") && c.subject_id == local_subject.First().subject_id select c;
-                foreach (var dx in question_dx)
-                {
-                    PublicClass.Question question = new PublicClass.Question();
-                    question.question_id = dx.question_id;
-                    question.check_answer = true;
-                    question.select_answer = "";
-                    question.question_type = dx.question_type;
-                    question.sz = true;
-                    question.rept_do = 0;
-                    //question.answer = random_answer(qu.question_id);
-                    question_dx_list.Add(question);
-                }
-                question_dx_list = random_question(question_dx_list, 5);
-                question_xz_list.AddRange(question_dx_list);
-                 List<int> questionid=new List<int>();
-                 foreach (var id in question_xz_list)
-                {
-                    questionid.Add(id.question_id);
-                }
+                    var question_dx = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.question_type.Contains("DX") && c.subject_id == local_subject.First().subject_id select c;
+                    foreach (var dx in question_dx)
+                    {
+                        PublicClass.Question question = new PublicClass.Question();
+                        question.question_id = dx.question_id;
+                        question.check_answer = true;
+                        question.select_answer = "";
+                        question.question_type = dx.question_type;
+                        question.sz = true;
+                        question.rept_do = 0;
+                        //question.answer = random_answer(qu.question_id);
+                        question_dx_list.Add(question);
+                    }
+                    question_dx_list = random_question(question_dx_list, 5);
+                    question_xz_list.AddRange(question_dx_list);
+                    List<int> questionid = new List<int>();
+                    foreach (var id in question_xz_list)
+                    {
+                        questionid.Add(id.question_id);
+                    }
 
-                
 
-                //抽2题随机
-                var question_hh = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.question_type.Contains("XZ") && !questionid.Contains(c.question_id) && c.subject_id == local_subject.First().subject_id select c;
-                foreach (var qu in question_hh)
-                {
-                    PublicClass.Question question = new PublicClass.Question();
-                    question.question_id = qu.question_id;
-                    question.check_answer = true;
-                    question.select_answer = "";
-                    question.question_type = qu.question_type;
-                    question.sz = true;
-                    question.rept_do = 0;
-                    //question.answer = random_answer(qu.question_id);
-                    question_hh_list.Add(question);
-                }
-              
+
+                    //抽2题随机
+                    var question_hh = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.question_type.Contains("XZ") && !questionid.Contains(c.question_id) && c.subject_id == local_subject.First().subject_id select c;
+                    foreach (var qu in question_hh)
+                    {
+                        PublicClass.Question question = new PublicClass.Question();
+                        question.question_id = qu.question_id;
+                        question.check_answer = true;
+                        question.select_answer = "";
+                        question.question_type = qu.question_type;
+                        question.sz = true;
+                        question.rept_do = 0;
+                        //question.answer = random_answer(qu.question_id);
+                        question_hh_list.Add(question);
+                    }
+
                     question_hh_list = random_question(question_hh_list, 2);
 
                     question_xz_list.InsertRange(23, question_hh_list);
 
                 }
-             
+
 
 
                 for (int i = 0; i < question_pd_list.Count(); i++)
@@ -762,107 +762,115 @@ where T : DependencyObject
     //DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter jiakaoDataSetanswerTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.answerTableAdapter();
     //jiakaoDataSetanswerTableAdapter.Fill(jiakaoDataSet.answer);
 
-    int question_index = 0;
-    if (PublicClass.question_index != -1)
+    try
     {
-        question_index = PublicClass.question_index;
-    }
-    var question = from c in PublicClass.question_data where c.question_id == PublicClass.question_list[question_index].question_id select c;
-    foreach (var temqu in question)
-    {
-        //timu_textBlock.Text = question_index + 1 + "." + temqu.question_name;//显示题目
-        timu_xaml(question_index + 1 + "." + temqu.question_name);
-        imagename = temqu.question_image; //获取题目对应图片文件名
-        question_image();//显示图片
-        break;
-    }
-
-
-    int step = 0;
-    if (!PublicClass.question_list[question_index].question_type.Contains("PD"))
-    {
-        foreach (var an in PublicClass.question_list[question_index].answer)
+        int question_index = 0;
+        if (PublicClass.question_index != -1)
         {
-            PublicClass.Answer myan = an as PublicClass.Answer;
-            var teman = from c in PublicClass.answer_data where c.answer_id == myan.answer_id select c;
-            foreach (var temann in teman)
+            question_index = PublicClass.question_index;
+        }
+        var question = from c in PublicClass.question_data where c.question_id == PublicClass.question_list[question_index].question_id select c;
+        foreach (var temqu in question)
+        {
+            //timu_textBlock.Text = question_index + 1 + "." + temqu.question_name;//显示题目
+            timu_xaml(question_index + 1 + "." + temqu.question_name);
+            imagename = temqu.question_image; //获取题目对应图片文件名
+            question_image();//显示图片
+            break;
+        }
+
+
+        int step = 0;
+        if (!PublicClass.question_list[question_index].question_type.Contains("PD"))
+        {
+            foreach (var an in PublicClass.question_list[question_index].answer)
             {
-                switch (step)
+                PublicClass.Answer myan = an as PublicClass.Answer;
+                var teman = from c in PublicClass.answer_data where c.answer_id == myan.answer_id select c;
+                foreach (var temann in teman)
                 {
-                    case 0:
-                        xuanxiang_textBlock1.Text = "A." + temann.answer;
-                        break;
-                    case 1:
-                        xuanxiang_textBlock2.Text = "B." + temann.answer;
-                        break;
-                    case 2:
-                        xuanxiang_textBlock3.Text = "C." + temann.answer;
-                        break;
-                    case 3:
-                        xuanxiang_textBlock4.Text = "D." + temann.answer;
-                        break;
+                    switch (step)
+                    {
+                        case 0:
+                            xuanxiang_textBlock1.Text = "A." + temann.answer;
+                            break;
+                        case 1:
+                            xuanxiang_textBlock2.Text = "B." + temann.answer;
+                            break;
+                        case 2:
+                            xuanxiang_textBlock3.Text = "C." + temann.answer;
+                            break;
+                        case 3:
+                            xuanxiang_textBlock4.Text = "D." + temann.answer;
+                            break;
+                    }
+
                 }
 
+                step++;
             }
 
-            step++;
-        }
 
 
 
-
-    }
-    else
-    {
-        duicuo();
-    }
-
-    //foreach (var q in dati_canvas.Children)
-    //{
-    //    QuestionNum temnum = q as QuestionNum;
-    //    if (temnum != null && temnum.Name == "q0")
-    //    {
-    //        temnum.setbackcolor();
-    //    }
-    //}
-
-    string q = "q" + question_index;
-
-    QuestionNum temnum = dati_canvas.FindName(q) as QuestionNum;
-    if (temnum != null)
-    {
-        temnum.setbackcolor();
-    }
-
-
-    if (PublicClass.question_list[question_index].question_type.Contains("PD"))
-    {
-        current_question_type = "P";
-    }
-    else
-    {
-        var answers = from c in PublicClass.question_list[question_index].answer select c;
-        int isright_count = 0;
-        foreach (var answer in answers)
-        {
-            if (answer.isright == 1)
-            {
-                isright_count++;
-            }
-        }
-        if (isright_count > 1)
-        {
-            current_question_type = "M";
         }
         else
         {
-            current_question_type = "S";
+            duicuo();
         }
+
+        //foreach (var q in dati_canvas.Children)
+        //{
+        //    QuestionNum temnum = q as QuestionNum;
+        //    if (temnum != null && temnum.Name == "q0")
+        //    {
+        //        temnum.setbackcolor();
+        //    }
+        //}
+
+        string q = "q" + question_index;
+
+        QuestionNum temnum = dati_canvas.FindName(q) as QuestionNum;
+        if (temnum != null)
+        {
+            temnum.setbackcolor();
+        }
+
+
+        if (PublicClass.question_list[question_index].question_type.Contains("PD"))
+        {
+            current_question_type = "P";
+        }
+        else
+        {
+            var answers = from c in PublicClass.question_list[question_index].answer select c;
+            int isright_count = 0;
+            foreach (var answer in answers)
+            {
+                if (answer.isright == 1)
+                {
+                    isright_count++;
+                }
+            }
+            if (isright_count > 1)
+            {
+                current_question_type = "M";
+            }
+            else
+            {
+                current_question_type = "S";
+            }
+        }
+
+        showright_answer(question_index);
+        play_voice(doc_text());
+        cur_question_lab_index = 0;
+    }
+    catch (Exception ex)
+    {
+
     }
 
-    showright_answer(question_index);
-    play_voice(doc_text());
-    cur_question_lab_index = 0;
 }));
 
         }
@@ -1059,7 +1067,8 @@ where T : DependencyObject
 
             //if (PublicClass.question_mode == 1)//考试下做题后不可修改            
             //{
-            if (PublicClass.question_list[question_index].rept_do != 0)
+            QuestionNum mylab = dati_canvas.FindName("q" + cur_question_lab_index) as QuestionNum;
+            if (mylab.label_content() != "")
             {
                 a_button.IsEnabled = false;
                 b_button.IsEnabled = false;
@@ -1252,7 +1261,8 @@ where T : DependencyObject
 
             //if (PublicClass.question_mode == 1)//考试下做题后不可修改            
             //{
-            if (PublicClass.question_list[cur_question_lab_index].rept_do != 0)
+            QuestionNum mylab = dati_canvas.FindName("q" + cur_question_lab_index) as QuestionNum;
+            if (mylab.label_content() != "")
             {
                 a_button.IsEnabled = false;
                 b_button.IsEnabled = false;
@@ -1350,7 +1360,7 @@ where T : DependencyObject
             //        break;
             //    }
             //}
- 
+
             last_question_lab_index = cur_question_lab_index;
             if (cur_question_lab_index < PublicClass.question_list.Count() - 1)
             {
@@ -1364,7 +1374,8 @@ where T : DependencyObject
 
             //if (PublicClass.question_mode == 1)//考试下做题后不可修改            
             //{
-            if (PublicClass.question_list[cur_question_lab_index].rept_do != 0)
+            QuestionNum mylab = dati_canvas.FindName("q" + cur_question_lab_index) as QuestionNum;
+            if (mylab.label_content() != "")
             {
                 a_button.IsEnabled = false;
                 b_button.IsEnabled = false;
@@ -1427,7 +1438,7 @@ where T : DependencyObject
                     {
                         showright_answer(cur_question_lab_index);//正确答案显示
                     }
-   
+
                 }
             }
 
@@ -2462,55 +2473,96 @@ where T : DependencyObject
 
                 if (PublicClass.question_mode == 0)//练习下显示重考错题
                 {
-                    DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-                    // 将数据加载到表 question 中。可以根据需要修改此代码。
-                    DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
-                    jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
+                    //DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+                    //// 将数据加载到表 question 中。可以根据需要修改此代码。
+                    //DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter jiakaoDataSetquestionTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.questionTableAdapter();
+                    //jiakaoDataSetquestionTableAdapter.Fill(jiakaoDataSet.question);
 
-                    int question_id = 0;
-                    List<int> questionsid = new List<int>();
-                    foreach (var lab in dati_canvas.Children)
-                    {
-                        QuestionNum qu = lab as QuestionNum;
-                        if (qu.label2.Foreground == Brushes.Black && qu.label2.Content.ToString() != "")
-                        {
-                            question_id = int.Parse(qu.Name.ToString().Substring(1, qu.Name.ToString().Length - 1));
-                            if (question_id >= 0)
-                            {
-                                var question = from c in jiakaoDataSet.question where c.question_id == PublicClass.question_list[question_id].question_id select c;
-                                foreach (var temqu in question)
-                                {
-                                    questionsid.Add(temqu.question_id); //获取需删除题目ID
-                                }
-                            }
-                        }
-                    }
-                    for (int i = 0; i < questionsid.Count(); i++)
-                    {
-                        for (int j = 0; j < PublicClass.questions_id.Count; j++)
-                        {
-                            if (questionsid[i] == PublicClass.questions_id[j])
-                            {
-                                PublicClass.questions_id.RemoveAt(j);
-                                j--;
-                            }
-                        }
-                    }
+                    //int question_id = 0;
+                    //List<int> questionsid = new List<int>();
+                    //foreach (var lab in dati_canvas.Children)
+                    //{
+                    //    QuestionNum qu = lab as QuestionNum;
+                    //    if (qu.label2.Foreground == Brushes.Black && qu.label2.Content.ToString() != "")
+                    //    {
+                    //        question_id = int.Parse(qu.Name.ToString().Substring(1, qu.Name.ToString().Length - 1));
+                    //        if (question_id >= 0)
+                    //        {
+                    //            var question = from c in jiakaoDataSet.question where c.question_id == PublicClass.question_list[question_id].question_id select c;
+                    //            foreach (var temqu in question)
+                    //            {
+                    //                questionsid.Add(temqu.question_id); //获取需删除题目ID
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                    //for (int i = 0; i < questionsid.Count(); i++)
+                    //{
+                    //    for (int j = 0; j < PublicClass.questions_id.Count; j++)
+                    //    {
+                    //        if (questionsid[i] == PublicClass.questions_id[j])
+                    //        {
+                    //            PublicClass.questions_id.RemoveAt(j);
+                    //            j--;
+                    //        }
+                    //    }
+                    //}
 
-                    PublicClass.question_list = new List<PublicClass.Question>();
-                    create_question(PublicClass.create_method, PublicClass.question_mode, PublicClass.cartype, PublicClass.subject, PublicClass.questions_id);//重新执行抽题
-                    Window_Loaded(null, null);//重新执行界面
-                    weida.Text = chouti_count.Text;
-
+                    question_c = PublicClass.question_list.Count();
+                    create_question_num();
                     check_error = false;
-                    zhengque_label.Visibility = System.Windows.Visibility.Hidden;
-                    zhengque_textBlock.Visibility = System.Windows.Visibility.Hidden;
+
+                    //zhengque_label.Visibility = System.Windows.Visibility.Visible;
+                    //zhengque_textBlock.Visibility = System.Windows.Visibility.Visible;
                     a_button.Visibility = System.Windows.Visibility.Visible;
                     b_button.Visibility = System.Windows.Visibility.Visible;
                     c_button.Visibility = System.Windows.Visibility.Visible;
                     d_button.Visibility = System.Windows.Visibility.Visible;
+                    chouti_count.Text = question_c.ToString();
+                    weida.Text = chouti_count.Text;
+                    zhengque_label.Visibility = System.Windows.Visibility.Hidden;
+                    zhengque_textBlock.Visibility = System.Windows.Visibility.Hidden;
                     xuanxiang_textBlock.Text = "";
+
+                    int aa = 0;
+                    foreach (var lab in dati_canvas.Children)
+                    {
+                        QuestionNum qu = lab as QuestionNum;
+                        if (qu.label2.Foreground == Brushes.Red && qu.label2.Content.ToString() != "")
+                        {
+                            QuestionNum mylab = dati_canvas.FindName("q" + aa) as QuestionNum;
+                            if (mylab != null)
+                            {
+                                mylab.initialization("");
+                            }
+                        }
+                        aa++;
+                    }
+                    for (int i = 0; i < PublicClass.question_list.Count(); i++)
+                    {
+                        PublicClass.question_list[i].rept_do = 0;
+                    }
+
+                    a_button.IsEnabled = true;
+                    b_button.IsEnabled = true;
+                    c_button.IsEnabled = true;
+                    d_button.IsEnabled = true;
                     questionindex();
+
+                    //PublicClass.question_list = new List<PublicClass.Question>();
+                    //create_question(PublicClass.create_method, PublicClass.question_mode, PublicClass.cartype, PublicClass.subject, PublicClass.questions_id);//重新执行抽题
+                    //Window_Loaded(null, null);//重新执行界面
+                    //weida.Text = chouti_count.Text;
+
+                    //check_error = false;
+                    //zhengque_label.Visibility = System.Windows.Visibility.Hidden;
+                    //zhengque_textBlock.Visibility = System.Windows.Visibility.Hidden;
+                    //a_button.Visibility = System.Windows.Visibility.Visible;
+                    //b_button.Visibility = System.Windows.Visibility.Visible;
+                    //c_button.Visibility = System.Windows.Visibility.Visible;
+                    //d_button.Visibility = System.Windows.Visibility.Visible;
+                    //xuanxiang_textBlock.Text = "";
+                    //questionindex();
                 }
                 else//考试
                 {
@@ -2825,6 +2877,26 @@ where T : DependencyObject
                 {
                     SecondArea.Text = nowtime.ToLongTimeString();
                 }
+            }
+            else if (SecondArea.Text == "00:01:00")
+            {
+                C1.WPF.C1Window ms = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "章节选择");
+                if (ms != null)
+                {
+                    ms.Visibility = System.Windows.Visibility.Hidden;
+                }
+                C1.WPF.C1Window me = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "驾考");
+                if (me != null)
+                {
+                    me.Visibility = System.Windows.Visibility.Hidden;
+                }
+
+                LockWindow lw = new LockWindow();
+                lw.Show();
+                lw.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+                SecondArea.Text = "00:00:00";
+
             }
             else
             {

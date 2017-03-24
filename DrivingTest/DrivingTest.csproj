@@ -121,6 +121,9 @@
     <Compile Include="Lateral.xaml.cs">
       <DependentUpon>Lateral.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LockWindow.xaml.cs">
+      <DependentUpon>LockWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LookError.xaml.cs">
       <DependentUpon>LookError.xaml</DependentUpon>
     </Compile>
@@ -208,6 +211,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Lateral.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LockWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

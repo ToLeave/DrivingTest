@@ -45,6 +45,16 @@ namespace DrivingTest
             }
         }
 
+        public void initialization(string answer)
+        {
+            label2.Content = answer;
+        }
+
+        public string label_content()
+        {
+            return label2.Content.ToString();
+        }
+
         public void setbackcolor()
         {
             canvas1.Background = Brushes.SkyBlue;

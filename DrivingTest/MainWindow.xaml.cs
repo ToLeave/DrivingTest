@@ -2962,7 +2962,7 @@ where T : DependencyObject
                         c1ma.Content = ma;
 
                         //c1ma.ToolTip = "小车类:科目一";
-                        c1ma.Name = "科目一";
+                        c1ma.Name = "章节选择";
                         c1ma.Header = "小车类:科目一";
                         c1ma.Show();
                         //c1ma.Background = Brushes.SkyBlue;
@@ -2984,7 +2984,7 @@ where T : DependencyObject
                         c1ma.Content = ma;
                         c1ma.Show();
                         //c1ma.ToolTip = "小车类:科目四";
-                        c1ma.Name = "科目四";
+                        c1ma.Name = "章节选择";
                         c1ma.Header = "小车类:科目四";
                         c1ma.Margin = PublicClass.window_thickness(ma);
                         maincanvas.Visibility = Visibility.Hidden;
@@ -3033,7 +3033,7 @@ where T : DependencyObject
                     c1ma.Content = ma;
                     c1ma.Show();
                     //c1ma.ToolTip = "客车类:科目一";
-                    c1ma.Name = "科目一";
+                    c1ma.Name = "章节选择";
                     c1ma.Header = "客车类:科目一";
                     c1ma.Margin = PublicClass.window_thickness(ma);
                     maincanvas.Visibility = Visibility.Hidden;
@@ -3054,7 +3054,7 @@ where T : DependencyObject
                     c1ma.Content = ma;
                     c1ma.Show();
                     //c1ma.ToolTip = "客车类:科目四";
-                    c1ma.Name = "科目四";
+                    c1ma.Name = "章节选择";
                     c1ma.Header = "客车类:科目四";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = PublicClass.window_thickness(ma);
@@ -3082,7 +3082,7 @@ where T : DependencyObject
                     c1ma.Content = ma;
                     c1ma.Show();
                     //c1ma.ToolTip = "货车类:科目一";
-                    c1ma.Name = "科目一";
+                    c1ma.Name = "章节选择";
                     c1ma.Header = "货车类:科目一";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = PublicClass.window_thickness(ma);
@@ -3103,7 +3103,7 @@ where T : DependencyObject
                     c1ma.Content = ma;
                     c1ma.Show();
                     //c1ma.ToolTip = "货车类:科目四";
-                    c1ma.Name = "科目四";
+                    c1ma.Name = "章节选择";
                     c1ma.Header = "货车类:科目四";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = PublicClass.window_thickness(ma);
@@ -3134,7 +3134,7 @@ where T : DependencyObject
                     c1ma.Content = ma;
                     c1ma.Show();
                     //c1ma.ToolTip = "摩托车类:科目一";
-                    c1ma.Name = "科目一";
+                    c1ma.Name = "章节选择";
                     c1ma.Header = "摩托车类:科目一";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = PublicClass.window_thickness(ma);
@@ -3155,7 +3155,7 @@ where T : DependencyObject
                     c1ma.Content = ma;
                     c1ma.Show();
                     //c1ma.ToolTip = "摩托车类:科目四";
-                    c1ma.Name = "科目四";
+                    c1ma.Name = "章节选择";
                     c1ma.Header = "摩托车类:科目四";
                     //this.Visibility = System.Windows.Visibility.Collapsed;
                     c1ma.Margin = PublicClass.window_thickness(ma);
@@ -3180,7 +3180,7 @@ where T : DependencyObject
             PublicClass.cartype = "HF";
             c1ma.Content = ma;
             //c1ma.ToolTip = "恢复驾驶资格类";
-            c1ma.Name = "恢复驾驶资格类";
+            c1ma.Name = "章节选择";
             c1ma.Header = "恢复驾驶资格类";
             c1ma.Show();
             c1ma.Margin = PublicClass.window_thickness(ma);
