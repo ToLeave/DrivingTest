@@ -350,7 +350,7 @@ where T : DependencyObject
                     //question.answer = random_answer(qu.question_id);
                     question_pd_list.Add(question);
                 }
-                if (subject == "科目四")
+                if (subject == "科目四" || cartype == "D")
                 {
                     question_pd_list = random_question(question_pd_list, 20);
                 }
@@ -379,6 +379,10 @@ where T : DependencyObject
                     question_xz_list = random_question(question_xz_list, 23);
                     //question_zhongzhuan_list = question_xz_list;
                 }
+                else if (cartype == "D")
+                {
+                    question_xz_list = random_question(question_xz_list, 30);
+                }
                 else
                 {
                     question_xz_list = random_question(question_xz_list, 60);
@@ -387,8 +391,6 @@ where T : DependencyObject
                 if (subject == "科目四")
                 {
                     //抽5题多选
-
-
                     var question_dx = from c in jiakaoDataSet.question where c.driverlicense_type.Contains(cartype) && c.question_type.Contains("DX") && c.subject_id == local_subject.First().subject_id select c;
                     foreach (var dx in question_dx)
                     {
@@ -2878,7 +2880,7 @@ where T : DependencyObject
                     SecondArea.Text = nowtime.ToLongTimeString();
                 }
             }
-            else if (SecondArea.Text == "00:01:00")
+            else if (SecondArea.Text == "00:50:00")
             {
                 C1.WPF.C1Window ms = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "章节选择");
                 if (ms != null)
@@ -2892,10 +2894,10 @@ where T : DependencyObject
                 }
 
                 LockWindow lw = new LockWindow();
-                lw.Show();
-                lw.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-
-                SecondArea.Text = "00:00:00";
+                lw.Title = "锁定窗口";
+                lw.Closed += new EventHandler(lw_Closed);
+                lw.ShowDialog();
+                SecondArea.Text = "00:00:01";
 
             }
             else
@@ -2905,6 +2907,21 @@ where T : DependencyObject
                 SecondArea.Text = nowtime.ToLongTimeString();
             }
 
+        }
+
+        void lw_Closed(object sender, EventArgs e)
+        {
+            C1.WPF.C1Window me = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "驾考");
+            if (me != null)
+            {
+                me.Visibility = System.Windows.Visibility.Visible;
+            }
+            C1.WPF.C1Window ms = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "章节选择");
+            if (ms != null)
+            {
+                ms.Visibility = System.Windows.Visibility.Visible;
+                this.SecondArea.Text = "00:00:01";
+            }
         }
 
         void en_Closing(object sender, System.ComponentModel.CancelEventArgs e)

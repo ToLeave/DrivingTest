@@ -46,7 +46,7 @@ namespace DrivingTest
         [DllImport("User32.dll", EntryPoint = "FindWindowEx")]
         public static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpClassName, string lpWindowName);
 
-
+        #region 公共变量
         //public string SelectedValue { get; private set; }
 
         //public event RoutedEventHandler CheckChanged;
@@ -83,6 +83,7 @@ namespace DrivingTest
         bool classdetail_update_compaleted = false;
 
         string ip = ""; //ip
+        #endregion
 
         public MainWindow()
         {
@@ -227,6 +228,34 @@ where T : DependencyObject
             //PublicClass.http = @"http://jiakao.cloudtimesoft.com";
             //ThreadPool.QueueUserWorkItem(get_local_questions, "");
             //ThreadPool.QueueUserWorkItem(get_local_answers, "");
+
+            initial_setting();//初始化设置
+
+
+            if (!checknetwork())//判断是否能正确连接网络 
+            {
+                offline();//脱机
+            }
+            else//网络可用
+            {
+                if (!checkserver())//判断是否能正确连接服务器
+                {
+                    offline();//脱机
+                    MessageBox.Show("无法连接服务器!", "驾考速成");
+                }
+                else//服务器可连接
+                {
+                    inspect();//检查更新
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// 软件题库以及数据更新
+        /// </summary>
+        private void update()//更新
+        {
             get_local_questions("");
             get_local_answers("");
             //get_local_chapters("");
@@ -238,11 +267,6 @@ where T : DependencyObject
                 // 将数据加载到表 updatecheck 中。可以根据需要修改此代码。
                 DrivingTest.jiakaoDataSetTableAdapters.updatecheckTableAdapter jiakaoDataSetupdatecheckTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.updatecheckTableAdapter();
                 jiakaoDataSetupdatecheckTableAdapter.Fill(jiakaoDataSet.updatecheck);
-                // 将数据加载到表 user 中。可以根据需要修改此代码。
-                DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter jiakaoDataSetuserTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter();
-                jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
-
-                initial_setting();//初始化设置
 
                 Thread newthread = new Thread(new ThreadStart(() =>
                 {
@@ -272,18 +296,18 @@ where T : DependencyObject
                         if (getchkupdstr == localchkupdstr)
                         {
                             Dispatcher.Invoke(new Action(() =>
-               {
-                   xianshi.Text = "已是最新版本";
-               }));
+                            {
+                                xianshi.Text = "";
+                            }));
                             ThreadPool.QueueUserWorkItem(push_to_public, "");
                         }
                         else
                         {
                             Dispatcher.Invoke(new Action(() =>
-               {
-                   button_disable();//更新时禁用所有按钮
-                   progress.Visibility = System.Windows.Visibility.Visible;//显示进度条
-               }));
+                            {
+                                button_disable();//更新时禁用所有按钮
+                                progress.Visibility = System.Windows.Visibility.Visible;//显示进度条
+                            }));
                             updatequestion();//开始更新题库
 
                             //updatedownload();
@@ -294,50 +318,7 @@ where T : DependencyObject
                     }
                     else
                     {
-                        Dispatcher.Invoke(new Action(() =>
-{
-    xianshi.Text = "无法连接服务器,脱机模式下请到注册页面联系客服购买注册码";
-}));
-                        string cpuid = "";//历史机器码
-                        int num = 0;//机器码登陆次数
-                        int time = 0;//机器码截止日期
-                        DateTime newtime = DateTime.Now;//获取本机时间
-                        var user = from c in jiakaoDataSet.user where c.user_id == -1 select c;//检索是否有脱机注册记录
-                        foreach (var u in user)
-                        {
-                            cpuid = u.login;
-                            num = int.Parse(u.login_number);
-                            time = int.Parse(u.login_time);
 
-                            if (user.Count() == 1 && cpuid == Get_Cpu_Id())//对比机器码识别是否更换机器
-                            {
-                                int stime = int.Parse(newtime.ToString("yyyyMMdd"));
-                                if (time >= stime)//对比有效期
-                                {
-                                    if (num != 0)
-                                    {
-                                        num--;
-                                        u.login_number = num.ToString();
-                                        login_control_ShowHide();//登录后控件的显示或隐藏
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("激活码可使用次数为0!请重新购买激活码!");
-                                    }
-                                }
-                                else
-                                {
-                                    MessageBox.Show("激活码已过期!请重新购买激活码!");
-                                }
-                            }
-                            else if (user.Count() == 1 && cpuid != Get_Cpu_Id())
-                            {
-                                MessageBox.Show("激活码仅供一台机器使用!更换机器请重新购买激活码!");
-                            }
-                        }
-                        jiakaoDataSetuserTableAdapter.Update(jiakaoDataSet.user);
-                        jiakaoDataSet.user.AcceptChanges();
-                        PublicClass.wuwangluo = true;//无网络
                         ThreadPool.QueueUserWorkItem(push_to_public, "");
                     }
 
@@ -353,20 +334,98 @@ where T : DependencyObject
                 //houlunqipao.MouseEnter += new MouseEventHandler(houlun_MouseEnter);
                 //houlunqipao.MouseLeave += new MouseEventHandler(houlun_MouseLeave);
 
-                //显示账号剩余次数、帐号毕业、帐号异常、在其它机器登陆
-                string zhanghao = "";
-                if (user_textBox.Text != "")
-                {
-                    xianshi.Text = zhanghao;
-                }
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
 
+        /// <summary>
+        /// 脱机状态
+        /// </summary>
+        private void offline()//脱机
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 user 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter jiakaoDataSetuserTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.userTableAdapter();
+            jiakaoDataSetuserTableAdapter.Fill(jiakaoDataSet.user);
 
+            Dispatcher.Invoke(new Action(() =>
+            {
+                xianshi.Text = "无法连接服务器,脱机模式下请到注册页面联系客服购买注册码";
+            }));
+            string cpuid = "";//历史机器码
+            int num = 0;//机器码登陆次数
+            int time = 0;//机器码截止日期
+            DateTime newtime = DateTime.Now;//获取本机时间
+            var user = from c in jiakaoDataSet.user where c.user_id == -1 select c;//检索是否有脱机注册记录
+            foreach (var u in user)
+            {
+                cpuid = u.login;
+                num = int.Parse(u.login_number);
+                time = int.Parse(u.login_time);
+
+                if (user.Count() == 1 && cpuid == Get_Cpu_Id())//对比机器码识别是否更换机器
+                {
+                    int stime = int.Parse(newtime.ToString("yyyyMMdd"));
+                    if (time >= stime)//对比有效期
+                    {
+                        if (num != 0)
+                        {
+                            num--;
+                            u.login_number = num.ToString();
+                            login_control_ShowHide();//登录后控件的显示或隐藏
+                        }
+                        else
+                        {
+                            MessageBox.Show("激活码可使用次数为0!请重新购买激活码!");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("激活码已过期!请重新购买激活码!");
+                    }
+                }
+                else if (user.Count() == 1 && cpuid != Get_Cpu_Id())
+                {
+                    MessageBox.Show("激活码仅供一台机器使用!更换机器请重新购买激活码!");
+                }
+            }
+            jiakaoDataSetuserTableAdapter.Update(jiakaoDataSet.user);
+            jiakaoDataSet.user.AcceptChanges();
+            PublicClass.wuwangluo = true;//无网络
+        }
+
+        private void inspect()//检查可用更新
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 updatecheck 中。可以根据需要修改此代码。
+            DrivingTest.jiakaoDataSetTableAdapters.updatecheckTableAdapter jiakaoDataSetupdatecheckTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.updatecheckTableAdapter();
+            jiakaoDataSetupdatecheckTableAdapter.Fill(jiakaoDataSet.updatecheck);
+
+            var chkupd = from c in jiakaoDataSet.updatecheck select c;
+            var getchkupdstr = getupdatecheck();
+            var localchkupdstr = "";
+            foreach (var mychkupd in chkupd)
+            {
+                localchkupdstr = mychkupd.updatecheck;
+            }
+            if (getchkupdstr != localchkupdstr)//对比版本是否一致
+            {
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    xianshi.Text = "题库有可用更新，登陆后将自动更新。";
+                }));
+            }
+            else
+            {
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    xianshi.Text = "已是最新版本";
+                }));
+            }
         }
 
         private void initial_setting()//初始化设置
@@ -588,14 +647,13 @@ where T : DependencyObject
                 }
                 if (is_ping)
                     return true;
-                else
-                    MessageBox.Show("无法连接网络!");
-                return false;
+
+                return false;//无法连接网络
             }
             catch
             {
-                MessageBox.Show("无法连接网络!");
-                return false;
+
+                return false;//无法连接网络
             }
         }
 
@@ -621,14 +679,12 @@ where T : DependencyObject
                 }
                 if (is_ping)
                     return true;
-                else
-                    MessageBox.Show("无法连接服务器!");
-                return false;
+
+                return false;//无法连接服务器
             }
             catch
             {
-                MessageBox.Show("无法连接服务器!");
-                return false;
+                return false;//无法连接服务器
             }
             //try
             //{
@@ -2307,7 +2363,6 @@ where T : DependencyObject
                 }
 
 
-
             }
             catch (Exception ex)
             {
@@ -2692,7 +2747,7 @@ where T : DependencyObject
                     }
                     if (jixu)
                     {
-                        
+
                         MessageBoxResult result = MessageBox.Show("上次练习到第" + tishu + "题,是否继续？", "提示", MessageBoxButton.YesNo);
 
                         //确定
@@ -2708,6 +2763,8 @@ where T : DependencyObject
                         }
                     }
                 }
+
+                update();//更新
 
             }
             //    }));
@@ -3287,9 +3344,14 @@ where T : DependencyObject
                 login_Click(null, null);
             }
         }
-
+        //广告更新
         private void update_avatar(string avatarname)
         {
+
+            //DirectoryInfo di = new DirectoryInfo(advertisepath);
+            //di.Delete(true);
+            //Directory.Delete(advertisepath, true);//删除目录下所有广告
+
             string avatarstr = null;
             JArray avatar_json;
             HttpWebResponse response = null;

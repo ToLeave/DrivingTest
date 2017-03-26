@@ -1,8 +1,10 @@
 ﻿<Window x:Class="DrivingTest.LockWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="LockWindow" Height="300" Width="300" Loaded="Window_Loaded" Closed="Window_Closed">
+        Title="LockWindow" Height="200" Width="300" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <TextBlock Text="您已连续做题50分钟，软件将锁定10分钟，请休息一下." Height="40" HorizontalAlignment="Left" Margin="21,12,0,0" Name="label1" VerticalAlignment="Top" Width="254" TextWrapping="Wrap" FontSize="14" />
+        <TextBlock Height="53" HorizontalAlignment="Left" Margin="54,59,0,0" Name="time_textBlock" Text="00:10:00" VerticalAlignment="Top" Width="169" FontSize="40" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="23,126,0,0" Name="textBlock2" Text="请勿关闭此窗口，倒计时结束后自动解锁" VerticalAlignment="Top" FontSize="14" />
     </Grid>
 </Window>
