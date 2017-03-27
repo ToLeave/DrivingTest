@@ -282,8 +282,8 @@ where T : DependencyObject
                         xianshi.Text = "正在检查更新";
                         System.Windows.Forms.Application.DoEvents();
                     }));
-                    if (checknetwork() && checkserver())//判断是否能正确连接网络 //判断是否能正确连接服务器
-                    {
+                    //if (checknetwork() && checkserver())//判断是否能正确连接网络 //判断是否能正确连接服务器
+                    //{
                         update_avatar("top");//更新顶部广告
                         update_avatar("left");//更新考试广告
                         var chkupd = from c in jiakaoDataSet.updatecheck select c;
@@ -315,12 +315,12 @@ where T : DependencyObject
                             //xianshi.Text = "下载完毕,更新已完成";
                         }
 
-                    }
-                    else
-                    {
+                    //}
+                    //else
+                    //{
 
-                        ThreadPool.QueueUserWorkItem(push_to_public, "");
-                    }
+                    //    ThreadPool.QueueUserWorkItem(push_to_public, "");
+                    //}
 
                 }));
                 newthread.SetApartmentState(ApartmentState.MTA);
@@ -356,6 +356,12 @@ where T : DependencyObject
             {
                 xianshi.Text = "无法连接服务器,脱机模式下请到注册页面联系客服购买注册码";
             }));
+
+
+            get_local_questions("");
+            get_local_answers("");
+            ThreadPool.QueueUserWorkItem(push_to_public, "");
+
             string cpuid = "";//历史机器码
             int num = 0;//机器码登陆次数
             int time = 0;//机器码截止日期
@@ -404,6 +410,10 @@ where T : DependencyObject
             // 将数据加载到表 updatecheck 中。可以根据需要修改此代码。
             DrivingTest.jiakaoDataSetTableAdapters.updatecheckTableAdapter jiakaoDataSetupdatecheckTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.updatecheckTableAdapter();
             jiakaoDataSetupdatecheckTableAdapter.Fill(jiakaoDataSet.updatecheck);
+
+            get_local_questions("");
+            get_local_answers("");
+            ThreadPool.QueueUserWorkItem(push_to_public, "");
 
             var chkupd = from c in jiakaoDataSet.updatecheck select c;
             var getchkupdstr = getupdatecheck();

@@ -1297,7 +1297,7 @@ where T : DependencyObject
                 tishi_label.Content = "判断题,请在备选答案中选择您认为正确的答案!";
             }
 
-            if (PublicClass.user_id != -2 || cur_question_lab_index < 10)
+            if (PublicClass.user_id != -2 || cur_question_lab_index < 11)
             {
                 if (cur_question_lab_index != 0)
                 {
@@ -1413,7 +1413,7 @@ where T : DependencyObject
             }
 
 
-            if (PublicClass.user_id != -2 || cur_question_lab_index < 10)
+            if (PublicClass.user_id != -2 || cur_question_lab_index < 11)
             {
                 if (cur_question_lab_index != PublicClass.question_list.Count() - 1)
                 {

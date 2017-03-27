@@ -302,7 +302,8 @@ namespace DrivingTest
             {
                 foreach (var cla in c_count)
                 {
-                    listBox.Items.Add(cla.class_name);//把分类名加入listbox
+                    var class_count = from c in jiakaoDataSet.classdetail where c.class_id == cla.class_id select c;
+                    listBox.Items.Add(cla.class_name + " (" + class_count.Count() + ")题");//把分类名加入listbox
                     class_index.Add(cla.class_id);//同时把分类ID当做下标存入
                     //PublicClass.chapter_index = new List<int>();
                 }
@@ -352,7 +353,8 @@ namespace DrivingTest
                 foreach (var mysub in chapter_list_id)
                 {
                     var temsub = from c in jiakaoDataSet.chapter where c.chapter_id == mysub select c;
-                    listBox.Items.Add(temsub.First().chapter);
+                    var chapter_count = from c in jiakaoDataSet.question where c.chapter_id == mysub select c;
+                    listBox.Items.Add(temsub.First().chapter + " (" + chapter_count.Count() + ")题");
                     chapter_index.Add(temsub.First().chapter_id);
                     //PublicClass.class_index = new List<int>();
                 }
@@ -388,7 +390,8 @@ namespace DrivingTest
                 ArrayList item = LoadListBoxData();
                 for (int i = 0; i < item.Count; i++)
                 {
-                    listBox.Items.Add(item[i]);
+                    var zhuan_count = from c in jiakaoDataSet.question where c.question_type.Contains(zhuanxiang_index[i]) select c;
+                    listBox.Items.Add(item[i] + " (" + zhuan_count.Count() + ")题");
                 }
                 //listBox.ItemsSource = LoadListBoxData();
 
