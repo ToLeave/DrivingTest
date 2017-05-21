@@ -59,6 +59,8 @@ namespace DrivingTest
         public static string question_image = "";//图片文件名
         public static bool wuwangluo = false;//无网络状态
         public static bool tuojizhuce = false;//脱机码注册状态
+        public static int rept_do_err_count = 0;//重考错题次数
+        public static bool errormessage_window_open = false;//是否打开做错提示窗口
 
 
 

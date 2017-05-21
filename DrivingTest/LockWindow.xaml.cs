@@ -58,7 +58,7 @@ namespace DrivingTest
         //[DllImport("user32.dll")]
         //private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
-        bool bo = false;
+        bool bo = true;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

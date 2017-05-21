@@ -12,7 +12,7 @@
         <Rectangle Height="206" HorizontalAlignment="Left" Margin="12,278,0,0" Name="rectangle1" VerticalAlignment="Top" Width="776" Fill="#FF82ECD4" />
         <Rectangle Height="55" HorizontalAlignment="Left" Margin="12,490,0,0" Name="rectangle2" VerticalAlignment="Top" Width="776" Fill="#FFFFF4C1" />
         <!--<Image Height="193" HorizontalAlignment="Left" Margin="197,254,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="349" />-->
-        <MediaElement Margin="168,278,0,0" Height="206"  x:Name="image1" MediaEnded="image_MediaEnded" HorizontalAlignment="Left" VerticalAlignment="Top" Width="458"  />
+        <MediaElement Margin="0,278,0,0" Height="206"  x:Name="image1" MediaEnded="image_MediaEnded" HorizontalAlignment="Center" VerticalAlignment="Top" Width="458"  />
         <Button Content="继续考试" Height="46" HorizontalAlignment="Left" Margin="317,494,0,0" Name="jixu_button" VerticalAlignment="Top" Width="158" Click="jixu_button_Click" FontSize="16" />
         <Label Content="以上正确答案确认无误后点击'继续考试'按钮开始下一题答题" Height="33" HorizontalAlignment="Left" Margin="212,555,0,0" Name="label1" VerticalAlignment="Top" Width="384" FontSize="14" />
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="632,567,0,0" Name="textBlock7" Text="10" VerticalAlignment="Top" Foreground="#FF0A00BA" />

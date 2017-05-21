@@ -84,7 +84,7 @@
             </Button>
 
 
-            <xly:FButton FIcon="&#xe600;"  Content="科目一"  Height="38" HorizontalAlignment="Left" Margin="463,104,0,0" Name="subject1" VerticalAlignment="Top" Width="110" MouseEnter="subject1_MouseEnter" Click="subject1_Click" Visibility="Visible" Canvas.Left="-146" Canvas.Top="-17" FontSize="16">
+            <xly:FButton FIcon="&#xe600;"  Content="科目一"  Height="38" HorizontalAlignment="Left" Margin="463,104,0,0" Name="subject1" VerticalAlignment="Top" Width="110" MouseEnter="subject1_MouseEnter" Click="subject1_Click" Visibility="Visible" Canvas.Left="-146" Canvas.Top="-17" FontSize="16" FontFamily="STSong">
                 <!--<Button.RenderTransform>
                     <RotateTransform x:Name="rotateTransform" Angle="-30" />
                 </Button.RenderTransform>-->

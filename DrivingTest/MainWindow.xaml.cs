@@ -223,7 +223,7 @@ where T : DependencyObject
                 return;
             }
 
-            PublicClass.http = @"http://192.168.1.116:3000";
+            PublicClass.http = @"http://192.168.0.105:3000";
             //PublicClass.http = @"http://47.89.28.92";
             //PublicClass.http = @"http://jiakao.cloudtimesoft.com";
             //ThreadPool.QueueUserWorkItem(get_local_questions, "");
@@ -248,6 +248,7 @@ where T : DependencyObject
                     inspect();//检查更新
                 }
             }
+
 
         }
 
@@ -307,6 +308,7 @@ where T : DependencyObject
                             {
                                 button_disable();//更新时禁用所有按钮
                                 progress.Visibility = System.Windows.Visibility.Visible;//显示进度条
+                                xianshi.Visibility = System.Windows.Visibility.Visible;
                             }));
                             updatequestion();//开始更新题库
 
@@ -436,6 +438,8 @@ where T : DependencyObject
                     xianshi.Text = "已是最新版本";
                 }));
             }
+
+
         }
 
         private void initial_setting()//初始化设置
@@ -519,7 +523,11 @@ where T : DependencyObject
                 question.question_type = myquestion.question_type;
                 question.update_at = myquestion.update_at;
                 question.is_judge = myquestion.is_judge;
-                PublicClass.question_data.Add(question);
+                var has_question = from c in PublicClass.question_data where c.question_id == question.question_id select c;
+                if (has_question.Count() == 0)
+                {
+                    PublicClass.question_data.Add(question);
+                }
             }
             //PublicClass.answer_data = local_answer_data.Copy();
             foreach (var myanswer in local_answer_data)
@@ -530,7 +538,11 @@ where T : DependencyObject
                 answer.answer = myanswer.answer;
                 answer.is_right = myanswer.is_right;
                 answer.update_at = myanswer.update_at;
-                PublicClass.answer_data.Add(answer);
+                var has_answer = from c in PublicClass.answer_data where c.answer_id == answer.answer_id select c;
+                if (has_answer.Count() == 0)
+                {
+                    PublicClass.answer_data.Add(answer);
+                }
             }
         }
 
@@ -679,7 +691,7 @@ where T : DependencyObject
                 for (int i = 0; i < 2; i++)
                 {
 
-                    res = ping.Send("jiakao.cloudtimesoft.com");
+                    res = ping.Send("www.baidu.com");
                     if (res.Status == System.Net.NetworkInformation.IPStatus.Success)
                     {
                         is_ping = true;
@@ -800,6 +812,7 @@ where T : DependencyObject
                 local_question_data.Add(question);
 
             }
+
 
         }
 
@@ -1094,7 +1107,7 @@ where T : DependencyObject
                 now_synccount++;
                 Dispatcher.Invoke(new Action(() =>
                  {
-                     xianshi.Text = "下载数据中..." + now_synccount + "/" + synccount;
+                     xianshi.Text = "[1/2]数据下载 " + now_synccount + "/" + synccount;
                      progress.Value = now_synccount / synccount * 100;
                      System.Windows.Forms.Application.DoEvents();
                  }));
@@ -1180,7 +1193,7 @@ where T : DependencyObject
                 now_synccount++;
                 Dispatcher.Invoke(new Action(() =>
                  {
-                     xianshi.Text = "下载数据中..." + now_synccount + "/" + synccount;
+                     xianshi.Text = "[1/2]数据下载 " + now_synccount + "/" + synccount;
                      progress.Value = now_synccount / synccount * 100;
                      System.Windows.Forms.Application.DoEvents();
                  }));
@@ -1285,7 +1298,7 @@ where T : DependencyObject
                 now_synccount++;
                 Dispatcher.Invoke(new Action(() =>
                 {
-                    xianshi.Text = "下载数据中..." + now_synccount + "/" + synccount;
+                    xianshi.Text = "[1/2]数据下载 " + now_synccount + "/" + synccount;
                     progress.Value = now_synccount / synccount * 100;
                     System.Windows.Forms.Application.DoEvents();
                 }));
@@ -1319,7 +1332,7 @@ where T : DependencyObject
                 now_synccount++;
                 Dispatcher.Invoke(new Action(() =>
                  {
-                     xianshi.Text = "下载数据中..." + now_synccount + "/" + synccount;
+                     xianshi.Text = "[1/2]数据下载 " + now_synccount + "/" + synccount;
                      progress.Value = now_synccount / synccount * 100;
                      System.Windows.Forms.Application.DoEvents();
                  }));
@@ -1873,6 +1886,7 @@ where T : DependencyObject
                     Dispatcher.Invoke(new Action(() =>
                     {
                         progress.Value = local_step / local_count * 100;
+                        xianshi.Text = "[2/2]验证数据 " + local_step + "/" + local_count;
                         System.Windows.Forms.Application.DoEvents();
                     }));
                 }
@@ -1910,6 +1924,7 @@ where T : DependencyObject
                     Dispatcher.Invoke(new Action(() =>
                     {
                         progress.Value = local_step / local_count * 100;
+                        xianshi.Text = "[2/2]验证数据 " + local_step + "/" + local_count;
                         System.Windows.Forms.Application.DoEvents();
                     }));
                 }
@@ -1945,6 +1960,7 @@ where T : DependencyObject
                     Dispatcher.Invoke(new Action(() =>
                     {
                         progress.Value = local_step / local_count * 100;
+                        xianshi.Text = "[2/2]验证数据 " + local_step + "/" + local_count;
                         System.Windows.Forms.Application.DoEvents();
                     }));
                 }
@@ -1979,6 +1995,7 @@ where T : DependencyObject
                     Dispatcher.Invoke(new Action(() =>
                     {
                         progress.Value = local_step / local_count * 100;
+                        xianshi.Text = "[2/2]验证数据 " + local_step + "/" + local_count;
                         System.Windows.Forms.Application.DoEvents();
                     }));
                 }
@@ -2016,6 +2033,7 @@ where T : DependencyObject
                     Dispatcher.Invoke(new Action(() =>
                     {
                         progress.Value = local_step / local_count * 100;
+                        xianshi.Text = "[2/2]验证数据 " + local_step + "/" + local_count;
                         System.Windows.Forms.Application.DoEvents();
                     }));
                 }
@@ -2050,6 +2068,7 @@ where T : DependencyObject
                     Dispatcher.Invoke(new Action(() =>
                     {
                         progress.Value = local_step / local_count * 100;
+                        xianshi.Text = "[2/2]验证数据 " + local_step + "/" + local_count;
                         System.Windows.Forms.Application.DoEvents();
                     }));
                 }
@@ -2061,6 +2080,7 @@ where T : DependencyObject
      {
          xianshi.Text = "更新完成";
          buttton_enable();//更新完启用所有按钮
+         xianshi.Visibility = Visibility.Hidden;
          progress.Visibility = System.Windows.Visibility.Hidden;
      }));
 
@@ -2660,6 +2680,107 @@ where T : DependencyObject
             else { }
         }
 
+
+        private void geterror(object data)//获取错题
+        {
+            DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
+            // 将数据加载到表 question 中。可以根据需要修改此代码。
+
+            DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
+            jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
+
+            DrivingTest.jiakaoDataSetTableAdapters.recordTableAdapter jiakaoDataSetrecordTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.recordTableAdapter();
+            jiakaoDataSetrecordTableAdapter.Fill(jiakaoDataSet.record);
+
+
+            string err = null;//数据流
+            HttpWebResponse response = null;
+            StreamReader reader = null;
+
+            try
+            {
+                string url = PublicClass.http + @"/returnjsons/r_errquests?" + "user_id=" + PublicClass.user_id;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//提交请求
+                request.Method = "GET";
+
+                request.Timeout = 10000;
+                response = (HttpWebResponse)request.GetResponse();
+                reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
+                err = reader.ReadToEnd();
+
+
+                JArray errquestion_json = JArray.Parse(err);//错题 json
+                string json = errquestion_json.ToString();
+
+                foreach (var err_question in errquestion_json)//写入错题
+                {
+                    var errquestion = from c in jiakaoDataSet.errquest where c.question_id.ToString() == err_question["question_id"].ToString() && c.user_id.ToString() == err_question["user_id"].ToString() select c;
+
+                    if (errquestion.Count() == 0)
+                    {
+                        jiakaoDataSet.errquest.AdderrquestRow(int.Parse(err_question["user_id"].ToString()), int.Parse(err_question["question_id"].ToString()), int.Parse(err_question["amount"].ToString()));
+                    }
+                    else
+                    {
+                        errquestion.First().amount = int.Parse(err_question["amount"].ToString());
+                    }
+
+
+                }
+                jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
+                jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
+                jiakaoDataSet.errquest.AcceptChanges();
+
+                response.Close();
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            if (jiakaoDataSet.record.Count != 0)
+            {
+                var re = from c in jiakaoDataSet.record where c.user_id == PublicClass.user_id select c;
+                bool jixu = false;
+                int tishu = 0;
+                foreach (var r in re)
+                {
+                    jixu = true;
+                    tishu = r.question_index + 1;
+                }
+                if (jixu)
+                {
+
+                    MessageBoxResult result = MessageBox.Show("上次练习到第" + tishu + "题,是否继续？", "提示", MessageBoxButton.YesNo);
+
+                    //确定
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        continuetodo();//继续做题
+                    }
+
+                    //取消
+                    if (result == MessageBoxResult.No)
+                    {
+
+                    }
+                }
+            }
+
+            update();//更新
+        }
+
+        private void playsound(object data)
+        {
+            MediaPlayer player = new MediaPlayer();
+
+            string debug = System.AppDomain.CurrentDomain.BaseDirectory;
+            string proj = System.IO.Path.Combine(debug, @"..\..\");
+            player.Open(new Uri(proj + "/sounds/start.wav", UriKind.Relative));
+            player.Play();
+        }
+
         //登录
         private void login_Click(object sender, RoutedEventArgs e)
         {
@@ -2667,16 +2788,12 @@ where T : DependencyObject
             //{
             //    Dispatcher.Invoke(new Action(() =>
             //    {
-            MediaPlayer player = new MediaPlayer();
 
-            string debug = System.AppDomain.CurrentDomain.BaseDirectory;
-            string proj = System.IO.Path.Combine(debug, @"..\..\");
-            player.Open(new Uri(proj + "/sounds/start.wav", UriKind.Relative));
-            player.Play();
             //int sta = await Task.Run(() =>
             //{
             //    return my_connect.login(_user_name, _password);
             //});
+            ThreadPool.QueueUserWorkItem(playsound, "");
 
             if (testlogin() == false)//验证
             {
@@ -2689,92 +2806,8 @@ where T : DependencyObject
                 PublicClass.timer.Interval = new TimeSpan(5000);// 计时器触发间隔 5秒  
                 PublicClass.timer.Tick += new EventHandler(timer_Tick);
                 PublicClass.timer.Start();
+                ThreadPool.QueueUserWorkItem(geterror, "");
 
-                DrivingTest.jiakaoDataSet jiakaoDataSet = ((DrivingTest.jiakaoDataSet)(this.FindResource("jiakaoDataSet")));
-                // 将数据加载到表 question 中。可以根据需要修改此代码。
-
-                DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter jiakaoDataSeterrquestTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.errquestTableAdapter();
-                jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
-
-                DrivingTest.jiakaoDataSetTableAdapters.recordTableAdapter jiakaoDataSetrecordTableAdapter = new DrivingTest.jiakaoDataSetTableAdapters.recordTableAdapter();
-                jiakaoDataSetrecordTableAdapter.Fill(jiakaoDataSet.record);
-
-
-                string err = null;//数据流
-                HttpWebResponse response = null;
-                StreamReader reader = null;
-
-                try
-                {
-                    string url = PublicClass.http + @"/returnjsons/r_errquests?" + "user_id=" + PublicClass.user_id;
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);//提交请求
-                    request.Method = "GET";
-
-                    request.Timeout = 10000;
-                    response = (HttpWebResponse)request.GetResponse();
-                    reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
-                    err = reader.ReadToEnd();
-
-
-                    JArray errquestion_json = JArray.Parse(err);//错题 json
-                    string json = errquestion_json.ToString();
-
-                    foreach (var err_question in errquestion_json)//写入错题
-                    {
-                        var errquestion = from c in jiakaoDataSet.errquest where c.question_id.ToString() == err_question["question_id"].ToString() && c.user_id.ToString() == err_question["user_id"].ToString() select c;
-
-                        if (errquestion.Count() == 0)
-                        {
-                            jiakaoDataSet.errquest.AdderrquestRow(int.Parse(err_question["user_id"].ToString()), int.Parse(err_question["question_id"].ToString()), int.Parse(err_question["amount"].ToString()));
-                        }
-                        else
-                        {
-                            errquestion.First().amount = int.Parse(err_question["amount"].ToString());
-                        }
-                        jiakaoDataSeterrquestTableAdapter.Update(jiakaoDataSet.errquest);
-                        jiakaoDataSeterrquestTableAdapter.Fill(jiakaoDataSet.errquest);
-                        jiakaoDataSet.errquest.AcceptChanges();
-
-                    }
-
-                    response.Close();
-                    reader.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
-                if (jiakaoDataSet.record.Count != 0)
-                {
-                    var re = from c in jiakaoDataSet.record where c.user_id == PublicClass.user_id select c;
-                    bool jixu = false;
-                    int tishu = 0;
-                    foreach (var r in re)
-                    {
-                        jixu = true;
-                        tishu = r.question_index + 1;
-                    }
-                    if (jixu)
-                    {
-
-                        MessageBoxResult result = MessageBox.Show("上次练习到第" + tishu + "题,是否继续？", "提示", MessageBoxButton.YesNo);
-
-                        //确定
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            continuetodo();//继续做题
-                        }
-
-                        //取消
-                        if (result == MessageBoxResult.No)
-                        {
-
-                        }
-                    }
-                }
-
-                update();//更新
 
             }
             //    }));
@@ -2809,6 +2842,7 @@ where T : DependencyObject
             login.Visibility = System.Windows.Visibility.Hidden;
             //qianlunqipao.Visibility = System.Windows.Visibility.Hidden;
             //houlunqipao.Visibility = System.Windows.Visibility.Hidden;
+            System.Windows.Forms.Application.DoEvents();
         }
 
         //继续做题

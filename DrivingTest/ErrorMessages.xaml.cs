@@ -145,6 +145,7 @@ namespace DrivingTest
             C1.WPF.C1Window cp = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "做错");
             if (cp != null)
             {
+                PublicClass.errormessage_window_open = false;
                 cp.Close();
             }
         }
@@ -160,6 +161,7 @@ namespace DrivingTest
                 C1.WPF.C1Window cp = MainWindow.FindChild<C1.WPF.C1Window>(Application.Current.MainWindow, "做错");
                 if (cp != null)
                 {
+                    PublicClass.errormessage_window_open = false;
                     cp.Close();
                 }
             }
